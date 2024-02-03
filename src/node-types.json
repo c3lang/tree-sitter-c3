@@ -326,6 +326,125 @@
     }
   },
   {
+    "type": "asm_addr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asm_expr",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "asm_stmt",
+          "named": true
+        },
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "string_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "asm_addr",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "ct_const_ident",
+          "named": true
+        },
+        {
+          "type": "ct_ident",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "real_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_instr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "asm_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "asm_expr",
+          "named": true
+        },
+        {
+          "type": "asm_instr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assert_stmt",
     "named": true,
     "fields": {},
@@ -3020,6 +3139,10 @@
       "required": false,
       "types": [
         {
+          "type": "asm_block_stmt",
+          "named": true
+        },
+        {
           "type": "assert_stmt",
           "named": true
         },
@@ -3756,6 +3879,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "asm_block_stmt",
+          "named": true
+        },
         {
           "type": "assert_stmt",
           "named": true
@@ -5139,6 +5266,10 @@
       "required": false,
       "types": [
         {
+          "type": "asm_block_stmt",
+          "named": true
+        },
+        {
           "type": "assert_stmt",
           "named": true
         },
@@ -5454,6 +5585,10 @@
       "required": false,
       "types": [
         {
+          "type": "asm_block_stmt",
+          "named": true
+        },
+        {
           "type": "assert_stmt",
           "named": true
         },
@@ -5552,6 +5687,10 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "asm_block_stmt",
+          "named": true
+        },
         {
           "type": "assert_stmt",
           "named": true
@@ -6175,6 +6314,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "asm_block_stmt",
+          "named": true
+        },
         {
           "type": "assert_stmt",
           "named": true
@@ -7241,6 +7384,10 @@
             "named": false
           },
           {
+            "type": "asm_block_stmt",
+            "named": true
+          },
+          {
             "type": "assert_stmt",
             "named": true
           },
@@ -7633,6 +7780,10 @@
           {
             "type": ";",
             "named": false
+          },
+          {
+            "type": "asm_block_stmt",
+            "named": true
           },
           {
             "type": "assert_stmt",
@@ -8380,6 +8531,10 @@
           {
             "type": ";",
             "named": false
+          },
+          {
+            "type": "asm_block_stmt",
+            "named": true
           },
           {
             "type": "assert_stmt",
@@ -14597,6 +14752,10 @@
             "named": false
           },
           {
+            "type": "asm_block_stmt",
+            "named": true
+          },
+          {
             "type": "assert_stmt",
             "named": true
           },
@@ -15089,6 +15248,10 @@
     "named": false
   },
   {
+    "type": "asm",
+    "named": false
+  },
+  {
     "type": "assert",
     "named": false
   },
@@ -15151,6 +15314,10 @@
   {
     "type": "continue",
     "named": false
+  },
+  {
+    "type": "ct_const_ident",
+    "named": true
   },
   {
     "type": "ct_ident",

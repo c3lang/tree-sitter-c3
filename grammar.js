@@ -9,7 +9,6 @@
 // Note that this grammar is not as strict the original specification.
 // For example, it allows some expressions where the compiler requires parenthesis.
 
-// TODO asm
 // TODO include jsdoc parsing: https://github.com/tree-sitter/tree-sitter-jsdoc/blob/master/grammar.js
 
 const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
@@ -93,6 +92,7 @@ module.exports = grammar({
     $._ct_call,
     $._ct_analyse,
     $._ct_arg,
+    $._asm_addr,
   ],
 
   word: $ => $.ident,
@@ -210,6 +210,7 @@ module.exports = grammar({
     at_type_ident: _ => token(seq('@', TYPE_IDENT)),
     // Global constants
     const_ident: _ => CONST_IDENT,
+    ct_const_ident: _ => token(seq('$', CONST_IDENT)),
     // Builtins
     builtin: $ => token(seq('$$', choice(CONST_IDENT, IDENT))),
 
@@ -645,6 +646,7 @@ module.exports = grammar({
       $.do_stmt,
       $.defer_stmt,
       $.assert_stmt,
+      $.asm_block_stmt,
 
       $.ct_echo_stmt,
       $.ct_assert_stmt,
@@ -893,6 +895,44 @@ module.exports = grammar({
       ),
     ),
 
+    // ASM Statement
+    // -------------------------
+    asm_instr: $ => seq(
+      choice('int', $.ident),
+      optional(seq('.', $.ident)),
+    ),
+    _additive_op: _ => choice('+', '-'),
+    _shift_op: _ => choice('<<', '>>'),
+    _asm_addr: $ => choice(
+      $.asm_expr,
+      seq(
+        seq($.asm_expr, $._additive_op, $.asm_expr),
+        optional(choice(
+          seq('*', $.integer_literal, $._additive_op, $.integer_literal),
+          seq($._shift_op, $.integer_literal),
+          seq($._additive_op, $.integer_literal),
+        )),
+      ),
+    ),
+    asm_addr: $ => seq('[', $._asm_addr, ']'),
+    asm_expr: $ => choice(
+      $.ct_ident,
+      $.ct_const_ident,
+      seq(optional('&'), $.ident),
+      $.const_ident,
+      $.real_literal,
+      $.integer_literal,
+      $.paren_expr,
+      $.asm_addr,
+    ),
+    asm_stmt: $ => seq(
+      $.asm_instr, commaSep($.asm_expr), ';',
+    ),
+    asm_block_stmt: $ => choice(
+      seq('asm', '(', $.string_expr, ')', optional($.at_ident), ';'),
+      seq('asm', optional($.at_ident), '{', repeat($.asm_stmt), '}'),
+    ),
+
 
     ////////////////////////////
     // Compile Time Statements
@@ -1071,7 +1111,7 @@ module.exports = grammar({
       $._base_expr,
     )),
 
-    string_expr: $ => seq($.string_literal, repeat1($.string_literal)),
+    string_expr: $ => repeat1($.string_literal),
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
 
