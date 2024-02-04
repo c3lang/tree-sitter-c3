@@ -417,21 +417,17 @@
         {
           "type": "TOKEN",
           "content": {
-            "type": "PREC",
-            "value": 0,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "//"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "([^\\n])*"
-                }
-              ]
-            }
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "//"
+              },
+              {
+                "type": "PATTERN",
+                "value": "([^\\n])*"
+              }
+            ]
           }
         }
       ]
@@ -440,33 +436,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "STRING",
-              "value": "/**"
-            }
-          }
+          "type": "STRING",
+          "value": "/**"
         },
         {
-          "type": "REPEAT",
+          "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
             "name": "block_comment_text"
-          }
+          },
+          "named": true,
+          "value": "doc_comment_text"
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "STRING",
-              "value": "*/"
-            }
-          }
+          "type": "STRING",
+          "value": "*/"
         }
       ]
     },
@@ -474,69 +458,18 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "STRING",
-              "value": "/*"
-            }
-          }
+          "type": "STRING",
+          "value": "/*"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "block_comment_text"
-          }
+          "type": "SYMBOL",
+          "name": "block_comment_text"
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 1,
-            "content": {
-              "type": "STRING",
-              "value": "*/"
-            }
-          }
+          "type": "STRING",
+          "value": "*/"
         }
       ]
-    },
-    "block_comment_text": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 1,
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^/]"
-                }
-              }
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": 1,
-                "content": {
-                  "type": "STRING",
-                  "value": "/"
-                }
-              }
-            }
-          ]
-        }
-      }
     },
     "ident": {
       "type": "PATTERN",
@@ -8712,7 +8645,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "block_comment_text"
+    }
+  ],
   "inline": [
     "_statement",
     "_top_level_item",

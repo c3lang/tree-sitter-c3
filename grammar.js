@@ -9,8 +9,6 @@
 // Note that this grammar is not as strict the original specification.
 // For example, it allows some expressions where the compiler requires parenthesis.
 
-// TODO include jsdoc parsing: https://github.com/tree-sitter/tree-sitter-jsdoc/blob/master/grammar.js
-
 const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
 const HEX = /[ \t\v\n\f]?[A-Fa-f0-9][ \t\v\n\fA-Fa-f0-9]+/;
 const INT = /[0-9](_*[0-9])*/;
@@ -27,10 +25,6 @@ const CONST_IDENT = /[_A-Z][_A-Z0-9]*/;
 
 // https://c3lang.github.io/c3-web/references/docs/precedence/
 const PREC = {
-  // Comments
-  COMMENT: 0,
-  BLOCK_COMMENT: 1,
-
   // Expressions
   ASSIGNMENT: -2,
   TERNARY: -1,
@@ -84,6 +78,10 @@ module.exports = grammar({
     $.line_comment,
     $.block_comment,
     $.doc_comment,
+  ],
+
+  externals: $ => [
+    $.block_comment_text,
   ],
 
   inline: $ => [
@@ -171,31 +169,20 @@ module.exports = grammar({
     // Comments
     // -------------------------
     line_comment: $ => choice(
-      token(prec(PREC.COMMENT, seq('//', /([^\n])*/))),
+      token(seq('//', /([^\n])*/)),
     ),
 
     doc_comment: $ => seq(
-      token(prec(PREC.BLOCK_COMMENT, '/**')),
-      repeat(
-        $.block_comment_text
-      ),
-      token(prec(PREC.BLOCK_COMMENT, '*/')),
+      '/**',
+      alias($.block_comment_text, $.doc_comment_text),
+      '*/',
     ),
 
     block_comment: $ => seq(
-      token(prec(PREC.BLOCK_COMMENT, '/*')),
-      repeat(
-        $.block_comment_text
-      ),
-      token(prec(PREC.BLOCK_COMMENT, '*/')),
+      '/*',
+      $.block_comment_text,
+      '*/',
     ),
-
-    block_comment_text: $ => prec.right(repeat1(
-      choice(
-        token(prec(PREC.BLOCK_COMMENT, /[^/]/)),
-        token(prec(PREC.BLOCK_COMMENT, '/')),
-      ),
-    )),
 
     // Identifiers
     // -------------------------
@@ -208,7 +195,7 @@ module.exports = grammar({
     type_ident: _ => TYPE_IDENT,
     ct_type_ident: _ => token(seq('$', TYPE_IDENT)),
     at_type_ident: _ => token(seq('@', TYPE_IDENT)),
-    // Global constants
+    // Constants
     const_ident: _ => CONST_IDENT,
     ct_const_ident: _ => token(seq('$', CONST_IDENT)),
     // Builtins
