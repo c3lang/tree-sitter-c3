@@ -916,7 +916,7 @@ module.exports = grammar({
       $.asm_instr, commaSep($.asm_expr), ';',
     ),
     asm_block_stmt: $ => choice(
-      seq('asm', '(', $.string_expr, ')', optional($.at_ident), ';'),
+      seq('asm', '(', $._constant_expr, ')', optional($.at_ident), ';'),
       seq('asm', optional($.at_ident), '{', repeat($.asm_stmt), '}'),
     ),
 

@@ -5328,7 +5328,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "string_expr"
+              "name": "_constant_expr"
             },
             {
               "type": "STRING",
