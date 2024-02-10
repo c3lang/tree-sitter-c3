@@ -300,6 +300,7 @@ module.exports = grammar({
       $.ct_assert_stmt,
       $.ct_echo_stmt,
       $.ct_include_stmt,
+      $.ct_exec_stmt,
 
       $.struct_declaration,
       $.fault_declaration,
@@ -336,7 +337,7 @@ module.exports = grammar({
     // -------------------------
     func_typedef: $ => seq(
       'fn',
-      optional($.type),
+      $._type_or_optional_type,
       $.fn_parameter_list
     ),
     typedef_type: $ => choice($.func_typedef, $.type),
@@ -404,7 +405,7 @@ module.exports = grammar({
     multi_declaration: $ => seq(',', commaSep1($.ident)),
     global_declaration: $ => seq(
       optional($.global_storage),
-      field('type', optional($.type)),
+      field('type', optional($._type_or_optional_type)),
       $.ident,
       choice(
         seq(
@@ -473,7 +474,7 @@ module.exports = grammar({
     ),
     bitstruct_declaration: $ => seq(
       'bitstruct',
-      $.type_ident,
+      field('name', $.type_ident),
       optional($.interface_impl),
       ':',
       $.type,
@@ -937,6 +938,10 @@ module.exports = grammar({
     // -------------------------
     ct_include_stmt: $ => seq('$include', $.string_expr, ';'),
 
+    // Compile Time Exec Statement
+    // -------------------------
+    ct_exec_stmt: $ => seq('$exec', '(', commaSep($._constant_expr), ')', ';'),
+
     // Compile Time Echo Statement
     // -------------------------
     ct_echo_stmt: $ => seq('$echo', $._constant_expr, ';'),
@@ -1133,7 +1138,9 @@ module.exports = grammar({
       seq($._ct_analyse, '(', $.comma_decl_or_expr, ')'),
       seq('$feature', '(', $.const_ident, ')'),
       seq('$and', '(', $.comma_decl_or_expr, ')'),
+      seq('$or', '(', $.comma_decl_or_expr, ')'),
       seq('$assignable', '(', $._expr, ',', $.type, ')'),
+      seq('$embed', '(', commaSep($._constant_expr), ')'),
 
       seq($.lambda_declaration, $.compound_stmt),
     )),
@@ -1174,8 +1181,7 @@ module.exports = grammar({
     ),
     assignment_expr: $ => prec.right(PREC.ASSIGNMENT, choice(
       seq(
-        // field('left', $._expr),
-        field('left', $._relational_expr), // TODO
+        field('left', $._expr),
         field('operator', $._assignment_op),
         field('right', $._expr),
       ),

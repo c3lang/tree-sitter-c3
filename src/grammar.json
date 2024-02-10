@@ -1545,6 +1545,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ct_exec_stmt"
+        },
+        {
+          "type": "SYMBOL",
           "name": "struct_declaration"
         },
         {
@@ -1739,16 +1743,8 @@
           "value": "fn"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "type"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_type_or_optional_type"
         },
         {
           "type": "SYMBOL",
@@ -2159,7 +2155,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "type"
+                "name": "_type_or_optional_type"
               },
               {
                 "type": "BLANK"
@@ -2702,8 +2698,12 @@
           "value": "bitstruct"
         },
         {
-          "type": "SYMBOL",
-          "name": "type_ident"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_ident"
+          }
         },
         {
           "type": "CHOICE",
@@ -5474,6 +5474,60 @@
         }
       ]
     },
+    "ct_exec_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$exec"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_constant_expr"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_constant_expr"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "ct_echo_stmt": {
       "type": "SEQ",
       "members": [
@@ -6430,6 +6484,27 @@
             "members": [
               {
                 "type": "STRING",
+                "value": "$or"
+              },
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comma_decl_or_expr"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
                 "value": "$assignable"
               },
               {
@@ -6447,6 +6522,56 @@
               {
                 "type": "SYMBOL",
                 "name": "type"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "$embed"
+              },
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_constant_expr"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ","
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "_constant_expr"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               },
               {
                 "type": "STRING",
@@ -6621,7 +6746,7 @@
                 "name": "left",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_relational_expr"
+                  "name": "_expr"
                 }
               },
               {

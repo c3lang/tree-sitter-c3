@@ -768,6 +768,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -789,6 +793,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -1072,6 +1080,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -1093,6 +1105,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -1716,6 +1732,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -1737,6 +1757,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -2044,6 +2068,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -2065,6 +2093,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -2301,7 +2333,18 @@
   {
     "type": "bitstruct_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2320,10 +2363,6 @@
         },
         {
           "type": "type",
-          "named": true
-        },
-        {
-          "type": "type_ident",
           "named": true
         }
       ]
@@ -2572,6 +2611,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -2593,6 +2636,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -3035,6 +3082,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -3056,6 +3107,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -3403,6 +3458,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -3424,6 +3483,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -4134,6 +4197,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -4155,6 +4222,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -4886,6 +4957,165 @@
     }
   },
   {
+    "type": "ct_exec_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_expr",
+          "named": true
+        },
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "builtin",
+          "named": true
+        },
+        {
+          "type": "bytes_expr",
+          "named": true
+        },
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
+          "named": true
+        },
+        {
+          "type": "comma_decl_or_expr",
+          "named": true
+        },
+        {
+          "type": "compound_stmt",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "ct_ident",
+          "named": true
+        },
+        {
+          "type": "elvis_orelse_expr",
+          "named": true
+        },
+        {
+          "type": "expr_block",
+          "named": true
+        },
+        {
+          "type": "field_expr",
+          "named": true
+        },
+        {
+          "type": "flat_path",
+          "named": true
+        },
+        {
+          "type": "hash_ident",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "initializer_list",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "lambda_declaration",
+          "named": true
+        },
+        {
+          "type": "lambda_expr",
+          "named": true
+        },
+        {
+          "type": "module_ident_expr",
+          "named": true
+        },
+        {
+          "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "real_literal",
+          "named": true
+        },
+        {
+          "type": "rethrow_expr",
+          "named": true
+        },
+        {
+          "type": "string_expr",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "subscript_expr",
+          "named": true
+        },
+        {
+          "type": "suffix_expr",
+          "named": true
+        },
+        {
+          "type": "ternary_expr",
+          "named": true
+        },
+        {
+          "type": "trailing_generic_expr",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_access_expr",
+          "named": true
+        },
+        {
+          "type": "unary_expr",
+          "named": true
+        },
+        {
+          "type": "update_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ct_for_stmt",
     "named": true,
     "fields": {},
@@ -4929,6 +5159,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -4950,6 +5184,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -6783,6 +7021,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -6804,6 +7046,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -7227,6 +7473,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -7248,6 +7498,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -7653,6 +7907,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -7674,6 +7932,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -8163,6 +8425,10 @@
           "named": true
         },
         {
+          "type": "optional_type",
+          "named": true
+        },
+        {
           "type": "type",
           "named": true
         }
@@ -8372,6 +8638,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -8393,6 +8663,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -8606,6 +8880,10 @@
         "required": false,
         "types": [
           {
+            "type": "optional_type",
+            "named": true
+          },
+          {
             "type": "type",
             "named": true
           }
@@ -8816,6 +9094,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -8837,6 +9119,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -9287,6 +9573,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -9308,6 +9598,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -9783,6 +10077,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -9804,6 +10102,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -10277,6 +10579,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -10298,6 +10604,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -11121,6 +11431,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -11142,6 +11456,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -11550,6 +11868,10 @@
           "named": true
         },
         {
+          "type": "ct_exec_stmt",
+          "named": true
+        },
+        {
           "type": "ct_include_stmt",
           "named": true
         },
@@ -11770,6 +12092,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -11791,6 +12117,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -12020,6 +12350,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -12041,6 +12375,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -12286,6 +12624,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -12307,6 +12649,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -12611,6 +12957,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -12632,6 +12982,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -12861,6 +13215,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -12882,6 +13240,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -13111,6 +13473,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -13132,6 +13498,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -13386,6 +13756,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -13407,6 +13781,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -14038,6 +14416,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -14059,6 +14441,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -14336,6 +14722,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -14357,6 +14747,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -14606,6 +15000,10 @@
             "named": false
           },
           {
+            "type": "$embed",
+            "named": false
+          },
+          {
             "type": "$eval",
             "named": false
           },
@@ -14627,6 +15025,10 @@
           },
           {
             "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
             "named": false
           },
           {
@@ -15055,6 +15457,10 @@
     "named": false
   },
   {
+    "type": "$embed",
+    "named": false
+  },
+  {
     "type": "$endfor",
     "named": false
   },
@@ -15080,6 +15486,10 @@
   },
   {
     "type": "$evaltype",
+    "named": false
+  },
+  {
+    "type": "$exec",
     "named": false
   },
   {
@@ -15116,6 +15526,10 @@
   },
   {
     "type": "$offsetof",
+    "named": false
+  },
+  {
+    "type": "$or",
     "named": false
   },
   {
