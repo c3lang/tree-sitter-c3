@@ -156,7 +156,7 @@ module.exports = grammar({
 
     raw_string_literal: $ => seq(
       '`',
-      alias(token.immediate(repeat(prec(1, /(``)*[^`]+(``)*/))), $.raw_string_content),
+      alias(token.immediate(repeat(prec(1, /(``|[^`])/))), $.raw_string_content),
       '`',
     ),
 
@@ -164,6 +164,9 @@ module.exports = grammar({
       seq('x\'', repeat1(HEX), '\''),
       seq('x"',  repeat1(HEX), '"'),
       seq('x`',  repeat1(HEX), '`'),
+      seq('b64\'', repeat1(B64), '\''),
+      seq('b64"',  repeat1(B64), '"'),
+      seq('b64`',  repeat1(B64), '`'),
     )),
 
     // Comments
@@ -1103,7 +1106,7 @@ module.exports = grammar({
       $._base_expr,
     )),
 
-    string_expr: $ => repeat1($.string_literal),
+    string_expr: $ => repeat1(choice($.string_literal, $.raw_string_literal)),
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
 
@@ -1116,8 +1119,8 @@ module.exports = grammar({
       $.real_literal,
       $.char_literal,
       $.string_literal,
-      $.string_expr,
       $.raw_string_literal,
+      $.string_expr,
       $.bytes_expr,
 
       $._ident_expr,
