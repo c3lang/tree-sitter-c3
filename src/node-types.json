@@ -1604,7 +1604,7 @@
           "named": true
         },
         {
-          "type": "generic_parameters",
+          "type": "generic_arguments",
           "named": true
         },
         {
@@ -6226,7 +6226,7 @@
           "named": true
         },
         {
-          "type": "generic_parameters",
+          "type": "generic_arguments",
           "named": true
         },
         {
@@ -8436,7 +8436,7 @@
     }
   },
   {
-    "type": "generic_parameters",
+    "type": "generic_arguments",
     "named": true,
     "fields": {},
     "children": {
@@ -8595,7 +8595,7 @@
     }
   },
   {
-    "type": "generic_params",
+    "type": "generic_parameters",
     "named": true,
     "fields": {},
     "children": {
@@ -9387,7 +9387,7 @@
       "required": true,
       "types": [
         {
-          "type": "generic_parameters",
+          "type": "generic_arguments",
           "named": true
         },
         {
@@ -9937,16 +9937,6 @@
     "type": "module",
     "named": true,
     "fields": {
-      "generic_params": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "generic_params",
-            "named": true
-          }
-        ]
-      },
       "path": {
         "multiple": false,
         "required": true,
@@ -9959,11 +9949,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "generic_parameters",
           "named": true
         }
       ]
@@ -14002,7 +13996,7 @@
         "required": true,
         "types": [
           {
-            "type": "generic_parameters",
+            "type": "generic_arguments",
             "named": true
           }
         ]

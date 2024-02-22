@@ -222,11 +222,11 @@ module.exports = grammar({
 
     // Generic Parameters
     // -------------------------
-    _generic_parameter_list: $ => commaSep1(choice(
+    _generic_arg_list: $ => commaSep1(choice(
       $._expr,
       $.type,
     )),
-    generic_parameters: $ => seq('(<', $._generic_parameter_list, '>)'),
+    generic_arguments: $ => seq('(<', $._generic_arg_list, '>)'),
 
     // Helpers
     // -------------------------
@@ -322,11 +322,11 @@ module.exports = grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_params: $ => seq('(<', commaSep1($._module_param), '>)'),
+    generic_module_parameters: $ => seq('(<', commaSep1($._module_param), '>)'),
     module: $ => seq(
       'module',
       field('path', $.path_ident),
-      field('generic_params', optional($.generic_params)),
+      optional(alias($.generic_module_parameters, $.generic_parameters)),
       optional($.attributes),
       ';'
     ),
@@ -365,7 +365,7 @@ module.exports = grammar({
         seq($.const_ident, '=', $.path_const_ident),
         seq($.at_ident, '=', $.path_at_ident),
       ),
-      optional($.generic_parameters),
+      optional($.generic_arguments),
     ),
     define_declaration: $ => seq(
       'def',
@@ -433,7 +433,7 @@ module.exports = grammar({
 
     interface: $ => seq(
       $.type_ident,
-      optional($.generic_parameters),
+      optional($.generic_arguments),
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
 
@@ -1345,7 +1345,7 @@ module.exports = grammar({
     // -------------------------
     trailing_generic_expr: $ => prec.right(PREC.TRAILING, seq(
       field('argument', $._trailing_expr),
-      field('operator', $.generic_parameters),
+      field('operator', $.generic_arguments),
     )),
 
     // Range Expression
@@ -1441,8 +1441,8 @@ module.exports = grammar({
 
     base_type: $ => choice(
       $.base_type_name,
-      seq($.type_ident, optional($.generic_parameters)),
-      seq($.module_type_ident, optional($.generic_parameters)),
+      seq($.type_ident, optional($.generic_arguments)),
+      seq($.module_type_ident, optional($.generic_arguments)),
       $.ct_type_ident,
       seq('$typeof', '(', $._expr, ')'),
       seq('$typefrom', '(', $._constant_expr, ')'),
