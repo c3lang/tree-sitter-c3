@@ -11,17 +11,17 @@
 
 const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
 const HEX = /[ \t\v\n\f]?[A-Fa-f0-9][ \t\v\n\fA-Fa-f0-9]+/;
-const INT = /[0-9](_*[0-9])*/;
-const HINT = /[a-fA-F0-9](_*[a-fA-F0-9])*/;
-const OINT = /[0-7](_*[0-7])*/;
-const BINT = /[0-1](_*[0-1])*/;
-const INTTYPE = /(([ui](8|16|32|64|128))|([Uu][Ll]?|[Ll]))?/;
+const INT = /[0-9](_?[0-9])*/;
+const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
+const OINT = /[0-7](_?[0-7])*/;
+const BINT = /[0-1](_?[0-1])*/;
+const INTTYPE = /[ui](8|16|32|64|128)|[Uu][Ll]?|[Ll]/;
 const REALTYPE = /[f](8|16|32|64|128)?/;
 const E = /[Ee][+-]?[0-9]+/;
 const P = /[Pp][+-]?[0-9]+/;
-const IDENT = /[_a-z][_a-zA-Z0-9]*/;
-const TYPE_IDENT = /[_A-Z][_a-zA-Z0-9]*[a-z][_a-zA-Z0-9]*/;
-const CONST_IDENT = /[_A-Z][_A-Z0-9]*/;
+const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
+const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
+const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
 
 // https://c3lang.github.io/c3-web/references/docs/precedence/
 const PREC = {
@@ -115,14 +115,17 @@ module.exports = grammar({
     },
 
     real_literal: _ => {
-      return token(seq(
-        choice(
-          seq(INT, optional(E)),
-          seq(INT, '.', INT, optional(E)),
-          seq(/0[xX]/, HINT, P),
-          seq(/0[xX]/, HINT, '.', HINT, P),
-        ),
-        optional(REALTYPE),
+      return token(choice(
+        seq(INT, REALTYPE),
+        seq(
+          choice(
+            seq(INT, E),
+            seq(INT, '.', INT, optional(E)),
+            seq(/0[xX]/, HINT, P),
+            seq(/0[xX]/, HINT, '.', HINT, P),
+          ),
+          optional(REALTYPE),
+        )
       ));
     },
 
