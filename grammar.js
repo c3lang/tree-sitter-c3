@@ -82,6 +82,7 @@ module.exports = grammar({
 
   externals: $ => [
     $.block_comment_text,
+    $.doc_comment_text,
   ],
 
   inline: $ => [
@@ -180,7 +181,7 @@ module.exports = grammar({
 
     doc_comment: $ => seq(
       '/**',
-      alias($.block_comment_text, $.doc_comment_text),
+      $.doc_comment_text,
       '*/',
     ),
 
