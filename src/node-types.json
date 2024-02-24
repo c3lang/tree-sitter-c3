@@ -12424,6 +12424,10 @@
             "named": false
           },
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "assignment_expr",
             "named": true
           },

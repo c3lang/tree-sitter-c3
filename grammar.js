@@ -1367,7 +1367,7 @@ module.exports = grammar({
       field('argument', $._trailing_expr),
       '[',
       choice(
-        field('index', $._expr),
+        field('index', $._range_loc),
         field('range', $.range_expr),
       ),
       ']',
