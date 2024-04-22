@@ -121,9 +121,9 @@ module.exports = grammar({
         seq(
           choice(
             seq(INT, E),
-            seq(INT, '.', INT, optional(E)),
+            seq(INT, '.', optional(INT), optional(E)),
             seq(/0[xX]/, HINT, P),
-            seq(/0[xX]/, HINT, '.', HINT, P),
+            seq(/0[xX]/, HINT, '.', optional(HINT), P),
           ),
           optional(REALTYPE),
         )
