@@ -506,7 +506,10 @@ module.exports = grammar({
 
     // Enum
     // -------------------------
-    enum_arg: $ => seq('(', commaSepTrailing1($.arg), ')'),
+    enum_arg: $ => choice(
+        seq('(', commaSepTrailing1($.arg), ')'),    // < 0.6.0
+        seq('=', '{', commaSepTrailing1($.arg),'}') // >= 0.6.0
+    ),
     enum_constant: $ => seq(
       field('name', $.const_ident),
       field('args', optional($.enum_arg)),
