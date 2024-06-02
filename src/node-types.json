@@ -9391,7 +9391,7 @@
           "named": true
         },
         {
-          "type": "type_ident",
+          "type": "path_type_ident",
           "named": true
         }
       ]
@@ -11221,6 +11221,25 @@
         },
         {
           "type": "module_resolution",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "path_type_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "module_resolution",
+          "named": true
+        },
+        {
+          "type": "type_ident",
           "named": true
         }
       ]

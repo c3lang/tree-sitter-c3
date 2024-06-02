@@ -216,6 +216,7 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
+    path_type_ident: $ => seq(optional($._module_path), $.type_ident),
     path_const_ident: $ => seq(optional($._module_path), $.const_ident),
     path_at_ident: $ => seq(optional($._module_path), $.at_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
@@ -432,7 +433,7 @@ module.exports = grammar({
     _struct_or_union: _ => choice('struct', 'union'),
 
     interface: $ => seq(
-      $.type_ident,
+      $.path_type_ident,
       optional($.generic_arguments),
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
