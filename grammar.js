@@ -16,9 +16,6 @@ const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
 const OINT = /[0-7](_?[0-7])*/;
 const BINT = /[0-1](_?[0-1])*/;
 const INTTYPE = /[ui](8|16|32|64|128)|[Uu][Ll]?|[Ll]/;
-const REALTYPE = /[f](8|16|32|64|128)?/;
-const E = /[Ee][+-]?[0-9]+/;
-const P = /[Pp][+-]?[0-9]+/;
 const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
 const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
@@ -83,6 +80,7 @@ module.exports = grammar({
   externals: $ => [
     $.block_comment_text,
     $.doc_comment_text,
+    $.real_literal,
   ],
 
   inline: $ => [
@@ -112,21 +110,6 @@ module.exports = grammar({
           seq(/0[bB]/, BINT),
         ),
         optional(INTTYPE),
-      ));
-    },
-
-    real_literal: _ => {
-      return token(choice(
-        seq(INT, REALTYPE),
-        seq(
-          choice(
-            seq(INT, E),
-            seq(INT, '.', optional(INT), optional(E)),
-            seq(/0[xX]/, HINT, P),
-            seq(/0[xX]/, HINT, '.', optional(HINT), P),
-          ),
-          optional(REALTYPE),
-        )
       ));
     },
 
@@ -508,8 +491,8 @@ module.exports = grammar({
     // Enum
     // -------------------------
     enum_arg: $ => choice(
-        seq('(', commaSepTrailing1($.arg), ')'),    // < 0.6.0
-        seq('=', '{', commaSepTrailing1($.arg),'}') // >= 0.6.0
+      seq('(', commaSepTrailing1($.arg), ')'),    // < 0.6.0
+      seq('=', '{', commaSepTrailing1($.arg),'}') // >= 0.6.0
     ),
     enum_constant: $ => seq(
       field('name', $.const_ident),
