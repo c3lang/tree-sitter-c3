@@ -1,14 +1,3 @@
-(global_declaration 
-  (ident) @variable)
-(local_decl_after_type (ident) @variable)
-(local_decl_after_type right: (type_access_expr field: (const_ident) @variable.member))
-(type
-  (base_type (base_type_name) @type))
-(enum_declaration body: (enum_body (enum_constant) @variable.member))
-
-(type
-  (base_type (base_type_name) @type))
-
 (type_ident) @type
 
 [
@@ -116,11 +105,21 @@
 (real_literal) @number
 (char_literal) @character
 
+
+(global_declaration 
+	(ident) @variable)
+(local_decl_after_type (ident) @variable)
+(local_decl_after_type right: (type_access_expr field: (const_ident) @variable.member))
+(type
+  (base_type (base_type_name) @type))
+(enum_declaration body: (enum_body (enum_constant) @variable.member))
+(access_ident (ident) @variable.member)
 (field_expr argument: (ident) @property)
 (field_expr field: (access_ident) @type (#match? @type "^_?[A-Z]"))
 
+(module_resolution (ident) @namespace)
 (module path: (path_ident) @namespace)
-(module (path_ident (ident) @namespace .))
+(module (path_ident (ident) @namespace))
 (import_declaration (path_ident) @namespace)
 (import_declaration (path_ident (ident) @namespace .))
 
