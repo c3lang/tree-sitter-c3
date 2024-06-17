@@ -6631,15 +6631,11 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "ident",
-          "named": true
-        },
-        {
-          "type": "parameter_default",
           "named": true
         }
       ]
@@ -6663,17 +6659,24 @@
   {
     "type": "enum_spec",
     "named": true,
-    "fields": {},
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "enum_param_list",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -12951,6 +12954,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
     }
   },
   {

@@ -490,27 +490,26 @@ module.exports = grammar({
 
     // Enum
     // -------------------------
-    enum_arg: $ => choice(
-      seq('(', commaSepTrailing1($.arg), ')'),    // < 0.6.0
-      seq('=', '{', commaSepTrailing1($.arg),'}') // >= 0.6.0
-    ),
+    // Precedence over initializer list, but it's actually ambiguous and depends on the number of enum parameters
+    enum_arg: $ => prec(1, choice(
+      seq('=', $.arg),                              // >= 0.6.0
+      seq('=', '{', commaSepTrailing1($.arg), '}'), // >= 0.6.0
+    )),
     enum_constant: $ => seq(
       field('name', $.const_ident),
-      field('args', optional($.enum_arg)),
       optional($.attributes),
+      field('args', optional($.enum_arg)),
     ),
     enum_param_declaration: $ => seq(
       field('type', $.type),
-      choice(
-        seq($.ident, optional($.parameter_default))
-      ),
+      $.ident,
     ),
     enum_param_list: $ => seq('(', commaSep($.enum_param_declaration), ')'),
-    enum_spec: $ => seq(
+    enum_spec: $ => prec.right(seq(
       ':',
-      $.type,
+      field('type', optional($.type)),
       optional($.enum_param_list),
-    ),
+    )),
     enum_body: $ => seq(
       '{',
       commaSepTrailing1($.enum_constant),
@@ -749,6 +748,7 @@ module.exports = grammar({
       'switch',
       field('label', optional($.label)),
       field('condition', optional($.paren_cond)),
+      optional($.attribute), // Only one @jump is allowed
       field('body', $.switch_body),
     ),
 
