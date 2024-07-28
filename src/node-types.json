@@ -2,7 +2,18 @@
   {
     "type": "access_ident",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -41,10 +52,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -161,7 +168,18 @@
   {
     "type": "arg",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -200,10 +218,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -347,7 +361,18 @@
   {
     "type": "asm_block_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -390,10 +415,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -587,7 +608,18 @@
   {
     "type": "assert_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -626,10 +658,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -747,6 +775,16 @@
     "type": "assignment_expr",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "left": {
         "multiple": true,
         "required": true,
@@ -760,7 +798,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -1072,7 +1118,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -1322,7 +1376,18 @@
   {
     "type": "attr_param",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1361,10 +1426,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -1498,8 +1559,23 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
+      "types": [
+        {
+          "type": "attribute_param_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_param_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "attr_param",
@@ -1526,7 +1602,18 @@
   {
     "type": "base_type",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1569,10 +1656,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -1711,6 +1794,16 @@
     "type": "binary_expr",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "left": {
         "multiple": true,
         "required": true,
@@ -1724,7 +1817,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -2060,7 +2161,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -2371,7 +2480,18 @@
   {
     "type": "bitstruct_def",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2414,10 +2534,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -2603,7 +2719,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -2848,6 +2972,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "trailing": {
         "multiple": false,
         "required": false,
@@ -2901,7 +3035,18 @@
   {
     "type": "case_range",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -2940,10 +3085,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -3061,6 +3202,16 @@
     "type": "case_stmt",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": true,
         "required": true,
@@ -3074,7 +3225,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -3427,6 +3586,16 @@
     "type": "cast_expr",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,
@@ -3450,7 +3619,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -3723,7 +3900,18 @@
   {
     "type": "catch_unwrap_list",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -3762,10 +3950,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -3901,7 +4085,18 @@
   {
     "type": "comma_decl_or_expr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -3940,10 +4135,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -4176,6 +4367,16 @@
     "type": "const_declaration",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -4189,7 +4390,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -4478,7 +4687,18 @@
   {
     "type": "ct_assert_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4517,10 +4737,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -4637,7 +4853,18 @@
   {
     "type": "ct_case_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4676,10 +4903,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -4800,7 +5023,18 @@
   {
     "type": "ct_echo_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4839,10 +5073,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -4959,7 +5189,18 @@
   {
     "type": "ct_exec_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -4998,10 +5239,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -5151,7 +5388,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -5406,6 +5651,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
         "required": true,
@@ -5440,7 +5695,18 @@
   {
     "type": "ct_if_cond",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -5479,10 +5745,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -5736,7 +5998,18 @@
   {
     "type": "ct_switch_cond",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -5775,10 +6048,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -6158,15 +6427,22 @@
   {
     "type": "define_attribute",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "at_type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "at_type_ident",
-          "named": true
-        },
         {
           "type": "attributes",
           "named": true
@@ -6349,7 +6625,18 @@
   {
     "type": "elvis_orelse_expr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -6388,10 +6675,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -6788,7 +7071,18 @@
   {
     "type": "expr_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -6827,10 +7121,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -7016,7 +7306,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -7270,13 +7568,34 @@
             "named": true
           }
         ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
       }
     }
   },
   {
     "type": "flat_path",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -7315,10 +7634,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -7468,7 +7783,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -7751,6 +8074,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "update": {
         "multiple": false,
         "required": false,
@@ -7902,7 +8235,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -8153,6 +8494,16 @@
         "types": [
           {
             "type": "foreach_var",
+            "named": true
+          }
+        ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
             "named": true
           }
         ]
@@ -8441,7 +8792,18 @@
   {
     "type": "generic_arguments",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -8480,10 +8842,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -8620,6 +8978,16 @@
     "type": "global_declaration",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -8633,7 +9001,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -9089,7 +9465,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -9333,6 +9717,16 @@
             "named": true
           }
         ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -9541,6 +9935,16 @@
     "type": "local_decl_after_type",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -9568,7 +9972,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -10053,6 +10465,16 @@
     "type": "nextcase_stmt",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "target": {
         "multiple": true,
         "required": false,
@@ -10066,7 +10488,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -10360,7 +10790,18 @@
   {
     "type": "param_path_element",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -10399,10 +10840,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -10555,6 +10992,16 @@
     "type": "parameter_default",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": true,
@@ -10568,7 +11015,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -10818,7 +11273,18 @@
   {
     "type": "paren_cond",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -10861,10 +11327,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -10997,7 +11459,18 @@
   {
     "type": "paren_expr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -11036,10 +11509,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -11251,7 +11720,18 @@
   {
     "type": "range_expr",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -11290,10 +11770,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -11439,7 +11915,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -11684,6 +12168,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "operator": {
         "multiple": false,
         "required": true,
@@ -11703,7 +12197,18 @@
   {
     "type": "return_stmt",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -11742,10 +12247,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -12104,7 +12605,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -12362,7 +12871,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -12611,6 +13128,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "range": {
         "multiple": false,
         "required": false,
@@ -12640,7 +13167,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -12881,6 +13416,16 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          }
+        ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
             "named": true
           }
         ]
@@ -12983,7 +13528,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -13241,7 +13794,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -13499,290 +14060,15 @@
             "named": false
           },
           {
-            "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$defined",
-            "named": false
-          },
-          {
-            "type": "$embed",
-            "named": false
-          },
-          {
-            "type": "$eval",
-            "named": false
-          },
-          {
-            "type": "$extnameof",
-            "named": false
-          },
-          {
-            "type": "$feature",
-            "named": false
-          },
-          {
-            "type": "$is_const",
-            "named": false
-          },
-          {
-            "type": "$nameof",
-            "named": false
-          },
-          {
-            "type": "$offsetof",
-            "named": false
-          },
-          {
-            "type": "$or",
-            "named": false
-          },
-          {
-            "type": "$qnameof",
-            "named": false
-          },
-          {
-            "type": "$sizeof",
-            "named": false
-          },
-          {
-            "type": "$stringify",
-            "named": false
-          },
-          {
-            "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
-            "named": false
-          },
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "assignment_expr",
-            "named": true
-          },
-          {
-            "type": "at_ident",
-            "named": true
-          },
-          {
-            "type": "binary_expr",
-            "named": true
-          },
-          {
-            "type": "builtin",
-            "named": true
-          },
-          {
-            "type": "bytes_expr",
-            "named": true
-          },
-          {
-            "type": "call_expr",
-            "named": true
-          },
-          {
-            "type": "cast_expr",
-            "named": true
-          },
-          {
-            "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
-            "type": "compound_stmt",
-            "named": true
-          },
-          {
-            "type": "const_ident",
-            "named": true
-          },
-          {
-            "type": "ct_ident",
-            "named": true
-          },
-          {
-            "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "field_expr",
-            "named": true
-          },
-          {
-            "type": "flat_path",
-            "named": true
-          },
-          {
-            "type": "hash_ident",
-            "named": true
-          },
-          {
-            "type": "ident",
-            "named": true
-          },
-          {
-            "type": "initializer_list",
-            "named": true
-          },
-          {
-            "type": "integer_literal",
-            "named": true
-          },
-          {
-            "type": "lambda_declaration",
-            "named": true
-          },
-          {
-            "type": "lambda_expr",
-            "named": true
-          },
-          {
-            "type": "module_ident_expr",
-            "named": true
-          },
-          {
-            "type": "null",
-            "named": false
-          },
-          {
-            "type": "paren_expr",
-            "named": true
-          },
-          {
-            "type": "raw_string_literal",
-            "named": true
-          },
-          {
-            "type": "real_literal",
-            "named": true
-          },
-          {
-            "type": "rethrow_expr",
-            "named": true
-          },
-          {
-            "type": "string_expr",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          },
-          {
-            "type": "subscript_expr",
-            "named": true
-          },
-          {
-            "type": "suffix_expr",
-            "named": true
-          },
-          {
-            "type": "ternary_expr",
-            "named": true
-          },
-          {
-            "type": "trailing_generic_expr",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": false
-          },
-          {
-            "type": "type",
-            "named": true
-          },
-          {
-            "type": "type_access_expr",
-            "named": true
-          },
-          {
-            "type": "unary_expr",
-            "named": true
-          },
-          {
-            "type": "update_expr",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "trailing_block_param",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "fn_parameter_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "trailing_generic_expr",
-    "named": true,
-    "fields": {
-      "argument": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "$alignof",
-            "named": false
-          },
-          {
-            "type": "$and",
+            "type": "$append",
             "named": false
           },
           {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -14027,6 +14313,317 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "trailing_block_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "fn_parameter_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "trailing_generic_expr",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "$alignof",
+            "named": false
+          },
+          {
+            "type": "$and",
+            "named": false
+          },
+          {
+            "type": "$append",
+            "named": false
+          },
+          {
+            "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
+            "named": false
+          },
+          {
+            "type": "$defined",
+            "named": false
+          },
+          {
+            "type": "$embed",
+            "named": false
+          },
+          {
+            "type": "$eval",
+            "named": false
+          },
+          {
+            "type": "$extnameof",
+            "named": false
+          },
+          {
+            "type": "$feature",
+            "named": false
+          },
+          {
+            "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$nameof",
+            "named": false
+          },
+          {
+            "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
+            "named": false
+          },
+          {
+            "type": "$qnameof",
+            "named": false
+          },
+          {
+            "type": "$sizeof",
+            "named": false
+          },
+          {
+            "type": "$stringify",
+            "named": false
+          },
+          {
+            "type": "$vaarg",
+            "named": false
+          },
+          {
+            "type": "$vaconst",
+            "named": false
+          },
+          {
+            "type": "$vacount",
+            "named": false
+          },
+          {
+            "type": "$vaexpr",
+            "named": false
+          },
+          {
+            "type": "$varef",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "assignment_expr",
+            "named": true
+          },
+          {
+            "type": "at_ident",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "builtin",
+            "named": true
+          },
+          {
+            "type": "bytes_expr",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "cast_expr",
+            "named": true
+          },
+          {
+            "type": "char_literal",
+            "named": true
+          },
+          {
+            "type": "comma_decl_or_expr",
+            "named": true
+          },
+          {
+            "type": "compound_stmt",
+            "named": true
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "elvis_orelse_expr",
+            "named": true
+          },
+          {
+            "type": "expr_block",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "field_expr",
+            "named": true
+          },
+          {
+            "type": "flat_path",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "initializer_list",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "lambda_declaration",
+            "named": true
+          },
+          {
+            "type": "lambda_expr",
+            "named": true
+          },
+          {
+            "type": "module_ident_expr",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": false
+          },
+          {
+            "type": "paren_expr",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "real_literal",
+            "named": true
+          },
+          {
+            "type": "rethrow_expr",
+            "named": true
+          },
+          {
+            "type": "string_expr",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_expr",
+            "named": true
+          },
+          {
+            "type": "ternary_expr",
+            "named": true
+          },
+          {
+            "type": "trailing_generic_expr",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "type_access_expr",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "update_expr",
+            "named": true
+          }
+        ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "operator": {
         "multiple": false,
         "required": true,
@@ -14042,7 +14639,18 @@
   {
     "type": "try_unwrap",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -14081,10 +14689,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -14250,7 +14854,18 @@
   {
     "type": "type_suffix",
     "named": true,
-    "fields": {},
+    "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -14289,10 +14904,6 @@
         },
         {
           "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
           "named": true
         },
         {
@@ -14442,7 +15053,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -14683,6 +15302,16 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          }
+        ]
+      },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
             "named": true
           }
         ]
@@ -14748,7 +15377,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -14993,6 +15630,16 @@
           }
         ]
       },
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "operator": {
         "multiple": false,
         "required": true,
@@ -15013,6 +15660,16 @@
     "type": "var_decl",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -15026,7 +15683,15 @@
             "named": false
           },
           {
+            "type": "$append",
+            "named": false
+          },
+          {
             "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
             "named": false
           },
           {
@@ -15463,6 +16128,10 @@
     "named": false
   },
   {
+    "type": "$append",
+    "named": false
+  },
+  {
     "type": "$assert",
     "named": false
   },
@@ -15472,6 +16141,10 @@
   },
   {
     "type": "$case",
+    "named": false
+  },
+  {
+    "type": "$concat",
     "named": false
   },
   {

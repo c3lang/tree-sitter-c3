@@ -265,9 +265,10 @@ module.exports = grammar({
 
     attr_param: $ => choice($._attribute_operator_expr, $._constant_expr),
 
+    attribute_param_list: $ => seq('(', commaSep1($.attr_param), ')'),
     attribute: $ => seq(
       field('name', $._attribute_name),
-      optional(seq('(', commaSep1($.attr_param), ')')),
+      optional($.attribute_param_list),
     ),
     attributes: $ => repeat1($.attribute),
 
@@ -333,7 +334,7 @@ module.exports = grammar({
     ),
     typedef_type: $ => choice($.func_typedef, $.type),
     define_attribute: $ => seq(
-      $.at_type_ident,
+      field('name', $.at_type_ident),
       seq(
         optional(seq('(', $._parameters, ')')),
         optional($.attributes),
@@ -1135,8 +1136,10 @@ module.exports = grammar({
       seq('$or', '(', $.comma_decl_or_expr, ')'),
       seq('$assignable', '(', $._expr, ',', $.type, ')'),
       seq('$embed', '(', commaSep($._constant_expr), ')'),
+      seq('$concat', '(', commaSep($._constant_expr), ')'),
+      seq('$append', '(', commaSep($._constant_expr), ')'),
 
-      seq($.lambda_declaration, $.compound_stmt),
+      seq($.lambda_declaration, field('lambda_body', $.compound_stmt)),
     )),
 
     // Module Ident
@@ -1284,6 +1287,7 @@ module.exports = grammar({
     param_path: $ => repeat1($.param_path_element),
 
     arg: $ => choice(
+      seq($.param_path),
       seq($.param_path, '=', choice($._expr, $.type)),
       $.type,
       $._expr,
