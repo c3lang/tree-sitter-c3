@@ -3,7 +3,7 @@ This is a complete implementation of the current C3 grammar for tree-sitter, usa
 
 The latest version supports C3 0.6.1 and is not compatible with C3 < 0.6.0.
 
-_Check out the tree-sitter playground here:_ https://cbuttner.github.io/tree-sitter-c3/
+_Check out the tree-sitter playground here:_ https://c3lang.github.io/tree-sitter-c3/
 
 ### Notes
 - This is in some cases a less strict version of the "true" grammar.
