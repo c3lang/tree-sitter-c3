@@ -2551,7 +2551,7 @@
         }
       ]
     },
-    "bitstruct_def": {
+    "bitstruct_member_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -2597,31 +2597,40 @@
         }
       ]
     },
+    "bitstruct_simple_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "base_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ident"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "_bitstruct_defs": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
-        "name": "bitstruct_def"
+        "name": "bitstruct_member_declaration"
       }
     },
     "_bitstruct_simple_defs": {
       "type": "REPEAT1",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "base_type"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "ident"
-          },
-          {
-            "type": "STRING",
-            "value": ";"
-          }
-        ]
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "bitstruct_simple_def"
+        },
+        "named": true,
+        "value": "bitstruct_member_declaration"
       }
     },
     "bitstruct_body": {

@@ -2425,15 +2425,7 @@
       "required": false,
       "types": [
         {
-          "type": "base_type",
-          "named": true
-        },
-        {
-          "type": "bitstruct_def",
-          "named": true
-        },
-        {
-          "type": "ident",
+          "type": "bitstruct_member_declaration",
           "named": true
         }
       ]
@@ -2478,7 +2470,7 @@
     }
   },
   {
-    "type": "bitstruct_def",
+    "type": "bitstruct_member_declaration",
     "named": true,
     "fields": {
       "lambda_body": {

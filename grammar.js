@@ -446,7 +446,7 @@ module.exports = grammar({
 
     // Bitstruct
     // -------------------------
-    bitstruct_def: $ => seq(
+    bitstruct_member_declaration: $ => seq(
       $.base_type,
       $.ident,
       ':',
@@ -457,8 +457,13 @@ module.exports = grammar({
       )),
       ';'
     ),
-    _bitstruct_defs: $ => repeat1($.bitstruct_def),
-    _bitstruct_simple_defs: $ => repeat1(seq($.base_type, $.ident, ';')),
+    bitstruct_simple_def: $ => seq(
+      $.base_type,
+      $.ident,
+      ';'
+    ),
+    _bitstruct_defs: $ => repeat1($.bitstruct_member_declaration),
+    _bitstruct_simple_defs: $ => repeat1(alias($.bitstruct_simple_def, $.bitstruct_member_declaration)),
     bitstruct_body: $ => seq(
       '{',
       optional(choice($._bitstruct_defs, $._bitstruct_simple_defs)),
