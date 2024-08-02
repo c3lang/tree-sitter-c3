@@ -15,6 +15,8 @@
 - Removed node `optional_type`, it's now `type` with an optional '!' token at the end
 - Node `multi_declaration` inlined into `global_declaration`
 - Relaxed bitstruct members
+- Relaxed enum body to be empty
+- Relaxed optional types
 - `macro_declaration` now always has a `macro_header`, previously it could have a `func_header`
 - Fixed not accepting optional types where it's permitted
 - Fixed/improved parameter grammar

@@ -9,8 +9,9 @@
 // Note that this grammar is not as strict the original specification.
 // For example it permits
 // - Some expressions where the compiler requires parenthesis
-// - Empty structs
+// - Empty structs/enums
 // - Mixing omission of bitstruct member bitranges
+// - Optional types everywhere
 
 const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
 const HEX = /[ \t\v\n\f]?[A-Fa-f0-9][ \t\v\n\fA-Fa-f0-9]+/;
@@ -92,6 +93,7 @@ module.exports = grammar({
     $._ct_call,
     $._ct_arg,
     $._asm_addr,
+    $._type_optional,
   ],
 
   word: $ => $.ident,
@@ -520,7 +522,7 @@ module.exports = grammar({
     )),
     enum_body: $ => seq(
       '{',
-      commaSepTrailing1($.enum_constant),
+      commaSepTrailing($.enum_constant),
       '}'
     ),
     enum_declaration: $ => seq(
@@ -1465,8 +1467,9 @@ module.exports = grammar({
     type: $ => prec.right(seq(
       $.base_type,
       repeat($.type_suffix),
+      optional('!'),
     )),
-
-    _type_optional: $ => seq($.type, optional('!')),
+    // This legacy rule was used in places where the compiler permits an optional type.
+    _type_optional: $ => $.type,
   }
 });
