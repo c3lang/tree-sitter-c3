@@ -1244,11 +1244,10 @@ fn void main() {
     (macro_func_body
       (compound_stmt
         (declaration_stmt
-          (optional_type
-            (type
-              (base_type
-                (type_ident))
-              (type_suffix)))
+          (type
+            (base_type
+              (type_ident))
+            (type_suffix))
           (local_decl_after_type
             (ident)
             (call_expr
@@ -1293,11 +1292,10 @@ fn void main() {
     (macro_func_body
       (compound_stmt
         (declaration_stmt
-          (optional_type
-            (type
-              (base_type
-                (type_ident))
-              (type_suffix)))
+          (type
+            (base_type
+              (type_ident))
+            (type_suffix))
           (local_decl_after_type
             (ident)
             (call_expr

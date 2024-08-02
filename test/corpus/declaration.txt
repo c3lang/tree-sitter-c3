@@ -249,10 +249,9 @@ extern fn int sum(int... ints);
 (source_file
   (func_definition
     (func_header
-      (optional_type
-        (type
-          (base_type
-            (base_type_name))))
+      (type
+        (base_type
+          (base_type_name)))
       (ident))
     (fn_parameter_list
       (parameter
@@ -527,7 +526,7 @@ bitstruct ByteStruct : char
       (attribute
         (at_ident)))
     (bitstruct_body
-      (bitstruct_def
+      (bitstruct_member_declaration
         (base_type
           (base_type_name))
         (ident)
@@ -539,18 +538,18 @@ bitstruct ByteStruct : char
       (base_type
         (base_type_name)))
     (bitstruct_body
-      (bitstruct_def
+      (bitstruct_member_declaration
         (base_type
           (base_type_name))
         (ident)
         (integer_literal))
-      (bitstruct_def
+      (bitstruct_member_declaration
         (base_type
           (base_type_name))
         (ident)
         (integer_literal)
         (integer_literal))
-      (bitstruct_def
+      (bitstruct_member_declaration
         (base_type
           (base_type_name))
         (ident)

@@ -205,30 +205,27 @@ foo::bar::Baz* c;
         (integer_literal)))
     (ident))
   (global_declaration
-    (optional_type
-      (type
-        (base_type
+    (type
+      (base_type
+        (type_ident)))
+    (ident))
+  (global_declaration
+    (type
+      (base_type
+        (module_type_ident
+          (module_resolution
+            (ident))
           (type_ident))))
     (ident))
   (global_declaration
-    (optional_type
-      (type
-        (base_type
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident)))))
-    (ident))
-  (global_declaration
-    (optional_type
-      (type
-        (base_type
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (module_resolution
-              (ident))
-            (type_ident)))))
+    (type
+      (base_type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (module_resolution
+            (ident))
+          (type_ident))))
     (ident))
   (global_declaration
     (type
