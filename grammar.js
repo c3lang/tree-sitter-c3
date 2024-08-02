@@ -25,6 +25,7 @@ const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
 
 // https://c3lang.github.io/c3-web/references/docs/precedence/
+// c3c/src/compiler/enums.h
 const PREC = {
   // Expressions
   ASSIGNMENT: -2,
@@ -219,7 +220,6 @@ module.exports = grammar({
     // Helpers
     // -------------------------
     _assign_right_expr: $ => seq('=', field('right', $._expr)),
-    _assign_right_constant_expr: $ => seq('=', field('right', $._constant_expr)),
 
     _cond: $ => choice(
       choice($._try_unwrap_chain, $.catch_unwrap),
@@ -696,7 +696,7 @@ module.exports = grammar({
     // -------------------------
     local_decl_after_type: $ => choice(
       seq(field('name', $.ident), optional($.attributes), optional($._assign_right_expr)),
-      seq(field('name', $.ct_ident), optional($._assign_right_constant_expr)),
+      seq(field('name', $.ct_ident), optional($._assign_right_expr)),
     ),
     _decl_statement_after_type: $ => commaSep1($.local_decl_after_type),
 
@@ -765,7 +765,7 @@ module.exports = grammar({
 
     // If-Catch
     // -------------------------
-    catch_unwrap_list: $ => commaSep1($._relational_expr),
+    catch_unwrap_list: $ => commaSep1($._expr),
      // Precedence over assignment expression
     catch_unwrap: $ => prec(1, seq(
       'catch',
@@ -777,12 +777,11 @@ module.exports = grammar({
 
     // If-Try
     // -------------------------
-    _rel_or_lambda_expr: $ => choice(
-      $._relational_expr,
-      seq($.lambda_declaration, '=>', $._relational_expr),
-    ),
+    _rel_or_lambda_expr: $ => prec(3, choice(
+      $._expr,
+      seq($.lambda_declaration, '=>', $._expr),
+    )),
 
-    // Precedence over assignment expression
     try_unwrap: $ => prec(1, seq(
       'try',
       choice(
@@ -1013,7 +1012,7 @@ module.exports = grammar({
       $.ternary_expr,
       $.lambda_expr,
       $.elvis_orelse_expr,
-      $.suffix_expr,
+      $.optional_expr,
       $.binary_expr,
       $.unary_expr,
       $.cast_expr,
@@ -1030,35 +1029,10 @@ module.exports = grammar({
       $.ternary_expr,
       $.lambda_expr,
       $.elvis_orelse_expr,
-      $.suffix_expr,
+      $.optional_expr,
       $.binary_expr,
       $.unary_expr,
       $.cast_expr,
-      $.rethrow_expr,
-      $.trailing_generic_expr,
-      $.update_expr,
-      $.call_expr,
-      $.subscript_expr,
-      $.initializer_list,
-      $._base_expr,
-    )),
-
-    // NOTE This deviates original grammar by including && and ||.
-    _relational_expr: $ => prec(2, choice(
-      $.binary_expr,
-      $.unary_expr,
-      $.cast_expr,
-      $.rethrow_expr,
-      $.trailing_generic_expr,
-      $.update_expr,
-      $.call_expr,
-      $.subscript_expr,
-      $.initializer_list,
-      $._base_expr,
-    )),
-
-    // One more level for more accurate errors
-    _trailing_expr: $ => prec(3, choice(
       $.rethrow_expr,
       $.trailing_generic_expr,
       $.update_expr,
@@ -1102,7 +1076,7 @@ module.exports = grammar({
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
 
-    _base_expr: $ => prec(5, choice(
+    _base_expr: $ => prec(2, choice(
       'true',
       'false',
       'null',
@@ -1116,12 +1090,12 @@ module.exports = grammar({
       $.bytes_expr,
 
       $._ident_expr,
+      $.module_ident_expr,
       $._local_ident_expr,
 
       $.initializer_list,
       seq($.type, $.initializer_list),
 
-      $.module_ident_expr,
       $.field_expr,
       $.type_access_expr,
       $.paren_expr,
@@ -1208,12 +1182,11 @@ module.exports = grammar({
     // -------------------------
     ternary_expr: $ => prec.right(PREC.TERNARY, choice(
       seq(
-        // field('condition', $._constant_expr),
-        field('condition', $._relational_expr), // TODO
+        field('condition', $._expr), // TODO
         '?',
         field('consequence', $._expr),
         ':',
-        field('alternative', $._constant_expr),
+        field('alternative', $._expr),
       ),
     )),
 
@@ -1224,13 +1197,15 @@ module.exports = grammar({
     // Elvis/or-else (?:, ??) Expression
     // -------------------------
     elvis_orelse_expr: $ => prec.right(PREC.TERNARY, seq(
-      $._constant_expr, choice('?:', '??'), $._constant_expr,
+      field('condition', $._expr),
+      field('operator', choice('?:', '??')),
+      field('alternative', $._expr),
     )),
 
     // Suffix Expression
     // -------------------------
-    suffix_expr: $ => prec.right(PREC.TERNARY, seq(
-      field('argument', $._relational_expr),
+    optional_expr: $ => prec.right(PREC.TERNARY, seq(
+      field('argument', $._expr),
       field('operator', choice(
         '?',
         seq('?', '!'),
@@ -1293,8 +1268,8 @@ module.exports = grammar({
 
     // Arguments
     // -------------------------
-    // Precedence over _trailing_expr
-    param_path_element: $ => prec(4, choice(
+    // Precedence over _expr
+    param_path_element: $ => prec(1, choice(
       seq('[', $._expr, ']'),
       seq('[', $._expr, '..', $._expr, ']'),
       seq('.', $._base_expr),
@@ -1328,7 +1303,7 @@ module.exports = grammar({
       optional($.call_inline_attributes),
     ),
     call_expr: $ => prec.right(PREC.TRAILING, seq(
-      field('function', $._trailing_expr),
+      field('function', $._expr),
       field('arguments', $.call_invocation),
       field('trailing', optional($.compound_stmt)),
     )),
@@ -1336,21 +1311,21 @@ module.exports = grammar({
     // Postfix Update Expression (--/++)
     // -------------------------
     update_expr: $ => prec.right(PREC.TRAILING, seq(
-      field('argument', $._trailing_expr),
+      field('argument', $._expr),
       field('operator', choice('--', '++')),
     )),
 
     // Rethrow Expression
     // -------------------------
     rethrow_expr: $ => prec.right(PREC.TRAILING, seq(
-      field('argument', $._trailing_expr),
+      field('argument', $._expr),
       field('operator', choice('!', '!!')),
     )),
 
     // Trailing Generic Expression
     // -------------------------
     trailing_generic_expr: $ => prec.right(PREC.TRAILING, seq(
-      field('argument', $._trailing_expr),
+      field('argument', $._expr),
       field('operator', $.generic_arguments),
     )),
 
@@ -1370,7 +1345,7 @@ module.exports = grammar({
     // Subscript Expression
     // -------------------------
     subscript_expr: $ => prec.right(PREC.SUBSCRIPT, seq(
-      field('argument', $._trailing_expr),
+      field('argument', $._expr),
       '[',
       choice(
         field('index', $._range_loc),
@@ -1445,23 +1420,23 @@ module.exports = grammar({
       'typeid',
     ),
 
-    base_type: $ => choice(
+    base_type: $ => prec.right(choice(
       $.base_type_name,
       seq($.type_ident, optional($.generic_arguments)),
       seq($.module_type_ident, optional($.generic_arguments)),
       $.ct_type_ident,
       seq('$typeof', '(', $._expr, ')'),
-      seq('$typefrom', '(', $._constant_expr, ')'),
-      seq('$vatype', '(', $._constant_expr, ')'),
-      seq('$evaltype', '(', $._constant_expr, ')'),
-    ),
+      seq('$typefrom', '(', $._expr, ')'),
+      seq('$vatype', '(', $._expr, ')'),
+      seq('$evaltype', '(', $._expr, ')'),
+    )),
 
     type_suffix: $ => choice(
       '*',
-      seq('[', $._constant_expr, ']'),
+      seq('[', $._expr, ']'),
       seq('[', ']'),
       seq('[', '*', ']'),
-      seq('[<', $._constant_expr, '>]'),
+      seq('[<', $._expr, '>]'),
       seq('[<', '*', '>]'),
     ),
     type: $ => prec.right(seq(
