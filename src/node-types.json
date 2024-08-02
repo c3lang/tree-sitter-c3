@@ -51,10 +51,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -214,10 +210,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -411,10 +403,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -654,10 +642,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -919,10 +903,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -1242,10 +1222,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -1422,10 +1398,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -1652,10 +1624,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -1938,10 +1906,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -2285,10 +2249,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -2435,6 +2395,16 @@
     "type": "bitstruct_declaration",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bitstruct_body",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -2452,10 +2422,6 @@
       "types": [
         {
           "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "bitstruct_body",
           "named": true
         },
         {
@@ -2482,6 +2448,16 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "base_type",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -2494,10 +2470,6 @@
         },
         {
           "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "base_type",
           "named": true
         },
         {
@@ -2522,10 +2494,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -2835,10 +2803,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -3076,10 +3040,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -3208,6 +3168,10 @@
         "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "!",
+            "named": false
+          },
           {
             "type": "$alignof",
             "named": false
@@ -3342,10 +3306,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -3735,10 +3695,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -3941,10 +3897,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -4126,10 +4078,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -4183,10 +4131,6 @@
         },
         {
           "type": "module_ident_expr",
-          "named": true
-        },
-        {
-          "type": "optional_type",
           "named": true
         },
         {
@@ -4369,6 +4313,16 @@
           }
         ]
       },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "const_ident",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -4506,10 +4460,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -4636,9 +4586,13 @@
         ]
       },
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "!",
+            "named": false
+          },
           {
             "type": "type",
             "named": true
@@ -4647,15 +4601,11 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "const_ident",
           "named": true
         }
       ]
@@ -4725,10 +4675,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -4891,10 +4837,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -5064,10 +5006,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -5227,10 +5165,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -5504,10 +5438,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -5733,10 +5663,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -6039,10 +5965,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -6177,12 +6099,12 @@
     "named": true,
     "fields": {
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "optional_type",
-            "named": true
+            "type": "!",
+            "named": false
           },
           {
             "type": "type",
@@ -6519,7 +6441,18 @@
   {
     "type": "distinct_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -6534,10 +6467,6 @@
         },
         {
           "type": "type",
-          "named": true
-        },
-        {
-          "type": "type_ident",
           "named": true
         }
       ]
@@ -6663,10 +6592,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -7112,10 +7037,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -7422,10 +7343,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -7625,10 +7542,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -7766,6 +7679,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "!",
+            "named": false
+          },
           {
             "type": "$alignof",
             "named": false
@@ -7911,10 +7828,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -7981,10 +7894,6 @@
           {
             "type": "null",
             "named": false
-          },
-          {
-            "type": "optional_type",
-            "named": true
           },
           {
             "type": "paren_expr",
@@ -8351,10 +8260,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -8647,10 +8552,6 @@
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
           "type": "type",
           "named": true
         }
@@ -8743,12 +8644,12 @@
         ]
       },
       "return_type": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "optional_type",
-            "named": true
+            "type": "!",
+            "named": false
           },
           {
             "type": "type",
@@ -8768,10 +8669,6 @@
       "types": [
         {
           "type": "fn_parameter_list",
-          "named": true
-        },
-        {
-          "type": "optional_type",
           "named": true
         },
         {
@@ -8830,10 +8727,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -8980,6 +8873,20 @@
           }
         ]
       },
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -9117,10 +9024,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -9247,12 +9150,12 @@
         ]
       },
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "optional_type",
-            "named": true
+            "type": "!",
+            "named": false
           },
           {
             "type": "type",
@@ -9263,7 +9166,7 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "attributes",
@@ -9271,14 +9174,6 @@
         },
         {
           "type": "global_storage",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "multi_declaration",
           "named": true
         }
       ]
@@ -9581,10 +9476,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -9875,7 +9766,22 @@
   {
     "type": "lambda_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "return_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -9886,14 +9792,6 @@
         },
         {
           "type": "fn_parameter_list",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -10088,10 +9986,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -10258,10 +10152,6 @@
           "named": true
         },
         {
-          "type": "func_header",
-          "named": true
-        },
-        {
           "type": "macro_header",
           "named": true
         },
@@ -10315,6 +10205,20 @@
           },
           {
             "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "type",
             "named": true
           }
         ]
@@ -10439,21 +10343,6 @@
     }
   },
   {
-    "type": "multi_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "nextcase_stmt",
     "named": true,
     "fields": {
@@ -10471,6 +10360,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "!",
+            "named": false
+          },
           {
             "type": "$alignof",
             "named": false
@@ -10601,10 +10494,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -10750,21 +10639,6 @@
     }
   },
   {
-    "type": "optional_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "param_path",
     "named": true,
     "fields": {},
@@ -10828,10 +10702,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -10948,7 +10818,36 @@
   {
     "type": "parameter",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -10958,23 +10857,7 @@
           "named": true
         },
         {
-          "type": "ct_ident",
-          "named": true
-        },
-        {
-          "type": "hash_ident",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
           "type": "parameter_default",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -11128,10 +11011,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -11318,10 +11197,6 @@
           "named": true
         },
         {
-          "type": "comma_decl_or_expr",
-          "named": true
-        },
-        {
           "type": "const_ident",
           "named": true
         },
@@ -11375,10 +11250,6 @@
         },
         {
           "type": "module_ident_expr",
-          "named": true
-        },
-        {
-          "type": "optional_type",
           "named": true
         },
         {
@@ -11497,10 +11368,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -11758,10 +11625,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -12031,10 +11894,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -12235,10 +12094,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -12721,10 +12576,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -12988,10 +12839,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -13280,10 +13127,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -13644,10 +13487,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -13910,10 +13749,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -14173,10 +14008,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -14477,10 +14308,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -14677,10 +14504,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -14892,10 +14715,6 @@
         },
         {
           "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "comma_decl_or_expr",
           "named": true
         },
         {
@@ -15166,10 +14985,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
@@ -15493,10 +15308,6 @@
             "named": true
           },
           {
-            "type": "comma_decl_or_expr",
-            "named": true
-          },
-          {
             "type": "compound_stmt",
             "named": true
           },
@@ -15796,10 +15607,6 @@
           },
           {
             "type": "char_literal",
-            "named": true
-          },
-          {
-            "type": "comma_decl_or_expr",
             "named": true
           },
           {
