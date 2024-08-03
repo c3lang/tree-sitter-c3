@@ -4,7 +4,8 @@
 
 ### Changes
 
-- Added rule `bitstruct_member_declaration`
+- Extracted new rule `bitstruct_member_declaration`
+- Extracted new rule `access_eval`
 - Added field `name` to `distinct_declaration`
 - Added field `name` to `const_declaration`
 - Added field `type` to `bitstruct_member_declaration`
@@ -14,7 +15,7 @@
 - Removed rule `multi_declaration`
 - Removed rule `optional_type`, it's now `type` with an optional '!' token at the end
 - Renamed rule `suffix_expr` to `optional_expr`
-- Node `multi_declaration` inlined into `global_declaration`
+- Rule `multi_declaration` inlined into `global_declaration`
 - Relaxed bitstruct members
 - Relaxed enum body to be empty
 - Relaxed optional types

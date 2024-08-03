@@ -1,3 +1,28 @@
+;; NOTE In this file later patterns are assumed to have priority!
+
+;; Punctuation
+["(" ")" "[" "]" "{" "}" "(<" ">)" "[<" ">]" "{|" "|}"] @punctuation.bracket
+[";" "," ":" "::"] @punctuation.delimiter
+
+;; Constant
+(const_ident) @constant
+["true" "false"] @boolean
+["null"] @constant.builtin
+
+;; Variable
+[(ident) (ct_ident)] @variable
+(field_expr field: (access_ident (ident) @variable.member))
+(struct_member_declaration (ident) @variable.member)
+(struct_member_declaration (identifier_list (ident) @variable.member))
+(bitstruct_member_declaration (ident) @variable.member)
+(initializer_list (arg (param_path (param_path_element (ident) @variable.member))))
+(parameter name: (_) @variable.parameter)
+(call_invocation (arg (param_path (param_path_element [(ident) (ct_ident)] @variable.parameter))))
+(global_declaration (ident) @variable.declaration)
+(local_decl_after_type name: (_) @variable.declaration)
+(try_unwrap (ident) @variable.declaration)
+(catch_unwrap (ident) @variable.declaration)
+
 ;; Keyword
 [
   "assert"
@@ -98,16 +123,6 @@
   "tlocal"
 ] @keyword.modifier
 
-;; Punctuation
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
 ;; Operator
 [
   "&"
@@ -172,13 +187,6 @@
   ">>="
 ] @operator
 
-[
-  ";"
-  ","
-  ":"
-  "::"
-] @punctuation.delimiter
-
 (range_expr ":" @operator)
 
 (ternary_expr
@@ -237,11 +245,6 @@
                                           "values"
                                           "typeid")))
 
-;; Constant
-((const_ident) @constant (#set! priority 1))
-["true" "false"] @boolean
-["null"] @constant.builtin
-
 ;; Label
 [
   (label)
@@ -272,25 +275,12 @@
 (macro_header name: (_) @function)
 (macro_header method_type: (_) name: (_) @function.method)
 
-;; Variable
-((ident) @variable (#set! priority 1))
-((field_expr field: (access_ident (ident) @variable.member)) (#set! priority 2))
-(struct_member_declaration (identifier_list (ident) @variable.member))
-(bitstruct_member_declaration (ident) @variable.member)
-;; (global_declaration (ident) @variable)
-;; (multi_declaration (ident) @variable)
-;; (local_decl_after_type name: (_) @variable)
-;; (try_unwrap (ident) @variable)
-(parameter [(ident) (ct_ident) (hash_ident)] @variable.parameter)
-(call_invocation (arg (param_path) @variable.parameter))
-(initializer_list (arg (param_path) @variable.member))
-
 ;; Function Call
 (call_expr function: [(ident) (at_ident)] @function.call)
 (call_expr function: [(builtin)] @function.builtin.call)
 (call_expr function: (module_ident_expr ident: (_) @function.call))
 (call_expr function: (trailing_generic_expr argument: (module_ident_expr ident: (_) @function.call)))
-(call_expr function: (field_expr field: (_) @function.method.call)) ; Ambiguous, could be calling a method or function pointer
+(call_expr function: (field_expr field: (access_ident [(ident) (at_ident)] @function.method.call))) ; NOTE Ambiguous, could be calling a method or function pointer
 ;; Method on type
 (call_expr function: (type_access_expr field: (access_ident [(ident) (at_ident)] @function.method.call)))
 

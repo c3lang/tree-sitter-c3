@@ -1067,6 +1067,7 @@ module.exports = grammar({
       '$vaexpr',
     ),
 
+    // Precedence over _expr
     flat_path: $ => prec(1, seq(
       $._base_expr,
       optional($.param_path),
@@ -1108,8 +1109,6 @@ module.exports = grammar({
       seq($._ct_call, '(', $.flat_path, ')'),
       seq(
         choice(
-          '$append',
-          '$concat',
           '$eval',
           '$is_const',
           '$sizeof',
@@ -1121,6 +1120,8 @@ module.exports = grammar({
       seq(
         choice(
           '$and',
+          '$append',
+          '$concat',
           '$defined',
           '$embed',
           '$or',
@@ -1366,11 +1367,12 @@ module.exports = grammar({
 
     // Access Expression
     // -------------------------
+    access_eval: $ => seq('$eval', '(', $._expr, ')'),
     access_ident: $ => choice(
       $.ident,
       $.at_ident,
       $.hash_ident,
-      seq('$eval', '(', $._expr, ')'),
+      $.access_eval,
       'typeid',
     ),
     type_access_expr: $ => seq(

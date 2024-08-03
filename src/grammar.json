@@ -6284,14 +6284,6 @@
                 "members": [
                   {
                     "type": "STRING",
-                    "value": "$append"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "$concat"
-                  },
-                  {
-                    "type": "STRING",
                     "value": "$eval"
                   },
                   {
@@ -6335,6 +6327,14 @@
                   {
                     "type": "STRING",
                     "value": "$and"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "$append"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "$concat"
                   },
                   {
                     "type": "STRING",
@@ -8128,6 +8128,27 @@
         }
       ]
     },
+    "access_eval": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$eval"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expr"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "access_ident": {
       "type": "CHOICE",
       "members": [
@@ -8144,25 +8165,8 @@
           "name": "hash_ident"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "$eval"
-            },
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_expr"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "access_eval"
         },
         {
           "type": "STRING",
