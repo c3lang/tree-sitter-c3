@@ -3,9 +3,38 @@ This is a complete implementation of the current C3 grammar for tree-sitter, usa
 
 The latest version supports C3 0.6.1 and is not compatible with C3 < 0.6.0.
 
-_Check out the tree-sitter playground here:_ https://c3lang.github.io/tree-sitter-c3/
+### Playground
+Check out the tree-sitter-c3 playground here: https://c3lang.github.io/tree-sitter-c3/
 
 ### Notes
 - This is in some cases a less strict version of the "true" grammar.
 - Tree structure and node naming is still subject to change.
 
+## Editors
+
+### Emacs 29+
+https://github.com/c3lang/c3-ts-mode
+
+### Neovim
+1) Install the [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) plugin
+2) Add the following to your `init.lua`:
+```lua
+vim.filetype.add({
+  extension = {
+    c3 = "c3",
+    c3i = "c3",
+    c3t = "c3",
+  },
+})
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.c3 = {
+  install_info = {
+    url = "https://github.com/c3lang/tree-sitter-c3",
+    files = {"src/parser.c", "src/scanner.c"},
+    branch = "main",
+  },
+}
+```
+3) Run `:TSInstall c3`
+4) Follow the steps for [adding queries](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-queries) to install `queries/highlights.scm`.
