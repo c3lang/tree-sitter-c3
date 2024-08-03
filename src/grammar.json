@@ -3710,8 +3710,12 @@
               "value": "var"
             },
             {
-              "type": "SYMBOL",
-              "name": "ident"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "ident"
+              }
             },
             {
               "type": "SYMBOL",
@@ -3727,8 +3731,12 @@
               "value": "var"
             },
             {
-              "type": "SYMBOL",
-              "name": "ct_ident"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "ct_ident"
+              }
             },
             {
               "type": "CHOICE",
@@ -3752,8 +3760,12 @@
               "value": "var"
             },
             {
-              "type": "SYMBOL",
-              "name": "ct_type_ident"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "ct_type_ident"
+              }
             },
             {
               "type": "CHOICE",

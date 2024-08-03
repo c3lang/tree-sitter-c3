@@ -11,15 +11,19 @@
 
 ;; Variable
 [(ident) (ct_ident)] @variable
+
 (field_expr field: (access_ident (ident) @variable.member))
 (struct_member_declaration (ident) @variable.member)
 (struct_member_declaration (identifier_list (ident) @variable.member))
 (bitstruct_member_declaration (ident) @variable.member)
 (initializer_list (arg (param_path (param_path_element (ident) @variable.member))))
+
 (parameter name: (_) @variable.parameter)
 (call_invocation (arg (param_path (param_path_element [(ident) (ct_ident)] @variable.parameter))))
+
 (global_declaration (ident) @variable.declaration)
-(local_decl_after_type name: (_) @variable.declaration)
+(local_decl_after_type name: [(ident) (ct_ident)] @variable.declaration)
+(var_decl name: [(ident) (ct_ident)] @variable.declaration)
 (try_unwrap (ident) @variable.declaration)
 (catch_unwrap (ident) @variable.declaration)
 

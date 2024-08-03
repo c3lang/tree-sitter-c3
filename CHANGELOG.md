@@ -12,6 +12,7 @@
 - Added field `body` to `bitstruct_body`
 - Added field `return_type` to `lambda_declaration`
 - Added fields `type` and `name` to `parameter`
+- Added field `name` to `var_decl`
 - Removed rule `multi_declaration`
 - Removed rule `optional_type`, it's now `type` with an optional '!' token at the end
 - Renamed rule `suffix_expr` to `optional_expr`

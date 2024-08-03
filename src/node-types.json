@@ -15856,6 +15856,24 @@
           }
         ]
       },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "ct_type_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
       "right": {
         "multiple": true,
         "required": false,
@@ -16120,21 +16138,9 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "ct_ident",
-          "named": true
-        },
-        {
-          "type": "ct_type_ident",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
         {
           "type": "type",
           "named": true
