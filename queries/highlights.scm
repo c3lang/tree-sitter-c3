@@ -11,23 +11,23 @@
 
 ;; Variable
 [(ident) (ct_ident)] @variable
-
+;; 1) Member
 (field_expr field: (access_ident (ident) @variable.member))
 (struct_member_declaration (ident) @variable.member)
 (struct_member_declaration (identifier_list (ident) @variable.member))
 (bitstruct_member_declaration (ident) @variable.member)
 (initializer_list (arg (param_path (param_path_element (ident) @variable.member))))
-
+;; 2) Parameter
 (parameter name: (_) @variable.parameter)
 (call_invocation (arg (param_path (param_path_element [(ident) (ct_ident)] @variable.parameter))))
-
+;; 3) Declaration
 (global_declaration (ident) @variable.declaration)
 (local_decl_after_type name: [(ident) (ct_ident)] @variable.declaration)
 (var_decl name: [(ident) (ct_ident)] @variable.declaration)
 (try_unwrap (ident) @variable.declaration)
 (catch_unwrap (ident) @variable.declaration)
 
-;; Keyword
+;; Keyword (from `c3c --list-keywords`)
 [
   "assert"
   "asm"
@@ -127,7 +127,7 @@
   "tlocal"
 ] @keyword.modifier
 
-;; Operator
+;; Operator (from `c3c --list-operators`)
 [
   "&"
   "!"
@@ -221,7 +221,7 @@
 ;; Builtin (constants)
 ((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
 
-;; Type Property
+;; Type Property (from `c3c --list-type-properties`)
 (type_access_expr (access_ident [(ident) "typeid"] @variable.builtin
                                 (#any-of? @variable.builtin
                                           "alignof"
@@ -247,6 +247,7 @@
                                           "returns"
                                           "sizeof"
                                           "values"
+                                          ;; Extra token
                                           "typeid")))
 
 ;; Label
