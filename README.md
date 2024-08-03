@@ -37,4 +37,4 @@ parser_config.c3 = {
 }
 ```
 3) Run `:TSInstall c3`
-4) Follow the steps for [adding queries](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-queries) to install `queries/highlights.scm`. For example, copy `tree-sitter-c3/queries` into `~/.config/nvim` or whatever your neovim runtime path is.
+4) Follow the steps for [adding queries](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-queries) to install `queries/highlights.scm`. For example, copy `tree-sitter-c3/queries` to `~/.config/nvim/queries/c3` or whatever your neovim runtime path is.
