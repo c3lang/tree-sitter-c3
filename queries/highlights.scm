@@ -20,6 +20,7 @@
 ;; 2) Parameter
 (parameter name: (_) @variable.parameter)
 (call_invocation (arg (param_path (param_path_element [(ident) (ct_ident)] @variable.parameter))))
+(enum_param_declaration (ident) @variable.parameter)
 ;; 3) Declaration
 (global_declaration (ident) @variable.declaration)
 (local_decl_after_type name: [(ident) (ct_ident)] @variable.declaration)
