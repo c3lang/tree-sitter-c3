@@ -18,8 +18,8 @@
 - Renamed rule `suffix_expr` to `optional_expr`
 - Rule `multi_declaration` inlined into `global_declaration`
 - Relaxed bitstruct members
-- Relaxed fault members
 - Relaxed enum body to be empty
+- Relaxed fault body to be empty
 - Relaxed optional types
 - `macro_declaration` now always has a `macro_header`, previously it could have a `func_header`
 - Fixed not accepting optional types where it's permitted

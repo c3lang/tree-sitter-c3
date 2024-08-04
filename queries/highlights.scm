@@ -267,6 +267,7 @@
 (attribute name: (_) @attribute)
 (define_attribute name: (_) @attribute)
 (call_inline_attributes (at_ident) @attribute)
+(asm_block_stmt (at_ident) @attribute)
 
 ;; Type
 [
@@ -308,6 +309,10 @@
 ;; (unary_expr operator: ["--" "++"] argument: (module_ident_expr (ident) @variable.member))
 ;; (unary_expr operator: ["--" "++"] argument: (field_expr field: (access_ident (ident)) @variable.member))
 ;; (unary_expr operator: ["--" "++"] argument: (subscript_expr ["[" "]"] @variable.member))
+
+;; Asm
+(asm_instr [(ident) "int"] @function.builtin)
+(asm_expr [(ct_ident) (ct_const_ident)] @variable.builtin)
 
 ;; Comment
 [
