@@ -7560,7 +7560,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "const_ident",
@@ -8188,10 +8188,6 @@
           },
           {
             "type": ",",
-            "named": false
-          },
-          {
-            "type": "=>",
             "named": false
           },
           {
@@ -12264,153 +12260,553 @@
             "named": true
           }
         ]
+      },
+      "left": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "$alignof",
+            "named": false
+          },
+          {
+            "type": "$and",
+            "named": false
+          },
+          {
+            "type": "$append",
+            "named": false
+          },
+          {
+            "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
+            "named": false
+          },
+          {
+            "type": "$defined",
+            "named": false
+          },
+          {
+            "type": "$embed",
+            "named": false
+          },
+          {
+            "type": "$eval",
+            "named": false
+          },
+          {
+            "type": "$extnameof",
+            "named": false
+          },
+          {
+            "type": "$feature",
+            "named": false
+          },
+          {
+            "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$nameof",
+            "named": false
+          },
+          {
+            "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
+            "named": false
+          },
+          {
+            "type": "$qnameof",
+            "named": false
+          },
+          {
+            "type": "$sizeof",
+            "named": false
+          },
+          {
+            "type": "$stringify",
+            "named": false
+          },
+          {
+            "type": "$vaarg",
+            "named": false
+          },
+          {
+            "type": "$vaconst",
+            "named": false
+          },
+          {
+            "type": "$vacount",
+            "named": false
+          },
+          {
+            "type": "$vaexpr",
+            "named": false
+          },
+          {
+            "type": "$varef",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "assignment_expr",
+            "named": true
+          },
+          {
+            "type": "at_ident",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "builtin",
+            "named": true
+          },
+          {
+            "type": "bytes_expr",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "cast_expr",
+            "named": true
+          },
+          {
+            "type": "char_literal",
+            "named": true
+          },
+          {
+            "type": "compound_stmt",
+            "named": true
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "elvis_orelse_expr",
+            "named": true
+          },
+          {
+            "type": "expr_block",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "field_expr",
+            "named": true
+          },
+          {
+            "type": "flat_path",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "initializer_list",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "lambda_declaration",
+            "named": true
+          },
+          {
+            "type": "lambda_expr",
+            "named": true
+          },
+          {
+            "type": "module_ident_expr",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": false
+          },
+          {
+            "type": "optional_expr",
+            "named": true
+          },
+          {
+            "type": "paren_expr",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "real_literal",
+            "named": true
+          },
+          {
+            "type": "rethrow_expr",
+            "named": true
+          },
+          {
+            "type": "string_expr",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expr",
+            "named": true
+          },
+          {
+            "type": "ternary_expr",
+            "named": true
+          },
+          {
+            "type": "trailing_generic_expr",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "type_access_expr",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "update_expr",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "..",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "$alignof",
+            "named": false
+          },
+          {
+            "type": "$and",
+            "named": false
+          },
+          {
+            "type": "$append",
+            "named": false
+          },
+          {
+            "type": "$assignable",
+            "named": false
+          },
+          {
+            "type": "$concat",
+            "named": false
+          },
+          {
+            "type": "$defined",
+            "named": false
+          },
+          {
+            "type": "$embed",
+            "named": false
+          },
+          {
+            "type": "$eval",
+            "named": false
+          },
+          {
+            "type": "$extnameof",
+            "named": false
+          },
+          {
+            "type": "$feature",
+            "named": false
+          },
+          {
+            "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$nameof",
+            "named": false
+          },
+          {
+            "type": "$offsetof",
+            "named": false
+          },
+          {
+            "type": "$or",
+            "named": false
+          },
+          {
+            "type": "$qnameof",
+            "named": false
+          },
+          {
+            "type": "$sizeof",
+            "named": false
+          },
+          {
+            "type": "$stringify",
+            "named": false
+          },
+          {
+            "type": "$vaarg",
+            "named": false
+          },
+          {
+            "type": "$vaconst",
+            "named": false
+          },
+          {
+            "type": "$vacount",
+            "named": false
+          },
+          {
+            "type": "$vaexpr",
+            "named": false
+          },
+          {
+            "type": "$varef",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "assignment_expr",
+            "named": true
+          },
+          {
+            "type": "at_ident",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "builtin",
+            "named": true
+          },
+          {
+            "type": "bytes_expr",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "cast_expr",
+            "named": true
+          },
+          {
+            "type": "char_literal",
+            "named": true
+          },
+          {
+            "type": "compound_stmt",
+            "named": true
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "elvis_orelse_expr",
+            "named": true
+          },
+          {
+            "type": "expr_block",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": false
+          },
+          {
+            "type": "field_expr",
+            "named": true
+          },
+          {
+            "type": "flat_path",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "initializer_list",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "lambda_declaration",
+            "named": true
+          },
+          {
+            "type": "lambda_expr",
+            "named": true
+          },
+          {
+            "type": "module_ident_expr",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": false
+          },
+          {
+            "type": "optional_expr",
+            "named": true
+          },
+          {
+            "type": "paren_expr",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          },
+          {
+            "type": "real_literal",
+            "named": true
+          },
+          {
+            "type": "rethrow_expr",
+            "named": true
+          },
+          {
+            "type": "string_expr",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expr",
+            "named": true
+          },
+          {
+            "type": "ternary_expr",
+            "named": true
+          },
+          {
+            "type": "trailing_generic_expr",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": false
+          },
+          {
+            "type": "type",
+            "named": true
+          },
+          {
+            "type": "type_access_expr",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "update_expr",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "assignment_expr",
-          "named": true
-        },
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "binary_expr",
-          "named": true
-        },
-        {
-          "type": "builtin",
-          "named": true
-        },
-        {
-          "type": "bytes_expr",
-          "named": true
-        },
-        {
-          "type": "call_expr",
-          "named": true
-        },
-        {
-          "type": "cast_expr",
-          "named": true
-        },
-        {
-          "type": "char_literal",
-          "named": true
-        },
-        {
-          "type": "const_ident",
-          "named": true
-        },
-        {
-          "type": "ct_ident",
-          "named": true
-        },
-        {
-          "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
-          "named": true
-        },
-        {
-          "type": "field_expr",
-          "named": true
-        },
-        {
-          "type": "flat_path",
-          "named": true
-        },
-        {
-          "type": "hash_ident",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "initializer_list",
-          "named": true
-        },
-        {
-          "type": "integer_literal",
-          "named": true
-        },
-        {
-          "type": "lambda_declaration",
-          "named": true
-        },
-        {
-          "type": "lambda_expr",
-          "named": true
-        },
-        {
-          "type": "module_ident_expr",
-          "named": true
-        },
-        {
-          "type": "optional_expr",
-          "named": true
-        },
-        {
-          "type": "paren_expr",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
-        {
-          "type": "real_literal",
-          "named": true
-        },
-        {
-          "type": "rethrow_expr",
-          "named": true
-        },
-        {
-          "type": "string_expr",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "subscript_expr",
-          "named": true
-        },
-        {
-          "type": "ternary_expr",
-          "named": true
-        },
-        {
-          "type": "trailing_generic_expr",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        },
-        {
-          "type": "type_access_expr",
-          "named": true
-        },
-        {
-          "type": "unary_expr",
-          "named": true
-        },
-        {
-          "type": "update_expr",
-          "named": true
-        }
-      ]
     }
   },
   {

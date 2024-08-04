@@ -19,6 +19,8 @@ fn void main() {
     } else {
         2;
     }
+
+    if (int i = 0, try optional && 1 && try optional) {}
 }
 
 --------------------------------------------------------------------------------
@@ -67,7 +69,21 @@ fn void main() {
               (else_part
                 (compound_stmt
                   (expr_stmt
-                    (integer_literal)))))))))))
+                    (integer_literal)))))))
+        (if_stmt
+          (paren_cond
+            (type
+              (base_type
+                (base_type_name)))
+            (local_decl_after_type
+              (ident)
+              (integer_literal))
+            (try_unwrap
+              (ident))
+            (integer_literal)
+            (try_unwrap
+              (ident)))
+          (compound_stmt))))))
 
 ================================================================================
 While statements

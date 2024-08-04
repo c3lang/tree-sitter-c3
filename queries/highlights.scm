@@ -192,6 +192,7 @@
 ] @operator
 
 (range_expr ":" @operator)
+(foreach_cond ":" @operator)
 
 (ternary_expr
   [

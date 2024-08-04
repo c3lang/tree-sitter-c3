@@ -18,6 +18,7 @@
 - Renamed rule `suffix_expr` to `optional_expr`
 - Rule `multi_declaration` inlined into `global_declaration`
 - Relaxed bitstruct members
+- Relaxed fault members
 - Relaxed enum body to be empty
 - Relaxed optional types
 - `macro_declaration` now always has a `macro_header`, previously it could have a `func_header`
@@ -25,3 +26,4 @@
 - Fixed/improved parameter grammar
 - Fixed incorrect ternary precedence
 - Fixed not permitting assignment expressions in some cases
+- Fixed try-unwrap chain

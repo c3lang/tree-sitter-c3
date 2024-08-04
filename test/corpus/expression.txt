@@ -1382,3 +1382,199 @@ fn void main() {
               (return_stmt
                 (unary_expr
                   (ident))))))))))
+
+================================================================================
+Precedence
+================================================================================
+
+fn void main() {
+  a + b * c + !d.e;
+  --a++[4] >> a % b;
+
+  a ?: 1 ?: c;
+  a * b ?: c;
+  a ?: b && c;
+  a && b ?: c;
+  a = b + c = d;
+  a = b ?: 1 = d;
+
+  a || b ? b : c ?: 1 ? d : 1;
+  a || b ? b : c ? 1.f : 1 ? d : 1;
+  a && b ?!;
+  a || b && 1 > b ?: 1 >>= 4;
+  a && b || 1 > b ? b : 1 + 1 >>= 4;
+
+  test(a = fn char* (Foo* foo, Dir dir) => dir == ROW ? &foo.bar()[1] : "");
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list)
+    (macro_func_body
+      (compound_stmt
+        (expr_stmt
+          (binary_expr
+            (binary_expr
+              (ident)
+              (binary_expr
+                (ident)
+                (ident)))
+            (unary_expr
+              (field_expr
+                (ident)
+                (access_ident
+                  (ident))))))
+        (expr_stmt
+          (binary_expr
+            (unary_expr
+              (subscript_expr
+                (update_expr
+                  (ident))
+                (integer_literal)))
+            (binary_expr
+              (ident)
+              (ident))))
+        (expr_stmt
+          (elvis_orelse_expr
+            (ident)
+            (elvis_orelse_expr
+              (integer_literal)
+              (ident))))
+        (expr_stmt
+          (elvis_orelse_expr
+            (binary_expr
+              (ident)
+              (ident))
+            (ident)))
+        (expr_stmt
+          (elvis_orelse_expr
+            (ident)
+            (binary_expr
+              (ident)
+              (ident))))
+        (expr_stmt
+          (elvis_orelse_expr
+            (binary_expr
+              (ident)
+              (ident))
+            (ident)))
+        (expr_stmt
+          (assignment_expr
+            (ident)
+            (assignment_expr
+              (binary_expr
+                (ident)
+                (ident))
+              (ident))))
+        (expr_stmt
+          (assignment_expr
+            (ident)
+            (assignment_expr
+              (elvis_orelse_expr
+                (ident)
+                (integer_literal))
+              (ident))))
+        (expr_stmt
+          (ternary_expr
+            (binary_expr
+              (ident)
+              (ident))
+            (ident)
+            (elvis_orelse_expr
+              (ident)
+              (ternary_expr
+                (integer_literal)
+                (ident)
+                (integer_literal)))))
+        (expr_stmt
+          (ternary_expr
+            (binary_expr
+              (ident)
+              (ident))
+            (ident)
+            (ternary_expr
+              (ident)
+              (real_literal)
+              (ternary_expr
+                (integer_literal)
+                (ident)
+                (integer_literal)))))
+        (expr_stmt
+          (optional_expr
+            (binary_expr
+              (ident)
+              (ident))))
+        (expr_stmt
+          (assignment_expr
+            (elvis_orelse_expr
+              (binary_expr
+                (ident)
+                (binary_expr
+                  (ident)
+                  (binary_expr
+                    (integer_literal)
+                    (ident))))
+              (integer_literal))
+            (integer_literal)))
+        (expr_stmt
+          (assignment_expr
+            (ternary_expr
+              (binary_expr
+                (binary_expr
+                  (ident)
+                  (ident))
+                (binary_expr
+                  (integer_literal)
+                  (ident)))
+              (ident)
+              (binary_expr
+                (integer_literal)
+                (integer_literal)))
+            (integer_literal)))
+        (expr_stmt
+          (call_expr
+            (ident)
+            (call_invocation
+              (arg
+                (assignment_expr
+                  (ident)
+                  (lambda_expr
+                    (lambda_declaration
+                      (type
+                        (base_type
+                          (base_type_name))
+                        (type_suffix))
+                      (fn_parameter_list
+                        (parameter
+                          (type
+                            (base_type
+                              (type_ident))
+                            (type_suffix))
+                          (ident))
+                        (parameter
+                          (type
+                            (base_type
+                              (type_ident)))
+                          (ident))))
+                    (implies_body
+                      (ternary_expr
+                        (binary_expr
+                          (ident)
+                          (const_ident))
+                        (unary_expr
+                          (subscript_expr
+                            (call_expr
+                              (field_expr
+                                (ident)
+                                (access_ident
+                                  (ident)))
+                              (call_invocation))
+                            (integer_literal)))
+                        (string_literal)))))))))))))

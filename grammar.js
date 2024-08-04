@@ -12,6 +12,7 @@
 // - Empty structs/enums
 // - Mixing omission of bitstruct member bitranges
 // - Optional types everywhere
+// - `try` followed by expressions with lower precedence than &&)
 
 const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
 const HEX = /[ \t\v\n\f]?[A-Fa-f0-9][ \t\v\n\fA-Fa-f0-9]+/;
@@ -28,22 +29,22 @@ const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
 // c3c/src/compiler/enums.h
 const PREC = {
   // Expressions
-  ASSIGNMENT: -2,
-  TERNARY: -1,
+  ASSIGNMENT: 1,
+  TERNARY: 2,
   // Binary expressions
-  LOGICAL_OR: 1,
-  LOGICAL_AND: 2,
-  RELATIONAL: 3,
-  ADD: 4,
-  BITWISE: 5,
-  SHIFT: 6,
-  MULTIPLY: 7,
+  LOGICAL_OR: 3,
+  LOGICAL_AND: 4,
+  RELATIONAL: 5,
+  ADD: 6,
+  BITWISE: 7,
+  SHIFT: 8,
+  MULTIPLY: 9,
   // Unary expressions
-  UNARY: 8,
+  UNARY: 10,
   // Trailing expressions
-  TRAILING: 10,
-  FIELD: 11,
-  SUBSCRIPT: 12,
+  TRAILING: 11,
+  FIELD: 12,
+  SUBSCRIPT: 13,
 };
 
 function commaSep(rule) {
@@ -487,7 +488,7 @@ module.exports = grammar({
     // -------------------------
     fault_body: $ => seq(
       '{',
-      commaSepTrailing1($.const_ident),
+      commaSepTrailing($.const_ident),
       '}'
     ),
     fault_declaration: $ => seq(
@@ -766,33 +767,24 @@ module.exports = grammar({
     // If-Catch
     // -------------------------
     catch_unwrap_list: $ => commaSep1($._expr),
-     // Precedence over assignment expression
     catch_unwrap: $ => prec(1, seq(
       'catch',
-      choice(
-        $.catch_unwrap_list,
-        seq(optional($.type), $.ident, '=', $.catch_unwrap_list),
-      ),
+      optional(seq(optional($.type), $.ident, '=')),
+      $.catch_unwrap_list,
     )),
 
     // If-Try
     // -------------------------
-    _rel_or_lambda_expr: $ => prec(3, choice(
-      $._expr,
-      seq($.lambda_declaration, '=>', $._expr),
-    )),
-
-    try_unwrap: $ => prec(1, seq(
+    // Precedence over &&
+    try_unwrap: $ => prec(PREC.LOGICAL_AND + 1, seq(
       'try',
-      choice(
-        $._rel_or_lambda_expr,
-        seq(optional($.type), $.ident, '=', $._rel_or_lambda_expr),
-      ),
+      optional(seq(optional($.type), $.ident, '=')),
+      $._expr,
     )),
 
     _try_unwrap_chain: $ => seq(
       $.try_unwrap,
-      repeat(seq('&&', choice($.try_unwrap, $._rel_or_lambda_expr))),
+      repeat(prec(PREC.LOGICAL_AND + 1, seq('&&', choice($.try_unwrap, $._expr)))),
     ),
 
     // If Statement
@@ -1183,7 +1175,7 @@ module.exports = grammar({
     // -------------------------
     ternary_expr: $ => prec.right(PREC.TERNARY, choice(
       seq(
-        field('condition', $._expr), // TODO
+        field('condition', $._expr),
         '?',
         field('consequence', $._expr),
         ':',
@@ -1203,7 +1195,7 @@ module.exports = grammar({
       field('alternative', $._expr),
     )),
 
-    // Suffix Expression
+    // Optional Expression
     // -------------------------
     optional_expr: $ => prec.right(PREC.TERNARY, seq(
       field('argument', $._expr),
@@ -1337,9 +1329,9 @@ module.exports = grammar({
       $._expr,
     ),
     range_expr: $ => choice(
-      seq($._range_loc, choice('..', ':'), $._range_loc),
-      seq($._range_loc, choice('..', ':')),
-      seq(choice('..', ':'), $._range_loc),
+      // TODO could relax this
+      seq(field('left', $._range_loc), field('operator', choice('..', ':')), field('right', optional($._range_loc))),
+      seq(field('left', optional($._range_loc)), field('operator', choice('..', ':')), field('right', $._range_loc)),
       '..',
     ),
 
