@@ -339,7 +339,7 @@ module.exports = grammar({
     // -------------------------
     func_typedef: $ => seq(
       'fn',
-      $._type_optional,
+      field('return_type', $._type_optional),
       $.fn_parameter_list
     ),
     typedef_type: $ => choice($.func_typedef, $.type),
@@ -513,7 +513,7 @@ module.exports = grammar({
     ),
     enum_param_declaration: $ => seq(
       field('type', $.type),
-      $.ident,
+      field('name', $.ident),
     ),
     enum_param_list: $ => seq('(', commaSep($.enum_param_declaration), ')'),
     enum_spec: $ => prec.right(seq(
@@ -893,8 +893,7 @@ module.exports = grammar({
         seq($.asm_expr, $._additive_op, $.asm_expr),
         optional(choice(
           seq('*', $.integer_literal, $._additive_op, $.integer_literal),
-          seq($._shift_op, $.integer_literal),
-          seq($._additive_op, $.integer_literal),
+          seq(choice($._shift_op, $._additive_op), $.integer_literal),
         )),
       ),
     ),

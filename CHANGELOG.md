@@ -13,6 +13,8 @@
 - Added field `return_type` to `lambda_declaration`
 - Added fields `type` and `name` to `parameter`
 - Added field `name` to `var_decl`
+- Added field `return_type` to `func_typedef`
+- Added field `name` to `enum_param_declaration`
 - Removed rule `multi_declaration`
 - Removed rule `optional_type`, it's now `type` with an optional '!' token at the end
 - Renamed rule `suffix_expr` to `optional_expr`
