@@ -1,0 +1,38 @@
+{
+  "provides" : "tree_sitter_c3",
+
+  // Disable these if you don't want to link statically and uncomment "linked-libraries" below
+  "c-sources" : ["../../../src/parser.c", "../../../src/scanner.c"],
+  "c-include-dirs" : ["../../../src"],
+  "cflags" : "-O2 -fPIC",
+
+  "targets" : {
+    "linux-aarch64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "linux-riscv32" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "linux-riscv64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "linux-x86" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "linux-x64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "macos-aarch64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "macos-x64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "netbsd-x64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+    "openbsd-x64" : {
+      // "linked-libraries" : ["tree-sitter-c3"]
+    },
+  }
+}
