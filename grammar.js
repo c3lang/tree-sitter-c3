@@ -935,7 +935,7 @@ module.exports = grammar({
 
     // Compile Time Exec Statement
     // -------------------------
-    ct_exec_stmt: $ => seq('$exec', '(', commaSep($._constant_expr), ')', ';'),
+    ct_exec_stmt: $ => seq('$exec', '(', commaSep($._constant_expr), ')', optional($.attributes), ';'),
 
     // Compile Time Echo Statement
     // -------------------------
@@ -1104,18 +1104,24 @@ module.exports = grammar({
           '$is_const',
           '$sizeof',
           '$stringify',
-          $._ct_arg,
         ),
         '(', $._expr, ')'
       ),
       seq(
+        $._ct_arg,
         choice(
-          '$and',
+          seq('(', $._expr, ')'), // < 0.7.0, deprecated >= 0.6.2
+          seq('[', $._expr, ']'), // >= 0.6.2
+        ),
+      ),
+      seq(
+        choice(
           '$append',
           '$concat',
           '$defined',
           '$embed',
-          '$or',
+          '$and', // < 0.6.2
+          '$or', // < 0.6.2
         ),
         '(', commaSep($._expr), ')'
       ),
@@ -1253,6 +1259,10 @@ module.exports = grammar({
         ['>>', PREC.SHIFT],
         ['||', PREC.LOGICAL_OR],
         ['&&', PREC.LOGICAL_AND],
+        // Compile time operators
+        ['|||', PREC.LOGICAL_OR],
+        ['&&&', PREC.LOGICAL_AND],
+        ['+++', PREC.ADD],
       ];
 
       return make_binary_expr($, table);
@@ -1273,7 +1283,8 @@ module.exports = grammar({
       seq($.param_path, '=', choice($._expr, $.type)),
       $.type,
       $._expr,
-      seq('$vasplat', '(', optional($.range_expr), ')'),
+      seq('$vasplat', '(', optional($.range_expr), ')'), // < 0.7.0, deprecated >= 0.6.2
+      seq('$vasplat', optional(seq('[', $.range_expr, ']'))), // >= 0.6.2
       seq('...', $._expr),
     ),
 
@@ -1420,8 +1431,9 @@ module.exports = grammar({
       $.ct_type_ident,
       seq('$typeof', '(', $._expr, ')'),
       seq('$typefrom', '(', $._expr, ')'),
-      seq('$vatype', '(', $._expr, ')'),
       seq('$evaltype', '(', $._expr, ')'),
+      seq('$vatype', '(', $._expr, ')'), // < 0.7.0, deprecated >= 0.6.2
+      seq('$vatype', '[', $._expr, ']'), // >= 0.6.2
     )),
 
     type_suffix: $ => choice(

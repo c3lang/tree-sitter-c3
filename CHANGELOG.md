@@ -1,5 +1,11 @@
 # tree-sitter-c3 Changelog
 
+## 0.2.1
+
+### Changes
+
+- Update C3 grammar to 0.6.2
+
 ## 0.2.0
 
 ### Changes
