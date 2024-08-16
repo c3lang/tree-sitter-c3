@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-c3",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "C3 grammar for node-tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
