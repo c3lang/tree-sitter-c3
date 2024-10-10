@@ -795,9 +795,9 @@ fn void main() {
           (call_expr
             (ident)
             (call_invocation
-              (arg
+              (call_arg
                 (ident))
-              (arg
+              (call_arg
                 (lambda_expr
                   (lambda_declaration
                     (fn_parameter_list
@@ -811,9 +811,9 @@ fn void main() {
           (call_expr
             (ident)
             (call_invocation
-              (arg
+              (call_arg
                 (ident))
-              (arg
+              (call_arg
                 (lambda_declaration
                   (type
                     (base_type
@@ -1088,9 +1088,9 @@ fn void main() {
           (call_expr
             (ident)
             (call_invocation
-              (arg
+              (call_arg
                 (ident))
-              (arg
+              (call_arg
                 (ident)))))
         (expr_stmt
           (call_expr
@@ -1099,7 +1099,7 @@ fn void main() {
               (access_ident
                 (ident)))
             (call_invocation
-              (arg
+              (call_arg
                 (ident)))))
         (expr_stmt
           (call_expr
@@ -1262,7 +1262,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (string_literal
                       (string_content)
                       (escape_sequence))))))))))))
@@ -1311,7 +1311,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (string_literal
                       (string_content)
                       (escape_sequence))))))))))))
@@ -1353,7 +1353,7 @@ fn void main() {
                     (ident))
                   (ident))
                 (call_invocation
-                  (arg
+                  (call_arg
                     (string_literal
                       (string_content))))))))
         (declaration_stmt
@@ -1542,7 +1542,7 @@ fn void main() {
           (call_expr
             (ident)
             (call_invocation
-              (arg
+              (call_arg
                 (assignment_expr
                   (ident)
                   (lambda_expr
@@ -1578,3 +1578,70 @@ fn void main() {
                               (call_invocation))
                             (integer_literal)))
                         (string_literal)))))))))))))
+
+================================================================================
+Function calls
+================================================================================
+
+fn int test(int first, int second) {
+  return first + second;
+}
+
+fn void main() {
+    test(1,2);
+    test(second: 1, first: 2);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      return_type: (type
+        (base_type
+          (base_type_name)))
+      name: (ident))
+    (fn_parameter_list
+          (parameter
+            type: (type
+              (base_type
+                (base_type_name)))
+            name: (ident))
+          (parameter
+            type: (type
+              (base_type
+                (base_type_name)))
+            name: (ident)))
+    body: (macro_func_body
+      (compound_stmt
+        (return_stmt
+              (binary_expr
+                left: (ident)
+                right: (ident))))))
+  (func_definition
+        (func_header
+          return_type: (type
+            (base_type
+              (base_type_name)))
+          name: (ident))
+        (fn_parameter_list)
+        body: (macro_func_body
+          (compound_stmt
+            (expr_stmt
+              (call_expr
+                function: (ident)
+                arguments: (call_invocation
+                  (call_arg
+                    (integer_literal))
+                  (call_arg
+                    (integer_literal)))))
+            (expr_stmt
+              (call_expr
+                function: (ident)
+                arguments: (call_invocation
+                  (call_arg
+                    (ident)
+                    (integer_literal))
+                  (call_arg
+                    (ident)
+                    (integer_literal)))))))))
