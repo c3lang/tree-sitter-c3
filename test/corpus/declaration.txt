@@ -39,7 +39,7 @@ fn void main() {
                 (ident))
               ident: (ident))
             arguments: (call_invocation
-              (arg
+              (call_arg
                 (string_literal
                   (string_content)
                   (escape_sequence))))))))))

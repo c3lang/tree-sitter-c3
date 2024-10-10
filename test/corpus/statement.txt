@@ -144,7 +144,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (integer_literal)))))))
         (while_stmt
           (paren_cond
@@ -162,7 +162,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (call_expr
                       (field_expr
                         (ident)
@@ -199,7 +199,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (ident)))))))))))
 
 ================================================================================
@@ -256,7 +256,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (ident)))))))
         (for_stmt
           (for_cond
@@ -275,7 +275,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (ident)))))))
         (for_stmt
           (for_cond)
@@ -284,7 +284,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (integer_literal)))))))
         (for_stmt
           (for_cond
@@ -296,7 +296,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (integer_literal)))))))
         (for_stmt
           (for_cond
@@ -308,7 +308,7 @@ fn void main() {
               (call_expr
                 (ident)
                 (call_invocation
-                  (arg
+                  (call_arg
                     (integer_literal)))))))))))
 
 ================================================================================
@@ -349,12 +349,12 @@ fn void main() {
                     (ident))
                   (ident))
                 (call_invocation
-                  (arg
+                  (call_arg
                     (string_literal
                       (string_content)))
-                  (arg
+                  (call_arg
                     (ident))
-                  (arg
+                  (call_arg
                     (ident)))))))))))
 
 ================================================================================
@@ -611,6 +611,6 @@ fn void main() {
                       (ident))
                     (ident))
                   (call_invocation
-                    (arg
+                    (call_arg
                       (string_literal
                         (string_content)))))))))))))
