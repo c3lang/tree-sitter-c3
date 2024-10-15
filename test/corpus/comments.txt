@@ -1,0 +1,99 @@
+================================================================================
+Block comment
+================================================================================
+
+/*
+ * Testing block comment
+*/
+fn void test(int foo)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_comment
+        (block_comment_text))
+      (func_definition
+        (func_header
+          (type
+            (base_type
+              (base_type_name)))
+          (ident))
+        (fn_parameter_list
+          (parameter
+            (type
+              (base_type
+                (base_type_name)))
+            (ident)))
+        (macro_func_body
+          (compound_stmt
+            (return_stmt
+              (binary_expr
+                (ident)
+                (integer_literal)))))))
+================================================================================
+Singleline Doc comment
+================================================================================
+<* @require foo > 0 *>
+fn int test(int foo)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+        (doc_comment_text))
+      (func_definition
+        (func_header
+          (type
+            (base_type
+              (base_type_name)))
+          (ident))
+        (fn_parameter_list
+          (parameter
+            (type
+              (base_type
+                (base_type_name)))
+            (ident)))
+        (macro_func_body
+          (compound_stmt
+            (return_stmt
+              (binary_expr
+                (ident)
+                (integer_literal)))))))
+================================================================================
+Multiline Doc comment
+================================================================================
+<*
+@require foo > 0
+@ensure return < foo
+*>
+fn int test(int foo)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+        (doc_comment_text))
+      (func_definition
+        (func_header
+          (type
+            (base_type
+              (base_type_name)))
+          (ident))
+        (fn_parameter_list
+          (parameter
+            (type
+              (base_type
+                (base_type_name)))
+            (ident)))
+        (macro_func_body
+          (compound_stmt
+            (return_stmt
+              (binary_expr
+                (ident)
+                (integer_literal)))))))

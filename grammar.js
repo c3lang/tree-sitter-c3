@@ -169,9 +169,9 @@ module.exports = grammar({
     ),
 
     doc_comment: $ => seq(
-      '/**',
+      '<*',
       $.doc_comment_text,
-      '*/',
+      '*>',
     ),
 
     block_comment: $ => seq(
