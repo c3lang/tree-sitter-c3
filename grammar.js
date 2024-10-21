@@ -1280,30 +1280,22 @@ module.exports = grammar({
 
     arg: $ => choice(
       seq($.param_path),
-      seq($.param_path, '=', choice($._expr, $.type)),
-      $.type,
+      seq($.param_path, '=', $._expr),
       $._expr,
-      seq('$vasplat', '(', optional($.range_expr), ')'), // < 0.7.0, deprecated >= 0.6.2
-      seq('$vasplat', optional(seq('[', $.range_expr, ']'))), // >= 0.6.2
-      seq('...', $._expr),
     ),
 
     // Call Expression
     // -------------------------
-    call_arg_param_path_element: $ => prec(1, choice(
-      seq('[', $._expr, ']'),
-      seq('[', $._expr, '..', $._expr, ']'),
-    )),
-    call_arg_param_path: $ => repeat1($.call_arg_param_path_element),
-
     call_arg: $ => choice(
-      seq($.call_arg_param_path),
-      seq($.ident, ':', $._expr),
       $.type,
       $._expr,
-      seq('$vasplat', '(', optional($.range_expr), ')'), // < 0.7.0, deprecated >= 0.6.2
-      seq('$vasplat', optional(seq('[', $.range_expr, ']'))), // >= 0.6.2
+      // Splatting
+      seq('$vasplat', '(', optional($.range_expr), ')'), // Old syntax < 0.7.0, deprecated >= 0.6.2
+      seq('$vasplat', optional(seq('[', $.range_expr, ']'))), // New syntax >= 0.6.2
       seq('...', $._expr),
+      // Named arguments
+      seq('.', $.ident, '=', choice($._expr, $.type)), // Old syntax, deprecated >= 0.6.3
+      seq($.ident, ':', choice($._expr, $.type)), // New syntax >= 0.6.3
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),
