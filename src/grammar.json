@@ -7848,8 +7848,21 @@
               "value": "."
             },
             {
-              "type": "SYMBOL",
-              "name": "ident"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "ident"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "ct_ident"
+                  }
+                ]
+              }
             },
             {
               "type": "STRING",
@@ -7874,8 +7887,21 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "ident"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "ident"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "ct_ident"
+                  }
+                ]
+              }
             },
             {
               "type": "STRING",

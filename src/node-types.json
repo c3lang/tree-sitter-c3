@@ -2732,6 +2732,20 @@
             "named": true
           }
         ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
       }
     },
     "children": {

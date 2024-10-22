@@ -6,6 +6,7 @@
 
 - Update C3 grammar to 0.6.3
 - Added rule `call_arg`, replacing `arg` for call arguments
+- Added field `name` to `call_arg`
 
 ## 0.2.1
 

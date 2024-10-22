@@ -1294,8 +1294,8 @@ module.exports = grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))), // New syntax >= 0.6.2
       seq('...', $._expr),
       // Named arguments
-      seq('.', $.ident, '=', choice($._expr, $.type)), // Old syntax, deprecated >= 0.6.3
-      seq($.ident, ':', choice($._expr, $.type)), // New syntax >= 0.6.3
+      seq('.', field('name', choice($.ident, $.ct_ident)), '=', choice($._expr, $.type)), // Old syntax, deprecated >= 0.6.3
+      seq(field('name', choice($.ident, $.ct_ident)), ':', choice($._expr, $.type)), // New syntax >= 0.6.3
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),

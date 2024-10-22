@@ -1589,7 +1589,7 @@ fn int test(int first, int second) {
 
 fn void main() {
     test(1,2);
-    test(second: 1, first: 2);
+    test(second: 1, first: 2, $third: 3);
 }
 
 --------------------------------------------------------------------------------
@@ -1640,8 +1640,11 @@ fn void main() {
                 function: (ident)
                 arguments: (call_invocation
                   (call_arg
-                    (ident)
+                    name: (ident)
                     (integer_literal))
                   (call_arg
-                    (ident)
+                    name: (ident)
+                    (integer_literal))
+                  (call_arg
+                    name: (ct_ident)
                     (integer_literal)))))))))
