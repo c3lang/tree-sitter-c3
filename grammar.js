@@ -110,7 +110,7 @@ module.exports = grammar({
     integer_literal: _ => {
       return token(seq(
         choice(
-          seq(INT),
+          INT,
           seq(/0[xX]/, HINT),
           seq(/0[oO]/, OINT),
           seq(/0[bB]/, BINT),
