@@ -203,19 +203,19 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
+    path_type_ident: $ => seq(optional($._module_path), $.type_ident),
+    path_const_ident: $ => seq(optional($._module_path), $.const_ident),
+    path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
     define_path_ident: $ => seq(
       optional($._module_path),
-      optional(seq($.type_ident,'.')),
+      optional(seq($.type_ident, '.')),
       $.ident,
     ),
     define_path_at_ident: $ => seq(
       optional($._module_path),
-      optional(seq($.type_ident,'.')),
-      $.at_ident
+      optional(seq($.type_ident, '.')),
+      $.at_ident,
     ),
-    path_type_ident: $ => seq(optional($._module_path), $.type_ident),
-    path_const_ident: $ => seq(optional($._module_path), $.const_ident),
-    path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
 
     // Generic Parameters
     // -------------------------

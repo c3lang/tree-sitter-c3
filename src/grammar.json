@@ -625,27 +625,6 @@
         }
       ]
     },
-    "path_at_ident": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_module_path"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "at_ident"
-        }
-      ]
-    },
     "path_at_type_ident": {
       "type": "SEQ",
       "members": [
@@ -664,6 +643,90 @@
         {
           "type": "SYMBOL",
           "name": "at_type_ident"
+        }
+      ]
+    },
+    "define_path_ident": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_module_path"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "type_ident"
+                },
+                {
+                  "type": "STRING",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ident"
+        }
+      ]
+    },
+    "define_path_at_ident": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_module_path"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "type_ident"
+                },
+                {
+                  "type": "STRING",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "at_ident"
         }
       ]
     },
@@ -1779,7 +1842,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "path_ident"
+                  "name": "define_path_ident"
                 }
               ]
             },
@@ -1813,7 +1876,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "path_at_ident"
+                  "name": "define_path_at_ident"
                 }
               ]
             }
