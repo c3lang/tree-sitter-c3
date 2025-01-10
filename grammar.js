@@ -107,17 +107,15 @@ module.exports = grammar({
 
     // Literals
     // -------------------------
-    integer_literal: _ => {
-      return token(seq(
-        choice(
-          seq(INT),
-          seq(/0[xX]/, HINT),
-          seq(/0[oO]/, OINT),
-          seq(/0[bB]/, BINT),
-        ),
-        optional(INTTYPE),
-      ));
-    },
+    integer_literal: _ => token(seq(
+      choice(
+        INT,
+        seq(/0[xX]/, HINT),
+        seq(/0[oO]/, OINT),
+        seq(/0[bB]/, BINT),
+      ),
+      optional(INTTYPE),
+    )),
 
     escape_sequence: _ => token(prec(1, seq(
       '\\',
