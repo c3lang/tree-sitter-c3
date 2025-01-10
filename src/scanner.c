@@ -44,15 +44,29 @@ static bool scan_block_comment(TSLexer *lexer) {
   return false;
 }
 
+static bool is_whitespace(int32_t c) {
+  return c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f' || c == '\v';
+}
+
 static bool scan_doc_comment(TSLexer *lexer) {
   // We stop at EOF or when we find the closing tag `*>`
+  int32_t prev_c = '\n';
+  bool has_docs_text = false;
   while(true) {
     if (lexer->eof(lexer)) {
       lexer->mark_end(lexer);
       return false;
     }
 
-    if (lexer->lookahead == '*') {
+    int32_t c = lexer->lookahead;
+    if(c == '@') {
+      if(prev_c == '\n') {
+        if (has_docs_text) lexer->mark_end(lexer);
+        return true;
+       }
+      lexer->advance(lexer, false);
+    }
+    else if (c == '*') {
       lexer->mark_end(lexer);
       lexer->advance(lexer, false);
       if (lexer->lookahead == '>') {
@@ -62,12 +76,12 @@ static bool scan_doc_comment(TSLexer *lexer) {
     } else {
       lexer->advance(lexer, false);
     }
+    if(!is_whitespace(c)) {
+        prev_c = c;
+        has_docs_text = true;
+    }
   }
   return false;
-}
-
-static bool is_whitespace(int32_t c) {
-  return c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f' || c == '\v';
 }
 
 static bool is_digit(int32_t c) {
@@ -247,9 +261,13 @@ static bool scan_real_literal(TSLexer *lexer) {
 
 bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
                                           const bool *valid_symbols) {
-  if (valid_symbols[DOC_COMMENT_TEXT] && scan_doc_comment(lexer)) {
-    lexer->result_symbol = DOC_COMMENT_TEXT;
-    return true;
+  if (valid_symbols[DOC_COMMENT_TEXT]){
+    if(scan_doc_comment(lexer)) {
+        lexer->result_symbol = DOC_COMMENT_TEXT;
+        return true;
+    } else {
+        return false;
+    }
   }
   if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment(lexer)) {
     lexer->result_symbol = BLOCK_COMMENT_TEXT;
