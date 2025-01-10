@@ -1,9 +1,6 @@
 #!/bin/sh
 
-LSOF_PATHS=$(lsof -p $$ -Fn0 2>/dev/null | tail -1);
-SCRIPT_PATH=${LSOF_PATHS#n};
-SCRIPT_DIR=$(dirname $SCRIPT_PATH);
-
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd $SCRIPT_DIR;
 
 LIB_NAME="libtree-sitter-c3";
@@ -17,7 +14,7 @@ usage()
 	echo "Usage: $0 [option]..."
 	echo "  options:"
 	echo "    -n, --name=NAME  library output prefix name. "
-	echo "                       default: 'libtree-sitter-c3'"
+	echo "                       default: '$LIB_NAME'"
 	echo "    -s, --shared,    building shared library."
 	echo "                       if neither --shared and --static are provided"
 	echo "                       default: true"
@@ -48,23 +45,29 @@ done
 
 build_aborted()
 {
-	printf "Build aborted.\n";
+	echo "Build aborted.";
 	exit 1;
 }
 
-[ -z "$LIB_NAME" ] && (printf "--name is not valid!\n"; build_aborted);
+if [ -z "$LIB_NAME" ]; then
+  echo "--name is not valid!";
+  build_aborted;
+fi
 
 create_build_dir()
 {
 	mkdir "$SCRIPT_DIR/build";
-	[ $? -ne 0 ] && (printf "Directory creation failed!\n"; build_aborted);
+	if [ $? -ne 0 ]; then
+	  echo "Directory creation failed!";
+	  build_aborted;
+	fi
 }
 
 if [ ! -d "$SCRIPT_DIR/build" ] ; then
 	if [ "$AUTO_YES" = true ] ; then
 		create_build_dir;
 	else
-		printf "Directory '%s' doesn't exists!\n%s" \
+		printf "Directory '%s' doesn't exist!\n%s" \
 			"$SCRIPT_DIR/build" \
 			"Create the directory? (y/n) [y]:"
 		read RES;
@@ -93,11 +96,11 @@ fi
 if [ "$LIB_STATIC" = true ] ; then
 	echo "Building $LIB_NAME static lib in '$SCRIPT_DIR/build/$LIB_NAME.a"
 	# tree-sitter build -o ./build/$LIB_NAME.a;
-	cc -c -fPIC -fno-exceptions -O2 -static-libgcc -I ./src \
+	cc -c -fPIC -fno-exceptions -O2 -I ./src \
 		-o ./build/parser.o -xc ./src/parser.c
 	[ $? -ne 0 ] && build_aborted;
 
-	cc -c -fPIC -fno-exceptions -O2 -static-libgcc -I ./src \
+	cc -c -fPIC -fno-exceptions -O2 -I ./src \
 		-o ./build/scanner.o -xc ./src/scanner.c
 	[ $? -ne 0 ] && build_aborted;
 
@@ -106,10 +109,5 @@ if [ "$LIB_STATIC" = true ] ; then
 	ar rcs ./build/$LIB_NAME.a ./build/parser.o ./build/scanner.o
 	[ $? -ne 0 ] && build_aborted;
 
-	rm ./build/*.o
+	rm ./build/parser.o ./build/scanner.o
 fi
-
-#cc -shared -fPIC -fno-exceptions -O2 -static-libgcc -I ./src \
-#	-xc ./src/parser.c ./src/scanner.c -o ./build/libtree-sitter-c3.so
-
-

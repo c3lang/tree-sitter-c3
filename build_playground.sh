@@ -1,9 +1,6 @@
 #!/bin/sh
 
-LSOF_PATHS=$(lsof -p $$ -Fn0 2>/dev/null | tail -1);
-SCRIPT_PATH=${LSOF_PATHS#n};
-SCRIPT_DIR=$(dirname $SCRIPT_PATH);
-
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd $SCRIPT_DIR
 
 EMS_PATH=/usr/lib/emscripten;
@@ -15,7 +12,7 @@ usage()
 	echo "Usage: $0 [option]..."
 	echo "  options:"
 	echo "    -e, --emscripten-path=LIB_PATH  emscripten lib path."
-	echo "                                    default: '/usr/lib/emscripten'"
+	echo "                                    default: '$EMS_PATH'"
 	echo "    -d, --docker                    run emscripten via docker even"
 	echo "                                    if it is installed locally."
 	echo "    -h, --help,                     show help.";
@@ -40,7 +37,7 @@ done
 
 build_aborted()
 {
-	printf "Build aborted.\n";
+	echo "Build aborted.";
 	exit 1;
 }
 
