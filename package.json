@@ -44,10 +44,15 @@
   },
   "tree-sitter": [
     {
+      "scope": "source.c3",
       "file-types": [
         "c3",
         "c3i",
         "c3t"
+      ],
+      "injection-regex": "^c3$",
+      "highlights": [
+        "queries/highlights.scm"
       ]
     }
   ]
