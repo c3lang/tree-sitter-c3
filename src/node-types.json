@@ -6695,6 +6695,14 @@
           "named": true
         },
         {
+          "type": "define_path_at_ident",
+          "named": true
+        },
+        {
+          "type": "define_path_ident",
+          "named": true
+        },
+        {
           "type": "generic_arguments",
           "named": true
         },
@@ -6703,15 +6711,53 @@
           "named": true
         },
         {
-          "type": "path_at_ident",
-          "named": true
-        },
-        {
           "type": "path_const_ident",
           "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define_path_at_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "at_ident",
+          "named": true
         },
         {
-          "type": "path_ident",
+          "type": "module_resolution",
+          "named": true
+        },
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define_path_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "module_resolution",
+          "named": true
+        },
+        {
+          "type": "type_ident",
           "named": true
         }
       ]
@@ -12529,25 +12575,6 @@
         },
         {
           "type": "update_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "path_at_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "module_resolution",
           "named": true
         }
       ]

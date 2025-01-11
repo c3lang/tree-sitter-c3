@@ -89,6 +89,10 @@ def FooFloat2 = Foo(<float, double>);
 def testFloat = foo_test::test(<float, double>);
 def Callback = fn int(char* text, int value);
 def PI = std::math::PI;
+def isTest = Test.is_test;
+def isTest2 = bar::Test.is_test;
+def @isTest = Test.@is_test;
+def @isTest2 = bar::Test.@is_test;
 
 --------------------------------------------------------------------------------
 
@@ -116,12 +120,12 @@ def PI = std::math::PI;
   (define_declaration
     (define_ident
       (ident)
-      (path_ident
+      (define_path_ident
         (ident))))
   (define_declaration
     (define_ident
       (ident)
-      (path_ident
+      (define_path_ident
         (ident))))
   (define_declaration
     (type_ident)
@@ -177,7 +181,7 @@ def PI = std::math::PI;
   (define_declaration
     (define_ident
       (ident)
-      (path_ident
+      (define_path_ident
         (module_resolution
           (ident))
         (ident))
@@ -215,7 +219,35 @@ def PI = std::math::PI;
           (ident))
         (module_resolution
           (ident))
-        (const_ident)))))
+        (const_ident))))
+      (define_declaration
+        (define_ident
+          (ident)
+          (define_path_ident
+            (type_ident)
+            (ident))))
+      (define_declaration
+        (define_ident
+          (ident)
+          (define_path_ident
+            (module_resolution
+              (ident))
+            (type_ident)
+            (ident))))
+      (define_declaration
+        (define_ident
+          (at_ident)
+          (define_path_at_ident
+            (type_ident)
+            (at_ident))))
+      (define_declaration
+        (define_ident
+          (at_ident)
+          (define_path_at_ident
+            (module_resolution
+              (ident))
+            (type_ident)
+            (at_ident)))))
 
 ================================================================================
 Function declarations

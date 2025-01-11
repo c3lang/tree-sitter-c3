@@ -26,11 +26,12 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter/tree-sitter-c3"
+      "repository": "https://github.com/c3lang/tree-sitter-c3"
     }
   },
   "bindings": {
     "c": true,
+    "c3": true,
     "go": true,
     "node": true,
     "python": true,

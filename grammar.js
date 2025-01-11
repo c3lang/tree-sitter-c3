@@ -110,17 +110,15 @@ module.exports = grammar({
 
     // Literals
     // -------------------------
-    integer_literal: _ => {
-      return token(seq(
-        choice(
-          seq(INT),
-          seq(/0[xX]/, HINT),
-          seq(/0[oO]/, OINT),
-          seq(/0[bB]/, BINT),
-        ),
-        optional(INTTYPE),
-      ));
-    },
+    integer_literal: _ => token(seq(
+      choice(
+        INT,
+        seq(/0[xX]/, HINT),
+        seq(/0[oO]/, OINT),
+        seq(/0[bB]/, BINT),
+      ),
+      optional(INTTYPE),
+    )),
 
     escape_sequence: _ => token(prec(1, seq(
       '\\',
@@ -215,8 +213,17 @@ module.exports = grammar({
     path_ident: $ => seq(optional($._module_path), $.ident),
     path_type_ident: $ => seq(optional($._module_path), $.type_ident),
     path_const_ident: $ => seq(optional($._module_path), $.const_ident),
-    path_at_ident: $ => seq(optional($._module_path), $.at_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
+    define_path_ident: $ => seq(
+      optional($._module_path),
+      optional(seq($.type_ident, '.')),
+      $.ident,
+    ),
+    define_path_at_ident: $ => seq(
+      optional($._module_path),
+      optional(seq($.type_ident, '.')),
+      $.at_ident,
+    ),
 
     // Generic Parameters
     // -------------------------
@@ -364,9 +371,9 @@ module.exports = grammar({
     ),
     define_ident: $ => seq(
       choice(
-        seq($.ident, '=', $.path_ident),
+        seq($.ident, '=', $.define_path_ident),
         seq($.const_ident, '=', $.path_const_ident),
-        seq($.at_ident, '=', $.path_at_ident),
+        seq($.at_ident, '=', $.define_path_at_ident),
       ),
       optional($.generic_arguments),
     ),
