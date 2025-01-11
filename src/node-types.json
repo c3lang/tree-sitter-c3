@@ -6786,11 +6786,34 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "doc_comment_contract",
+          "named": true
+        },
+        {
           "type": "doc_comment_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doc_comment_contract",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "doc_comment_contract_text",
           "named": true
         }
       ]
@@ -13664,6 +13687,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -17657,6 +17681,10 @@
   {
     "type": "do",
     "named": false
+  },
+  {
+    "type": "doc_comment_contract_text",
+    "named": true
   },
   {
     "type": "doc_comment_text",

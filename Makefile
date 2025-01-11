@@ -84,7 +84,9 @@ $(LANGUAGE_NAME).pc: bindings/c/$(LANGUAGE_NAME).pc.in
 		-e 's|@PREFIX@|$(PREFIX)|' $< > $@
 
 $(PARSER): $(SRC_DIR)/grammar.json
-	$(TS) generate --no-bindings $^
+
+$(SRC_DIR)/grammar.json:
+	$(TS) generate --no-bindings
 
 install: all
 	install -d '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter '$(DESTDIR)$(PCLIBDIR)' '$(DESTDIR)$(LIBDIR)'
@@ -106,6 +108,8 @@ uninstall:
 clean:
 	$(RM) $(OBJS) $(LANGUAGE_NAME).pc lib$(LANGUAGE_NAME).a lib$(LANGUAGE_NAME).$(SOEXT)
 
+clean-all:
+	$(RM) $(SRC_DIR)/grammar.json $(OBJS) $(LANGUAGE_NAME).pc lib$(LANGUAGE_NAME).a lib$(LANGUAGE_NAME).$(SOEXT)
 test:
 	$(TS) test
 

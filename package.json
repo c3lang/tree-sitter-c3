@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-c3",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "C3 grammar for node-tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
@@ -41,19 +41,5 @@
     "test-windows": "tree-sitter test",
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
-  },
-  "tree-sitter": [
-    {
-      "scope": "source.c3",
-      "file-types": [
-        "c3",
-        "c3i",
-        "c3t"
-      ],
-      "injection-regex": "^c3$",
-      "highlights": [
-        "queries/highlights.scm"
-      ]
-    }
-  ]
+  }
 }

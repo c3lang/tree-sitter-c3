@@ -4,6 +4,7 @@ enum TokenType {
   BLOCK_COMMENT_TEXT,
   DOC_COMMENT_TEXT,
   REAL_LITERAL,
+  DOC_COMMENT_CONTRACT_TEXT,
 };
 
 void *tree_sitter_c3_external_scanner_create() { return NULL; }
@@ -64,6 +65,40 @@ static bool scan_doc_comment(TSLexer *lexer) {
         if (has_docs_text) lexer->mark_end(lexer);
         return true;
        }
+    }
+    else if (c == '*') {
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '>') {
+        lexer->advance(lexer, false);
+        return true;
+      }
+    }
+    if(!is_whitespace(c) ) {
+        has_docs_text = true;
+        prev_c = c;
+    } else if (c == '\n'){
+        prev_c = c;
+    }
+    lexer->advance(lexer, false);
+  }
+  return false;
+}
+
+static bool scan_doc_contract(TSLexer *lexer) {
+  // We stop at EOF or when we find the closing tag `*>`
+  while(true) {
+    if (lexer->eof(lexer)) {
+      lexer->mark_end(lexer);
+      return false;
+    }
+    int32_t c = lexer->lookahead;
+    if(c == '\n') {
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      return true;
+    }
+    else if(is_whitespace(c)) {
       lexer->advance(lexer, false);
     }
     else if (c == '*') {
@@ -73,13 +108,8 @@ static bool scan_doc_comment(TSLexer *lexer) {
         lexer->advance(lexer, false);
         return true;
       }
-    } else {
-      lexer->advance(lexer, false);
     }
-    if(!is_whitespace(c)) {
-        prev_c = c;
-        has_docs_text = true;
-    }
+    lexer->advance(lexer, false);
   }
   return false;
 }
@@ -264,6 +294,15 @@ bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
   if (valid_symbols[DOC_COMMENT_TEXT]){
     if(scan_doc_comment(lexer)) {
         lexer->result_symbol = DOC_COMMENT_TEXT;
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+  if (valid_symbols[DOC_COMMENT_CONTRACT_TEXT]){
+    if(scan_doc_contract(lexer)) {
+        lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
         return true;
     } else {
         return false;

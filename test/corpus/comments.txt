@@ -189,7 +189,7 @@ fn int test(int a, int b)
 ================================================================================
 Require Doc single line
 ================================================================================
-<* @requre foo == 0 *>
+<*@requre foo == 0*>
 fn int test(int a, int b)
 {
   return foo - 1;
@@ -202,6 +202,137 @@ fn int test(int a, int b)
     (doc_comment_contract
           (at_ident)
           (doc_comment_contract_text))
+  )
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+                      (ident))
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+        (ident)))
+    (macro_func_body
+      (compound_stmt
+        (return_stmt
+          (binary_expr
+            (ident)
+            (integer_literal)))))))
+================================================================================
+Doc compound
+================================================================================
+<*
+A document
+@param foo "text"
+@param [&in] bar `text`
+*>
+fn int test(int a, int b)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (doc_comment_text)
+    (doc_comment_contract
+          (at_ident)
+          (doc_comment_contract_text))
+    (doc_comment_contract
+          (at_ident)
+          (doc_comment_contract_text))
+  )
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+                      (ident))
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+        (ident)))
+    (macro_func_body
+      (compound_stmt
+        (return_stmt
+          (binary_expr
+            (ident)
+            (integer_literal)))))))
+================================================================================
+Doc @ inside doc
+================================================================================
+<*
+A document @param -- must be ignored
+@param foo "text"
+@param [&in] bar `text`
+*>
+fn int test(int a, int b)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (doc_comment_text)
+    (doc_comment_contract
+          (at_ident)
+          (doc_comment_contract_text))
+    (doc_comment_contract
+          (at_ident)
+          (doc_comment_contract_text))
+  )
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+                      (ident))
+      (parameter
+        (type
+          (base_type
+            (base_type_name)))
+        (ident)))
+    (macro_func_body
+      (compound_stmt
+        (return_stmt
+          (binary_expr
+            (ident)
+            (integer_literal)))))))
+================================================================================
+Empty doc
+================================================================================
+<**>
+fn int test(int a, int b)
+{
+  return foo - 1;
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (doc_comment_text)
   )
   (func_definition
     (func_header

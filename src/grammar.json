@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "c3",
   "word": "ident",
   "rules": {
@@ -375,6 +376,19 @@
         }
       ]
     },
+    "doc_comment_contract": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "at_ident"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "doc_comment_contract_text"
+        }
+      ]
+    },
     "doc_comment": {
       "type": "SEQ",
       "members": [
@@ -385,6 +399,13 @@
         {
           "type": "SYMBOL",
           "name": "doc_comment_text"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "doc_comment_contract"
+          }
         },
         {
           "type": "STRING",
@@ -8950,6 +8971,10 @@
     {
       "type": "SYMBOL",
       "name": "real_literal"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "doc_comment_contract_text"
     }
   ],
   "inline": [
@@ -8962,4 +8987,3 @@
   ],
   "supertypes": []
 }
-
