@@ -320,4 +320,9 @@
   (block_comment)
 ] @comment @spell
 
-(doc_comment) @comment.documentation @spell
+(doc_comment_text) @comment.documentation @spell
+(doc_comment_contract_text) @comment.documentation @spell
+
+(doc_comment (doc_comment_contract (at_ident) @keyword (#any-of? @keyword
+        "@require"
+        "@ensure")))

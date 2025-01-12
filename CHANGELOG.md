@@ -1,5 +1,12 @@
 # tree-sitter-c3 Changelog
 
+## 0.2.3
+
+### Changes
+
+- Added rule for doc comment contracts
+- Added highlighting for @require / @ensure / @deprecated contracts
+
 ## 0.2.2
 
 ### Changes
