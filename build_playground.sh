@@ -51,4 +51,5 @@ else
 	[ $? -ne 0 ] && build_aborted;
 fi
 
+exit 0;
 

@@ -88,8 +88,8 @@ module.exports = grammar({
   externals: $ => [
     $.block_comment_text,
     $.doc_comment_text,
+    $.doc_comment_contract_text,
     $.real_literal,
-    $.doc_comment_contract_text
   ],
 
   inline: $ => [
@@ -171,17 +171,18 @@ module.exports = grammar({
 
     // Doc comments and contracts
     // -------------------------
-    // NOTE: parsed by scanner.c (scan_doc_contract_text)
+    // NOTE parsed by scanner.c (scan_doc_contract_text)
     doc_comment_contract: $ => seq($.at_ident, $.doc_comment_contract_text),
     doc_comment: $ => seq(
       '<*',
-      $.doc_comment_text, // NOTE: parsed by scanner.c (scan_doc_comment)
+      optional($.doc_comment_text), // NOTE parsed by scanner.c (scan_doc_comment)
       repeat($.doc_comment_contract),
       '*>',
     ),
 
     block_comment: $ => seq(
       '/*',
+      // NOTE parsed by scanner.c (scan_block_comment)
       $.block_comment_text,
       '*/',
     ),

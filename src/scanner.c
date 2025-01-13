@@ -3,8 +3,8 @@
 enum TokenType {
   BLOCK_COMMENT_TEXT,
   DOC_COMMENT_TEXT,
-  REAL_LITERAL,
   DOC_COMMENT_CONTRACT_TEXT,
+  REAL_LITERAL,
 };
 
 void *tree_sitter_c3_external_scanner_create() { return NULL; }
@@ -50,66 +50,64 @@ static bool is_whitespace(int32_t c) {
 }
 
 static bool scan_doc_comment(TSLexer *lexer) {
-  // We stop at EOF or when we find the closing tag `*>`
+  // We stop at EOF, '@' or '*>'
   int32_t prev_c = '\n';
   bool has_docs_text = false;
-  while(true) {
+  while (true) {
     if (lexer->eof(lexer)) {
       lexer->mark_end(lexer);
       return false;
     }
 
     int32_t c = lexer->lookahead;
-    if(c == '@') {
-      if(prev_c == '\n') {
-        if (has_docs_text) lexer->mark_end(lexer);
-        return true;
-       }
-    }
-    else if (c == '*') {
-      lexer->mark_end(lexer);
+    if (c == '@' && prev_c == '\n') {
+      return has_docs_text;
+    } else if (c == '*') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '>') {
-        lexer->advance(lexer, false);
-        return true;
+        return has_docs_text;
       }
     }
-    if(!is_whitespace(c) ) {
-        has_docs_text = true;
-        prev_c = c;
-    } else if (c == '\n'){
-        prev_c = c;
+    bool whitespace = is_whitespace(c);
+    bool skip = !has_docs_text && whitespace;
+    lexer->advance(lexer, skip);
+    if (!whitespace) {
+      lexer->mark_end(lexer);
+      has_docs_text = true;
+      prev_c = c;
+    } else if (c == '\n') {
+      prev_c = c;
     }
-    lexer->advance(lexer, false);
   }
   return false;
 }
 
 static bool scan_doc_contract(TSLexer *lexer) {
-  // We stop at EOF or when we find the closing tag `*>`
-  while(true) {
+  // We stop at EOF, newline or '*>'
+  bool has_text = false;
+  while (true) {
     if (lexer->eof(lexer)) {
       lexer->mark_end(lexer);
       return false;
     }
     int32_t c = lexer->lookahead;
-    if(c == '\n') {
-      lexer->mark_end(lexer);
+    if (c == '\n') {
       lexer->advance(lexer, false);
       return true;
-    }
-    else if(is_whitespace(c)) {
-      lexer->advance(lexer, false);
-    }
-    else if (c == '*') {
-      lexer->mark_end(lexer);
+    } else if (c == '*') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '>') {
         lexer->advance(lexer, false);
         return true;
       }
     }
-    lexer->advance(lexer, false);
+    bool whitespace = is_whitespace(c);
+    bool skip = !has_text && whitespace;
+    lexer->advance(lexer, skip);
+    if (!whitespace) {
+      has_text = true;
+      lexer->mark_end(lexer);
+    }
   }
   return false;
 }
@@ -293,19 +291,19 @@ bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
                                           const bool *valid_symbols) {
   if (valid_symbols[DOC_COMMENT_TEXT]){
     if(scan_doc_comment(lexer)) {
-        lexer->result_symbol = DOC_COMMENT_TEXT;
-        return true;
+      lexer->result_symbol = DOC_COMMENT_TEXT;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 
   if (valid_symbols[DOC_COMMENT_CONTRACT_TEXT]){
     if(scan_doc_contract(lexer)) {
-        lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
-        return true;
+      lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
   if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment(lexer)) {

@@ -392,8 +392,16 @@
           "value": "<*"
         },
         {
-          "type": "SYMBOL",
-          "name": "doc_comment_text"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "doc_comment_text"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "REPEAT",
@@ -9028,11 +9036,11 @@
     },
     {
       "type": "SYMBOL",
-      "name": "real_literal"
+      "name": "doc_comment_contract_text"
     },
     {
       "type": "SYMBOL",
-      "name": "doc_comment_contract_text"
+      "name": "real_literal"
     }
   ],
   "inline": [

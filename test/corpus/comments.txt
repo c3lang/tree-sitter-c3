@@ -4,65 +4,26 @@ Block comment
 
 /*
  * Testing block comment
-*/
-fn void test(int foo)
-{
-  return foo - 1;
-}
+ */
+
 --------------------------------------------------------------------------------
 
 (source_file
   (block_comment
-        (block_comment_text))
-      (func_definition
-        (func_header
-          (type
-            (base_type
-              (base_type_name)))
-          (ident))
-        (fn_parameter_list
-          (parameter
-            (type
-              (base_type
-                (base_type_name)))
-            (ident)))
-        (macro_func_body
-          (compound_stmt
-            (return_stmt
-              (binary_expr
-                (ident)
-                (integer_literal)))))))
+    (block_comment_text)))
+
+
 ================================================================================
 Singleline Doc comment
 ================================================================================
 <* Single doc text *>
-fn int test(int foo)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
-        (doc_comment_text))
-      (func_definition
-        (func_header
-          (type
-            (base_type
-              (base_type_name)))
-          (ident))
-        (fn_parameter_list
-          (parameter
-            (type
-              (base_type
-                (base_type_name)))
-            (ident)))
-        (macro_func_body
-          (compound_stmt
-            (return_stmt
-              (binary_expr
-                (ident)
-                (integer_literal)))))))
+    (doc_comment_text)))
+
 ================================================================================
 Multiline Doc comment
 ================================================================================
@@ -70,290 +31,139 @@ Multiline Doc comment
 Multiple line doc
 Another line
 *>
-fn int test(int foo)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
-        (doc_comment_text))
-      (func_definition
-        (func_header
-          (type
-            (base_type
-              (base_type_name)))
-          (ident))
-        (fn_parameter_list
-          (parameter
-            (type
-              (base_type
-                (base_type_name)))
-            (ident)))
-        (macro_func_body
-          (compound_stmt
-            (return_stmt
-              (binary_expr
-                (ident)
-                (integer_literal)))))))
+    (doc_comment_text)))
+
+
 ================================================================================
 Param Doc comment
 ================================================================================
 <*
-@param foo "text"
+ @param foo "text"
 *>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
-    (doc_comment_text)
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+      (at_ident)
+      (doc_comment_contract_text))))
+
 ================================================================================
 Param Doc 2 comments
 ================================================================================
 <*
-@param foo "text"
-@param [&in] bar `text`
+ @param foo "text"
+ @param [&in] bar `text`
 *>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
-    (doc_comment_text)
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
+      (at_ident)
+      (doc_comment_contract_text))
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+      (at_ident)
+      (doc_comment_contract_text))))
 
 ================================================================================
 Require Doc single line
 ================================================================================
-<*@requre foo == 0*>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+<* @require foo == 0 *>
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
-    (doc_comment_text)
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+      (at_ident)
+      (doc_comment_contract_text))))
+
+
 ================================================================================
 Doc compound
 ================================================================================
 <*
-A document
-@param foo "text"
-@param [&in] bar `text`
+ A document
+ @param foo "text"
+ @param [&in] bar `text`
 *>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
     (doc_comment_text)
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
+      (at_ident)
+      (doc_comment_contract_text))
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+      (at_ident)
+      (doc_comment_contract_text))))
+
+================================================================================
+Doc compound 2
+================================================================================
+<* A document
+  @require foo == 0 *>
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (doc_comment_text)
+    (doc_comment_contract
+      (at_ident)
+      (doc_comment_contract_text))))
+
 ================================================================================
 Doc @ inside doc
 ================================================================================
 <*
-A document @param -- must be ignored
-@param foo "text"
-@param [&in] bar `text`
+ A document @param -- must be ignored
+   also @this
+ @param foo "text"
+ @param [&in] bar `text`
 *>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
   (doc_comment
     (doc_comment_text)
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
+      (at_ident)
+      (doc_comment_contract_text))
     (doc_comment_contract
-          (at_ident)
-          (doc_comment_contract_text))
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+      (at_ident)
+      (doc_comment_contract_text))))
+
+
 ================================================================================
 Empty doc
 ================================================================================
 <**>
-fn int test(int a, int b)
-{
-  return foo - 1;
-}
+
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)
-  )
-  (func_definition
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-                      (ident))
-      (parameter
-        (type
-          (base_type
-            (base_type_name)))
-        (ident)))
-    (macro_func_body
-      (compound_stmt
-        (return_stmt
-          (binary_expr
-            (ident)
-            (integer_literal)))))))
+  (doc_comment))
+
+================================================================================
+Error doc
+:error
+================================================================================
+<*
+ Hello
+ @require a != 0
+ More text?
+*>
+
+--------------------------------------------------------------------------------
