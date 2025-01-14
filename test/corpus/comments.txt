@@ -167,3 +167,13 @@ Error doc
 *>
 
 --------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (ERROR
+      (doc_comment_text)
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_text))
+      (const_ident))
+    (doc_comment_text)))

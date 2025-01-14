@@ -320,6 +320,7 @@
   (block_comment)
 ] @comment @spell
 
+(doc_comment ["<*" "*>"] @comment.documentation @spell)
 (doc_comment_text) @comment.documentation @spell
 (doc_comment_contract_text) @comment.documentation @spell
 
