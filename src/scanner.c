@@ -68,10 +68,9 @@ static bool scan_doc_comment(TSLexer *lexer) {
         return has_docs_text;
       }
     }
-    bool whitespace = is_whitespace(c);
-    bool skip = !has_docs_text && whitespace;
-    lexer->advance(lexer, skip);
-    if (!whitespace) {
+
+    lexer->advance(lexer, false);
+    if (!is_whitespace(c)) {
       lexer->mark_end(lexer);
       has_docs_text = true;
       prev_c = c;
@@ -84,12 +83,12 @@ static bool scan_doc_comment(TSLexer *lexer) {
 
 static bool scan_doc_contract(TSLexer *lexer) {
   // We stop at EOF, newline or '*>'
-  bool has_text = false;
   while (true) {
     if (lexer->eof(lexer)) {
       lexer->mark_end(lexer);
       return false;
     }
+
     int32_t c = lexer->lookahead;
     if (c == '\n') {
       lexer->advance(lexer, false);
@@ -101,11 +100,9 @@ static bool scan_doc_contract(TSLexer *lexer) {
         return true;
       }
     }
-    bool whitespace = is_whitespace(c);
-    bool skip = !has_text && whitespace;
-    lexer->advance(lexer, skip);
-    if (!whitespace) {
-      has_text = true;
+
+    lexer->advance(lexer, false);
+    if (!is_whitespace(c)) {
       lexer->mark_end(lexer);
     }
   }
@@ -289,30 +286,24 @@ static bool scan_real_literal(TSLexer *lexer) {
 
 bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
                                           const bool *valid_symbols) {
-  if (valid_symbols[DOC_COMMENT_TEXT]){
-    if(scan_doc_comment(lexer)) {
-      lexer->result_symbol = DOC_COMMENT_TEXT;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  if (valid_symbols[DOC_COMMENT_CONTRACT_TEXT]){
-    if(scan_doc_contract(lexer)) {
-      lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
-      return true;
-    } else {
-      return false;
-    }
-  }
   if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment(lexer)) {
     lexer->result_symbol = BLOCK_COMMENT_TEXT;
     return true;
   }
 
+  // Consume all whitespace
   while (is_whitespace(lexer->lookahead)) {
     lexer->advance(lexer, true);
+  }
+
+  if (valid_symbols[DOC_COMMENT_TEXT] && scan_doc_comment(lexer)) {
+    lexer->result_symbol = DOC_COMMENT_TEXT;
+    return true;
+  }
+
+  if (valid_symbols[DOC_COMMENT_CONTRACT_TEXT] && scan_doc_contract(lexer)) {
+    lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
+    return true;
   }
 
   if (valid_symbols[REAL_LITERAL] && scan_real_literal(lexer)) {
