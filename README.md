@@ -38,3 +38,38 @@ parser_config.c3 = {
 ```
 3) Run `:TSInstall c3`
 4) Follow the steps for [adding queries](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#adding-queries) to install `queries/highlights.scm`. <br>For example, copy `tree-sitter-c3/queries/*` to `~/.config/nvim/queries/c3/` (replace `~/.config/nvim` with your runtime path), such that you end up with the highlights file at `~/.config/nvim/queries/c3/highlights.scm`.
+
+### Helix
+Right now there is a proposal for [adding c3 language support](https://github.com/helix-editor/helix/pull/11521), but there is still no support.
+To get started with c3 in helix editor:
+1) Add this to `languages.toml`:
+```toml
+  [[grammar]]
+  name = "c3"
+  [grammar.source]
+  git = "https://github.com/c3lang/tree-sitter-c3.git"
+  rev = "main"
+
+  [[language]]
+  name = "c3"
+  scope = "source.c3"
+  file-types = ["c3", "c3i"]
+  roots = ["project.json"]
+  comment-token = "//"
+  language-servers = ["c3-lsp"] #if you want LSP support
+  [language.block-comment-tokens]
+  end = "*/"
+  start = "/*"
+
+  #LSP support
+  [language-server.c3-lsp]
+  command = "c3-lsp"
+```
+2) Run `hx -g fetch`, which will fetch all the grammars (you can exclude grammars with `use-grammars.only` or `use-grammars.except` in `languages.toml`).
+3) Run `hx -g build` (you need to have `gcc`/`clang` installed on your system and possibly `gnumake`).
+4) Add queries from `$XDG_CONFIG_HOME/helix/runtime/grammars/sources/c3/queries` to `$XDG_CONFIG_HOME/helix/runtime/queries/c3`:
+```bash
+  mkdir $XDG_CONFIG_HOME/helix/runtime/queries
+  cp -r $XDG_CONFIG_HOME/helix/runtime/grammars/sources/c3/queries $XDG_CONFIG_HOME/helix/runtime/queries/c3
+```
+5) Now you can write `c3` in Helix Editor with highlighting and LSP support!
