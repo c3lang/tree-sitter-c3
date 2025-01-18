@@ -520,11 +520,7 @@ module.exports = grammar({
 
     // Enum
     // -------------------------
-    // Precedence over initializer list, but it's actually ambiguous and depends on the number of enum parameters
-    enum_arg: $ => prec(1, choice(
-      seq('=', $.arg),
-      seq('=', '{', commaSepTrailing1($.arg), '}'),
-    )),
+    enum_arg: $ => seq('=', $._expr),
     enum_constant: $ => seq(
       field('name', $.const_ident),
       optional($.attributes),
