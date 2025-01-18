@@ -171,11 +171,14 @@ module.exports = grammar({
 
     // Doc comments and contracts
     // -------------------------
-    // NOTE parsed by scanner.c (scan_doc_contract_text)
-    doc_comment_contract: $ => seq($.at_ident, $.doc_comment_contract_text),
+    // NOTE parsed by scanner.c (scan_doc_comment_contract_text)
+    doc_comment_contract: $ => seq(
+      field('name', $.at_ident),
+      optional($.doc_comment_contract_text)
+    ),
     doc_comment: $ => seq(
       '<*',
-      optional($.doc_comment_text), // NOTE parsed by scanner.c (scan_doc_comment)
+      optional($.doc_comment_text), // NOTE parsed by scanner.c (scan_doc_comment_text)
       repeat($.doc_comment_contract),
       '*>',
     ),
