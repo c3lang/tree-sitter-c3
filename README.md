@@ -63,7 +63,7 @@ To get started with c3 in helix editor:
 
   #LSP support
   [language-server.c3-lsp]
-  command = "c3-lsp"
+  command = "c3lsp"
 ```
 2) Run `hx -g fetch`, which will fetch all the grammars (you can exclude grammars with `use-grammars.only` or `use-grammars.except` in `languages.toml`).
 3) Run `hx -g build` (you need to have `gcc`/`clang` installed on your system and possibly `gnumake`).
