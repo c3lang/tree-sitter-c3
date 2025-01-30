@@ -1,5 +1,11 @@
 # tree-sitter-c3 Changelog
 
+## 0.2.4
+
+### Changes
+
+- Added experimental `[?]` and `<[ ]>` syntax for C3 0.6.7
+
 ## 0.2.3
 
 ### Changes

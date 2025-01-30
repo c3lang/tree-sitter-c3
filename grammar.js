@@ -235,7 +235,10 @@ module.exports = grammar({
       $._expr,
       $.type,
     )),
-    generic_arguments: $ => seq('(<', $._generic_arg_list, '>)'),
+    generic_arguments: $ => choice(
+      seq('(<', $._generic_arg_list, '>)'),
+      seq('<[', $._generic_arg_list, ']>'), // >= 0.6.7 (experimental)
+    ),
 
     // Helpers
     // -------------------------
@@ -336,7 +339,10 @@ module.exports = grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_module_parameters: $ => seq('(<', commaSep1($._module_param), '>)'),
+    generic_module_parameters: $ => choice(
+      seq('(<', commaSep1($._module_param), '>)'),
+      seq('<[', commaSep1($._module_param), ']>'),
+    ),
     module: $ => seq(
       'module',
       field('path', $.path_ident),
@@ -1463,6 +1469,7 @@ module.exports = grammar({
       seq('[', $._expr, ']'),
       seq('[', ']'),
       seq('[', '*', ']'),
+      seq('[', '?', ']'), // >= 0.6.7 (experimental)
       seq('[<', $._expr, '>]'),
       seq('[<', '*', '>]'),
     ),
