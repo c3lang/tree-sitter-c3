@@ -1472,6 +1472,7 @@ module.exports = grammar({
       seq('[', '?', ']'), // >= 0.6.7 (experimental)
       seq('[<', $._expr, '>]'),
       seq('[<', '*', '>]'),
+      seq('[<', '?', '>]'), // >= 0.6.7 (experimental)
     ),
     type: $ => prec.right(seq(
       $.base_type,
