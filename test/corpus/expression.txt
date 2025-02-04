@@ -1588,8 +1588,8 @@ fn int test(int first, int second) {
 }
 
 fn void main() {
-    test(1,2);
-    test(second: 1, first: 2, $third: 3);
+  test(1, 2);
+  test(second: 1, first: 2, $third: 3);
 }
 
 --------------------------------------------------------------------------------
@@ -1602,49 +1602,85 @@ fn void main() {
           (base_type_name)))
       name: (ident))
     (fn_parameter_list
-          (parameter
-            type: (type
-              (base_type
-                (base_type_name)))
-            name: (ident))
-          (parameter
-            type: (type
-              (base_type
-                (base_type_name)))
-            name: (ident)))
+      (parameter
+        type: (type
+          (base_type
+            (base_type_name)))
+        name: (ident))
+      (parameter
+        type: (type
+          (base_type
+            (base_type_name)))
+        name: (ident)))
     body: (macro_func_body
       (compound_stmt
         (return_stmt
-              (binary_expr
-                left: (ident)
-                right: (ident))))))
+          (binary_expr
+            left: (ident)
+            right: (ident))))))
   (func_definition
-        (func_header
-          return_type: (type
+    (func_header
+      return_type: (type
+        (base_type
+          (base_type_name)))
+      name: (ident))
+    (fn_parameter_list)
+    body: (macro_func_body
+      (compound_stmt
+        (expr_stmt
+          (call_expr
+            function: (ident)
+            arguments: (call_invocation
+              (call_arg
+                (integer_literal))
+              (call_arg
+                (integer_literal)))))
+        (expr_stmt
+          (call_expr
+            function: (ident)
+            arguments: (call_invocation
+              (call_arg
+                name: (ident)
+                (integer_literal))
+              (call_arg
+                name: (ident)
+                (integer_literal))
+              (call_arg
+                name: (ct_ident)
+                (integer_literal)))))))))
+
+================================================================================
+Initializers
+================================================================================
+
+fn void main() {
+  int[4] z = { a, ...test() };
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list)
+    (macro_func_body
+      (compound_stmt
+        (declaration_stmt
+          (type
             (base_type
-              (base_type_name)))
-          name: (ident))
-        (fn_parameter_list)
-        body: (macro_func_body
-          (compound_stmt
-            (expr_stmt
-              (call_expr
-                function: (ident)
-                arguments: (call_invocation
-                  (call_arg
-                    (integer_literal))
-                  (call_arg
-                    (integer_literal)))))
-            (expr_stmt
-              (call_expr
-                function: (ident)
-                arguments: (call_invocation
-                  (call_arg
-                    name: (ident)
-                    (integer_literal))
-                  (call_arg
-                    name: (ident)
-                    (integer_literal))
-                  (call_arg
-                    name: (ct_ident)
-                    (integer_literal)))))))))
+              (base_type_name))
+            (type_suffix
+              (integer_literal)))
+          (local_decl_after_type
+            (ident)
+            (initializer_list
+              (arg
+                (ident))
+              (arg
+                (call_expr
+                  (ident)
+                  (call_invocation))))))))))

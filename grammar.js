@@ -1161,13 +1161,23 @@ module.exports = grammar({
       $.type_ident,
     ),
 
-    // Initializer List
+    // Initializers
     // -------------------------
-    initializer_list: $ => seq(
-      '{',
-      commaSepTrailing($.arg),
-      '}',
+    // Precedence over _expr
+    param_path_element: $ => prec(1, choice(
+      seq('[', $._expr, ']'),
+      seq('[', $._expr, '..', $._expr, ']'),
+      seq('.', $._base_expr),
+    )),
+    param_path: $ => repeat1($.param_path_element),
+
+    arg: $ => choice(
+      seq($.param_path),
+      seq($.param_path, '=', $._expr),
+      seq(optional('...'), $._expr),
     ),
+
+    initializer_list: $ => seq('{', commaSepTrailing($.arg), '}'),
 
     // Assignment Expression
     // -------------------------
@@ -1288,22 +1298,6 @@ module.exports = grammar({
 
       return make_binary_expr($, table);
     },
-
-    // Arguments
-    // -------------------------
-    // Precedence over _expr
-    param_path_element: $ => prec(1, choice(
-      seq('[', $._expr, ']'),
-      seq('[', $._expr, '..', $._expr, ']'),
-      seq('.', $._base_expr),
-    )),
-    param_path: $ => repeat1($.param_path_element),
-
-    arg: $ => choice(
-      seq($.param_path),
-      seq($.param_path, '=', $._expr),
-      $._expr,
-    ),
 
     // Call Expression
     // -------------------------

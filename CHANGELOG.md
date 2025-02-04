@@ -5,6 +5,7 @@
 ### Changes
 
 - Added experimental `[?]` and `<[ ]>` syntax for C3 0.6.7
+- Added splat for initializers
 
 ## 0.2.3
 
