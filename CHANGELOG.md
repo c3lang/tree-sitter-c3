@@ -1,5 +1,12 @@
 # tree-sitter-c3 Changelog
 
+## 0.2.5
+
+### Changes
+
+- Fixed incomplete char literal grammar
+- Renamed rule `character` to `char_content` for char literal content that is not an escape sequence
+
 ## 0.2.4
 
 ### Changes

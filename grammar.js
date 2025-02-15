@@ -6,7 +6,7 @@
 
 // Reference grammar: https://github.com/c3lang/c3c/blob/master/resources/grammar/grammar.y
 
-// Note that this grammar is not as strict the original specification.
+// Note that this grammar is not as strict as the compiler.
 // For example it permits
 // - Some expressions where the compiler requires parenthesis
 // - Empty structs/enums
@@ -123,7 +123,7 @@ module.exports = grammar({
     escape_sequence: _ => token(prec(1, seq(
       '\\',
       choice(
-        /[0abefnrtv\'\"\\]/,
+        /[0abefnrtv'"\\]/,
         /x[0-9a-fA-F]{2}/,
         /u[0-9a-fA-F]{4}/,
         /U[0-9a-fA-F]{8}/,
@@ -132,10 +132,11 @@ module.exports = grammar({
 
     char_literal: $ => seq(
       '\'',
-      choice(
+      repeat1(choice(
+        alias(token.immediate(prec(1, /[^\\'\n]+/)), $.char_content),
+        // NOTE The compiler does not allow mixing unicode and ASCII/bytes, but permit this here for simplicity.
         $.escape_sequence,
-        alias(token.immediate(/[^\n']/), $.character),
-      ),
+      )),
       '\'',
     ),
 
@@ -265,7 +266,7 @@ module.exports = grammar({
           // Macro parameters
           seq(field('name', $.ct_ident), optional($.attributes)),
           seq(field('name', $.hash_ident), optional($.attributes)),
-          seq('&', field('name', $.ident), optional($.attributes)),
+          seq('&', field('name', $.ident), optional($.attributes)), // Deprecated
         ))
       ),
 
@@ -275,7 +276,7 @@ module.exports = grammar({
       // Macro parameters
       seq(field('name', $.ct_ident), optional($.attributes)),
       seq(field('name', $.hash_ident), optional($.attributes)),
-      seq('&', field('name', $.ident), optional($.attributes)),
+      seq('&', field('name', $.ident), optional($.attributes)), // Deprecated
     ),
 
     parameter_default: $ => $._assign_right_expr,
@@ -1075,7 +1076,7 @@ module.exports = grammar({
     _ct_arg: $ => choice(
       '$vaconst',
       '$vaarg',
-      '$varef',
+      '$varef', // Deprecated
       '$vaexpr',
     ),
 
@@ -1137,12 +1138,12 @@ module.exports = grammar({
       ),
       seq(
         choice(
-          '$append',
-          '$concat',
+          '$append', // Deprecated
+          '$concat', // Deprecated
           '$defined',
           '$embed',
-          '$and', // < 0.6.2
-          '$or', // < 0.6.2
+          '$and', // Deprecated
+          '$or', // Deprecated
         ),
         '(', commaSep($._expr), ')'
       ),

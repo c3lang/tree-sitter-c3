@@ -504,8 +504,11 @@ char e = 'b';
 char f = 'c';
 char g = '\xa1';
 char h = '\x1A';
-char i = '\u1A4F';
-char j = '\U1A4F2D5B';
+short i = '\u1A4F';
+int j = '\U1A4F2D5B';
+int k = 'abcd';
+int l = 'a\xffd';
+int m = '퀀';
 
 --------------------------------------------------------------------------------
 
@@ -516,7 +519,7 @@ char j = '\U1A4F2D5B';
         (base_type_name)))
     (ident)
     (char_literal
-      (character)))
+      (char_content)))
   (global_declaration
     (type
       (base_type
@@ -544,21 +547,14 @@ char j = '\U1A4F2D5B';
         (base_type_name)))
     (ident)
     (char_literal
-      (character)))
+      (char_content)))
   (global_declaration
     (type
       (base_type
         (base_type_name)))
     (ident)
     (char_literal
-      (character)))
-  (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident)
-    (char_literal
-      (escape_sequence)))
+      (char_content)))
   (global_declaration
     (type
       (base_type
@@ -579,7 +575,37 @@ char j = '\U1A4F2D5B';
         (base_type_name)))
     (ident)
     (char_literal
-      (escape_sequence))))
+      (escape_sequence)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name)))
+    (ident)
+    (char_literal
+      (escape_sequence)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name)))
+    (ident)
+    (char_literal
+      (char_content)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name)))
+    (ident)
+    (char_literal
+      (char_content)
+      (escape_sequence)
+      (char_content)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name)))
+    (ident)
+    (char_literal
+      (char_content))))
 
 ================================================================================
 String literals

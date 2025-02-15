@@ -95,7 +95,7 @@
               "members": [
                 {
                   "type": "PATTERN",
-                  "value": "[0abefnrtv\\'\\\"\\\\]"
+                  "value": "[0abefnrtv'\"\\\\]"
                 },
                 {
                   "type": "PATTERN",
@@ -123,25 +123,32 @@
           "value": "'"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "escape_sequence"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "IMMEDIATE_TOKEN",
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
                 "content": {
-                  "type": "PATTERN",
-                  "value": "[^\\n']"
-                }
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[^\\\\'\\n]+"
+                    }
+                  }
+                },
+                "named": true,
+                "value": "char_content"
               },
-              "named": true,
-              "value": "character"
-            }
-          ]
+              {
+                "type": "SYMBOL",
+                "name": "escape_sequence"
+              }
+            ]
+          }
         },
         {
           "type": "STRING",
@@ -9116,5 +9123,6 @@
     "_asm_addr",
     "_type_optional"
   ],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }

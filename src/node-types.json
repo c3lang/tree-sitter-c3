@@ -4279,11 +4279,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "character",
+          "type": "char_content",
           "named": true
         },
         {
@@ -17824,7 +17824,7 @@
     "named": false
   },
   {
-    "type": "character",
+    "type": "char_content",
     "named": true
   },
   {
