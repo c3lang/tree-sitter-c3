@@ -220,34 +220,34 @@ def @isTest2 = bar::Test.@is_test;
         (module_resolution
           (ident))
         (const_ident))))
-      (define_declaration
-        (define_ident
-          (ident)
-          (define_path_ident
-            (type_ident)
-            (ident))))
-      (define_declaration
-        (define_ident
-          (ident)
-          (define_path_ident
-            (module_resolution
-              (ident))
-            (type_ident)
-            (ident))))
-      (define_declaration
-        (define_ident
-          (at_ident)
-          (define_path_at_ident
-            (type_ident)
-            (at_ident))))
-      (define_declaration
-        (define_ident
-          (at_ident)
-          (define_path_at_ident
-            (module_resolution
-              (ident))
-            (type_ident)
-            (at_ident)))))
+  (define_declaration
+    (define_ident
+      (ident)
+      (define_path_ident
+        (type_ident)
+        (ident))))
+  (define_declaration
+    (define_ident
+      (ident)
+      (define_path_ident
+        (module_resolution
+          (ident))
+        (type_ident)
+        (ident))))
+  (define_declaration
+    (define_ident
+      (at_ident)
+      (define_path_at_ident
+        (type_ident)
+        (at_ident))))
+  (define_declaration
+    (define_ident
+      (at_ident)
+      (define_path_at_ident
+        (module_resolution
+          (ident))
+        (type_ident)
+        (at_ident)))))
 
 ================================================================================
 Function declarations
@@ -655,6 +655,18 @@ enum TokenKind @packed @opaque {
     FUNCTION,
 }
 
+enum Abc : inline int
+{
+  ABC,
+  DEF,
+}
+
+enum Foo : int (inline String name, int y, int z)
+{
+  ABC = { "Hello", 1, 2 },
+  DEF = { "World", 2, 3 },
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -694,7 +706,63 @@ enum TokenKind @packed @opaque {
       (enum_constant
         (const_ident))
       (enum_constant
-        (const_ident)))))
+        (const_ident))))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (base_type
+          (base_type_name))))
+    (enum_body
+      (enum_constant
+        (const_ident))
+      (enum_constant
+        (const_ident))))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (base_type
+          (base_type_name)))
+      (enum_param_list
+        (enum_param_declaration
+          (type
+            (base_type
+              (type_ident)))
+          (ident))
+        (enum_param_declaration
+          (type
+            (base_type
+              (base_type_name)))
+          (ident))
+        (enum_param_declaration
+          (type
+            (base_type
+              (base_type_name)))
+          (ident))))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (initializer_list
+            (arg
+              (string_literal
+                (string_content)))
+            (arg
+              (integer_literal))
+            (arg
+              (integer_literal)))))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (initializer_list
+            (arg
+              (string_literal
+                (string_content)))
+            (arg
+              (integer_literal))
+            (arg
+              (integer_literal))))))))
 
 ================================================================================
 Error declarations

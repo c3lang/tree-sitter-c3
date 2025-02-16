@@ -236,10 +236,7 @@ module.exports = grammar({
       $._expr,
       $.type,
     )),
-    generic_arguments: $ => choice(
-      seq('(<', $._generic_arg_list, '>)'),
-      seq('<[', $._generic_arg_list, ']>'), // >= 0.6.7 (experimental)
-    ),
+    generic_arguments: $ => seq('(<', $._generic_arg_list, '>)'),
 
     // Helpers
     // -------------------------
@@ -340,10 +337,7 @@ module.exports = grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_module_parameters: $ => choice(
-      seq('(<', commaSep1($._module_param), '>)'),
-      seq('<[', commaSep1($._module_param), ']>'),
-    ),
+    generic_module_parameters: $ => seq('(<', commaSep1($._module_param), '>)'),
     module: $ => seq(
       'module',
       field('path', $.path_ident),
@@ -534,14 +528,17 @@ module.exports = grammar({
       field('args', optional($.enum_arg)),
     ),
     enum_param_declaration: $ => seq(
+      optional('inline'),
       field('type', $.type),
       field('name', $.ident),
     ),
     enum_param_list: $ => seq('(', commaSep($.enum_param_declaration), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
-      field('type', optional($.type)),
-      optional($.enum_param_list),
+      choice(
+        seq(optional('inline'), field('type', $.type), optional($.enum_param_list)),
+        $.enum_param_list,
+      ),
     )),
     enum_body: $ => seq(
       '{',

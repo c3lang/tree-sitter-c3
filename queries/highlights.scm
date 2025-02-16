@@ -19,7 +19,7 @@
 (initializer_list (arg (param_path (param_path_element (ident) @variable.member))))
 ;; 2) Parameter
 (parameter name: (_) @variable.parameter)
-(call_invocation (call_arg (ident) @variable.parameter))
+(call_invocation (call_arg name: (_) @variable.parameter))
 (enum_param_declaration (ident) @variable.parameter)
 ;; 3) Declaration
 (global_declaration (ident) @variable.declaration)
@@ -30,7 +30,6 @@
 
 ;; Keyword (from `c3c --list-keywords`)
 [
-  "assert"
   "asm"
   "catch"
   "defer"
@@ -84,6 +83,7 @@
   "$vasplat"
 ] @keyword.directive
 
+"assert" @keyword.debug
 "fn" @keyword.function
 "macro" @keyword.function
 "return" @keyword.return
@@ -190,6 +190,9 @@
   "..."
   "<<="
   ">>="
+  "&&&"
+  "+++"
+  "|||"
 ] @operator
 
 (range_expr ":" @operator)
@@ -230,6 +233,8 @@
                                           "associated"
                                           "elements"
                                           "extnameof"
+                                          "from_ordinal"
+                                          "get"
                                           "inf"
                                           "is_eq"
                                           "is_ordered"
@@ -237,6 +242,7 @@
                                           "len"
                                           "max"
                                           "membersof"
+                                          "methodsof"
                                           "min"
                                           "nan"
                                           "inner"
@@ -244,10 +250,13 @@
                                           "names"
                                           "nameof"
                                           "params"
+                                          "paramsof"
                                           "parentof"
                                           "qnameof"
                                           "returns"
                                           "sizeof"
+                                          "tagof"
+                                          "has_tagof"
                                           "values"
                                           ;; Extra token
                                           "typeid")))
@@ -285,7 +294,7 @@
 
 ;; Function Call
 (call_expr function: [(ident) (at_ident)] @function.call)
-(call_expr function: [(builtin)] @function.builtin.call)
+(call_expr function: (builtin) @function.builtin.call)
 (call_expr function: (module_ident_expr ident: (_) @function.call))
 (call_expr function: (trailing_generic_expr argument: (module_ident_expr ident: (_) @function.call)))
 (call_expr function: (field_expr field: (access_ident [(ident) (at_ident)] @function.method.call))) ; NOTE Ambiguous, could be calling a method or function pointer
@@ -330,3 +339,8 @@
                                 "@require"
                                 "@ensure"
                                 "@pure"))
+
+(doc_comment_contract name: (_) @markup.italic
+                      (#any-of? @markup.italic
+                                "@require"
+                                "@ensure"))

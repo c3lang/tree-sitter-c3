@@ -1,5 +1,14 @@
 # tree-sitter-c3 Changelog
 
+## 0.3.0
+
+Final grammar for C3 0.6.7.
+
+### Changes
+- Added grammar for inline enums
+- Removed experimental `<[]>` syntax
+- Updated highlights.scm
+
 ## 0.2.5
 
 ### Changes
