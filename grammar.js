@@ -584,6 +584,7 @@ module.exports = grammar({
     implies_body: $ => seq('=>', field('body', $._expr)),
 
     macro_func_body: $ => choice(
+      seq('=>', $.call_expr),
       seq($.implies_body, ';'),
       $.compound_stmt
     ),

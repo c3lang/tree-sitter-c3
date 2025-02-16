@@ -11116,6 +11116,10 @@
       "required": true,
       "types": [
         {
+          "type": "call_expr",
+          "named": true
+        },
+        {
           "type": "compound_stmt",
           "named": true
         },

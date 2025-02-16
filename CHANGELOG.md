@@ -1,8 +1,13 @@
 # tree-sitter-c3 Changelog
 
-## 0.3.0
+## 0.3.1
 
 Final grammar for C3 0.6.7.
+
+### Changes
+- Added rule for short function syntax `fn int test() => @pool() { return 1; }`
+
+## 0.3.0
 
 ### Changes
 - Added grammar for inline enums
