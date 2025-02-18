@@ -236,7 +236,10 @@ module.exports = grammar({
       $._expr,
       $.type,
     )),
-    generic_arguments: $ => seq('(<', $._generic_arg_list, '>)'),
+    generic_arguments: $ => choice(
+      seq('(<', $._generic_arg_list, '>)'),
+      seq('{', $._generic_arg_list, '}'),
+    ),
 
     // Helpers
     // -------------------------
@@ -337,7 +340,10 @@ module.exports = grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_module_parameters: $ => seq('(<', commaSep1($._module_param), '>)'),
+    generic_module_parameters: $ => choice(
+      seq('(<', commaSep1($._module_param), '>)'),
+      seq('{', commaSep1($._module_param), '}'),
+    ),
     module: $ => seq(
       'module',
       field('path', $.path_ident),
@@ -1087,6 +1093,9 @@ module.exports = grammar({
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
 
+    // Precedence over cast
+    typed_initializer_list: $ => prec(3, seq('(', $.type, ')', $.initializer_list)),
+
     _base_expr: $ => prec(2, choice(
       'true',
       'false',
@@ -1105,7 +1114,7 @@ module.exports = grammar({
       $._local_ident_expr,
 
       $.initializer_list,
-      seq($.type, $.initializer_list),
+      $.typed_initializer_list,
 
       $.field_expr,
       $.type_access_expr,

@@ -1,5 +1,12 @@
 # tree-sitter-c3 Changelog
 
+## 0.4.0
+
+### Changes
+- Switch to new generics syntax
+- Removed `Type {...}` grammar
+- Added rule `typed_initializer_list` for `(Type) {...}` with precedence over cast
+
 ## 0.3.2
 
 Final grammar for C3 0.6.7.
