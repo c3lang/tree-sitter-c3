@@ -7,7 +7,7 @@ The latest version supports C3 0.6.7 and is not compatible with C3 < 0.6.4.
 Check out the tree-sitter-c3 playground here: https://c3lang.github.io/tree-sitter-c3/
 
 ### Notes
-- This is in some cases a less strict version of the "true" grammar.
+- In some cases, this grammar is less strict than the compiler.
 - Tree structure and node naming is still subject to change.
 
 ## Editors

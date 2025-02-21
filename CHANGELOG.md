@@ -1,8 +1,13 @@
 # tree-sitter-c3 Changelog
 
-## 0.3.1
+## 0.3.2
 
 Final grammar for C3 0.6.7.
+
+### Changes
+- Revert tree-sitter ABI version back to 14
+
+## 0.3.1
 
 ### Changes
 - Added rule for short function syntax `fn int test() => @pool() { return 1; }`
