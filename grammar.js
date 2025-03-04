@@ -982,10 +982,9 @@ module.exports = grammar({
     ct_switch_cond: $ => seq('(', choice($._constant_expr, $._type_optional), ')'),
 
     _ct_switch: $ => seq('$switch', optional($.ct_switch_cond)),
-    _ct_switch_body: $ => repeat1($.ct_case_stmt),
     ct_switch_stmt: $ => seq(
       $._ct_switch,
-      $._ct_switch_body,
+      repeat($.ct_case_stmt),
       '$endswitch',
     ),
 

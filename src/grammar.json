@@ -5818,13 +5818,6 @@
         }
       ]
     },
-    "_ct_switch_body": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "ct_case_stmt"
-      }
-    },
     "ct_switch_stmt": {
       "type": "SEQ",
       "members": [
@@ -5833,8 +5826,11 @@
           "name": "_ct_switch"
         },
         {
-          "type": "SYMBOL",
-          "name": "_ct_switch_body"
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ct_case_stmt"
+          }
         },
         {
           "type": "STRING",

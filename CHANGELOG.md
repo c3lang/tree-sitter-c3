@@ -6,6 +6,7 @@ Final grammar for C3 0.6.7.
 
 ### Changes
 - Revert tree-sitter ABI version back to 14
+- Fixed not permitting empty compile-time switch body
 
 ## 0.3.1
 
