@@ -63,10 +63,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -193,6 +189,107 @@
     }
   },
   {
+    "type": "alias_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alias_path_at_ident",
+          "named": true
+        },
+        {
+          "type": "alias_path_ident",
+          "named": true
+        },
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "func_signature",
+          "named": true
+        },
+        {
+          "type": "generic_arguments",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "path_const_ident",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_path_at_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "module_resolution",
+          "named": true
+        },
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias_path_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "module_resolution",
+          "named": true
+        },
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "arg",
     "named": true,
     "fields": {
@@ -253,10 +350,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -446,10 +539,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -692,10 +781,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -817,19 +902,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -865,10 +938,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -894,10 +963,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -970,10 +1035,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -1145,19 +1206,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -1193,10 +1242,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -1222,10 +1267,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -1294,10 +1335,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -1476,10 +1513,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -1579,6 +1612,40 @@
     }
   },
   {
+    "type": "attrdef_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "at_type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute_list",
+          "named": true
+        },
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute",
     "named": true,
     "fields": {
@@ -1603,6 +1670,21 @@
       "types": [
         {
           "type": "attribute_param_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
           "named": true
         }
       ]
@@ -1710,10 +1792,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -1722,7 +1800,7 @@
           "named": true
         },
         {
-          "type": "generic_arguments",
+          "type": "generic_type_ident",
           "named": true
         },
         {
@@ -1852,19 +1930,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -1900,10 +1966,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -1929,10 +1991,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -2001,10 +2059,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -2216,19 +2270,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -2264,10 +2306,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -2293,10 +2331,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -2365,10 +2399,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -2616,10 +2646,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -2841,10 +2867,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -2970,19 +2992,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -3018,10 +3028,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -3047,10 +3053,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -3119,10 +3121,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -3359,10 +3357,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -3484,19 +3478,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -3532,10 +3514,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -3561,10 +3539,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -3637,10 +3611,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -3886,19 +3856,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -3934,10 +3892,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -3963,10 +3917,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -4035,10 +3985,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -4240,10 +4186,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -4422,10 +4364,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -4671,19 +4609,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -4719,10 +4645,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -4748,10 +4670,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -4820,10 +4738,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -5037,10 +4951,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -5207,10 +5117,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -5370,10 +5276,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -5543,10 +5445,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -5677,19 +5575,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -5725,10 +5611,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -5754,10 +5636,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -5826,10 +5704,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -6054,10 +5928,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -6357,10 +6227,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -6726,186 +6592,6 @@
     }
   },
   {
-    "type": "define_attribute",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "at_type_ident",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "parameter",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "define_declaration",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "define_attribute",
-          "named": true
-        },
-        {
-          "type": "define_ident",
-          "named": true
-        },
-        {
-          "type": "type_ident",
-          "named": true
-        },
-        {
-          "type": "typedef_type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "define_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "const_ident",
-          "named": true
-        },
-        {
-          "type": "define_path_at_ident",
-          "named": true
-        },
-        {
-          "type": "define_path_ident",
-          "named": true
-        },
-        {
-          "type": "generic_arguments",
-          "named": true
-        },
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "path_const_ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "define_path_at_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "module_resolution",
-          "named": true
-        },
-        {
-          "type": "type_ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "define_path_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        },
-        {
-          "type": "module_resolution",
-          "named": true
-        },
-        {
-          "type": "type_ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "distinct_declaration",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type_ident",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "interface_impl",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "do_stmt",
     "named": true,
     "fields": {
@@ -7019,19 +6705,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -7067,10 +6741,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -7096,10 +6766,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -7168,10 +6834,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -7293,19 +6955,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -7341,10 +6991,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -7370,10 +7016,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -7442,10 +7084,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -7645,10 +7283,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -7913,109 +7547,6 @@
     }
   },
   {
-    "type": "expr_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "asm_block_stmt",
-          "named": true
-        },
-        {
-          "type": "assert_stmt",
-          "named": true
-        },
-        {
-          "type": "break_stmt",
-          "named": true
-        },
-        {
-          "type": "compound_stmt",
-          "named": true
-        },
-        {
-          "type": "continue_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_assert_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_echo_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_for_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_foreach_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_if_stmt",
-          "named": true
-        },
-        {
-          "type": "ct_switch_stmt",
-          "named": true
-        },
-        {
-          "type": "declaration_stmt",
-          "named": true
-        },
-        {
-          "type": "defer_stmt",
-          "named": true
-        },
-        {
-          "type": "do_stmt",
-          "named": true
-        },
-        {
-          "type": "expr_stmt",
-          "named": true
-        },
-        {
-          "type": "for_stmt",
-          "named": true
-        },
-        {
-          "type": "foreach_stmt",
-          "named": true
-        },
-        {
-          "type": "if_stmt",
-          "named": true
-        },
-        {
-          "type": "nextcase_stmt",
-          "named": true
-        },
-        {
-          "type": "return_stmt",
-          "named": true
-        },
-        {
-          "type": "switch_stmt",
-          "named": true
-        },
-        {
-          "type": "var_stmt",
-          "named": true
-        },
-        {
-          "type": "while_stmt",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "expr_stmt",
     "named": true,
     "fields": {
@@ -8076,10 +7607,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -8182,55 +7709,15 @@
     }
   },
   {
-    "type": "fault_body",
+    "type": "faultdef_declaration",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "const_ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "fault_declaration",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "fault_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "type_ident",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "interface_impl",
           "named": true
         }
       ]
@@ -8249,19 +7736,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -8297,10 +7772,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -8326,10 +7797,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -8398,10 +7865,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -8600,10 +8063,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -8734,19 +8193,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -8782,10 +8229,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -8811,10 +8254,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -8891,10 +8330,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -9186,19 +8621,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -9234,10 +8657,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -9263,10 +8682,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -9335,10 +8750,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -9722,7 +9133,7 @@
     }
   },
   {
-    "type": "func_typedef",
+    "type": "func_signature",
     "named": true,
     "fields": {
       "return_type": {
@@ -9808,10 +9219,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -9933,6 +9340,29 @@
     }
   },
   {
+    "type": "generic_type_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "generic_arguments",
+          "named": true
+        },
+        {
+          "type": "module_type_ident",
+          "named": true
+        },
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "global_declaration",
     "named": true,
     "fields": {
@@ -9969,19 +9399,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -10017,10 +9435,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -10046,10 +9460,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -10118,10 +9528,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -10373,10 +9779,6 @@
             "named": true
           },
           {
-            "type": "switch_body",
-            "named": true
-          },
-          {
             "type": "switch_stmt",
             "named": true
           },
@@ -10429,19 +9831,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -10477,10 +9867,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -10506,10 +9892,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -10578,10 +9960,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -10947,19 +10325,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -10995,10 +10361,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -11024,10 +10386,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -11096,10 +10454,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -11466,19 +10820,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -11514,10 +10856,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -11543,10 +10881,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -11619,10 +10953,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -11760,19 +11090,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -11808,10 +11126,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -11837,10 +11151,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -11909,10 +11219,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -12130,10 +11436,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -12303,19 +11605,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -12351,10 +11641,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -12380,10 +11666,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -12452,10 +11734,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -12638,10 +11916,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -12813,10 +12087,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -13017,19 +12287,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -13065,10 +12323,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -13094,10 +12348,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -13170,10 +12420,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -13309,19 +12555,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -13357,10 +12591,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -13386,10 +12616,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -13462,10 +12688,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -13608,19 +12830,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -13656,10 +12866,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -13685,10 +12891,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -13757,10 +12959,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -13963,10 +13161,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -14075,6 +13269,14 @@
       "required": false,
       "types": [
         {
+          "type": "alias_declaration",
+          "named": true
+        },
+        {
+          "type": "attrdef_declaration",
+          "named": true
+        },
+        {
           "type": "bitstruct_declaration",
           "named": true
         },
@@ -14099,19 +13301,11 @@
           "named": true
         },
         {
-          "type": "define_declaration",
-          "named": true
-        },
-        {
-          "type": "distinct_declaration",
-          "named": true
-        },
-        {
           "type": "enum_declaration",
           "named": true
         },
         {
-          "type": "fault_declaration",
+          "type": "faultdef_declaration",
           "named": true
         },
         {
@@ -14144,6 +13338,10 @@
         },
         {
           "type": "struct_declaration",
+          "named": true
+        },
+        {
+          "type": "typedef_declaration",
           "named": true
         }
       ]
@@ -14307,19 +13505,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -14355,10 +13541,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -14384,10 +13566,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -14456,10 +13634,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -14581,19 +13755,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -14629,10 +13791,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -14658,10 +13816,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -14734,10 +13888,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -14950,19 +14100,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -14998,10 +14136,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -15027,10 +14161,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -15099,10 +14229,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -15224,19 +14350,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -15272,10 +14386,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -15301,10 +14411,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -15373,10 +14479,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -15498,19 +14600,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -15546,10 +14636,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -15575,10 +14661,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -15647,10 +14729,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -15807,19 +14885,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -15855,10 +14921,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -15884,10 +14946,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -15956,10 +15014,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -16155,10 +15209,6 @@
         },
         {
           "type": "elvis_orelse_expr",
-          "named": true
-        },
-        {
-          "type": "expr_block",
           "named": true
         },
         {
@@ -16373,10 +15423,6 @@
           "named": true
         },
         {
-          "type": "expr_block",
-          "named": true
-        },
-        {
           "type": "field_expr",
           "named": true
         },
@@ -16495,15 +15541,30 @@
     }
   },
   {
-    "type": "typedef_type",
+    "type": "typedef_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "func_typedef",
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "interface_impl",
           "named": true
         },
         {
@@ -16526,19 +15587,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -16574,10 +15623,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -16603,10 +15648,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -16675,10 +15716,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -16858,19 +15895,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -16906,10 +15931,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -16935,10 +15956,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -17007,10 +16024,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -17190,19 +16203,7 @@
             "named": false
           },
           {
-            "type": "$and",
-            "named": false
-          },
-          {
-            "type": "$append",
-            "named": false
-          },
-          {
             "type": "$assignable",
-            "named": false
-          },
-          {
-            "type": "$concat",
             "named": false
           },
           {
@@ -17238,10 +16239,6 @@
             "named": false
           },
           {
-            "type": "$or",
-            "named": false
-          },
-          {
             "type": "$qnameof",
             "named": false
           },
@@ -17267,10 +16264,6 @@
           },
           {
             "type": "$vaexpr",
-            "named": false
-          },
-          {
-            "type": "$varef",
             "named": false
           },
           {
@@ -17339,10 +16332,6 @@
           },
           {
             "type": "elvis_orelse_expr",
-            "named": true
-          },
-          {
-            "type": "expr_block",
             "named": true
           },
           {
@@ -17631,14 +16620,6 @@
     "named": false
   },
   {
-    "type": "$and",
-    "named": false
-  },
-  {
-    "type": "$append",
-    "named": false
-  },
-  {
     "type": "$assert",
     "named": false
   },
@@ -17648,10 +16629,6 @@
   },
   {
     "type": "$case",
-    "named": false
-  },
-  {
-    "type": "$concat",
     "named": false
   },
   {
@@ -17743,10 +16720,6 @@
     "named": false
   },
   {
-    "type": "$or",
-    "named": false
-  },
-  {
     "type": "$qnameof",
     "named": false
   },
@@ -17787,10 +16760,6 @@
     "named": false
   },
   {
-    "type": "$varef",
-    "named": false
-  },
-  {
     "type": "$vasplat",
     "named": false
   },
@@ -17828,10 +16797,6 @@
   },
   {
     "type": "(",
-    "named": false
-  },
-  {
-    "type": "(<",
     "named": false
   },
   {
@@ -17959,10 +16924,6 @@
     "named": false
   },
   {
-    "type": ">)",
-    "named": false
-  },
-  {
     "type": ">=",
     "named": false
   },
@@ -18015,11 +16976,11 @@
     "named": false
   },
   {
-    "type": "any",
+    "type": "alias",
     "named": false
   },
   {
-    "type": "anyfault",
+    "type": "any",
     "named": false
   },
   {
@@ -18037,6 +16998,10 @@
   {
     "type": "at_type_ident",
     "named": true
+  },
+  {
+    "type": "attrdef",
+    "named": false
   },
   {
     "type": "bfloat16",
@@ -18107,19 +17072,11 @@
     "named": true
   },
   {
-    "type": "def",
-    "named": false
-  },
-  {
     "type": "default",
     "named": false
   },
   {
     "type": "defer",
-    "named": false
-  },
-  {
-    "type": "distinct",
     "named": false
   },
   {
@@ -18160,6 +17117,10 @@
   },
   {
     "type": "fault",
+    "named": false
+  },
+  {
+    "type": "faultdef",
     "named": false
   },
   {
@@ -18307,6 +17268,10 @@
     "named": true
   },
   {
+    "type": "typedef",
+    "named": false
+  },
+  {
     "type": "typeid",
     "named": false
   },
@@ -18355,10 +17320,6 @@
     "named": false
   },
   {
-    "type": "{|",
-    "named": false
-  },
-  {
     "type": "|",
     "named": false
   },
@@ -18372,10 +17333,6 @@
   },
   {
     "type": "|||",
-    "named": false
-  },
-  {
-    "type": "|}",
     "named": false
   },
   {

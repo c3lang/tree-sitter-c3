@@ -1,5 +1,22 @@
 # tree-sitter-c3 Changelog
 
+## 0.5.0
+
+Preliminary grammar for C3 0.7.
+
+- Updated syntax for C3 0.7
+- Added rule `generic_type_ident`, wrapping `type_ident`/`module_type_ident` and `generic_arguments`
+- Added `attrdef_declaration` + `attribute_list`
+- `define_path_ident` -> `alias_path_ident`
+- `define_path_at_ident` -> `alias_path_at_ident`
+- `fault_declaration` -> `faultdef_declaration`
+- `define_declaration` -> `alias_declaration`
+- `distinct_declaration` -> `typedef_declaration`
+- Renamed `func_typedef` -> `func_signature`
+- Removed `typedef_type`, now inlined into `alias_declaration`
+- Removed `define_ident`, now inlined into `alias_declaration`
+- Removed `define_attribute`
+
 ## 0.4.1
 
 ### Changes

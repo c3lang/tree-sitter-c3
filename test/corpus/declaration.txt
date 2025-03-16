@@ -77,70 +77,65 @@ import std::data::json;
 Define declarations
 ================================================================================
 
-def CharPtr = char*;
-def Numbers = int[10];
-distinct Foo = int;
-def bar = foo;
-def bar_var = foo_var;
-def BarFoo = bar::Foo;
-def Bar_foo = bar::Foo(<int>);
-def FooFloat = foo_test::Foo(<float, double>);
-def FooFloat2 = Foo(<float, double>);
-def testFloat = foo_test::test(<float, double>);
-def Callback = fn int(char* text, int value);
-def PI = std::math::PI;
-def isTest = Test.is_test;
-def isTest2 = bar::Test.is_test;
-def @isTest = Test.@is_test;
-def @isTest2 = bar::Test.@is_test;
+alias CharPtr = char*;
+alias Numbers = int[10];
+typedef Foo = int;
+alias bar = foo;
+alias bar_var = foo_var;
+alias BarFoo = bar::Foo;
+alias Bar_foo = bar::Foo{int};
+alias FooFloat = foo_test::Foo{float, double};
+alias FooFloat2 = Foo{float, double};
+alias testFloat = foo_test::test{float, double};
+alias Callback = fn int(char* text, int value);
+alias PI = std::math::PI;
+alias isTest = Test.is_test;
+alias isTest2 = bar::Test.is_test;
+alias @isTest = Test.@is_test;
+alias @isTest2 = bar::Test.@is_test;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (define_declaration
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
-          (base_type_name))
-        (type_suffix))))
-  (define_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix)))
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
-          (base_type_name))
-        (type_suffix
-          (integer_literal)))))
-  (distinct_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix
+        (integer_literal))))
+  (typedef_declaration
     (type_ident)
     (type
       (base_type
         (base_type_name))))
-  (define_declaration
-    (define_ident
-      (ident)
-      (define_path_ident
-        (ident))))
-  (define_declaration
-    (define_ident
-      (ident)
-      (define_path_ident
-        (ident))))
-  (define_declaration
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (ident)))
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (ident)))
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident))))))
-  (define_declaration
+    (type
+      (base_type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident)))))
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
+    (type
+      (base_type
+        (generic_type_ident
           (module_type_ident
             (module_resolution
               (ident))
@@ -149,11 +144,11 @@ def @isTest2 = bar::Test.@is_test;
             (type
               (base_type
                 (base_type_name))))))))
-  (define_declaration
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
+    (type
+      (base_type
+        (generic_type_ident
           (module_type_ident
             (module_resolution
               (ident))
@@ -165,11 +160,11 @@ def @isTest2 = bar::Test.@is_test;
             (type
               (base_type
                 (base_type_name))))))))
-  (define_declaration
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (type
-        (base_type
+    (type
+      (base_type
+        (generic_type_ident
           (type_ident)
           (generic_arguments
             (type
@@ -178,82 +173,75 @@ def @isTest2 = bar::Test.@is_test;
             (type
               (base_type
                 (base_type_name))))))))
-  (define_declaration
-    (define_ident
-      (ident)
-      (define_path_ident
-        (module_resolution
-          (ident))
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (module_resolution
         (ident))
-      (generic_arguments
-        (type
-          (base_type
-            (base_type_name)))
-        (type
-          (base_type
-            (base_type_name))))))
-  (define_declaration
+      (ident))
+    (generic_arguments
+      (type
+        (base_type
+          (base_type_name)))
+      (type
+        (base_type
+          (base_type_name)))))
+  (alias_declaration
     (type_ident)
-    (typedef_type
-      (func_typedef
-        (type
-          (base_type
-            (base_type_name)))
-        (fn_parameter_list
-          (parameter
-            (type
-              (base_type
-                (base_type_name))
-              (type_suffix))
-            (ident))
-          (parameter
-            (type
-              (base_type
-                (base_type_name)))
-            (ident))))))
-  (define_declaration
-    (define_ident
-      (const_ident)
-      (path_const_ident
-        (module_resolution
+    (func_signature
+      (type
+        (base_type
+          (base_type_name)))
+      (fn_parameter_list
+        (parameter
+          (type
+            (base_type
+              (base_type_name))
+            (type_suffix))
           (ident))
-        (module_resolution
-          (ident))
-        (const_ident))))
-  (define_declaration
-    (define_ident
-      (ident)
-      (define_path_ident
-        (type_ident)
-        (ident))))
-  (define_declaration
-    (define_ident
-      (ident)
-      (define_path_ident
-        (module_resolution
-          (ident))
-        (type_ident)
-        (ident))))
-  (define_declaration
-    (define_ident
-      (at_ident)
-      (define_path_at_ident
-        (type_ident)
-        (at_ident))))
-  (define_declaration
-    (define_ident
-      (at_ident)
-      (define_path_at_ident
-        (module_resolution
-          (ident))
-        (type_ident)
-        (at_ident)))))
+        (parameter
+          (type
+            (base_type
+              (base_type_name)))
+          (ident)))))
+  (alias_declaration
+    (const_ident)
+    (path_const_ident
+      (module_resolution
+        (ident))
+      (module_resolution
+        (ident))
+      (const_ident)))
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (type_ident)
+      (ident)))
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (module_resolution
+        (ident))
+      (type_ident)
+      (ident)))
+  (alias_declaration
+    (at_ident)
+    (alias_path_at_ident
+      (type_ident)
+      (at_ident)))
+  (alias_declaration
+    (at_ident)
+    (alias_path_at_ident
+      (module_resolution
+        (ident))
+      (type_ident)
+      (at_ident))))
 
 ================================================================================
 Function declarations
 ================================================================================
 
-fn int! main(int argc, char** argv) {
+fn int? main(int argc, char** argv) {
     int ret = 0;
     return ret;
 }
@@ -768,17 +756,11 @@ enum Foo : int (inline String name, int y, int z)
 Error declarations
 ================================================================================
 
-fault IoError
-{
-    FILE_NOT_FOUND,
-    FILE_NOT_READABLE,
-}
+faultdef FILE_NOT_FOUND, FILE_NOT_READABLE;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (fault_declaration
-    name: (type_ident)
-    body: (fault_body
-      (const_ident)
-      (const_ident))))
+  (faultdef_declaration
+    (const_ident)
+    (const_ident)))

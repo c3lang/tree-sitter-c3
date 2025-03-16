@@ -1,7 +1,7 @@
 ;; NOTE In this file later patterns are assumed to have priority!
 
 ;; Punctuation
-["(" ")" "[" "]" "{" "}" "(<" ">)" "[<" ">]" "{|" "|}"] @punctuation.bracket
+["(" ")" "[" "]" "{" "}" "[<" ">]"] @punctuation.bracket
 [";" "," ":" "::"] @punctuation.delimiter
 
 ;; Constant
@@ -38,50 +38,45 @@
 ] @keyword
 
 [
-  "$alignof"
-  "$and"
-  "$append"
-  "$assert"
-  "$assignable"
-  "$case"
-  "$concat"
-  "$default"
-  "$defined"
-  "$echo"
-  "$else"
-  "$embed"
-  "$endfor"
-  "$endforeach"
-  "$endif"
-  "$endswitch"
-  "$eval"
-  "$evaltype"
-  "$error"
-  "$exec"
-  "$extnameof"
-  "$feature"
-  "$for"
-  "$foreach"
-  "$if"
-  "$include"
-  "$is_const"
-  "$nameof"
-  "$offsetof"
-  "$or"
-  "$qnameof"
-  "$sizeof"
-  "$stringify"
-  "$switch"
-  "$typefrom"
-  "$typeof"
-  "$vacount"
-  "$vatype"
-  "$vaconst"
-  "$varef"
-  "$vaarg"
-  "$vaexpr"
-  "$vasplat"
-] @keyword.directive
+ "$alignof"
+ "$assert"
+ "$assignable"
+ "$case"
+ "$default"
+ "$defined"
+ "$echo"
+ "$else"
+ "$embed"
+ "$endfor"
+ "$endforeach"
+ "$endif"
+ "$endswitch"
+ "$eval"
+ "$evaltype"
+ "$error"
+ "$exec"
+ "$extnameof"
+ "$feature"
+ "$for"
+ "$foreach"
+ "$if"
+ "$include"
+ "$is_const"
+ "$nameof"
+ "$offsetof"
+ "$qnameof"
+ "$sizeof"
+ "$stringify"
+ "$switch"
+ "$typefrom"
+ "$typeof"
+ "$vacount"
+ "$vatype"
+ "$vaconst"
+ "$vaarg"
+ "$vaexpr"
+ "$vasplat"
+ ] @keyword.directive
 
 "assert" @keyword.debug
 "fn" @keyword.function
@@ -91,13 +86,14 @@
 "module" @keyword.module
 
 [
+  "alias"
+  "attrdef"
   "bitstruct"
-  "def"
-  "distinct"
   "enum"
-  "fault"
+  "faultdef"
   "interface"
   "struct"
+  "typedef"
   "union"
 ] @keyword.type
 
@@ -169,8 +165,6 @@
   ">="
   "=>"
   "<="
-  ;; "{|"
-  ;; "(<"
   ;; "[<"
   "-="
   "--"
@@ -180,8 +174,6 @@
   "||"
   "+="
   "++"
-  ;; "|}"
-  ;; ">)"
   ;; ">]"
   "??"
   ;; "::"
@@ -274,7 +266,7 @@
 
 ;; Attribute
 (attribute name: (_) @attribute)
-(define_attribute name: (_) @attribute)
+(attrdef_declaration name: (_) @attribute)
 (call_inline_attributes (at_ident) @attribute)
 (asm_block_stmt (at_ident) @attribute)
 

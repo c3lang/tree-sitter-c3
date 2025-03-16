@@ -17,7 +17,7 @@
     }
   ],
   "metadata": {
-    "version": "0.4.1",
+    "version": "0.5.0",
     "license": "MIT",
     "description": "C3 grammar for node-tree-sitter",
     "authors": [
