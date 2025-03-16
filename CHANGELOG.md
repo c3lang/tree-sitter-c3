@@ -1,5 +1,11 @@
 # tree-sitter-c3 Changelog
 
+## 0.4.1
+
+### Changes
+- Fixed `enum Foo : Bar {}` and `bitstruct Foo : Bar {}` (conflict with new generics syntax)
+- Added missing `defer (catch ...)` syntax
+
 ## 0.4.0
 
 ### Changes

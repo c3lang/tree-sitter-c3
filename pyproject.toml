@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-c3"
 description = "C3 grammar for tree-sitter"
-version = "0.3.2"
+version = "0.4.1"
 keywords = ["incremental", "parsing", "tree-sitter", "c3"]
 classifiers = [
   "Intended Audience :: Developers",

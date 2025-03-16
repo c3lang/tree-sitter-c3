@@ -704,8 +704,8 @@ Compound literals
 ================================================================================
 
 fn void main() {
-    Foo { 1, 2.0, .field = "string" };
-    LinkedList { .allocator = alloc };
+    (Foo) { 1, 2.0, .field = "string" };
+    (LinkedList) { .allocator = alloc };
     LinkedList a = { .allocator = alloc, .size = 0 };
     *list = { .allocator = alloc, .size = 0 };
 }
@@ -723,30 +723,32 @@ fn void main() {
     (macro_func_body
       (compound_stmt
         (expr_stmt
-          (type
-            (base_type
-              (type_ident)))
-          (initializer_list
-            (arg
-              (integer_literal))
-            (arg
-              (real_literal))
-            (arg
-              (param_path
-                (param_path_element
-                  (ident)))
-              (string_literal
-                (string_content)))))
+          (typed_initializer_list
+            (type
+              (base_type
+                (type_ident)))
+            (initializer_list
+              (arg
+                (integer_literal))
+              (arg
+                (real_literal))
+              (arg
+                (param_path
+                  (param_path_element
+                    (ident)))
+                (string_literal
+                  (string_content))))))
         (expr_stmt
-          (type
-            (base_type
-              (type_ident)))
-          (initializer_list
-            (arg
-              (param_path
-                (param_path_element
-                  (ident)))
-              (ident))))
+          (typed_initializer_list
+            (type
+              (base_type
+                (type_ident)))
+            (initializer_list
+              (arg
+                (param_path
+                  (param_path_element
+                    (ident)))
+                (ident)))))
         (declaration_stmt
           (type
             (base_type

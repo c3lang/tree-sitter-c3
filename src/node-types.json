@@ -6623,7 +6623,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
@@ -6692,6 +6692,10 @@
         },
         {
           "type": "foreach_stmt",
+          "named": true
+        },
+        {
+          "type": "ident",
           "named": true
         },
         {

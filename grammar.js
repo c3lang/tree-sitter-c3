@@ -463,7 +463,14 @@ module.exports = grammar({
     struct_member_declaration: $ => choice(
       seq(field('type', $.type), $.identifier_list, optional($.attributes), ';'),
       seq($._struct_or_union, optional($.ident), optional($.attributes), field('body', $.struct_body)),
-      seq('bitstruct', optional($.ident), ':', $.type, optional($.attributes), field('body', $.bitstruct_body)),
+      seq(
+        'bitstruct',
+        optional($.ident),
+        ':',
+        alias($._type_no_generics, $.type),
+        optional($.attributes),
+        field('body', $.bitstruct_body)
+      ),
       seq('inline', field('type', $.type), optional($.ident), optional($.attributes), ';'),
     ),
     struct_body: $ => seq(
@@ -483,7 +490,7 @@ module.exports = grammar({
     // Bitstruct
     // -------------------------
     bitstruct_member_declaration: $ => seq(
-      field('type', $.base_type),
+      field('type', alias($._base_type, $.base_type)),
       $.ident,
       optional(seq(
         ':',
@@ -505,7 +512,7 @@ module.exports = grammar({
       field('name', $.type_ident),
       optional($.interface_impl),
       ':',
-      $.type,
+      alias($._type_no_generics, $.type),
       optional($.attributes),
       field('body', $.bitstruct_body),
     ),
@@ -538,11 +545,11 @@ module.exports = grammar({
       field('type', $.type),
       field('name', $.ident),
     ),
-    enum_param_list: $ => seq('(', commaSep($.enum_param_declaration), ')'),
+    enum_param_list: $ => seq('(', commaSepTrailing($.enum_param_declaration), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
       choice(
-        seq(optional('inline'), field('type', $.type), optional($.enum_param_list)),
+        seq(optional('inline'), field('type', alias($._type_no_generics, $.type)), optional($.enum_param_list)),
         $.enum_param_list,
       ),
     )),
@@ -713,7 +720,15 @@ module.exports = grammar({
 
     // Defer Statement
     // -------------------------
-    defer_stmt: $ => seq('defer', optional(choice('try', 'catch')), $._statement),
+    defer_stmt: $ => seq(
+      'defer',
+      optional(choice(
+        'try',
+        'catch',
+        seq('(', 'catch', $.ident, ')'),
+      )),
+      $._statement
+    ),
 
     // Assert Statement
     // -------------------------
@@ -1453,10 +1468,10 @@ module.exports = grammar({
       'typeid',
     ),
 
-    base_type: $ => prec.right(choice(
+    _base_type: $ => prec.right(choice(
       $.base_type_name,
-      seq($.type_ident, optional($.generic_arguments)),
-      seq($.module_type_ident, optional($.generic_arguments)),
+      $.type_ident,
+      $.module_type_ident,
       $.ct_type_ident,
       seq('$typeof', '(', $._expr, ')'),
       seq('$typefrom', '(', $._expr, ')'),
@@ -1464,6 +1479,16 @@ module.exports = grammar({
       seq('$vatype', '(', $._expr, ')'), // < 0.7.0, deprecated >= 0.6.2
       seq('$vatype', '[', $._expr, ']'), // >= 0.6.2
     )),
+
+    _base_type_with_generics: $ => choice(
+      $._base_type,
+      $._generic_type_ident
+    ),
+
+    _generic_type_ident: $ => choice(
+      seq($.type_ident, $.generic_arguments),
+      seq($.module_type_ident, $.generic_arguments),
+    ),
 
     type_suffix: $ => choice(
       '*',
@@ -1475,8 +1500,14 @@ module.exports = grammar({
       seq('[<', '*', '>]'),
       seq('[<', '?', '>]'), // >= 0.6.7 (experimental)
     ),
+
     type: $ => prec.right(seq(
-      $.base_type,
+      alias($._base_type_with_generics, $.base_type),
+      repeat($.type_suffix),
+      optional('!'),
+    )),
+    _type_no_generics: $ => prec.right(seq(
+      alias($._base_type, $.base_type),
       repeat($.type_suffix),
       optional('!'),
     )),
