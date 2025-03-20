@@ -1,5 +1,9 @@
 # tree-sitter-c3 Changelog
 
+## 0.5.1
+
+- Added field `name` to `alias_declaration`
+
 ## 0.5.0
 
 Preliminary grammar for C3 0.7.

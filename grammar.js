@@ -368,13 +368,13 @@ module.exports = grammar({
       choice(
         seq(
           choice(
-            seq($.ident, optional($.attributes), '=', $.alias_path_ident),
-            seq($.at_ident, optional($.attributes), '=', $.alias_path_at_ident),
-            seq($.const_ident, optional($.attributes), '=', $.path_const_ident),
+            seq(field('name', $.ident), optional($.attributes), '=', $.alias_path_ident),
+            seq(field('name', $.at_ident), optional($.attributes), '=', $.alias_path_at_ident),
+            seq(field('name', $.const_ident), optional($.attributes), '=', $.path_const_ident),
           ),
           optional($.generic_arguments),
         ),
-        seq($.type_ident, optional($.attributes), '=', choice($.type, $.func_signature)),
+        seq(field('name', $.type_ident), optional($.attributes), '=', choice($.type, $.func_signature)),
       ),
       ';'
     ),
