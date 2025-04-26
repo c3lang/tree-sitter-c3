@@ -17096,6 +17096,10 @@
     "named": false
   },
   {
+    "type": "e",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -17200,6 +17204,10 @@
     "named": false
   },
   {
+    "type": "l",
+    "named": false
+  },
+  {
     "type": "long",
     "named": false
   },
@@ -17209,6 +17217,10 @@
   },
   {
     "type": "module",
+    "named": false
+  },
+  {
+    "type": "n",
     "named": false
   },
   {
