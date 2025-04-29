@@ -4715,36 +4715,6 @@
         }
       ]
     },
-    "_if_body": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_statement"
-          }
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "compound_stmt"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "else_part"
-            }
-          ]
-        }
-      ]
-    },
     "if_stmt": {
       "type": "SEQ",
       "members": [
@@ -4773,8 +4743,34 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "_if_body"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "body",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_statement"
+              }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "body",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "compound_stmt"
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "else_part"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -5718,6 +5714,27 @@
         }
       ]
     },
+    "ct_else_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$else"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ct_stmt_body"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "ct_if_stmt": {
       "type": "CHOICE",
       "members": [
@@ -5745,44 +5762,11 @@
               ]
             },
             {
-              "type": "STRING",
-              "value": "$endif"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "$if"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ct_if_cond"
-            },
-            {
               "type": "CHOICE",
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "ct_stmt_body"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": "$else"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "ct_stmt_body"
+                  "name": "ct_else_stmt"
                 },
                 {
                   "type": "BLANK"

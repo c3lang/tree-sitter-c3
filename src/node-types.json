@@ -5389,6 +5389,21 @@
     }
   },
   {
+    "type": "ct_else_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ct_stmt_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ct_exec_stmt",
     "named": true,
     "fields": {
@@ -6048,6 +6063,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "ct_else_stmt",
+          "named": true
+        },
         {
           "type": "ct_if_cond",
           "named": true

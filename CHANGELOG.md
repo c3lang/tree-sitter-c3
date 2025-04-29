@@ -1,5 +1,9 @@
 # tree-sitter-c3 Changelog
 
+## 0.5.2
+- Added rule `ct_else_stmt` encapsulating `$else` blocks
+- Updated queries
+
 ## 0.5.1
 
 - Parse `@operator` overloads

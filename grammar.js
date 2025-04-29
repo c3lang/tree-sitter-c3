@@ -838,15 +838,14 @@ module.exports = grammar({
 
     // If Statement
     // -------------------------
-    _if_body: $ => choice(
-      field('body', $._statement),
-      seq(field('body', $.compound_stmt), $.else_part),
-    ),
     if_stmt: $ => seq(
       'if',
       optional($.label),
       field('condition', $.paren_cond),
-      $._if_body,
+      choice(
+        field('body', $._statement),
+        seq(field('body', $.compound_stmt), $.else_part),
+      ),
     ),
     else_part: $ => seq(
       'else',
@@ -992,9 +991,9 @@ module.exports = grammar({
     // Compile Time If Statement
     // -------------------------
     ct_if_cond: $ => seq($._constant_expr, ':'),
+    ct_else_stmt: $ => seq('$else', optional($.ct_stmt_body)),
     ct_if_stmt: $ => choice(
-      seq('$if', $.ct_if_cond, optional($.ct_stmt_body), '$endif'),
-      seq('$if', $.ct_if_cond, optional($.ct_stmt_body), '$else', optional($.ct_stmt_body), '$endif'),
+      seq('$if', $.ct_if_cond, optional($.ct_stmt_body), optional($.ct_else_stmt), '$endif'),
     ),
 
     // Compile Time Switch Statement
