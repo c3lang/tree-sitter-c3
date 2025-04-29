@@ -191,7 +191,30 @@
   {
     "type": "alias_declaration",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "at_ident",
+            "named": true
+          },
+          {
+            "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "type_ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -205,15 +228,7 @@
           "named": true
         },
         {
-          "type": "at_ident",
-          "named": true
-        },
-        {
           "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "const_ident",
           "named": true
         },
         {
@@ -225,19 +240,11 @@
           "named": true
         },
         {
-          "type": "ident",
-          "named": true
-        },
-        {
           "type": "path_const_ident",
           "named": true
         },
         {
           "type": "type",
-          "named": true
-        },
-        {
-          "type": "type_ident",
           "named": true
         }
       ]
@@ -1550,6 +1557,10 @@
         },
         {
           "type": "optional_expr",
+          "named": true
+        },
+        {
+          "type": "overload_operator",
           "named": true
         },
         {
@@ -7717,6 +7728,10 @@
       "required": true,
       "types": [
         {
+          "type": "attributes",
+          "named": true
+        },
+        {
           "type": "const_ident",
           "named": true
         }
@@ -11356,6 +11371,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "overload_operator",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "param_path",
@@ -17197,6 +17217,10 @@
   },
   {
     "type": "isz",
+    "named": false
+  },
+  {
+    "type": "len",
     "named": false
   },
   {

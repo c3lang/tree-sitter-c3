@@ -2,7 +2,10 @@
 
 ## 0.5.1
 
+- Parse `@operator` overloads
+- Added rule `overload_operator`
 - Added field `name` to `alias_declaration`
+- Fixed not parsing attributes for `faultdef`
 
 ## 0.5.0
 

@@ -286,13 +286,37 @@ module.exports = grammar({
       $.path_at_type_ident,
     ),
 
-    _attribute_operator_expr: $ => choice(
+    overload_operator: $ => choice(
+      seq('[', ']'),
       seq('&', '[', ']'),
       seq('[', ']', '='),
-      seq('[', ']'),
+      'len',
+      '~',
+      '+',
+      '-',
+      '*',
+      '/',
+      '%',
+      '&',
+      '|',
+      '^',
+      '<<',
+      '>>',
+      '==',
+      '!=',
+      '+=',
+      '-=',
+      '*=',
+      '/=',
+      '%=',
+      '&=',
+      '|=',
+      '^=',
+      '<<=',
+      '>>=',
     ),
 
-    attr_param: $ => choice($._attribute_operator_expr, $._constant_expr),
+    attr_param: $ => choice($.overload_operator, $._constant_expr),
 
     attribute_param_list: $ => seq('(', commaSep1($.attr_param), ')'),
     attribute: $ => seq(
@@ -384,6 +408,7 @@ module.exports = grammar({
     faultdef_declaration: $ => seq(
       'faultdef',
       commaSep1($.const_ident),
+      optional($.attributes),
       ';',
     ),
 
