@@ -11586,6 +11586,10 @@
             "named": true
           },
           {
+            "type": "ct_type_ident",
+            "named": true
+          },
+          {
             "type": "hash_ident",
             "named": true
           },

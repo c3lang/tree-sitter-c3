@@ -261,21 +261,23 @@ module.exports = grammar({
           '...',
           seq(optional('...'), field('name', $.ident), optional($.attributes)),
           // Macro parameters
-          seq(field('name', $.ct_ident), optional($.attributes)),
-          seq(field('name', $.hash_ident), optional($.attributes)),
-        ))
+          seq(field('name', choice($.ct_ident, $.hash_ident)), optional($.attributes)),
+        )),
       ),
 
       // Untyped parameters
       '...',
       seq(field('name', $.ident), optional('...'), optional($.attributes)),
-      seq('&', field('name', $.ident), optional($.attributes)),
+      seq('&', field('name', $.ident), optional($.attributes)), // Method ref parameter such as &self
       // Macro parameters
-      seq(field('name', $.ct_ident), optional($.attributes)),
-      seq(field('name', $.hash_ident), optional($.attributes)),
+      // Precedence for $.ct_type_ident over $.type
+      prec(1, seq(
+        field('name', choice($.ct_ident, $.ct_type_ident, $.hash_ident)),
+        optional($.attributes)
+      )),
     ),
 
-    parameter_default: $ => $._assign_right_expr,
+    parameter_default: $ => seq('=', field('right', choice($._expr, $.type))),
     parameter: $ => seq($._parameter, optional($.parameter_default)),
     _parameters: $ => commaSepTrailing1(seq($.parameter)),
 

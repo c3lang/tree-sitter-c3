@@ -1,5 +1,9 @@
 # tree-sitter-c3 Changelog
 
+## 0.5.3
+- Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)
+- Resolve parameter `$Type` of `macro foo($Type)` as `(ct_type_ident)` instead of `(type (base_type (ct_type_ident)))`
+
 ## 0.5.2
 - Added rule `ct_else_stmt` encapsulating `$else` blocks
 - Updated queries

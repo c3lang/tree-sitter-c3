@@ -1017,33 +1017,17 @@
                           "type": "FIELD",
                           "name": "name",
                           "content": {
-                            "type": "SYMBOL",
-                            "name": "ct_ident"
-                          }
-                        },
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "SYMBOL",
-                              "name": "attributes"
-                            },
-                            {
-                              "type": "BLANK"
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "FIELD",
-                          "name": "name",
-                          "content": {
-                            "type": "SYMBOL",
-                            "name": "hash_ident"
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "ct_ident"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "hash_ident"
+                              }
+                            ]
                           }
                         },
                         {
@@ -1140,60 +1124,74 @@
           ]
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "name",
-              "content": {
-                "type": "SYMBOL",
-                "name": "ct_ident"
-              }
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "attributes"
-                },
-                {
-                  "type": "BLANK"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "name",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "ct_ident"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "ct_type_ident"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "hash_ident"
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "name",
-              "content": {
-                "type": "SYMBOL",
-                "name": "hash_ident"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "attributes"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               }
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "attributes"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+            ]
+          }
         }
       ]
     },
     "parameter_default": {
-      "type": "SYMBOL",
-      "name": "_assign_right_expr"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "right",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expr"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "type"
+              }
+            ]
+          }
+        }
+      ]
     },
     "parameter": {
       "type": "SEQ",
