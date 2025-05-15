@@ -3,14 +3,8 @@
 enum TokenType {
   BLOCK_COMMENT_TEXT,
   DOC_COMMENT_TEXT,
-  DOC_COMMENT_CONTRACT_TEXT,
   REAL_LITERAL,
 };
-  // DOC_COMMENT_CONTRACT_CODE,
-  // DOC_COMMENT_CONTRACT_DESCRIPTION,
-
-  // DOC_COMMENT_CONTRACT_STRING,
-
 
 void *tree_sitter_c3_external_scanner_create() { return NULL; }
 void tree_sitter_c3_external_scanner_destroy(void *p) {}
@@ -85,61 +79,6 @@ static bool scan_doc_comment_text(TSLexer *lexer) {
   }
   return false;
 }
-
-static bool scan_doc_comment_contract_text(TSLexer *lexer) {
-  // We stop at EOF, newline or '*>'
-  bool has_text = false;
-  while (true) {
-    if (lexer->eof(lexer)) {
-      lexer->mark_end(lexer);
-      return false;
-    }
-
-    int32_t c = lexer->lookahead;
-    if (c == '\n') {
-      return has_text;
-    } else if (c == '*') {
-      lexer->advance(lexer, false);
-      if (lexer->lookahead == '>') {
-        return has_text;
-      }
-    }
-
-    bool whitespace = is_whitespace(c);
-    bool skip = !has_text && whitespace;
-    lexer->advance(lexer, skip);
-    if (!is_whitespace(c)) {
-      lexer->mark_end(lexer);
-      has_text = true;
-    }
-  }
-  return false;
-}
-
-/*static bool scan_doc_comment_contract_code(TSLexer *lexer) {
-	bool has_code = false;
-	while (true) {
-		if (lexer->eof(lexer)) {
-			lexer->mark_end(lexer);
-			return false;
-		}
-
-		int32_t c = lexer->lookahead;
-		if  (c == '\n') {
-			return has_code;
-		} else if (c == '*') {
-			lexer->advance(lexer, false);
-			if (lexer->lookahead == '>') {
-				return has_code;
-			}
-		}
-	}
-	return false;
-}*/
-
-/*static bool scan_doc_comment_contract_description(TSLexer *lexer) {
-
-}*/
 
 static bool is_digit(int32_t c) {
   return c >= '0' && c <= '9';
@@ -320,12 +259,6 @@ bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
                                           const bool *valid_symbols) {
   if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment(lexer)) {
     lexer->result_symbol = BLOCK_COMMENT_TEXT;
-    return true;
-  }
-
-  // Before consuming whitespace because we need newlines
-  if (valid_symbols[DOC_COMMENT_CONTRACT_TEXT] && scan_doc_comment_contract_text(lexer)) {
-    lexer->result_symbol = DOC_COMMENT_CONTRACT_TEXT;
     return true;
   }
 
