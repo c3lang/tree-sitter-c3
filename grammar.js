@@ -1200,7 +1200,7 @@ module.exports = grammar({
           '$defined',
           '$embed',
         ),
-        '(', commaSep($._expr), ')'
+        '(', commaSep($.call_arg), ')'
       ),
       seq('$feature', '(', $.const_ident, ')'),
       seq('$assignable', '(', $._expr, ',', $.type, ')'),
