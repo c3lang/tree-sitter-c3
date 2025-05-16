@@ -177,7 +177,7 @@ module.exports = grammar({
             seq(
                 field('name', alias('@param', $.at_ident)),
                 optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-                field('ident', choice($.ct_ident, $.hash_ident, $.ident, $.type)),
+                field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
                 optional(':'),
                 optional($.string_expr)
             ),
@@ -191,7 +191,7 @@ module.exports = grammar({
             seq(
                 field('name', alias('@return', $.at_ident)),
                 choice(
-                    seq('?', commaSep1(choice($.const_ident, $.module_ident_expr)), optional(':'), optional($.string_expr)),
+                    seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
                     $.string_expr,
                 )
             ),
