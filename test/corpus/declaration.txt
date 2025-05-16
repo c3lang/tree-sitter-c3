@@ -74,7 +74,7 @@ import std::data::json;
       (ident))))
 
 ================================================================================
-Define declarations
+Alias declarations
 ================================================================================
 
 alias CharPtr = char*;
@@ -92,7 +92,10 @@ alias PI = std::math::PI;
 alias isTest = Test.is_test;
 alias isTest2 = bar::Test.is_test;
 alias @isTest = Test.@is_test;
-alias @isTest2 = bar::Test.@is_test;
+alias @isTest = bar::Test.@is_test;
+alias @isTest = bar::Test{int}.@is_test;
+alias GOO = bar::GOO{int};
+alias goo = bar::Foo{int}.method;
 
 --------------------------------------------------------------------------------
 
@@ -235,7 +238,39 @@ alias @isTest2 = bar::Test.@is_test;
       (module_resolution
         (ident))
       (type_ident)
-      (at_ident))))
+      (at_ident)))
+  (alias_declaration
+    (at_ident)
+    (alias_path_at_ident
+      (module_resolution
+        (ident))
+      (type_ident)
+      (generic_arguments
+        (type
+          (base_type
+            (base_type_name))))
+      (at_ident)))
+  (alias_declaration
+    (const_ident)
+    (path_const_ident
+      (module_resolution
+        (ident))
+      (const_ident))
+    (generic_arguments
+      (type
+        (base_type
+          (base_type_name)))))
+  (alias_declaration
+    (ident)
+    (alias_path_ident
+      (module_resolution
+        (ident))
+      (type_ident)
+      (generic_arguments
+        (type
+          (base_type
+            (base_type_name))))
+      (ident))))
 
 ================================================================================
 Function declarations
@@ -796,3 +831,70 @@ faultdef FILE_NOT_FOUND, FILE_NOT_READABLE;
   (faultdef_declaration
     (const_ident)
     (const_ident)))
+
+================================================================================
+Byte literals
+================================================================================
+
+char[*] foo = x"       00
+aa  bbcc   ddee  ff";
+char[*] foo = x'd  ead b
+eef';
+char[*] foo = x`ff 00 aa 00`;
+char[*] foo = b64"   SG  VsbG8gV29ybGQ=";
+char[*] foo = b64'   SG  VsbG8gV29ybGQ=';
+char[*] foo = b64`   SG  VsbG8g
+
+V29ybGQ=`;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal)))
+  (global_declaration
+    (type
+      (base_type
+        (base_type_name))
+      (type_suffix))
+    (ident)
+    (bytes_expr
+      (bytes_literal))))

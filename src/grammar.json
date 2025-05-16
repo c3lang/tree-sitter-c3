@@ -242,11 +242,8 @@
                 "value": "x'"
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Fa-f0-9][ \\t\\v\\n\\fA-Fa-f0-9]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Fa-f0-9]*"
               },
               {
                 "type": "STRING",
@@ -262,11 +259,8 @@
                 "value": "x\""
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Fa-f0-9][ \\t\\v\\n\\fA-Fa-f0-9]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Fa-f0-9]*"
               },
               {
                 "type": "STRING",
@@ -282,11 +276,8 @@
                 "value": "x`"
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Fa-f0-9][ \\t\\v\\n\\fA-Fa-f0-9]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Fa-f0-9]*"
               },
               {
                 "type": "STRING",
@@ -302,11 +293,8 @@
                 "value": "b64'"
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Za-z0-9+/][ \\t\\v\\n\\fA-Za-z0-9+/=]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Za-z0-9+/=]*"
               },
               {
                 "type": "STRING",
@@ -322,11 +310,8 @@
                 "value": "b64\""
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Za-z0-9+/][ \\t\\v\\n\\fA-Za-z0-9+/=]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Za-z0-9+/=]*"
               },
               {
                 "type": "STRING",
@@ -342,11 +327,8 @@
                 "value": "b64`"
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[ \\t\\v\\n\\f]?[A-Za-z0-9+/][ \\t\\v\\n\\fA-Za-z0-9+/=]+"
-                }
+                "type": "PATTERN",
+                "value": "[\\sA-Za-z0-9+/=]*"
               },
               {
                 "type": "STRING",
@@ -719,6 +701,18 @@
                   "name": "type_ident"
                 },
                 {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "generic_arguments"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
                   "type": "STRING",
                   "value": "."
                 }
@@ -759,6 +753,18 @@
                 {
                   "type": "SYMBOL",
                   "name": "type_ident"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "generic_arguments"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",
@@ -7964,6 +7970,14 @@
                   {
                     "type": "SYMBOL",
                     "name": "ct_ident"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "ct_type_ident"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "hash_ident"
                   }
                 ]
               }

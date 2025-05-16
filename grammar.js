@@ -14,8 +14,8 @@
 // - Optional types everywhere
 // - `try` followed by expressions with lower precedence than &&)
 
-const B64 = /[ \t\v\n\f]?[A-Za-z0-9+/][ \t\v\n\fA-Za-z0-9+/=]+/;
-const HEX = /[ \t\v\n\f]?[A-Fa-f0-9][ \t\v\n\fA-Fa-f0-9]+/;
+const B64 = /[\sA-Za-z0-9+/=]*/;
+const HEX = /[\sA-Fa-f0-9]*/;
 const INT = /[0-9](_?[0-9])*/;
 const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
 const OINT = /[0-7](_?[0-7])*/;
@@ -156,12 +156,12 @@ module.exports = grammar({
     ),
 
     bytes_literal: _ => token(choice(
-      seq('x\'', repeat1(HEX), '\''),
-      seq('x"',  repeat1(HEX), '"'),
-      seq('x`',  repeat1(HEX), '`'),
-      seq('b64\'', repeat1(B64), '\''),
-      seq('b64"',  repeat1(B64), '"'),
-      seq('b64`',  repeat1(B64), '`'),
+      seq('x\'', HEX, '\''),
+      seq('x"',  HEX, '"'),
+      seq('x`',  HEX, '`'),
+      seq('b64\'', B64, '\''),
+      seq('b64"',  B64, '"'),
+      seq('b64`',  B64, '`'),
     )),
 
     // Comments
@@ -221,12 +221,24 @@ module.exports = grammar({
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
     alias_path_ident: $ => seq(
       optional($._module_path),
-      optional(seq($.type_ident, '.')),
+      optional(
+        seq(
+          $.type_ident,
+          optional($.generic_arguments),
+          '.'
+        ),
+      ),
       $.ident,
     ),
     alias_path_at_ident: $ => seq(
       optional($._module_path),
-      optional(seq($.type_ident, '.')),
+      optional(
+        seq(
+          $.type_ident,
+          optional($.generic_arguments),
+          '.'
+        ),
+      ),
       $.at_ident,
     ),
 
@@ -1326,7 +1338,7 @@ module.exports = grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', choice($.ident, $.ct_ident)), ':', choice($._expr, $.type)),
+      seq(field('name', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)), ':', choice($._expr, $.type)),
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),

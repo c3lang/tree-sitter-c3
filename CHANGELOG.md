@@ -1,5 +1,10 @@
 # tree-sitter-c3 Changelog
 
+## 0.5.4
+- Improved parsing of byte literals
+- Fixed generic type method alias (`alias foo = Type{int}.method`)
+- Fixed not parsing named type `$Foo:` and hash `#foo:` arguments
+
 ## 0.5.3
 - Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)
 - Resolve parameter `$Type` of `macro foo($Type)` as `(ct_type_ident)` instead of `(type (base_type (ct_type_ident)))`

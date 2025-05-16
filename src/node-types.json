@@ -263,6 +263,10 @@
           "named": true
         },
         {
+          "type": "generic_arguments",
+          "named": true
+        },
+        {
           "type": "module_resolution",
           "named": true
         },
@@ -281,6 +285,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "generic_arguments",
+          "named": true
+        },
         {
           "type": "ident",
           "named": true
@@ -2820,6 +2828,14 @@
         "types": [
           {
             "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "ct_type_ident",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
             "named": true
           },
           {

@@ -1645,3 +1645,49 @@ fn void main() {
                 (call_expr
                   (ident)
                   (call_invocation))))))))))
+
+================================================================================
+Named arguments
+================================================================================
+
+fn void main() {
+  @foo(arg1: 2u, #arg2: int, $arg3: 4.e2, $Arg4: Type{Type});
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list)
+    (macro_func_body
+      (compound_stmt
+        (expr_stmt
+          (call_expr
+            (at_ident)
+            (call_invocation
+              (call_arg
+                (ident)
+                (integer_literal))
+              (call_arg
+                (hash_ident)
+                (type
+                  (base_type
+                    (base_type_name))))
+              (call_arg
+                (ct_ident)
+                (real_literal))
+              (call_arg
+                (ct_type_ident)
+                (type
+                  (base_type
+                    (generic_type_ident
+                      (type_ident)
+                      (generic_arguments
+                        (type
+                          (base_type
+                            (type_ident)))))))))))))))
