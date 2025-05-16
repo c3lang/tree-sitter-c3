@@ -173,31 +173,31 @@ module.exports = grammar({
     // -------------------------
     doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
     doc_comment_contract: $ => seq(
-        choice(
-            seq(
-                field('name', alias('@param', $.at_ident)),
-                optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-                field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
-                optional(':'),
-                optional($.string_expr)
-            ),
-            field('name', alias('@pure', $.at_ident)),
-            seq(
-                field('name', alias(choice('@ensure', '@require'), $.at_ident)),
-                commaSep1($._expr),
-                optional(':'),
-                optional($.string_expr),
-            ),
-            seq(
-                field('name', alias('@return', $.at_ident)),
-                choice(
-                    seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
-                    $.string_expr,
-                )
-            ),
-            seq(field('name', $.at_ident), optional($.string_expr)),
+      choice(
+        seq(
+          field('name', alias('@param', $.at_ident)),
+          optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
+          field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
+          optional(':'),
+          optional($.string_expr)
         ),
-        '\n'
+        field('name', alias('@pure', $.at_ident)),
+        seq(
+          field('name', alias(choice('@ensure', '@require'), $.at_ident)),
+          commaSep1($._expr),
+          optional(':'),
+          optional($.string_expr),
+        ),
+        seq(
+          field('name', alias('@return', $.at_ident)),
+          choice(
+            seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
+            $.string_expr,
+          )
+        ),
+        seq(field('name', $.at_ident), optional($.string_expr)),
+      ),
+      '\n'
     ),
     doc_comment: $ => seq(
       '<*',
