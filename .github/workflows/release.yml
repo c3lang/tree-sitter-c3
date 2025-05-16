@@ -1,0 +1,21 @@
+name: Publish release
+
+on:
+  push:
+    tags: ["v.**"]
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  github:
+    uses: tree-sitter/workflows/.github/workflows/release.yml@main
+    with:
+      abi-version: "14"
+      generate: true
+      attestations: true
+
+
+      
