@@ -89,6 +89,8 @@ module.exports = grammar({
     $.block_comment_text,
     $.doc_comment_text,
     $.doc_comment_contract_text,
+    // $.doc_comment_contract_code,
+    // $.doc_comment_contract_description,
     $.real_literal,
   ],
 
@@ -173,9 +175,33 @@ module.exports = grammar({
     // Doc comments and contracts
     // -------------------------
     // NOTE parsed by scanner.c (scan_doc_comment_contract_text)
+    doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
     doc_comment_contract: $ => seq(
-      field('name', $.at_ident),
-      optional($.doc_comment_contract_text)
+		choice(
+			seq(
+				field('name', alias('@param', $.at_ident)),
+				optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
+				field('ident', choice($.ct_ident, $.hash_ident, $.ident, $.type)),
+				optional(':'),
+				optional($.string_expr)
+			),
+			field('name', alias('@pure', $.at_ident)),
+			seq(
+				field('name', alias(choice('@ensure', '@require'), $.at_ident)),
+				commaSep1($._expr),
+				optional(':'),
+				optional($.string_expr),
+			),
+			seq(
+				field('name', alias('@return', $.at_ident)),
+				choice(
+					seq('?', commaSep1(choice($.const_ident, $.module_ident_expr)), optional(':'), optional($.string_expr)),
+					$.string_expr,
+				)
+			),
+			seq(field('name', $.at_ident), optional($.string_expr)),
+		),
+		'\n'
     ),
     doc_comment: $ => seq(
       '<*',
@@ -1123,7 +1149,7 @@ module.exports = grammar({
       optional($.param_path),
     )),
 
-    string_expr: $ => repeat1(choice($.string_literal, $.raw_string_literal)),
+    string_expr: $ => prec.right(repeat1(choice($.string_literal, $.raw_string_literal))),
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
 
