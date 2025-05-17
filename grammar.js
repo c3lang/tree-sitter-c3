@@ -259,7 +259,7 @@ module.exports = grammar({
       seq($.type, '.', $.ident),
       $.path_ident,
     ),
-    alias_path_at_ident: $ => seq(
+    alias_path_at_ident: $ => choice(
       seq($.type, '.', $.at_ident),
       $.path_at_ident,
     ),
