@@ -563,6 +563,7 @@ module.exports = grammar({
           $._constant_expr,
         ))
       )),
+      optional($.attributes),
       ';'
     ),
     bitstruct_body: $ => seq(
@@ -1378,7 +1379,7 @@ module.exports = grammar({
       ),
     ),
 
-    call_inline_attributes: $ => repeat1($.at_ident),
+    call_inline_attributes: $ => repeat1(alias(choice('@pure', '@inline', '@noinline'), $.at_ident)),
     call_invocation: $ => seq(
       '(',
       optional($._call_arg_list),
