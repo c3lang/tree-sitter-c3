@@ -12,7 +12,6 @@ Block comment
   (block_comment
     (block_comment_text)))
 
-
 ================================================================================
 Singleline Doc comment
 ================================================================================
@@ -38,7 +37,6 @@ Another line
   (doc_comment
     (doc_comment_text)))
 
-
 ================================================================================
 Param Doc comment
 ================================================================================
@@ -52,7 +50,10 @@ Param Doc comment
   (doc_comment
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
+      (ident)
+      (string_expr
+        (string_literal
+          (string_content))))))
 
 ================================================================================
 Param Doc 2 comments
@@ -68,10 +69,17 @@ Param Doc 2 comments
   (doc_comment
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))
+      (ident)
+      (string_expr
+        (string_literal
+          (string_content))))
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))))))
 
 ================================================================================
 Require Doc single line
@@ -84,8 +92,9 @@ Require Doc single line
   (doc_comment
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
-
+      (binary_expr
+        (ident)
+        (integer_literal)))))
 
 ================================================================================
 Doc compound
@@ -103,10 +112,17 @@ Doc compound
     (doc_comment_text)
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))
+      (ident)
+      (string_expr
+        (string_literal
+          (string_content))))
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))))))
 
 ================================================================================
 Doc compound 2
@@ -121,7 +137,9 @@ Doc compound 2
     (doc_comment_text)
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
+      (binary_expr
+        (ident)
+        (integer_literal)))))
 
 ================================================================================
 Doc @ inside doc
@@ -140,11 +158,17 @@ Doc @ inside doc
     (doc_comment_text)
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))
+      (ident)
+      (string_expr
+        (string_literal
+          (string_content))))
     (doc_comment_contract
       (at_ident)
-      (doc_comment_contract_text))))
-
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))))))
 
 ================================================================================
 Empty doc
@@ -167,3 +191,5 @@ Error doc
 *>
 
 --------------------------------------------------------------------------------
+
+
