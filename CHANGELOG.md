@@ -1,10 +1,12 @@
 # tree-sitter-c3 Changelog
 
 ## 0.5.4
-- Added parsing of doc comment contracts #33
+- Added parsing of doc comment contracts (#33)
 - Improved parsing of byte literals
 - Fixed generic type method alias (`alias foo = Type{int}.method`)
 - Fixed not parsing named type `$Foo:` and hash `#foo:` arguments
+- Fixed `$defined(Type)` error
+- Fixed not parsing interface parents
 
 ## 0.5.3
 - Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)

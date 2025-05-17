@@ -630,6 +630,10 @@ module.exports = grammar({
     interface_declaration: $ => seq(
       'interface',
       field('name', $.type_ident),
+      optional(seq(
+        ':',
+        commaSep1($.type_ident),
+      )),
       field('body', $.interface_body),
     ),
 
