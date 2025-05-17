@@ -304,11 +304,10 @@ module.exports = grammar({
       seq(field('name', $.ident), optional('...'), optional($.attributes)),
       seq('&', field('name', $.ident), optional($.attributes)), // Method ref parameter such as &self
       // Macro parameters
-      // Precedence for $.ct_type_ident over $.type
-      prec(1, seq(
-        field('name', choice($.ct_ident, $.ct_type_ident, $.hash_ident)),
+      seq(
+        field('name', choice($.ct_ident, $.hash_ident)),
         optional($.attributes)
-      )),
+      ),
     ),
 
     parameter_default: $ => seq('=', field('right', choice($._expr, $.type))),
@@ -991,8 +990,8 @@ module.exports = grammar({
       $.ct_const_ident,
       seq(optional('&'), $.ident),
       $.const_ident,
-      $.real_literal,
-      $.integer_literal,
+      seq(optional('-'), $.real_literal),
+      seq(optional('-'), $.integer_literal),
       $.paren_expr,
       $.asm_addr,
     ),

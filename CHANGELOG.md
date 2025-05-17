@@ -9,6 +9,8 @@
 - Fixed not parsing interface parents
 - Fixed `alias foo = Type[].method`
 - Fixed function signature not allowing attributes
+- Fixed negative asm integer/real literals
+- Fixed 0.5.3 regression: Resolve parameter `$Type` as `(type (base_type (ct_type_ident)))` again (`$Type ident` is a valid parameter for lambda functions in macros)
 
 ## 0.5.3
 - Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)
