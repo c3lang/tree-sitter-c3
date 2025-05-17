@@ -7,6 +7,7 @@
 - Fixed not parsing named type `$Foo:` and hash `#foo:` arguments
 - Fixed `$defined(Type)` error
 - Fixed not parsing interface parents
+- Fixed `alias foo = Type[].method`
 
 ## 0.5.3
 - Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)
