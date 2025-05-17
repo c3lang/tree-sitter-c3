@@ -63,6 +63,22 @@ function commaSepTrailing1(rule) {
   return seq(rule, repeat(seq(',', rule)), optional(','));
 }
 
+function sep(rule, separator) {
+  return optional(sep1(rule, separator));
+}
+
+function sep1(rule, separator) {
+  return seq(rule, repeat(seq(separator, rule)));
+}
+
+function sepTrailing(rule, separator) {
+  return optional(sepTrailing1(rule, separator));
+}
+
+function sepTrailing1(rule, separator) {
+  return seq(rule, repeat(seq(separator, rule)), optional(separator));
+}
+
 function make_binary_expr($, table) {
   return choice(...table.map(([operator, precedence]) => {
     return prec.left(precedence, seq(
@@ -172,37 +188,34 @@ module.exports = grammar({
     // Doc comments and contracts
     // -------------------------
     doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
-    doc_comment_contract: $ => seq(
-      choice(
-        seq(
-          field('name', alias('@param', $.at_ident)),
-          optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-          field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
-          optional(':'),
-          optional($.string_expr)
-        ),
-        field('name', alias('@pure', $.at_ident)),
-        seq(
-          field('name', alias(choice('@ensure', '@require'), $.at_ident)),
-          commaSep1($._expr),
-          optional(':'),
-          optional($.string_expr),
-        ),
-        seq(
-          field('name', alias('@return', $.at_ident)),
-          choice(
-            seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
-            $.string_expr,
-          )
-        ),
-        seq(field('name', $.at_ident), optional($.string_expr)),
+    doc_comment_contract: $ => choice(
+      seq(
+        field('name', alias('@param', $.at_ident)),
+        optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
+        field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
+        optional(':'),
+        optional($.string_expr)
       ),
-      '\n'
+      field('name', alias('@pure', $.at_ident)),
+      seq(
+        field('name', alias(choice('@ensure', '@require'), $.at_ident)),
+        commaSep1($._expr),
+        optional(':'),
+        optional($.string_expr),
+      ),
+      seq(
+        field('name', alias('@return', $.at_ident)),
+        choice(
+          seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
+          $.string_expr,
+        )
+      ),
+      seq(field('name', $.at_ident), optional($.string_expr)),
     ),
     doc_comment: $ => seq(
       '<*',
       optional($.doc_comment_text), // NOTE parsed by scanner.c (scan_doc_comment_text)
-      repeat($.doc_comment_contract),
+      sepTrailing($.doc_comment_contract, '\n'),
       '*>',
     ),
 
