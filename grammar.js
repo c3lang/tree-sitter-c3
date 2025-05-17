@@ -251,18 +251,9 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
-    path_at_ident: $ => seq(optional($._module_path), $.at_ident),
     path_type_ident: $ => seq(optional($._module_path), $.type_ident),
     path_const_ident: $ => seq(optional($._module_path), $.const_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
-    alias_path_ident: $ => choice(
-      seq($.type, '.', $.ident),
-      $.path_ident,
-    ),
-    alias_path_at_ident: $ => choice(
-      seq($.type, '.', $.at_ident),
-      $.path_at_ident,
-    ),
 
     // Generic Parameters
     // -------------------------
@@ -426,15 +417,28 @@ module.exports = grammar({
     alias_declaration: $ => seq(
       'alias',
       choice(
+        // Variable/function/macro/constant
         seq(
-          choice(
-            seq(field('name', $.ident), optional($.attributes), '=', $.alias_path_ident),
-            seq(field('name', $.at_ident), optional($.attributes), '=', $.alias_path_at_ident),
-            seq(field('name', $.const_ident), optional($.attributes), '=', $.path_const_ident),
-          ),
+          field('name', choice($.ident, $.at_ident, $.const_ident)),
+          optional($.attributes),
+          '=',
+          seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
           optional($.generic_arguments),
         ),
-        seq(field('name', $.type_ident), optional($.attributes), '=', choice($.type, $.func_signature)),
+        // Method
+        seq(
+          field('name', choice($.ident, $.at_ident)),
+          optional($.attributes),
+          '=',
+          seq($.type, '.', choice($.ident, $.at_ident)),
+        ),
+        // Type/function
+        seq(
+          field('name', $.type_ident),
+          optional($.attributes),
+          '=',
+          choice($.type, $.func_signature)
+        ),
       ),
       ';'
     ),

@@ -2,6 +2,8 @@
 
 ## 0.5.4
 - Added parsing of doc comment contracts (#33)
+- Removed `alias_path_ident` and `alias_path_at_ident`
+- Relaxed and refactored alias declaration
 - Improved parsing of byte literals
 - Fixed generic type method alias (`alias foo = Type{int}.method`)
 - Fixed not parsing named type `$Foo:` and hash `#foo:` arguments
