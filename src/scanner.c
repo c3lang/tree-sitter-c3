@@ -6,6 +6,11 @@ enum TokenType {
   DOC_COMMENT_CONTRACT_TEXT,
   REAL_LITERAL,
 };
+  // DOC_COMMENT_CONTRACT_CODE,
+  // DOC_COMMENT_CONTRACT_DESCRIPTION,
+
+  // DOC_COMMENT_CONTRACT_STRING,
+
 
 void *tree_sitter_c3_external_scanner_create() { return NULL; }
 void tree_sitter_c3_external_scanner_destroy(void *p) {}
@@ -110,6 +115,31 @@ static bool scan_doc_comment_contract_text(TSLexer *lexer) {
   }
   return false;
 }
+
+/*static bool scan_doc_comment_contract_code(TSLexer *lexer) {
+	bool has_code = false;
+	while (true) {
+		if (lexer->eof(lexer)) {
+			lexer->mark_end(lexer);
+			return false;
+		}
+
+		int32_t c = lexer->lookahead;
+		if  (c == '\n') {
+			return has_code;
+		} else if (c == '*') {
+			lexer->advance(lexer, false);
+			if (lexer->lookahead == '>') {
+				return has_code;
+			}
+		}
+	}
+	return false;
+}*/
+
+/*static bool scan_doc_comment_contract_description(TSLexer *lexer) {
+
+}*/
 
 static bool is_digit(int32_t c) {
   return c >= '0' && c <= '9';
