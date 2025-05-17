@@ -420,7 +420,8 @@ module.exports = grammar({
     func_signature: $ => seq(
       'fn',
       field('return_type', $._type_optional),
-      $.fn_parameter_list
+      $.fn_parameter_list,
+      optional($.attributes),
     ),
 
     alias_declaration: $ => seq(
