@@ -2,6 +2,7 @@
 
 ## 0.5.4
 - Added parsing of doc comment contracts (#33)
+- Added ll/ull integer suffix
 - Removed `alias_path_ident` and `alias_path_at_ident`
 - Relaxed and refactored alias declaration
 - Improved parsing of byte literals
@@ -14,6 +15,7 @@
 - Fixed negative asm integer/real literals
 - Fixed 0.5.3 regression: Resolve parameter `$Type` as `(type (base_type (ct_type_ident)))` again (`$Type ident` is a valid parameter for lambda functions in macros)
 - Fixed not parsing attributes for bitstruct members
+- Fixed `$vasplat` in initializer lists
 
 ## 0.5.3
 - Fixed parsing of `macro foo($Type = Type)` (default argument of type parameter)

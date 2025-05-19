@@ -20,7 +20,8 @@ const INT = /[0-9](_?[0-9])*/;
 const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
 const OINT = /[0-7](_?[0-7])*/;
 const BINT = /[0-1](_?[0-1])*/;
-const INTTYPE = /[ui](8|16|32|64|128)|[Uu][Ll]?|[Ll]/;
+// NOTE ll/ull suffixes experimental for C3 >= 0.7.2
+const INTTYPE = /[ui](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}/;
 const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
 const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
@@ -1235,7 +1236,10 @@ module.exports = grammar({
     arg: $ => choice(
       seq($.param_path),
       seq($.param_path, '=', $._expr),
-      seq(optional('...'), $._expr),
+      $._expr,
+      // Splatting
+      seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
+      seq('...', $._expr),
     ),
 
     initializer_list: $ => seq('{', commaSepTrailing($.arg), '}'),
