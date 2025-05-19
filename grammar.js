@@ -104,6 +104,7 @@ module.exports = grammar({
   //   don't comment it can lead to picking wrong parser
   externals: $ => [
     $.block_comment_text,
+    $.block_comment_end_or_eof,
     $.doc_comment_text,
     $.real_literal,
   ],
@@ -222,9 +223,10 @@ module.exports = grammar({
 
     block_comment: $ => seq(
       '/*',
-      // NOTE parsed by scanner.c (scan_block_comment)
+      // NOTE parsed by scanner.c (scan_block_comment_scanner)
       $.block_comment_text,
-      '*/',
+      // NOTE parsed by scanner.c (scan_block_comment_end_or_eof)
+      alias($.block_comment_end_or_eof, '*/'),
     ),
 
     // Identifiers

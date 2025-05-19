@@ -2,6 +2,7 @@
 
 enum TokenType {
   BLOCK_COMMENT_TEXT,
+  BLOCK_COMMENT_END_OR_EOF,
   DOC_COMMENT_TEXT,
   REAL_LITERAL,
 };
@@ -12,7 +13,7 @@ void tree_sitter_c3_external_scanner_reset(void *p) {}
 unsigned tree_sitter_c3_external_scanner_serialize(void *p, char *buffer) { return 0; }
 void tree_sitter_c3_external_scanner_deserialize(void *p, const char *b, unsigned n) {}
 
-static bool scan_block_comment(TSLexer *lexer) {
+static bool scan_block_comment_text(TSLexer *lexer) {
   for (int stack = 0;;) {
     if (lexer->eof(lexer)) {
       lexer->mark_end(lexer);
@@ -41,6 +42,24 @@ static bool scan_block_comment(TSLexer *lexer) {
       lexer->advance(lexer, false);
     }
   }
+  return false;
+}
+
+static bool scan_block_comment_end_or_eof(TSLexer *lexer) {
+  if (lexer->eof(lexer)) {
+    lexer->mark_end(lexer);
+    return true;
+  }
+
+  if (lexer->lookahead == '*') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == '/') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true;
+    }
+  }
+
   return false;
 }
 
@@ -257,8 +276,13 @@ static bool scan_real_literal(TSLexer *lexer) {
 
 bool tree_sitter_c3_external_scanner_scan(void *payload, TSLexer *lexer,
                                           const bool *valid_symbols) {
-  if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment(lexer)) {
+  if (valid_symbols[BLOCK_COMMENT_TEXT] && scan_block_comment_text(lexer)) {
     lexer->result_symbol = BLOCK_COMMENT_TEXT;
+    return true;
+  }
+
+  if (valid_symbols[BLOCK_COMMENT_END_OR_EOF] && scan_block_comment_end_or_eof(lexer)) {
+    lexer->result_symbol = BLOCK_COMMENT_END_OR_EOF;
     return true;
   }
 
