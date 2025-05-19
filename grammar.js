@@ -1231,7 +1231,7 @@ module.exports = grammar({
     param_path_element: $ => prec(1, choice(
       seq('[', $._expr, ']'),
       seq('[', $._expr, '..', $._expr, ']'),
-      seq('.', $._base_expr),
+      seq('.', $.access_ident),
     )),
     param_path: $ => repeat1($.param_path_element),
 
