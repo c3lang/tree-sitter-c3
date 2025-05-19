@@ -1,0 +1,43 @@
+name: Run tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test parser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v1
+      - name: Run parser and binding tests
+        uses: tree-sitter/parser-test-action@v2
+    
+  test-against-c3c:
+    name: Test against stdlib and test suite
+    runs-on: ubuntu-latest
+
+    steps:
+    #- name: 'Download c3c binary'
+    #  uses: dsaltares/fetch-gh-release-asset@master
+    #  with:
+    #    file: c3-ubuntu-22.tar.gz
+    #    repo: c3clang/c3c
+    #    token: ${{ secrets.GITHUB_TOKEN }}
+    #- name: 'Untar c3c binary'
+    #  run: tar -xf c3-ubuntu-22.tar.gz
+    - name: Download latest release
+      uses: robinraju/release-downloader@v1.12
+      with:
+        repository: c3clang/c3c
+        latest: true
+        fileName: c3-ubuntu-22.tar.gz
+        tarBall: true
+        zipBall: false
+        extract: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'DBG ls'
+      run: ls
+    
