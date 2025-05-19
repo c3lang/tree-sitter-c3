@@ -1462,14 +1462,16 @@ module.exports = grammar({
       $.at_ident,
       $.hash_ident,
       $.access_eval,
-      'typeid',
     ),
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
         field('argument', $.type),
         '.',
       )),
-      field('field', choice($.access_ident, $.const_ident)),
+      field('field', choice(
+        $.access_ident,
+        $.const_ident, // Enum access
+      )),
     ),
 
     ////////////////////////////

@@ -1,9 +1,10 @@
 # tree-sitter-c3 Changelog
 
-## 0.5.4
+## 0.6.0
 - Added parsing of doc comment contracts (#33)
 - Added ll/ull integer suffix
 - Removed `alias_path_ident` and `alias_path_at_ident`
+- Removed `typeid` for token for `access_ident` (now resolved as `ident`)
 - Relaxed and refactored alias declaration
 - Improved parsing of byte literals
 - Fixed generic type method alias (`alias foo = Type{int}.method`)
