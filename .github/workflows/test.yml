@@ -14,6 +14,8 @@ jobs:
         uses: tree-sitter/setup-action/cli@v1
       - name: Run parser and binding tests
         uses: tree-sitter/parser-test-action@v2
+        with:
+          generate: false
     
   test-against-c3c:
     name: Test against stdlib and test suite
@@ -31,7 +33,7 @@ jobs:
     - name: Download latest release
       uses: robinraju/release-downloader@v1.12
       with:
-        repository: c3clang/c3c
+        repository: c3lang/c3c
         latest: true
         fileName: c3-ubuntu-22.tar.gz
         tarBall: true
