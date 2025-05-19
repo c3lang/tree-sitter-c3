@@ -90,12 +90,13 @@ alias testFloat = foo_test::test{float, double};
 alias Callback = fn int(char* text, int value);
 alias PI = std::math::PI;
 alias isTest = Test.is_test;
-alias isTest2 = bar::Test.is_test;
+alias isTest2 = bar::Test[].is_test;
 alias @isTest = Test.@is_test;
 alias @isTest = bar::Test.@is_test;
-alias @isTest = bar::Test{int}.@is_test;
+alias @isTest = bar::Test{int}[].@is_test;
 alias GOO = bar::GOO{int};
 alias goo = bar::Foo{int}.method;
+alias @intHello = foo::@hello{int};
 
 --------------------------------------------------------------------------------
 
@@ -120,12 +121,10 @@ alias goo = bar::Foo{int}.method;
         (base_type_name))))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (ident)))
+    (ident))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (ident)))
+    (ident))
   (alias_declaration
     (type_ident)
     (type
@@ -178,10 +177,9 @@ alias goo = bar::Foo{int}.method;
                 (base_type_name))))))))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (module_resolution
-        (ident))
+    (module_resolution
       (ident))
+    (ident)
     (generic_arguments
       (type
         (base_type
@@ -209,68 +207,89 @@ alias goo = bar::Foo{int}.method;
           (ident)))))
   (alias_declaration
     (const_ident)
-    (path_const_ident
-      (module_resolution
-        (ident))
-      (module_resolution
-        (ident))
-      (const_ident)))
+    (module_resolution
+      (ident))
+    (module_resolution
+      (ident))
+    (const_ident))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (type_ident)
-      (ident)))
+    (type
+      (base_type
+        (type_ident)))
+    (ident))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (module_resolution
-        (ident))
-      (type_ident)
-      (ident)))
+    (type
+      (base_type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident)))
+      (type_suffix))
+    (ident))
   (alias_declaration
     (at_ident)
-    (alias_path_at_ident
-      (type_ident)
-      (at_ident)))
+    (type
+      (base_type
+        (type_ident)))
+    (at_ident))
   (alias_declaration
     (at_ident)
-    (alias_path_at_ident
-      (module_resolution
-        (ident))
-      (type_ident)
-      (at_ident)))
+    (type
+      (base_type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident))))
+    (at_ident))
   (alias_declaration
     (at_ident)
-    (alias_path_at_ident
-      (module_resolution
-        (ident))
-      (type_ident)
-      (generic_arguments
-        (type
-          (base_type
-            (base_type_name))))
-      (at_ident)))
+    (type
+      (base_type
+        (generic_type_ident
+          (module_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arguments
+            (type
+              (base_type
+                (base_type_name))))))
+      (type_suffix))
+    (at_ident))
   (alias_declaration
     (const_ident)
-    (path_const_ident
-      (module_resolution
-        (ident))
-      (const_ident))
+    (module_resolution
+      (ident))
+    (const_ident)
     (generic_arguments
       (type
         (base_type
           (base_type_name)))))
   (alias_declaration
     (ident)
-    (alias_path_ident
-      (module_resolution
-        (ident))
-      (type_ident)
-      (generic_arguments
-        (type
-          (base_type
-            (base_type_name))))
-      (ident))))
+    (type
+      (base_type
+        (generic_type_ident
+          (module_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arguments
+            (type
+              (base_type
+                (base_type_name)))))))
+    (ident))
+  (alias_declaration
+    (at_ident)
+    (module_resolution
+      (ident))
+    (at_ident)
+    (generic_arguments
+      (type
+        (base_type
+          (base_type_name))))))
 
 ================================================================================
 Function declarations
@@ -476,7 +495,9 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
           (type_suffix
             (integer_literal))))
       (parameter
-        (ct_type_ident)
+        (type
+          (base_type
+            (ct_type_ident)))
         (parameter_default
           (type
             (base_type
@@ -601,6 +622,13 @@ bitstruct ByteStruct : char
     bool end : 7;
 }
 
+bitstruct Foo : int {
+  bool a : foo() @inline;
+  bool b : (foo()) @tag("foo", 0);
+  int  c : foo() @inline .. foo() @inline + 1;
+  int  d : foo() @inline .. (foo()) @tag("foo", 0);
+}
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -640,7 +668,77 @@ bitstruct ByteStruct : char
         (base_type
           (base_type_name))
         (ident)
-        (integer_literal)))))
+        (integer_literal))))
+  (bitstruct_declaration
+    (type_ident)
+    (type
+      (base_type
+        (base_type_name)))
+    (bitstruct_body
+      (bitstruct_member_declaration
+        (base_type
+          (base_type_name))
+        (ident)
+        (call_expr
+          (ident)
+          (call_invocation
+            (call_inline_attributes
+              (at_ident)))))
+      (bitstruct_member_declaration
+        (base_type
+          (base_type_name))
+        (ident)
+        (paren_expr
+          (call_expr
+            (ident)
+            (call_invocation)))
+        (attributes
+          (attribute
+            (at_ident)
+            (attribute_param_list
+              (attr_param
+                (string_literal
+                  (string_content)))
+              (attr_param
+                (integer_literal))))))
+      (bitstruct_member_declaration
+        (base_type
+          (base_type_name))
+        (ident)
+        (call_expr
+          (ident)
+          (call_invocation
+            (call_inline_attributes
+              (at_ident))))
+        (binary_expr
+          (call_expr
+            (ident)
+            (call_invocation
+              (call_inline_attributes
+                (at_ident))))
+          (integer_literal)))
+      (bitstruct_member_declaration
+        (base_type
+          (base_type_name))
+        (ident)
+        (call_expr
+          (ident)
+          (call_invocation
+            (call_inline_attributes
+              (at_ident))))
+        (paren_expr
+          (call_expr
+            (ident)
+            (call_invocation)))
+        (attributes
+          (attribute
+            (at_ident)
+            (attribute_param_list
+              (attr_param
+                (string_literal
+                  (string_content)))
+              (attr_param
+                (integer_literal)))))))))
 
 ================================================================================
 Union declarations

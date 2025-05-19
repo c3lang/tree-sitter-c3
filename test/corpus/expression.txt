@@ -735,7 +735,8 @@ fn void main() {
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (string_literal
                   (string_content))))))
         (expr_stmt
@@ -747,7 +748,8 @@ fn void main() {
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (ident)))))
         (declaration_stmt
           (type
@@ -759,12 +761,14 @@ fn void main() {
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (ident))
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (integer_literal)))))
         (expr_stmt
           (assignment_expr
@@ -774,12 +778,14 @@ fn void main() {
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (ident))
               (arg
                 (param_path
                   (param_path_element
-                    (ident)))
+                    (access_ident
+                      (ident))))
                 (integer_literal)))))))))
 
 ================================================================================
@@ -1691,3 +1697,45 @@ fn void main() {
                         (type
                           (base_type
                             (type_ident)))))))))))))))
+
+================================================================================
+Call inline attributes
+================================================================================
+
+fn void main() {
+  foo() @noinline;
+  foo() @inline (foo() @inline);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type
+          (base_type_name)))
+      (ident))
+    (fn_parameter_list)
+    (macro_func_body
+      (compound_stmt
+        (expr_stmt
+          (call_expr
+            (ident)
+            (call_invocation
+              (call_inline_attributes
+                (at_ident)))))
+        (expr_stmt
+          (call_expr
+            (call_expr
+              (ident)
+              (call_invocation
+                (call_inline_attributes
+                  (at_ident))))
+            (call_invocation
+              (call_arg
+                (call_expr
+                  (ident)
+                  (call_invocation
+                    (call_inline_attributes
+                      (at_ident))))))))))))
