@@ -194,7 +194,7 @@ module.exports = grammar({
       seq(
         field('name', alias('@param', $.at_ident)),
         optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-        field('ident', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)),
+        field('parameter', $._arg_ident),
         optional(':'),
         optional($.string_expr)
       ),
@@ -244,7 +244,14 @@ module.exports = grammar({
     const_ident: _ => CONST_IDENT,
     ct_const_ident: _ => token(seq('$', CONST_IDENT)),
     // Builtins
-    builtin: $ => token(seq('$$', choice(CONST_IDENT, IDENT))),
+    builtin: _ => token(seq('$$', choice(CONST_IDENT, IDENT))),
+
+    _arg_ident: $ => choice(
+      $.ident,
+      $.ct_ident,
+      $.ct_type_ident,
+      $.hash_ident
+    ),
 
     // Module Paths
     // -------------------------
@@ -1375,7 +1382,7 @@ module.exports = grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', choice($.ident, $.ct_ident, $.ct_type_ident, $.hash_ident)), ':', choice($._expr, $.type)),
+      seq(field('name', $._arg_ident), ':', choice($._expr, $.type)),
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),
