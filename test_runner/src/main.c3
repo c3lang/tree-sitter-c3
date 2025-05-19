@@ -2,11 +2,6 @@ module test_stdlib;
 import std::io, std::collections, std::os::process;
 import ts, tree_sitter_c3;
 
-const String[*] TEST_DIRS = {
-  "lib",
-  "test/test_suite",
-};
-
 // Files that C3C parses without error but tree-sitter-c3 doesn't
 const String[*] IGNORED_FILES = {
   "test/test_suite/cast/cast_parse_fails2.c3",
@@ -27,18 +22,12 @@ uint total_count;
 uint failed_count;
 
 fn int main(String[] args) {
-  if (args.len != 3) {
-    io::printn("ERROR: Expected the c3c root directory as first argument, and c3c executable as second");
+  if (args.len < 3) {
+    io::printn("ERROR: Expected the c3c executable as first argument, followed by directories");
     return 1;
   }
 
-  Path? c3c_dir = path::temp(args[1]);
-  if (catch c3c_dir) {
-    io::printn("ERROR: Invalid path to c3c root");
-    return 1;
-  }
-
-  Path? c3c_executable = path::temp(args[2]);
+  Path? c3c_executable = path::temp(args[1]);
   if (catch c3c_executable) {
     io::printn("ERROR: Invalid path to c3c executable");
     return 1;
@@ -54,17 +43,21 @@ fn int main(String[] args) {
   Parser* parser = parser::new_with_language(tree_sitter_c3::language())!!;
   defer parser::delete(parser);
 
-  foreach (test_dir : TEST_DIRS) {
-    Path base_dir = c3c_dir.tappend(test_dir)!!;
-    io::printfn("Parsing files in %s", base_dir);
-    if (catch err = base_dir.walk(fn bool? (Path path, bool is_dir, void* user_data) {
-      if (is_dir) io::printfn("Parsing files in %s", path);
-      if (path.has_suffix(".c3") || path.has_suffix(".c3i") || path.has_suffix(".c3t")) {
-        process_file(path.str_view(), user_data);
+  foreach (arg : args[2..]) {
+    if (try Path base_dir = path::temp(arg)) {
+      io::printfn("Parsing files in %s", base_dir);
+      if (catch err = base_dir.walk(fn bool? (Path path, bool is_dir, void* user_data) {
+        if (is_dir) io::printfn("Parsing files in %s", path);
+        if (path.has_suffix(".c3") || path.has_suffix(".c3i") || path.has_suffix(".c3t")) {
+          process_file(path.str_view(), user_data);
+        }
+        return false;
+      }, parser)) {
+        io::printfn("ERROR: Could not traverse '%s' (%s)", base_dir, err);
+        return 1;
       }
-      return false;
-    }, parser)) {
-      io::printfn("ERROR: Could not traverse '%s' (%s)", base_dir, err);
+    } else {
+      io::printfn("ERROR: Invalid path '%s", arg);
       return 1;
     }
   }
