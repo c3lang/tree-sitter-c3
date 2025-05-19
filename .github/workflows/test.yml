@@ -24,14 +24,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-    #- name: 'Download c3c binary'
-    #  uses: dsaltares/fetch-gh-release-asset@master
-    #  with:
-    #    file: c3-ubuntu-22.tar.gz
-    #    repo: c3clang/c3c
-    #    token: ${{ secrets.GITHUB_TOKEN }}
-    #- name: 'Untar c3c binary'
-    #  run: tar -xf c3-ubuntu-22.tar.gz
+        with:
+          path: source
+      - name: Checkout c3lang/vendor
+        uses: actions/checkout@v4
+        with:
+          repository: c3lang/vendor
+          path: vendor
       - name: Download latest release
         uses: robinraju/release-downloader@v1.12
         with:
@@ -42,6 +41,13 @@ jobs:
           zipBall: false
           extract: true
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'DBG ls'
-        run: ls **
+      - name: ls
+        run: |-
+          ls **
+      - name: Run tests
+        run: |-
+          pushd source/test_runner
+          ../../c3/c3c run --libdir ../../vendor/libraries --libdir ../bindings/c3 -- ../../c3/c3c ../../c3/c3c/lib $(find $GITHUB_WORKSPACE -type d -name 'test_suite')
+          popd
+          
     
