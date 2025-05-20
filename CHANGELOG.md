@@ -4,10 +4,13 @@
 - Added parsing of doc comment contracts (#33)
 - Added ll/ull integer suffix
 - Removed `alias_path_ident` and `alias_path_at_ident`
-- Removed `typeid` for token for `access_ident` (now resolved as `ident`)
+- Removed `typeid` token for `access_ident` (now resolved as `ident`)
 - Rule `param_path_element` now expects an `access_ident` after `.` instead of a base expression 
 - Relaxed and refactored alias declaration
 - Improved parsing of byte literals
+- Allow parenthesis for types where expressions are expected
+- Allow parenthesis for field/type access expressions
+- `Type.CONST` now parses as `(type_access_expr type: (...) field: (access_ident (const_ident)))` (`const_ident` is wrapped by `access_ident` for the field)
 - Fixed generic type method alias (`alias foo = Type{int}.method`)
 - Fixed not parsing named type `$Foo:` and hash `#foo:` arguments
 - Fixed `$defined(Type)` error

@@ -431,7 +431,7 @@ module.exports = grammar({
           field('name', choice($.ident, $.at_ident, $.const_ident)),
           optional($.attributes),
           '=',
-          // TODO paren expr
+          // TODO parenthesis
           seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
           optional($.generic_arguments),
         ),
@@ -440,7 +440,7 @@ module.exports = grammar({
           field('name', choice($.ident, $.at_ident)),
           optional($.attributes),
           '=',
-          // TODO paren expr
+          // TODO parenthesis
           seq($._type_expr, '.', choice($.ident, $.at_ident)),
         ),
         // Type/function
@@ -1244,7 +1244,7 @@ module.exports = grammar({
     param_path_element: $ => prec(1, choice(
       seq('[', $._expr, ']'),
       seq('[', $._expr, '..', $._expr, ']'),
-      seq('.', $.access_ident),
+      seq('.', $._access_ident_expr),
     )),
     param_path: $ => repeat1($.param_path_element),
 
@@ -1457,34 +1457,36 @@ module.exports = grammar({
       ']',
     )),
 
-    // Field Expression
+    // Field/Type-Access Expression
     // -------------------------
+    access_eval: $ => seq('$eval', '(', $._expr, ')'),
+    access_ident: $ => choice(
+      $.ident,       // Field/method function
+      $.at_ident,    // Method macro
+      $.hash_ident,  // Hash
+      $.const_ident, // Enum access
+      $.access_eval, // $eval
+    ),
+
+    _access_ident_expr: $ => choice(
+      field('field', $.access_ident),
+      seq('(', $._access_ident_expr, ')'),
+    ),
+
     field_expr: $ => seq(
       prec(PREC.FIELD, seq(
         field('argument', $._expr),
         '.',
       )),
-      field('field', $.access_ident),
+      $._access_ident_expr,
     ),
 
-    // Access Expression
-    // -------------------------
-    access_eval: $ => seq('$eval', '(', $._expr, ')'),
-    access_ident: $ => choice(
-      $.ident,
-      $.at_ident,
-      $.hash_ident,
-      $.access_eval,
-    ),
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
         field('argument', $._type_expr),
         '.',
       )),
-      field('field', choice(
-        $.access_ident,
-        $.const_ident, // Enum access
-      )),
+      $._access_ident_expr,
     ),
 
     ////////////////////////////
