@@ -219,7 +219,7 @@
 ((builtin) @constant.builtin (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
 
 ;; Type Property (from `c3c --list-type-properties`)
-(type_access_expr (access_ident [(ident) "typeid"] @variable.builtin
+(type_access_expr (access_ident (ident) @variable.builtin
                                 (#any-of? @variable.builtin
                                           "alignof"
                                           "associated"

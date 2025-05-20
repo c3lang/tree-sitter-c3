@@ -167,7 +167,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "access_eval",
@@ -175,6 +175,10 @@
         },
         {
           "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "const_ident",
           "named": true
         },
         {
@@ -220,11 +224,7 @@
       "required": true,
       "types": [
         {
-          "type": "alias_path_at_ident",
-          "named": true
-        },
-        {
-          "type": "alias_path_ident",
+          "type": "at_ident",
           "named": true
         },
         {
@@ -232,59 +232,13 @@
           "named": true
         },
         {
+          "type": "const_ident",
+          "named": true
+        },
+        {
           "type": "func_signature",
           "named": true
         },
-        {
-          "type": "generic_arguments",
-          "named": true
-        },
-        {
-          "type": "path_const_ident",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "alias_path_at_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "at_ident",
-          "named": true
-        },
-        {
-          "type": "generic_arguments",
-          "named": true
-        },
-        {
-          "type": "module_resolution",
-          "named": true
-        },
-        {
-          "type": "type_ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "alias_path_ident",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
         {
           "type": "generic_arguments",
           "named": true
@@ -298,7 +252,11 @@
           "named": true
         },
         {
-          "type": "type_ident",
+          "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -413,6 +371,10 @@
         },
         {
           "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "range_expr",
           "named": true
         },
         {
@@ -2629,6 +2591,10 @@
           "named": true
         },
         {
+          "type": "attributes",
+          "named": true
+        },
+        {
           "type": "binary_expr",
           "named": true
         },
@@ -3868,6 +3834,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "paren_expr",
+            "named": true
+          },
           {
             "type": "type",
             "named": true
@@ -6690,6 +6660,26 @@
     "type": "doc_comment_contract",
     "named": true,
     "fields": {
+      "lambda_body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "compound_stmt",
+            "named": true
+          }
+        ]
+      },
+      "mutability_contract": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "doc_comment_contract_descriptor",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -6699,14 +6689,176 @@
             "named": true
           }
         ]
+      },
+      "parameter": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "ct_type_ident",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "doc_comment_contract_text",
+          "type": "assignment_expr",
+          "named": true
+        },
+        {
+          "type": "at_ident",
+          "named": true
+        },
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "builtin",
+          "named": true
+        },
+        {
+          "type": "bytes_expr",
+          "named": true
+        },
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "ct_ident",
+          "named": true
+        },
+        {
+          "type": "elvis_orelse_expr",
+          "named": true
+        },
+        {
+          "type": "field_expr",
+          "named": true
+        },
+        {
+          "type": "flat_path",
+          "named": true
+        },
+        {
+          "type": "hash_ident",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "initializer_list",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "lambda_declaration",
+          "named": true
+        },
+        {
+          "type": "lambda_expr",
+          "named": true
+        },
+        {
+          "type": "module_ident_expr",
+          "named": true
+        },
+        {
+          "type": "optional_expr",
+          "named": true
+        },
+        {
+          "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "path_const_ident",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "real_literal",
+          "named": true
+        },
+        {
+          "type": "rethrow_expr",
+          "named": true
+        },
+        {
+          "type": "string_expr",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "subscript_expr",
+          "named": true
+        },
+        {
+          "type": "ternary_expr",
+          "named": true
+        },
+        {
+          "type": "trailing_generic_expr",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_access_expr",
+          "named": true
+        },
+        {
+          "type": "typed_initializer_list",
+          "named": true
+        },
+        {
+          "type": "unary_expr",
+          "named": true
+        },
+        {
+          "type": "update_expr",
           "named": true
         }
       ]
@@ -9198,9 +9350,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
         {
           "type": "fn_parameter_list",
           "named": true
@@ -10237,6 +10393,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_ident",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -11431,6 +11597,16 @@
     "type": "param_path_element",
     "named": true,
     "fields": {
+      "field": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "access_ident",
+            "named": true
+          }
+        ]
+      },
       "lambda_body": {
         "multiple": true,
         "required": false,
@@ -11599,10 +11775,6 @@
         "types": [
           {
             "type": "ct_ident",
-            "named": true
-          },
-          {
-            "type": "ct_type_ident",
             "named": true
           },
           {
@@ -15397,6 +15569,10 @@
         "required": true,
         "types": [
           {
+            "type": "paren_expr",
+            "named": true
+          },
+          {
             "type": "type",
             "named": true
           }
@@ -15408,10 +15584,6 @@
         "types": [
           {
             "type": "access_ident",
-            "named": true
-          },
-          {
-            "type": "const_ident",
             "named": true
           }
         ]
@@ -15590,6 +15762,10 @@
       "types": [
         {
           "type": "initializer_list",
+          "named": true
+        },
+        {
+          "type": "paren_expr",
           "named": true
         },
         {
@@ -16509,6 +16685,10 @@
       "required": false,
       "types": [
         {
+          "type": "paren_expr",
+          "named": true
+        },
+        {
           "type": "type",
           "named": true
         }
@@ -16657,6 +16837,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "\n",
+    "named": false
   },
   {
     "type": "!",
@@ -17143,7 +17327,7 @@
     "named": false
   },
   {
-    "type": "doc_comment_contract_text",
+    "type": "doc_comment_contract_descriptor",
     "named": true
   },
   {
