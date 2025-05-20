@@ -1135,11 +1135,6 @@ module.exports = grammar({
       $._base_expr,
     )),
 
-    _type_expr: $ => choice(
-      $.type,
-      seq('(', $._type_expr, ')'),
-    ),
-
     // Base Expression
     // -------------------------
     _ident_expr: $ => choice(
@@ -1151,6 +1146,13 @@ module.exports = grammar({
       $.ct_ident,
       $.hash_ident,
     ),
+
+    _type_expr: $ => choice(
+      $.type,
+      alias($.type_paren_expr, $.paren_expr),
+    ),
+    type_paren_expr: $ => seq('(', $._type_expr, ')'),
+
     _ct_call: $ => choice(
       '$alignof',
       '$extnameof',
