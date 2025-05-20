@@ -115,7 +115,6 @@ module.exports = grammar({
     $._ct_call,
     $._ct_arg,
     $._asm_addr,
-    $._type_optional,
   ],
 
   word: $ => $.ident,
@@ -269,7 +268,7 @@ module.exports = grammar({
     // -------------------------
     _generic_arg_list: $ => commaSep1(choice(
       $._expr,
-      $.type,
+      $._type_expr,
     )),
     generic_arguments: $ => seq('{', $._generic_arg_list, '}'),
 
@@ -311,7 +310,7 @@ module.exports = grammar({
       ),
     ),
 
-    parameter_default: $ => seq('=', field('right', choice($._expr, $.type))),
+    parameter_default: $ => seq('=', field('right', choice($._expr, $._type_expr))),
     parameter: $ => seq($._parameter, optional($.parameter_default)),
     _parameters: $ => commaSepTrailing1(seq($.parameter)),
 
@@ -419,7 +418,7 @@ module.exports = grammar({
     // -------------------------
     func_signature: $ => seq(
       'fn',
-      field('return_type', $._type_optional),
+      field('return_type', $.type),
       $.fn_parameter_list,
       optional($.attributes),
     ),
@@ -432,6 +431,7 @@ module.exports = grammar({
           field('name', choice($.ident, $.at_ident, $.const_ident)),
           optional($.attributes),
           '=',
+          // TODO paren expr
           seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
           optional($.generic_arguments),
         ),
@@ -440,14 +440,15 @@ module.exports = grammar({
           field('name', choice($.ident, $.at_ident)),
           optional($.attributes),
           '=',
-          seq($.type, '.', choice($.ident, $.at_ident)),
+          // TODO paren expr
+          seq($._type_expr, '.', choice($.ident, $.at_ident)),
         ),
         // Type/function
         seq(
           field('name', $.type_ident),
           optional($.attributes),
           '=',
-          choice($.type, $.func_signature)
+          choice($._type_expr, $.func_signature)
         ),
       ),
       ';'
@@ -494,7 +495,7 @@ module.exports = grammar({
     // -------------------------
     const_declaration: $ => seq(
       'const',
-      field('type', optional($._type_optional)),
+      field('type', optional($.type)),
       field('name', $.const_ident),
       optional($.attributes),
       optional($._assign_right_expr),
@@ -506,7 +507,7 @@ module.exports = grammar({
     _multi_declaration: $ => seq(',', field('name', commaSep1($.ident))),
     global_declaration: $ => seq(
       optional($.global_storage),
-      field('type', optional($._type_optional)),
+      field('type', optional($.type)),
       field('name', $.ident),
       choice(
         seq(
@@ -646,13 +647,13 @@ module.exports = grammar({
     fn_parameter_list: $ => seq('(', optional($._parameters), ')'),
 
     func_header: $ => seq(
-      field('return_type', $._type_optional),
+      field('return_type', $.type),
       optional(seq(field('method_type', $.type), '.')),
       field('name', $._func_macro_name),
     ),
 
     macro_header: $ => seq(
-      optional(field('return_type', $._type_optional)), // Return type is optional for macros
+      optional(field('return_type', $.type)), // Return type is optional for macros
       optional(seq(field('method_type', $.type), '.')),
       field('name', $._func_macro_name),
     ),
@@ -710,7 +711,7 @@ module.exports = grammar({
     // -------------------------
     lambda_declaration: $ => seq(
       'fn',
-      field('return_type', optional($._type_optional)),
+      field('return_type', optional($.type)),
       $.fn_parameter_list,
       optional($.attributes),
     ),
@@ -765,7 +766,7 @@ module.exports = grammar({
     var_decl: $ => choice(
       seq('var', field('name', $.ident), $._assign_right_expr),
       seq('var', field('name', $.ct_ident), optional($._assign_right_expr)),
-      seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_optional))),
+      seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_expr))),
     ),
     var_stmt: $ => seq($.var_decl, ';'),
 
@@ -809,7 +810,7 @@ module.exports = grammar({
       $.const_declaration,
       seq(
         optional($.local_decl_storage),
-        field('type', $._type_optional),
+        field('type', $.type),
         $._decl_statement_after_type,
         ';'
       ),
@@ -823,7 +824,7 @@ module.exports = grammar({
       field('value', choice(
         $._expr,
         $.case_range,
-        $._type_optional,
+        $._type_expr,
       )),
       ':',
       repeat($._statement),
@@ -844,7 +845,7 @@ module.exports = grammar({
       optional(
         seq(
           optional(seq($.label_target, ':')),
-          field('target', choice($._expr, $._type_optional, 'default')),
+          field('target', choice($._expr, $._type_expr, 'default')),
         ),
       ),
       ';'
@@ -914,7 +915,7 @@ module.exports = grammar({
     // -------------------------
     _decl_or_expr: $ => choice(
       $.var_decl,
-      seq($._type_optional, $.local_decl_after_type),
+      seq($.type, $.local_decl_after_type),
       $._expr
     ),
     comma_decl_or_expr: $ => commaSep1($._decl_or_expr),
@@ -938,7 +939,7 @@ module.exports = grammar({
     // Foreach Statement
     // -------------------------
     foreach_var: $ => choice(
-      seq(optional($._type_optional), optional('&'), $.ident),
+      seq(optional($.type), optional('&'), $.ident),
     ),
     foreach_cond: $ => seq(
       '(',
@@ -1056,12 +1057,12 @@ module.exports = grammar({
     ct_case_stmt: $ => seq(
       choice(
         seq('$case', $._constant_expr, ':'),
-        seq('$case', $._type_optional, ':'),
+        seq('$case', $._type_expr, ':'),
         seq('$default', ':'),
       ),
       optional($.ct_stmt_body),
     ),
-    ct_switch_cond: $ => seq(choice($._constant_expr, $._type_optional)),
+    ct_switch_cond: $ => seq(choice($._constant_expr, $._type_expr)),
 
     _ct_switch: $ => seq('$switch', optional($.ct_switch_cond), ':'),
     ct_switch_stmt: $ => seq(
@@ -1134,6 +1135,11 @@ module.exports = grammar({
       $._base_expr,
     )),
 
+    _type_expr: $ => choice(
+      $.type,
+      seq('(', $._type_expr, ')'),
+    ),
+
     // Base Expression
     // -------------------------
     _ident_expr: $ => choice(
@@ -1169,7 +1175,7 @@ module.exports = grammar({
     paren_expr: $ => seq('(', $._expr, ')'),
 
     // Precedence over cast
-    typed_initializer_list: $ => prec(3, seq('(', $.type, ')', $.initializer_list)),
+    typed_initializer_list: $ => prec(3, seq('(', $._type_expr, ')', $.initializer_list)),
 
     _base_expr: $ => prec(2, choice(
       'true',
@@ -1215,10 +1221,10 @@ module.exports = grammar({
           '$defined',
           '$embed',
         ),
-        '(', commaSep(choice($._expr, $.type)), ')'
+        '(', commaSep(choice($._expr, $._type_expr)), ')'
       ),
       seq('$feature', '(', $.const_ident, ')'),
-      seq('$assignable', '(', $._expr, ',', $.type, ')'),
+      seq('$assignable', '(', $._expr, ',', $._type_expr, ')'),
     )),
 
     // Module Ident
@@ -1277,7 +1283,7 @@ module.exports = grammar({
       seq(
         field('left', $.ct_type_ident),
         field('operator', '='),
-        field('right', $.type),
+        field('right', $._type_expr),
       ),
     )),
 
@@ -1319,7 +1325,7 @@ module.exports = grammar({
     // -------------------------
     cast_expr: $ => prec(PREC.UNARY, seq(
       '(',
-      field('type', $.type),
+      field('type', $._type_expr),
       ')',
       field('value', $._expr),
     )),
@@ -1376,13 +1382,13 @@ module.exports = grammar({
     // Call Expression
     // -------------------------
     call_arg: $ => choice(
-      $.type,
+      $._type_expr,
       $._expr,
       // Splatting
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', $._arg_ident), ':', choice($._expr, $.type)),
+      seq(field('name', $._arg_ident), ':', choice($._expr, $._type_expr)),
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),
@@ -1472,7 +1478,7 @@ module.exports = grammar({
     ),
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
-        field('argument', $.type),
+        field('argument', $._type_expr),
         '.',
       )),
       field('field', choice(
@@ -1551,7 +1557,5 @@ module.exports = grammar({
       repeat($.type_suffix),
       optional('?'),
     )),
-    // This legacy rule was used in places where the compiler permits an optional type.
-    _type_optional: $ => $.type,
   }
 });
