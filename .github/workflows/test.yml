@@ -46,13 +46,13 @@ jobs:
         with:
           install-lib: true
           install-cli: false
-      - name: ls (DEBUG)
+      - name: DEBUG
         run: |-
-          ls **
+          echo $LD_LIBRARY_PATH
       - name: Run tests
         run: |-
           pushd source/test_runner
-          ../../c3/c3c run --libdir ../../vendor/libraries --libdir ../bindings/c3 -- ../../c3/c3c ../../c3/c3c/lib $(find $GITHUB_WORKSPACE -type d -name 'test_suite')
+          ../../c3/c3c run --libdir ../../vendor/libraries --libdir ../bindings/c3 -L $LD_LIBRARY_PATH -- ../../c3/c3c ../../c3/lib $(find $GITHUB_WORKSPACE -type d -name 'test_suite')
           popd
           
     
