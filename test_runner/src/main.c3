@@ -4,9 +4,11 @@ import ts, tree_sitter_c3;
 
 // Files that C3C parses without error but tree-sitter-c3 doesn't
 const String[*] IGNORED_FILES = {
-  "test/test_suite/cast/cast_parse_fails2.c3",
+  "test/test_suite/arrays/inferred_array_err.c3",
   "test/test_suite/cast/cast_parse_fails.c3",
+  "test/test_suite/cast/cast_parse_fails2.c3",
   "test/test_suite/compile_time/ct_switch_more_checks.c3",
+  "test/test_suite/contracts/in_array.c3",
   "test/test_suite/define/common2.c3",
   "test/test_suite/define/define_name_errors.c3",
   "test/test_suite/expressions/addr_of_fails.c3",

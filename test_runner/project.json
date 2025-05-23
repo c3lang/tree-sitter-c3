@@ -38,6 +38,6 @@
   // CPU name, used for optimizations in the LLVM backend.
   "cpu": "generic",
   // Optimization: "O0", "O1", "O2", "O3", "O4", "O5", "Os", "Oz".
-  "opt": "O0"
+  "opt": "O1"
   // See resources/examples/project_all_settings.json and 'c3c --list-project-properties' to see more properties.
 }
