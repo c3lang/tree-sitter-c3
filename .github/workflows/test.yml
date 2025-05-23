@@ -41,7 +41,12 @@ jobs:
           zipBall: false
           extract: true
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: ls
+      - name: Install tree-sitter
+        uses: tree-sitter/setup-action@v1
+        with:
+          install-lib: true
+          install-cli: false
+      - name: ls (DEBUG)
         run: |-
           ls **
       - name: Run tests
