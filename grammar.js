@@ -273,6 +273,7 @@ module.exports = grammar({
     // Helpers
     // -------------------------
     _assign_right_expr: $ => seq('=', field('right', $._expr)),
+    _expr_or_type: $ => choice($._expr, $._type_expr),
 
     _cond: $ => choice(
       choice($._try_unwrap_chain, $.catch_unwrap),
@@ -308,7 +309,7 @@ module.exports = grammar({
       ),
     ),
 
-    parameter_default: $ => seq('=', field('right', choice($._expr, $._type_expr))),
+    parameter_default: $ => seq('=', field('right', $._expr_or_type)),
     parameter: $ => seq($._parameter, optional($.parameter_default)),
     _parameters: $ => commaSepTrailing1(seq($.parameter)),
 
@@ -478,17 +479,6 @@ module.exports = grammar({
         '=',
         $.attribute_list,
       )),
-      ';'
-    ),
-
-    // Const
-    // -------------------------
-    const_declaration: $ => seq(
-      'const',
-      field('type', optional($.type)),
-      field('name', $.const_ident),
-      optional($.attributes),
-      optional($._assign_right_expr),
       ';'
     ),
 
@@ -784,6 +774,15 @@ module.exports = grammar({
       optional($._decl_storage),
       field('type', $.type),
       $._decl_statement_after_type,
+      ';'
+    ),
+
+    const_declaration: $ => seq(
+      'const',
+      field('type', optional($.type)),
+      field('name', $.const_ident),
+      optional($.attributes),
+      optional($._assign_right_expr),
       ';'
     ),
 
@@ -1205,7 +1204,7 @@ module.exports = grammar({
           '$defined',
           '$embed',
         ),
-        '(', commaSep(choice($._expr, $._type_expr)), ')'
+        '(', commaSep($._expr_or_type), ')'
       ),
       seq('$feature', '(', $.const_ident, ')'),
       seq('$assignable', '(', $._expr, ',', $._type_expr, ')'),
@@ -1372,7 +1371,7 @@ module.exports = grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', $._arg_ident), ':', choice($._expr, $._type_expr)),
+      seq(field('name', $._arg_ident), ':', $._expr_or_type),
     ),
     _call_arg_list: $ => choice(
       commaSepTrailing1($.call_arg),
@@ -1514,19 +1513,17 @@ module.exports = grammar({
           '$typefrom',
           '$evaltype',
         ),
-        $.paren_expr
+        $.paren_expr,
       ),
       '$vatype',
     )),
 
-    _base_type_with_generics: $ => choice(
-      $._base_type,
-      $.generic_type_ident
-    ),
-
-    generic_type_ident: $ => choice(
-      seq($.type_ident, $.generic_arguments),
-      seq($.module_type_ident, $.generic_arguments),
+    generic_type_ident: $ => seq(
+      choice(
+        $.type_ident,
+        $.module_type_ident,
+      ),
+      $.generic_arguments,
     ),
 
     type_suffix: $ => choice(
@@ -1539,7 +1536,10 @@ module.exports = grammar({
     ),
 
     type: $ => prec.right(seq(
-      $._base_type_with_generics,
+      choice(
+        $._base_type,
+        $.generic_type_ident
+      ),
       repeat($.type_suffix),
       optional('?'),
     )),
