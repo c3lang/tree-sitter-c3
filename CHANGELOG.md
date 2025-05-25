@@ -13,6 +13,7 @@
 - `$vaarg[..]`, `$vaexpr[..]`, `$vaconst[..]` is now a `subscript_expr`
 - Moved `for (...)` parenthesis from `for_stmt` into `for_cond`
 - Renamed `module` -> `module_declaration`
+- Renamed `var_decl` -> `var_declaration`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)

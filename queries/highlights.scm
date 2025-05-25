@@ -24,7 +24,7 @@
 ;; 3) Declaration
 (declaration (identifier_list [(ident) (ct_ident)] @variable.declaration))
 (declaration name: [(ident) (ct_ident)] @variable.declaration)
-(var_decl name: [(ident) (ct_ident)] @variable.declaration)
+(var_declaration name: [(ident) (ct_ident)] @variable.declaration)
 (try_unwrap (ident) @variable.declaration)
 (catch_unwrap (ident) @variable.declaration)
 
@@ -263,7 +263,7 @@
 
 ;; Module
 (module_resolution (ident) @module)
-(module (path_ident (ident) @module))
+(module_declaration (path_ident (ident) @module))
 (import_declaration (path_ident (ident) @module))
 
 ;; Attribute
