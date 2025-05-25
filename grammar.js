@@ -363,7 +363,7 @@ module.exports = grammar({
     // Top Level
     // -------------------------
     _top_level_item: $ => choice(
-      $.module,
+      $.module_declaration,
       $.import_declaration,
       $.global_declaration,
       $.func_definition,
@@ -388,7 +388,7 @@ module.exports = grammar({
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
     generic_module_parameters: $ => seq('{', commaSep1($._module_param), '}'),
-    module: $ => seq(
+    module_declaration: $ => seq(
       'module',
       field('path', $.path_ident),
       optional(alias($.generic_module_parameters, $.generic_parameters)),
