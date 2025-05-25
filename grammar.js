@@ -920,19 +920,24 @@ module.exports = grammar({
     ),
     comma_decl_or_expr: $ => commaSep1($._decl_or_expr),
 
-    for_cond: $ => seq(
+    for_cond_inner: $ => seq(
       field('initializer', optional($.comma_decl_or_expr)),
       ';',
       field('condition', optional($._cond)),
       ';',
       field('update', optional($.comma_decl_or_expr)),
     ),
+
+    for_cond: $ => seq(
+      '(',
+      alias($.for_cond_inner, $.for_cond),
+      ')',
+    ),
+
     for_stmt: $ => seq(
       'for',
       optional($.label),
-      '(',
       $.for_cond,
-      ')',
       field('body', $._statement)
     ),
 
@@ -1075,7 +1080,7 @@ module.exports = grammar({
     // -------------------------
     ct_for_stmt: $ => seq(
       '$for',
-      $.for_cond,
+      alias($.for_cond_inner, $.for_cond),
       ':',
       optional($.ct_stmt_body),
       '$endfor'

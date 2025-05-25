@@ -1,5 +1,9 @@
 # tree-sitter-c3 Changelog
 
+## 0.6.1
+- Added indents.scm
+- Moved `for (...)` parenthesis from `for_stmt` into `for_cond`
+
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)
 - Added ll/ull integer suffix
