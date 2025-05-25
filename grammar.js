@@ -492,7 +492,7 @@ module.exports = grammar({
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
 
-    identifier_list: $ => commaSep1($.ident),
+    identifier_list: $ => commaSep1(choice($.ident, $.ct_ident)),
 
     struct_member_declaration: $ => choice(
       seq(field('type', $.type), $.identifier_list, optional($.attributes), ';'),
@@ -682,8 +682,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $.compound_stmt,
       $.expr_stmt,
-      alias($.declaration, $.declaration_stmt),
-      alias($.const_declaration, $.const_declaration_stmt),
+      $._declaration,
       $.var_stmt,
       $.return_stmt,
       $.continue_stmt,
@@ -761,19 +760,17 @@ module.exports = grammar({
 
     // Declaration
     // -------------------------
-    decl_after_type: $ => seq(
-      field('name', choice($.ident, $.ct_ident)),
+    _decl_after_type: $ => seq(
+      $.identifier_list,
       optional($.attributes),
-      optional($._assign_right_expr)
+      optional($._assign_right_expr),
     ),
-    _decl_statement_after_type: $ => commaSep1($.decl_after_type),
 
     _decl_storage: $ => choice('static', 'tlocal'),
-
     declaration: $ => seq(
       optional($._decl_storage),
       field('type', $.type),
-      $._decl_statement_after_type,
+      $._decl_after_type,
       ';'
     ),
 
@@ -786,11 +783,15 @@ module.exports = grammar({
       ';'
     ),
 
+    _declaration: $ => choice(
+      $.declaration,
+      $.const_declaration,
+    ),
+
     global_declaration: $ => seq(
       optional('extern'),
       choice(
-        $.declaration,
-        $.const_declaration,
+        $._declaration,
         $.func_declaration,
       ),
     ),
@@ -892,9 +893,20 @@ module.exports = grammar({
 
     // For Statement
     // -------------------------
+    _single_decl_after_type: $ => seq(
+      field('name', choice($.ident, $.ct_ident)),
+      optional($.attributes),
+      optional($._assign_right_expr)
+    ),
+
+    single_declaration: $ => seq(
+      field('type', $.type),
+      $._single_decl_after_type
+    ),
+
     _decl_or_expr: $ => choice(
       $.var_decl,
-      seq($.type, $.decl_after_type),
+      alias($.single_declaration, $.declaration),
       $._expr
     ),
     comma_decl_or_expr: $ => commaSep1($._decl_or_expr),

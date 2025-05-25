@@ -5,8 +5,9 @@
 - Removed `base_type` 
 - Removed `local_decl_storage`
 - Removed `global_storage`
-- Removed `declaration_stmt (const_declaration)` in favor of `const_declaration_stmt`
-- Renamed `local_decl_after_type` to `decl_after_type`
+- Removed `decl_after_type`
+- Removed `declaration_stmt (const_declaration)` in favor of `const_declaration`
+- Renamed `declaration_stmt` to `declaration`
 - `global_declaration` changed to contain `declaration`, `const_declaration` or `func_declaration`
 - Use `paren_expr` in more places
 - `$vaarg[..]`, `$vaexpr[..]`, `$vaconst[..]` is now a `subscript_expr`
