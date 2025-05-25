@@ -19,7 +19,7 @@
 (initializer_list (arg (param_path (param_path_element (ident) @variable.member))))
 ;; 2) Parameter
 (parameter name: (_) @variable.parameter)
-(call_invocation (call_arg name: (_) @variable.parameter))
+(call_arg_list (call_arg name: (_) @variable.parameter))
 (enum_parameter_declaration (ident) @variable.parameter)
 ;; 3) Declaration
 (declaration (identifier_list [(ident) (ct_ident)] @variable.declaration))

@@ -24,6 +24,7 @@
 - Renamed `macro_parameter_list` -> `macro_param_list`
 - Renamed `enum_parameter_list` -> `enum_param_list`
 - Added `attribute_arg_list`
+- Added `call_arg_list`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)

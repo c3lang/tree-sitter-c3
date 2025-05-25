@@ -1389,7 +1389,8 @@ module.exports = grammar({
       // Named arguments
       seq(field('name', $._arg_ident), ':', $._expr_or_type),
     ),
-    _call_arg_list: $ => choice(
+
+    _call_args: $ => choice(
       commaSepTrailing1($.call_arg),
       seq(
         commaSepTrailing($.call_arg),
@@ -1397,11 +1398,11 @@ module.exports = grammar({
       ),
     ),
 
+    call_arg_list: $ => seq('(', optional($._call_args), ')'),
+
     call_inline_attributes: $ => repeat1(alias(choice('@pure', '@inline', '@noinline'), $.at_ident)),
     call_invocation: $ => seq(
-      '(',
-      optional($._call_arg_list),
-      ')',
+      $.call_arg_list,
       optional($.call_inline_attributes),
     ),
     call_expr: $ => prec.right(PREC.TRAILING, seq(
