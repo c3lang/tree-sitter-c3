@@ -25,6 +25,7 @@
 - Renamed `enum_parameter_list` -> `enum_param_list`
 - Added `attribute_arg_list`
 - Added `call_arg_list`
+- Removed `call_invocation`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)

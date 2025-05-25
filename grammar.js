@@ -286,7 +286,7 @@ module.exports = grammar({
 
     // Parameters
     // -------------------------
-    _param: $ => choice(
+    _parameter: $ => choice(
       // Typed params
       seq(
         field('type', $.type),
@@ -310,8 +310,8 @@ module.exports = grammar({
     ),
 
     param_default: $ => seq('=', field('right', $._expr_or_type)),
-    param: $ => seq($._param, optional($.param_default)),
-    _params: $ => commaSepTrailing1($.param),
+    param: $ => seq($._parameter, optional($.param_default)),
+    _parameters: $ => commaSepTrailing1($.param),
 
     // Attributes
     // -------------------------
@@ -469,7 +469,7 @@ module.exports = grammar({
     // Attrdef
     // -------------------------
     attribute_list: $ => commaSep1($.attribute),
-    attribute_param_list: $ => seq('(', $._params, ')'),
+    attribute_param_list: $ => seq('(', $._parameters, ')'),
     attrdef_declaration: $ => seq(
       'attrdef',
       field('name', $.at_type_ident),
@@ -604,7 +604,7 @@ module.exports = grammar({
     // -------------------------
     _func_macro_name: $ => choice($.ident, $.at_ident),
 
-    fn_param_list: $ => seq('(', optional($._params), ')'),
+    fn_param_list: $ => seq('(', optional($._parameters), ')'),
 
     func_header: $ => seq(
       field('return_type', $.type),
@@ -649,9 +649,9 @@ module.exports = grammar({
       '(',
       optional(
         choice(
-          $._params,
+          $._parameters,
           seq(
-            optional($._params),
+            optional($._parameters),
             ';',
             $.trailing_block_param,
           ),
@@ -1394,20 +1394,17 @@ module.exports = grammar({
       commaSepTrailing1($.call_arg),
       seq(
         commaSepTrailing($.call_arg),
-        seq(';', optional($._params)),
+        seq(';', optional($._parameters)),
       ),
     ),
 
     call_arg_list: $ => seq('(', optional($._call_args), ')'),
 
     call_inline_attributes: $ => repeat1(alias(choice('@pure', '@inline', '@noinline'), $.at_ident)),
-    call_invocation: $ => seq(
-      $.call_arg_list,
-      optional($.call_inline_attributes),
-    ),
     call_expr: $ => prec.right(PREC.TRAILING, seq(
       field('function', $._expr),
-      field('arguments', $.call_invocation),
+      field('arguments', $.call_arg_list),
+      field('attributes', optional($.call_inline_attributes)),
       field('trailing', optional($.compound_stmt)),
     )),
 
