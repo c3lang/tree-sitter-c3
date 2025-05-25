@@ -20,7 +20,7 @@
 ;; 2) Parameter
 (parameter name: (_) @variable.parameter)
 (call_invocation (call_arg name: (_) @variable.parameter))
-(enum_param_declaration (ident) @variable.parameter)
+(enum_parameter_declaration (ident) @variable.parameter)
 ;; 3) Declaration
 (declaration (identifier_list [(ident) (ct_ident)] @variable.declaration))
 (declaration name: [(ident) (ct_ident)] @variable.declaration)

@@ -268,7 +268,7 @@ module.exports = grammar({
       $._expr,
       $._type_expr,
     )),
-    generic_arguments: $ => seq('{', $._generic_arg_list, '}'),
+    generic_argument_list: $ => seq('{', $._generic_arg_list, '}'),
 
     // Helpers
     // -------------------------
@@ -350,9 +350,9 @@ module.exports = grammar({
       '>>=',
     ),
 
-    attr_param: $ => choice($.overload_operator, $._constant_expr),
+    attribute_parameter: $ => choice($.overload_operator, $._constant_expr),
 
-    attribute_parameter_list: $ => seq('(', commaSep1($.attr_param), ')'),
+    attribute_parameter_list: $ => seq('(', commaSep1($.attribute_parameter), ')'),
     attribute: $ => seq(
       field('name', $._attribute_name),
       optional($.attribute_parameter_list),
@@ -387,11 +387,11 @@ module.exports = grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_module_parameters: $ => seq('{', commaSep1($._module_param), '}'),
+    generic_parameter_list: $ => seq('{', commaSep1($._module_param), '}'),
     module_declaration: $ => seq(
       'module',
       field('path', $.path_ident),
-      optional(alias($.generic_module_parameters, $.generic_parameters)),
+      optional($.generic_parameter_list),
       optional($.attributes),
       ';'
     ),
@@ -424,7 +424,7 @@ module.exports = grammar({
           '=',
           // TODO parenthesis
           seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
-          optional($.generic_arguments),
+          optional($.generic_argument_list),
         ),
         // Method
         seq(
@@ -488,7 +488,7 @@ module.exports = grammar({
 
     interface: $ => seq(
       $.path_type_ident,
-      optional($.generic_arguments),
+      optional($.generic_argument_list),
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
 
@@ -560,12 +560,12 @@ module.exports = grammar({
       optional($.attributes),
       field('args', optional($.enum_arg)),
     ),
-    enum_param_declaration: $ => seq(
+    enum_parameter_declaration: $ => seq(
       optional('inline'),
       field('type', $.type),
       field('name', $.ident),
     ),
-    enum_parameter_list: $ => seq('(', commaSepTrailing($.enum_param_declaration), ')'),
+    enum_parameter_list: $ => seq('(', commaSepTrailing($.enum_parameter_declaration), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
       choice(
@@ -641,7 +641,7 @@ module.exports = grammar({
       field('body', $.macro_func_body),
     ),
 
-    trailing_block_param: $ => seq(
+    trailing_block_parameter: $ => seq(
       $.at_ident,
       optional($.fn_parameter_list),
     ),
@@ -653,7 +653,7 @@ module.exports = grammar({
           seq(
             optional($._parameters),
             ';',
-            $.trailing_block_param,
+            $.trailing_block_parameter,
           ),
         ),
       ),
@@ -1428,7 +1428,7 @@ module.exports = grammar({
     // -------------------------
     trailing_generic_expr: $ => prec.right(PREC.TRAILING, seq(
       field('argument', $._expr),
-      field('operator', $.generic_arguments),
+      field('operator', $.generic_argument_list),
     )),
 
     // Range Expression
@@ -1539,7 +1539,7 @@ module.exports = grammar({
         $.type_ident,
         $.module_type_ident,
       ),
-      $.generic_arguments,
+      $.generic_argument_list,
     ),
 
     type_suffix: $ => choice(

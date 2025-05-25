@@ -15,7 +15,12 @@
 - Renamed `module` -> `module_declaration`
 - Renamed `var_decl` -> `var_declaration`
 - Renamed `attribute_param_list` -> `attribute_parameter_list`
+- Renamed `attr_param` -> `attribute_parameter`
 - Renamed `enum_param_list` -> `enum_parameter_list`
+- Renamed `enum_param_declaration` -> `enum_parameter_declaration`
+- Renamed `trailing_block_param` -> `trailing_block_parameter`
+- Renamed `generic_parameters` -> `generic_parameter_list`
+- Renamed `generic_arguments` -> `generic_argument_list`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)
