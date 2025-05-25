@@ -16,7 +16,7 @@
 - Renamed `var_decl` -> `var_declaration`
 - Renamed `attr_param` -> `attribute_param`
 - Renamed `generic_params` -> `generic_param_list`
-- Renamed `generic_arguments` -> `generic_argument_list`
+- Renamed `generic_arguments` -> `generic_arg_list`
 - Renamed `parameter_default` -> `param_default`
 - Renamed `parameter` -> `param`
 - Renamed `attr_param` -> `attribute_arg`

@@ -268,7 +268,7 @@ module.exports = grammar({
       $._expr,
       $._type_expr,
     )),
-    generic_argument_list: $ => seq('{', $._generic_arg_list, '}'),
+    generic_arg_list: $ => seq('{', $._generic_arg_list, '}'),
 
     // Helpers
     // -------------------------
@@ -423,7 +423,7 @@ module.exports = grammar({
           '=',
           // TODO parenthesis
           seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
-          optional($.generic_argument_list),
+          optional($.generic_arg_list),
         ),
         // Method
         seq(
@@ -488,7 +488,7 @@ module.exports = grammar({
 
     interface: $ => seq(
       $.path_type_ident,
-      optional($.generic_argument_list),
+      optional($.generic_arg_list),
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
 
@@ -1429,7 +1429,7 @@ module.exports = grammar({
     // -------------------------
     trailing_generic_expr: $ => prec.right(PREC.TRAILING, seq(
       field('argument', $._expr),
-      field('operator', $.generic_argument_list),
+      field('operator', $.generic_arg_list),
     )),
 
     // Range Expression
@@ -1540,7 +1540,7 @@ module.exports = grammar({
         $.type_ident,
         $.module_type_ident,
       ),
-      $.generic_argument_list,
+      $.generic_arg_list,
     ),
 
     type_suffix: $ => choice(
