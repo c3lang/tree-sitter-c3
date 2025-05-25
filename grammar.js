@@ -352,10 +352,10 @@ module.exports = grammar({
 
     attr_param: $ => choice($.overload_operator, $._constant_expr),
 
-    attribute_param_list: $ => seq('(', commaSep1($.attr_param), ')'),
+    attribute_parameter_list: $ => seq('(', commaSep1($.attr_param), ')'),
     attribute: $ => seq(
       field('name', $._attribute_name),
-      optional($.attribute_param_list),
+      optional($.attribute_parameter_list),
     ),
     attributes: $ => repeat1($.attribute),
 
@@ -565,12 +565,12 @@ module.exports = grammar({
       field('type', $.type),
       field('name', $.ident),
     ),
-    enum_param_list: $ => seq('(', commaSepTrailing($.enum_param_declaration), ')'),
+    enum_parameter_list: $ => seq('(', commaSepTrailing($.enum_param_declaration), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
       choice(
-        seq(optional('inline'), field('type', alias($._type_no_generics, $.type)), optional($.enum_param_list)),
-        $.enum_param_list,
+        seq(optional('inline'), field('type', alias($._type_no_generics, $.type)), optional($.enum_parameter_list)),
+        $.enum_parameter_list,
       ),
     )),
     enum_body: $ => seq(
