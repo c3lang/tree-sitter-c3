@@ -112,9 +112,6 @@ module.exports = grammar({
   inline: $ => [
     $._statement,
     $._top_level_item,
-    $._ct_call,
-    $._ct_arg,
-    $._asm_addr,
   ],
 
   word: $ => $.ident,
@@ -215,7 +212,8 @@ module.exports = grammar({
     ),
     doc_comment: $ => seq(
       '<*',
-      optional($.doc_comment_text), // NOTE parsed by scanner.c (scan_doc_comment_text)
+      // NOTE parsed by scanner.c (scan_doc_comment_text)
+      optional($.doc_comment_text),
       sepTrailing($.doc_comment_contract, '\n'),
       '*>',
     ),
@@ -360,22 +358,14 @@ module.exports = grammar({
     ),
     attributes: $ => repeat1($.attribute),
 
-    // Storage Specifiers
-    // -------------------------
-    local_decl_storage: $ => choice('static', 'tlocal'),
-    global_storage: $ => 'tlocal',
-
-
     ////////////////////////////
     // Top Level
     // -------------------------
     _top_level_item: $ => choice(
       $.module,
       $.import_declaration,
-      seq(optional('extern'), $.func_declaration),
-      seq(optional('extern'), $.func_definition),
-      seq(optional('extern'), $.const_declaration),
-      seq(optional('extern'), $.global_declaration),
+      $.global_declaration,
+      $.func_definition,
 
       $.ct_assert_stmt,
       $.ct_echo_stmt,
@@ -502,26 +492,6 @@ module.exports = grammar({
       ';'
     ),
 
-    // Global
-    // -------------------------
-    _multi_declaration: $ => seq(',', field('name', commaSep1($.ident))),
-    global_declaration: $ => seq(
-      optional($.global_storage),
-      field('type', optional($.type)),
-      field('name', $.ident),
-      choice(
-        seq(
-          optional($._multi_declaration),
-          optional($.attributes),
-        ),
-        seq(
-          optional($.attributes),
-          optional($._assign_right_expr),
-        ),
-      ),
-      ';'
-    ),
-
     // Struct/Union
     // -------------------------
     _struct_or_union: _ => choice('struct', 'union'),
@@ -564,7 +534,7 @@ module.exports = grammar({
     // Bitstruct
     // -------------------------
     bitstruct_member_declaration: $ => seq(
-      field('type', alias($._base_type, $.base_type)),
+      field('type', $._base_type),
       $.ident,
       optional(seq(
         ':',
@@ -722,7 +692,8 @@ module.exports = grammar({
     _statement: $ => choice(
       $.compound_stmt,
       $.expr_stmt,
-      $.declaration_stmt,
+      alias($.declaration, $.declaration_stmt),
+      alias($.const_declaration, $.const_declaration_stmt),
       $.var_stmt,
       $.return_stmt,
       $.continue_stmt,
@@ -798,21 +769,30 @@ module.exports = grammar({
     // -------------------------
     assert_stmt: $ => seq('assert', '(', commaSep1($._expr), ')', ';'),
 
-    // Declaration Statement
+    // Declaration
     // -------------------------
-    local_decl_after_type: $ => choice(
-      seq(field('name', $.ident), optional($.attributes), optional($._assign_right_expr)),
-      seq(field('name', $.ct_ident), optional($._assign_right_expr)),
+    decl_after_type: $ => seq(
+      field('name', choice($.ident, $.ct_ident)),
+      optional($.attributes),
+      optional($._assign_right_expr)
     ),
-    _decl_statement_after_type: $ => commaSep1($.local_decl_after_type),
+    _decl_statement_after_type: $ => commaSep1($.decl_after_type),
 
-    declaration_stmt: $ => choice(
-      $.const_declaration,
-      seq(
-        optional($.local_decl_storage),
-        field('type', $.type),
-        $._decl_statement_after_type,
-        ';'
+    _decl_storage: $ => choice('static', 'tlocal'),
+
+    declaration: $ => seq(
+      optional($._decl_storage),
+      field('type', $.type),
+      $._decl_statement_after_type,
+      ';'
+    ),
+
+    global_declaration: $ => seq(
+      optional('extern'),
+      choice(
+        $.declaration,
+        $.const_declaration,
+        $.func_declaration,
       ),
     ),
 
@@ -915,7 +895,7 @@ module.exports = grammar({
     // -------------------------
     _decl_or_expr: $ => choice(
       $.var_decl,
-      seq($.type, $.local_decl_after_type),
+      seq($.type, $.decl_after_type),
       $._expr
     ),
     comma_decl_or_expr: $ => commaSep1($._decl_or_expr),
@@ -1165,11 +1145,6 @@ module.exports = grammar({
       '$offsetof',
       '$qnameof',
     ),
-    _ct_arg: $ => choice(
-      '$vaconst',
-      '$vaarg',
-      '$vaexpr',
-    ),
 
     // Precedence over _expr
     flat_path: $ => prec(1, seq(
@@ -1212,6 +1187,9 @@ module.exports = grammar({
 
       // Compile-time expressions
       '$vacount',
+      '$vaconst',
+      '$vaarg',
+      '$vaexpr',
       seq($._ct_call, '(', $.flat_path, ')'),
       seq(
         choice(
@@ -1220,9 +1198,8 @@ module.exports = grammar({
           '$sizeof',
           '$stringify',
         ),
-        '(', $._expr, ')'
+        $.paren_expr,
       ),
-      seq($._ct_arg, '[', $._expr, ']'),
       seq(
         choice(
           '$defined',
@@ -1466,7 +1443,7 @@ module.exports = grammar({
 
     // Field/Type-Access Expression
     // -------------------------
-    access_eval: $ => seq('$eval', '(', $._expr, ')'),
+    access_eval: $ => seq('$eval', $.paren_expr),
     access_ident: $ => choice(
       $.ident,       // Field/method function
       $.at_ident,    // Method macro
@@ -1531,10 +1508,15 @@ module.exports = grammar({
       $.type_ident,
       $.module_type_ident,
       $.ct_type_ident,
-      seq('$typeof', '(', $._expr, ')'),
-      seq('$typefrom', '(', $._expr, ')'),
-      seq('$evaltype', '(', $._expr, ')'),
-      seq('$vatype', '[', $._expr, ']'),
+      seq(
+        choice(
+          '$typeof',
+          '$typefrom',
+          '$evaltype',
+        ),
+        $.paren_expr
+      ),
+      '$vatype',
     )),
 
     _base_type_with_generics: $ => choice(
@@ -1557,12 +1539,12 @@ module.exports = grammar({
     ),
 
     type: $ => prec.right(seq(
-      alias($._base_type_with_generics, $.base_type),
+      $._base_type_with_generics,
       repeat($.type_suffix),
       optional('?'),
     )),
     _type_no_generics: $ => prec.right(seq(
-      alias($._base_type, $.base_type),
+      $._base_type,
       repeat($.type_suffix),
       optional('?'),
     )),

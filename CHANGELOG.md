@@ -1,7 +1,15 @@
 # tree-sitter-c3 Changelog
 
-## 0.6.1
+## 0.7.0
 - Added indents.scm
+- Removed `base_type` 
+- Removed `local_decl_storage`
+- Removed `global_storage`
+- Removed `declaration_stmt (const_declaration)` in favor of `const_declaration_stmt`
+- Renamed `local_decl_after_type` to `decl_after_type`
+- `global_declaration` changed to contain `declaration`, `const_declaration` or `func_declaration`
+- Use `paren_expr` in more places
+- `$vaarg[..]`, `$vaexpr[..]`, `$vaconst[..]` is now a `subscript_expr`
 - Moved `for (...)` parenthesis from `for_stmt` into `for_cond`
 
 ## 0.6.0

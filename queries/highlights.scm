@@ -22,8 +22,7 @@
 (call_invocation (call_arg name: (_) @variable.parameter))
 (enum_param_declaration (ident) @variable.parameter)
 ;; 3) Declaration
-(global_declaration (ident) @variable.declaration)
-(local_decl_after_type name: [(ident) (ct_ident)] @variable.declaration)
+(decl_after_type name: [(ident) (ct_ident)] @variable.declaration)
 (var_decl name: [(ident) (ct_ident)] @variable.declaration)
 (try_unwrap (ident) @variable.declaration)
 (catch_unwrap (ident) @variable.declaration)
