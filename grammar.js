@@ -682,7 +682,7 @@ module.exports = grammar({
     _statement: $ => choice(
       $.compound_stmt,
       $.expr_stmt,
-      $._declaration,
+      $.declaration_stmt,
       $.var_stmt,
       $.return_stmt,
       $.continue_stmt,
@@ -720,6 +720,10 @@ module.exports = grammar({
     // Expr Statement
     // -------------------------
     expr_stmt: $ => seq($._expr, ';'),
+
+    // Declaration Statement
+    // -------------------------
+    declaration_stmt: $ => $._declaration,
 
     // Var Statement
     // -------------------------
