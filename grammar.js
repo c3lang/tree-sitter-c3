@@ -204,7 +204,7 @@ module.exports = grammar({
       seq(
         field('name', alias('@return', $.at_ident)),
         choice(
-          seq('?', commaSep1($.path_const_ident), optional(':'), optional($.string_expr)),
+          seq('?', commaSep1($._expr), optional(':'), optional($.string_expr)),
           $.string_expr,
         )
       ),
@@ -263,7 +263,6 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
-    path_const_ident: $ => seq(optional($._module_path), $.const_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
 
     module_type_ident: $ => seq(
