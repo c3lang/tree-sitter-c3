@@ -29,10 +29,9 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (if_stmt
@@ -72,10 +71,9 @@ fn void main() {
                     (integer_literal)))))))
         (if_stmt
           (paren_cond
-            (type
-              (base_type
-                (base_type_name)))
-            (local_decl_after_type
+            (declaration
+              (type
+                (base_type_name))
               (ident)
               (integer_literal))
             (try_unwrap
@@ -110,17 +108,15 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (declaration_stmt
-          (type
-            (base_type
-              (base_type_name)))
-          (local_decl_after_type
+          (declaration
+            (type
+              (base_type_name))
             (ident)
             (integer_literal)))
         (while_stmt
@@ -143,32 +139,31 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (integer_literal)))))))
         (while_stmt
           (paren_cond
-            (type
-              (base_type
-                (type_ident))
-              (type_suffix))
-            (local_decl_after_type
+            (declaration
+              (type
+                (type_ident)
+                (type_suffix))
               (ident)
               (call_expr
                 (ident)
-                (call_invocation))))
+                (call_arg_list))))
           (compound_stmt
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (call_expr
                       (field_expr
                         (ident)
                         (access_ident
                           (ident)))
-                      (call_invocation))))))))))))
+                      (call_arg_list))))))))))))
 
 ================================================================================
 Do statements
@@ -187,10 +182,9 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (do_stmt
@@ -198,7 +192,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (ident)))))))))))
 
@@ -230,19 +224,17 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (for_stmt
           (for_cond
             (comma_decl_or_expr
-              (type
-                (base_type
-                  (base_type_name)))
-              (local_decl_after_type
+              (declaration
+                (type
+                  (base_type_name))
                 (ident)
                 (integer_literal)))
             (binary_expr
@@ -255,7 +247,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (ident)))))))
         (for_stmt
@@ -274,7 +266,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (ident)))))))
         (for_stmt
@@ -283,7 +275,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (integer_literal)))))))
         (for_stmt
@@ -295,7 +287,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (integer_literal)))))))
         (for_stmt
@@ -307,7 +299,7 @@ fn void main() {
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (integer_literal)))))))))))
 
@@ -328,10 +320,9 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (foreach_stmt
@@ -348,7 +339,7 @@ fn void main() {
                   (module_resolution
                     (ident))
                   (ident))
-                (call_invocation
+                (call_arg_list
                   (call_arg
                     (string_literal
                       (string_content)))
@@ -380,17 +371,16 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (defer_stmt
           (expr_stmt
             (call_expr
               (ident)
-              (call_invocation))))
+              (call_arg_list))))
         (defer_stmt
           (compound_stmt
             (expr_stmt
@@ -406,16 +396,16 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (expr_stmt
               (call_expr
                 (ident)
-                (call_invocation)))
+                (call_arg_list)))
             (defer_stmt
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))))))))
+                  (call_arg_list))))))))))
 
 ================================================================================
 Switch statements
@@ -464,10 +454,10 @@ fn void main() {
         baz();
     }
 
-    switch (i) {
+    switch LABEL: (i) {
       case 1:
         doSomething();
-        nextcase 3;
+        nextcase LABEL: 3;
       case 2:
         doSomethingElse();
       case 3:
@@ -483,10 +473,9 @@ fn void main() {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list)
+    (func_param_list)
     (macro_func_body
       (compound_stmt
         (switch_stmt
@@ -498,19 +487,19 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation)))
+                  (call_arg_list)))
               (nextcase_stmt))
             (case_stmt
               (integer_literal)
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (default_stmt
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation)))
+                  (call_arg_list)))
               (break_stmt))))
         (switch_stmt
           (switch_body
@@ -525,14 +514,14 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation)))
+                  (call_arg_list)))
               (nextcase_stmt))
             (case_stmt
               (integer_literal)
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))))
+                  (call_arg_list))))))
         (switch_stmt
           (paren_cond)
           (switch_body
@@ -543,7 +532,7 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (case_stmt
               (binary_expr
                 (ident)
@@ -551,35 +540,37 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (default_stmt
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))))
+                  (call_arg_list))))))
         (switch_stmt
           (switch_body
             (case_stmt
               (binary_expr
                 (call_expr
                   (ident)
-                  (call_invocation))
+                  (call_arg_list))
                 (integer_literal))
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (case_stmt
               (binary_expr
                 (call_expr
                   (ident)
-                  (call_invocation))
+                  (call_arg_list))
                 (integer_literal))
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))))
+                  (call_arg_list))))))
         (switch_stmt
+          (label
+            (const_ident))
           (paren_cond
             (ident))
           (switch_body
@@ -588,21 +579,23 @@ fn void main() {
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation)))
+                  (call_arg_list)))
               (nextcase_stmt
+                (label_target
+                  (const_ident))
                 (integer_literal)))
             (case_stmt
               (integer_literal)
               (expr_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (case_stmt
               (integer_literal)
               (nextcase_stmt
                 (call_expr
                   (ident)
-                  (call_invocation))))
+                  (call_arg_list))))
             (default_stmt
               (expr_stmt
                 (call_expr
@@ -610,7 +603,7 @@ fn void main() {
                     (module_resolution
                       (ident))
                     (ident))
-                  (call_invocation
+                  (call_arg_list
                     (call_arg
                       (string_literal
                         (string_content)))))))))))))

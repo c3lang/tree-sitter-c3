@@ -21,70 +21,70 @@ isz a;
 
 (source_file
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident))
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name)))
-    (ident)))
+    (declaration
+      (type
+        (base_type_name))
+      (ident))))
 
 ================================================================================
 Array types
@@ -97,40 +97,40 @@ int[5] a = { 1, 2, 3, 4, 5 };
 
 (source_file
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (initializer_list
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (initializer_list
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal)))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix
-        (integer_literal)))
-    (ident)
-    (initializer_list
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal))
-      (arg
-        (integer_literal)))))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix
+          (integer_literal)))
+      (ident)
+      (initializer_list
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))
+        (arg
+          (integer_literal))))))
 
 ================================================================================
 Type identifiers
@@ -153,103 +153,103 @@ foo::bar::Baz* c;
 
 (source_file
   (global_declaration
-    (type
-      (base_type
-        (type_ident)))
-    (ident))
-  (global_declaration
-    (type
-      (base_type
-        (module_type_ident
-          (module_resolution
-            (ident))
-          (type_ident))))
-    (ident))
-  (global_declaration
-    (type
-      (base_type
-        (module_type_ident
-          (module_resolution
-            (ident))
-          (module_resolution
-            (ident))
-          (type_ident))))
-    (ident))
-  (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (type_ident))
-      (type_suffix
-        (integer_literal)))
-    (ident))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (type_ident)))
-      (type_suffix
-        (integer_literal)))
-    (ident))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (module_resolution
             (ident))
           (type_ident)))
-      (type_suffix
-        (integer_literal)))
-    (ident))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
-        (type_ident)))
-    (ident))
+    (declaration
+      (type
+        (type_ident)
+        (type_suffix
+          (integer_literal)))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
-          (type_ident))))
-    (ident))
+          (type_ident))
+        (type_suffix
+          (integer_literal)))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (module_resolution
             (ident))
-          (type_ident))))
-    (ident))
+          (type_ident))
+        (type_suffix
+          (integer_literal)))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (type_ident))
-      (type_suffix))
-    (ident))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (type_ident)))
-      (type_suffix))
-    (ident))
+      (ident)))
   (global_declaration
-    (type
-      (base_type
+    (declaration
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (module_resolution
             (ident))
           (type_ident)))
-      (type_suffix))
-    (ident)))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (type_ident)
+        (type_suffix))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident))
+        (type_suffix))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (module_resolution
+            (ident))
+          (type_ident))
+        (type_suffix))
+      (ident))))

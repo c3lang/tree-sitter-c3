@@ -13,7 +13,7 @@ fn void main() {
 --------------------------------------------------------------------------------
 
 (source_file
-  (module
+  (module_declaration
     path: (path_ident
       (module_resolution
         (ident))
@@ -26,10 +26,9 @@ fn void main() {
   (func_definition
     (func_header
       return_type: (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       name: (ident))
-    (fn_parameter_list)
+    (func_param_list)
     body: (macro_func_body
       (compound_stmt
         (expr_stmt
@@ -38,7 +37,7 @@ fn void main() {
               (module_resolution
                 (ident))
               ident: (ident))
-            arguments: (call_invocation
+            arguments: (call_arg_list
               (call_arg
                 (string_literal
                   (string_content)
@@ -104,21 +103,18 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name))
+      (base_type_name)
       (type_suffix)))
   (alias_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name))
+      (base_type_name)
       (type_suffix
         (integer_literal))))
   (typedef_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name))))
+      (base_type_name)))
   (alias_declaration
     (ident)
     (ident))
@@ -128,82 +124,68 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (type_ident)
     (type
-      (base_type
+      (module_type_ident
+        (module_resolution
+          (ident))
+        (type_ident))))
+  (alias_declaration
+    (type_ident)
+    (type
+      (generic_type_ident
         (module_type_ident
           (module_resolution
             (ident))
-          (type_ident)))))
+          (type_ident))
+        (generic_arg_list
+          (type
+            (base_type_name))))))
   (alias_declaration
     (type_ident)
     (type
-      (base_type
-        (generic_type_ident
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident))
-          (generic_arguments
-            (type
-              (base_type
-                (base_type_name))))))))
+      (generic_type_ident
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident))
+        (generic_arg_list
+          (type
+            (base_type_name))
+          (type
+            (base_type_name))))))
   (alias_declaration
     (type_ident)
     (type
-      (base_type
-        (generic_type_ident
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident))
-          (generic_arguments
-            (type
-              (base_type
-                (base_type_name)))
-            (type
-              (base_type
-                (base_type_name))))))))
-  (alias_declaration
-    (type_ident)
-    (type
-      (base_type
-        (generic_type_ident
-          (type_ident)
-          (generic_arguments
-            (type
-              (base_type
-                (base_type_name)))
-            (type
-              (base_type
-                (base_type_name))))))))
+      (generic_type_ident
+        (type_ident)
+        (generic_arg_list
+          (type
+            (base_type_name))
+          (type
+            (base_type_name))))))
   (alias_declaration
     (ident)
     (module_resolution
       (ident))
     (ident)
-    (generic_arguments
+    (generic_arg_list
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (type
-        (base_type
-          (base_type_name)))))
+        (base_type_name))))
   (alias_declaration
     (type_ident)
     (func_signature
       (type
-        (base_type
-          (base_type_name)))
-      (fn_parameter_list
-        (parameter
+        (base_type_name))
+      (func_param_list
+        (param
           (type
-            (base_type
-              (base_type_name))
+            (base_type_name)
             (type_suffix))
           (ident))
-        (parameter
+        (param
           (type
-            (base_type
-              (base_type_name)))
+            (base_type_name))
           (ident)))))
   (alias_declaration
     (const_ident)
@@ -215,47 +197,41 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (ident)
     (type
-      (base_type
-        (type_ident)))
+      (type_ident))
     (ident))
   (alias_declaration
     (ident)
     (type
-      (base_type
-        (module_type_ident
-          (module_resolution
-            (ident))
-          (type_ident)))
+      (module_type_ident
+        (module_resolution
+          (ident))
+        (type_ident))
       (type_suffix))
     (ident))
   (alias_declaration
     (at_ident)
     (type
-      (base_type
+      (type_ident))
+    (at_ident))
+  (alias_declaration
+    (at_ident)
+    (type
+      (module_type_ident
+        (module_resolution
+          (ident))
         (type_ident)))
     (at_ident))
   (alias_declaration
     (at_ident)
     (type
-      (base_type
+      (generic_type_ident
         (module_type_ident
           (module_resolution
             (ident))
-          (type_ident))))
-    (at_ident))
-  (alias_declaration
-    (at_ident)
-    (type
-      (base_type
-        (generic_type_ident
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident))
-          (generic_arguments
-            (type
-              (base_type
-                (base_type_name))))))
+          (type_ident))
+        (generic_arg_list
+          (type
+            (base_type_name))))
       (type_suffix))
     (at_ident))
   (alias_declaration
@@ -263,33 +239,29 @@ alias @intHello = foo::@hello{int};
     (module_resolution
       (ident))
     (const_ident)
-    (generic_arguments
+    (generic_arg_list
       (type
-        (base_type
-          (base_type_name)))))
+        (base_type_name))))
   (alias_declaration
     (ident)
     (type
-      (base_type
-        (generic_type_ident
-          (module_type_ident
-            (module_resolution
-              (ident))
-            (type_ident))
-          (generic_arguments
-            (type
-              (base_type
-                (base_type_name)))))))
+      (generic_type_ident
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident))
+        (generic_arg_list
+          (type
+            (base_type_name)))))
     (ident))
   (alias_declaration
     (at_ident)
     (module_resolution
       (ident))
     (at_ident)
-    (generic_arguments
+    (generic_arg_list
       (type
-        (base_type
-          (base_type_name))))))
+        (base_type_name)))))
 
 ================================================================================
 Function declarations
@@ -326,29 +298,25 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident))
-      (parameter
+      (param
         (type
-          (base_type
-            (base_type_name))
+          (base_type_name)
           (type_suffix)
           (type_suffix))
         (ident)))
     (macro_func_body
       (compound_stmt
         (declaration_stmt
-          (type
-            (base_type
-              (base_type_name)))
-          (local_decl_after_type
+          (declaration
+            (type
+              (base_type_name))
             (ident)
             (integer_literal)))
         (return_stmt
@@ -356,19 +324,16 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident))
-      (parameter
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident)))
     (attributes
       (attribute
@@ -382,21 +347,18 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident))
-      (parameter
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident)
-        (parameter_default
+        (param_default
           (integer_literal))))
     (macro_func_body
       (compound_stmt
@@ -407,14 +369,12 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident)))
     (macro_func_body
       (implies_body
@@ -424,14 +384,12 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (type_ident)))
+          (type_ident))
         (ident)))
     (macro_func_body
       (implies_body
@@ -442,66 +400,59 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (ident)))
     (macro_func_body
       (implies_body
         (binary_expr
           (ident)
           (integer_literal)))))
-  (func_declaration
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
+  (global_declaration
+    (func_declaration
+      (func_header
         (type
-          (base_type
-            (base_type_name))
-          (type_suffix))
+          (base_type_name))
         (ident))
-      (parameter)))
-  (func_declaration
-    (func_header
-      (type
-        (base_type
-          (base_type_name)))
-      (ident))
-    (fn_parameter_list
-      (parameter
+      (func_param_list
+        (param
+          (type
+            (base_type_name)
+            (type_suffix))
+          (ident))
+        (param))))
+  (global_declaration
+    (func_declaration
+      (func_header
         (type
-          (base_type
-            (base_type_name)))
-        (ident))))
+          (base_type_name))
+        (ident))
+      (func_param_list
+        (param
+          (type
+            (base_type_name))
+          (ident)))))
   (macro_declaration
     (macro_header
       (ident))
-    (macro_parameter_list
-      (parameter
+    (macro_param_list
+      (param
         (ct_ident))
-      (parameter
+      (param
         (type
-          (base_type
-            (base_type_name))
+          (base_type_name)
           (type_suffix
             (integer_literal))))
-      (parameter
+      (param
         (type
-          (base_type
-            (ct_type_ident)))
-        (parameter_default
+          (ct_type_ident))
+        (param_default
           (type
-            (base_type
-              (base_type_name))
+            (base_type_name)
             (type_suffix
               (integer_literal))
             (type_suffix)
@@ -510,8 +461,7 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
       (implies_body
         (type_access_expr
           (type
-            (base_type
-              (ct_type_ident)))
+            (ct_type_ident))
           (access_ident
             (ident)))))))
 
@@ -542,14 +492,12 @@ fn bool Player.is_alive(Player* p) {
     (struct_body
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (identifier_list
           (ident)))
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name))
+          (base_type_name)
           (type_suffix))
         (identifier_list
           (ident)))))
@@ -561,20 +509,17 @@ fn bool Player.is_alive(Player* p) {
     (struct_body
       (struct_member_declaration
         (type
-          (base_type
-            (type_ident)))
+          (type_ident))
         (ident))
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name))
+          (base_type_name)
           (type_suffix))
         (identifier_list
           (ident)))
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (identifier_list
           (ident))
         (attributes
@@ -583,17 +528,14 @@ fn bool Player.is_alive(Player* p) {
   (func_definition
     (func_header
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (type
-        (base_type
-          (type_ident)))
+        (type_ident))
       (ident))
-    (fn_parameter_list
-      (parameter
+    (func_param_list
+      (param
         (type
-          (base_type
-            (type_ident))
+          (type_ident)
           (type_suffix))
         (ident)))
     (macro_func_body
@@ -635,109 +577,98 @@ bitstruct Foo : int {
   (bitstruct_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name)))
+      (base_type_name))
     (attributes
       (attribute
         (at_ident)))
     (bitstruct_body
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (integer_literal)
         (integer_literal))))
   (bitstruct_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name)))
+      (base_type_name))
     (bitstruct_body
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (integer_literal))
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (integer_literal)
         (integer_literal))
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (integer_literal))))
   (bitstruct_declaration
     (type_ident)
     (type
-      (base_type
-        (base_type_name)))
+      (base_type_name))
     (bitstruct_body
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (call_expr
           (ident)
-          (call_invocation
-            (call_inline_attributes
-              (at_ident)))))
+          (call_arg_list)
+          (call_inline_attributes
+            (at_ident))))
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (paren_expr
           (call_expr
             (ident)
-            (call_invocation)))
+            (call_arg_list)))
         (attributes
           (attribute
             (at_ident)
-            (attribute_param_list
-              (attr_param
+            (attribute_arg_list
+              (attribute_arg
                 (string_literal
                   (string_content)))
-              (attr_param
+              (attribute_arg
                 (integer_literal))))))
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (call_expr
           (ident)
-          (call_invocation
-            (call_inline_attributes
-              (at_ident))))
+          (call_arg_list)
+          (call_inline_attributes
+            (at_ident)))
         (binary_expr
           (call_expr
             (ident)
-            (call_invocation
-              (call_inline_attributes
-                (at_ident))))
+            (call_arg_list)
+            (call_inline_attributes
+              (at_ident)))
           (integer_literal)))
       (bitstruct_member_declaration
-        (base_type
-          (base_type_name))
+        (base_type_name)
         (ident)
         (call_expr
           (ident)
-          (call_invocation
-            (call_inline_attributes
-              (at_ident))))
+          (call_arg_list)
+          (call_inline_attributes
+            (at_ident)))
         (paren_expr
           (call_expr
             (ident)
-            (call_invocation)))
+            (call_arg_list)))
         (attributes
           (attribute
             (at_ident)
-            (attribute_param_list
-              (attr_param
+            (attribute_arg_list
+              (attribute_arg
                 (string_literal
                   (string_content)))
-              (attr_param
+              (attribute_arg
                 (integer_literal)))))))))
 
 ================================================================================
@@ -761,14 +692,12 @@ union Set {
     (struct_body
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (identifier_list
           (ident)))
       (struct_member_declaration
         (type
-          (base_type
-            (base_type_name)))
+          (base_type_name))
         (identifier_list
           (ident)))
       (struct_member_declaration
@@ -776,14 +705,12 @@ union Set {
         (struct_body
           (struct_member_declaration
             (type
-              (base_type
-                (base_type_name)))
+              (base_type_name))
             (identifier_list
               (ident)))
           (struct_member_declaration
             (type
-              (base_type
-                (base_type_name)))
+              (base_type_name))
             (identifier_list
               (ident))))))))
 
@@ -837,8 +764,7 @@ enum Foo : int (inline String name, int y, int z)
     (type_ident)
     (enum_spec
       (type
-        (base_type
-          (base_type_name))))
+        (base_type_name)))
     (enum_body
       (enum_constant
         (const_ident))
@@ -864,8 +790,7 @@ enum Foo : int (inline String name, int y, int z)
     (type_ident)
     (enum_spec
       (type
-        (base_type
-          (base_type_name))))
+        (base_type_name)))
     (enum_body
       (enum_constant
         (const_ident))
@@ -875,23 +800,19 @@ enum Foo : int (inline String name, int y, int z)
     (type_ident)
     (enum_spec
       (type
-        (base_type
-          (base_type_name)))
+        (base_type_name))
       (enum_param_list
         (enum_param_declaration
           (type
-            (base_type
-              (type_ident)))
+            (type_ident))
           (ident))
         (enum_param_declaration
           (type
-            (base_type
-              (base_type_name)))
+            (base_type_name))
           (ident))
         (enum_param_declaration
           (type
-            (base_type
-              (base_type_name)))
+            (base_type_name))
           (ident))))
     (enum_body
       (enum_constant
@@ -931,6 +852,101 @@ faultdef FILE_NOT_FOUND, FILE_NOT_READABLE;
     (const_ident)))
 
 ================================================================================
+Global declarations
+================================================================================
+
+int a;
+int a, b;
+extern int a;
+extern int a = 4;
+extern int a, b;
+mymodule::Type global @private = 4;
+const UNTYPED @deprecated("") = 4;
+const mymodule::Type{int}* CONST = CONST;
+
+extern fn void foo(void);
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (identifier_list
+        (ident)
+        (ident))))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)
+      (integer_literal)))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (identifier_list
+        (ident)
+        (ident))))
+  (global_declaration
+    (declaration
+      (type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident)))
+      (ident)
+      (attributes
+        (attribute
+          (at_ident)))
+      (integer_literal)))
+  (global_declaration
+    (const_declaration
+      (const_ident)
+      (attributes
+        (attribute
+          (at_ident)
+          (attribute_arg_list
+            (attribute_arg
+              (string_literal)))))
+      (integer_literal)))
+  (global_declaration
+    (const_declaration
+      (type
+        (generic_type_ident
+          (module_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arg_list
+            (type
+              (base_type_name))))
+        (type_suffix))
+      (const_ident)
+      (const_ident)))
+  (global_declaration
+    (func_declaration
+      (func_header
+        (type
+          (base_type_name))
+        (ident))
+      (func_param_list
+        (param
+          (type
+            (base_type_name)))))))
+
+================================================================================
 Byte literals
 ================================================================================
 
@@ -949,50 +965,50 @@ V29ybGQ=`;
 
 (source_file
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal)))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal)))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal)))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal)))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal)))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal))))
   (global_declaration
-    (type
-      (base_type
-        (base_type_name))
-      (type_suffix))
-    (ident)
-    (bytes_expr
-      (bytes_literal))))
+    (declaration
+      (type
+        (base_type_name)
+        (type_suffix))
+      (ident)
+      (bytes_expr
+        (bytes_literal)))))
