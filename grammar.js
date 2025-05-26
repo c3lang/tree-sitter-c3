@@ -747,7 +747,8 @@ module.exports = grammar({
     // Var Statement
     // -------------------------
     var_declaration: $ => choice(
-      seq('var', field('name', $._decl_ident), $._assign_right_expr),
+      seq('var', field('name', $.ident), $._assign_right_expr),
+      seq('var', field('name', $.ct_ident), optional($._assign_right_expr)),
       seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_expr))),
     ),
     var_stmt: $ => seq($.var_declaration, ';'),
