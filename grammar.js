@@ -472,7 +472,7 @@ module.exports = grammar({
     typedef_declaration: $ => seq(
       'typedef',
       field('name', $.type_ident),
-      optional($.interface_impl),
+      optional($.interface_impl_list),
       optional($.attributes),
       '=',
       optional('inline'),
@@ -500,11 +500,11 @@ module.exports = grammar({
     // -------------------------
     _struct_or_union: _ => choice('struct', 'union'),
 
-    interface: $ => seq(
+    _interface_impl: $ => choice(
       $._type_or_module_type_ident,
-      optional($.generic_arg_list),
+      $.generic_type_ident,
     ),
-    interface_impl: $ => seq('(', commaSep($.interface), ')'),
+    interface_impl_list: $ => seq('(', commaSep($._interface_impl), ')'),
 
     identifier_list: $ => commaSep1(choice($.ident, $.ct_ident)),
 
@@ -530,7 +530,7 @@ module.exports = grammar({
     struct_declaration: $ => seq(
       $._struct_or_union,
       field('name', $.type_ident),
-      optional($.interface_impl),
+      optional($.interface_impl_list),
       optional($.attributes),
       field('body', $.struct_body),
     ),
@@ -559,7 +559,7 @@ module.exports = grammar({
     bitstruct_declaration: $ => seq(
       'bitstruct',
       field('name', $.type_ident),
-      optional($.interface_impl),
+      optional($.interface_impl_list),
       ':',
       alias($._type_no_generics, $.type),
       optional($.attributes),
@@ -595,7 +595,7 @@ module.exports = grammar({
     enum_declaration: $ => seq(
       'enum',
       field('name', $.type_ident),
-      optional($.interface_impl),
+      optional($.interface_impl_list),
       optional($.enum_spec),
       optional($.attributes),
       field('body', $.enum_body),
