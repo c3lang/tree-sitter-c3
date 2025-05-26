@@ -1,4 +1,3 @@
-; NOTE In this file later patterns are assumed to have priority!
 ; Punctuation
 [
   "("
@@ -56,41 +55,15 @@
         (ident) @variable.member))))
 
 ; 2) Parameter
-(parameter
+(param
   name: (_) @variable.parameter)
 
 (call_arg_list
   (call_arg
     name: (_) @variable.parameter))
 
-(enum_parameter_declaration
+(enum_param_declaration
   (ident) @variable.parameter)
-
-; 3) Declaration
-(declaration
-  (identifier_list
-    [
-      (ident)
-      (ct_ident)
-    ] @variable.declaration))
-
-(declaration
-  name: [
-    (ident)
-    (ct_ident)
-  ] @variable.declaration)
-
-(var_declaration
-  name: [
-    (ident)
-    (ct_ident)
-  ] @variable.declaration)
-
-(try_unwrap
-  (ident) @variable.declaration)
-
-(catch_unwrap
-  (ident) @variable.declaration)
 
 ; Keyword (from `c3c --list-keywords`)
 [
@@ -152,7 +125,7 @@
 
 "import" @keyword.import
 
-"module" @keyword.module
+"module" @keyword
 
 [
   "alias"
@@ -200,29 +173,17 @@
   "~"
   "|"
   "^"
-  ; ":"
-  ; ","
-  ; ";"
   "="
   ">"
   "/"
   "."
-  ; "#"
   "<"
-  ; "{"
-  ; "["
-  ; "("
   "-"
   "%"
   "+"
   "?"
-  ; "}"
-  ; "]"
-  ; ")"
   "*"
-  ; "_"
   "&&"
-  ; "->"
   "!!"
   "&="
   "|="
@@ -234,7 +195,6 @@
   ">="
   "=>"
   "<="
-  ; "[<"
   "-="
   "--"
   "%="
@@ -243,9 +203,7 @@
   "||"
   "+="
   "++"
-  ; ">]"
   "??"
-  ; "::"
   "<<"
   ">>"
   "..."
@@ -260,6 +218,9 @@
   ":" @operator)
 
 (foreach_cond
+  ":" @operator)
+
+(ct_foreach_cond
   ":" @operator)
 
 (ternary_expr
@@ -303,9 +264,7 @@
       "alignof" "associated" "elements" "extnameof" "from_ordinal" "get" "inf" "is_eq" "is_ordered"
       "is_substruct" "len" "lookup" "lookup_field" "max" "membersof" "methodsof" "min" "nan" "inner"
       "kindof" "names" "nameof" "params" "paramsof" "parentof" "qnameof" "returns" "sizeof" "tagof"
-      "has_tagof" "values"
-      ; Extra token
-      "typeid")))
+      "has_tagof" "values" "typeid")))
 
 ; Label
 [
@@ -369,7 +328,11 @@
   ] @function.call)
 
 (call_expr
-  function: (builtin) @function.builtin.call)
+  function: (trailing_generic_expr
+    argument: [
+      (ident)
+      (at_ident)
+    ] @function.call))
 
 (call_expr
   function: (module_ident_expr
@@ -380,13 +343,14 @@
     argument: (module_ident_expr
       ident: (_) @function.call)))
 
+; Method call
 (call_expr
   function: (field_expr
     field: (access_ident
       [
         (ident)
         (at_ident)
-      ] @function.method.call))) ; NOTE Ambiguous, could be calling a method or function pointer
+      ] @function.method.call)))
 
 ; Method on type
 (call_expr
@@ -397,21 +361,10 @@
         (at_ident)
       ] @function.method.call)))
 
-; Assignment
-; (assignment_expr left: (ident) @variable.member)
-; (assignment_expr left: (module_ident_expr (ident) @variable.member))
-; (assignment_expr left: (field_expr field: (_) @variable.member))
-; (assignment_expr left: (unary_expr operator: "*" @variable.member))
-; (assignment_expr left: (subscript_expr ["[" "]"] @variable.member))
-; (update_expr argument: (ident) @variable.member)
-; (update_expr argument: (module_ident_expr ident: (ident) @variable.member))
-; (update_expr argument: (field_expr field: (_) @variable.member))
-; (update_expr argument: (unary_expr operator: "*" @variable.member))
-; (update_expr argument: (subscript_expr ["[" "]"] @variable.member))
-; (unary_expr operator: ["--" "++"] argument: (ident) @variable.member)
-; (unary_expr operator: ["--" "++"] argument: (module_ident_expr (ident) @variable.member))
-; (unary_expr operator: ["--" "++"] argument: (field_expr field: (access_ident (ident)) @variable.member))
-; (unary_expr operator: ["--" "++"] argument: (subscript_expr ["[" "]"] @variable.member))
+; Builtin call
+(call_expr
+  function: (builtin) @function.builtin)
+
 ; Asm
 (asm_instr
   [
@@ -437,9 +390,4 @@
 
 (doc_comment_contract
   name: (_) @markup.strong
-  (#any-of? @markup.strong
-    "@param" "@return" "@deprecated" "@require" "@ensure" "@pure"))
-
-(doc_comment_contract
-  name: (_) @markup.italic
-  (#any-of? @markup.italic "@require" "@ensure"))
+  (#any-of? @markup.strong "@param" "@return" "@deprecated" "@require" "@ensure" "@pure"))
