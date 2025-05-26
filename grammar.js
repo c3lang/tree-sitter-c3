@@ -287,7 +287,7 @@ module.exports = grammar({
     // Parameters
     // -------------------------
     _parameter: $ => choice(
-      // Typed params
+      // Typed parameters
       seq(
         field('type', $.type),
         optional(choice(
@@ -409,7 +409,7 @@ module.exports = grammar({
     func_signature: $ => seq(
       'fn',
       field('return_type', $.type),
-      $.fn_param_list,
+      $.func_param_list,
       optional($.attributes),
     ),
 
@@ -427,11 +427,11 @@ module.exports = grammar({
         ),
         // Method
         seq(
-          field('name', choice($.ident, $.at_ident)),
+          field('name', $._func_macro_name),
           optional($.attributes),
           '=',
           // TODO parenthesis
-          seq($._type_expr, '.', choice($.ident, $.at_ident)),
+          seq($._type_expr, '.', $._func_macro_name),
         ),
         // Type/function
         seq(
@@ -604,12 +604,10 @@ module.exports = grammar({
     // -------------------------
     _func_macro_name: $ => choice($.ident, $.at_ident),
 
-    fn_param_list: $ => seq('(', optional($._parameters), ')'),
-
     func_header: $ => seq(
       field('return_type', $.type),
       optional(seq(field('method_type', $.type), '.')),
-      field('name', $._func_macro_name),
+      field('name', $.ident),
     ),
 
     macro_header: $ => seq(
@@ -618,33 +616,29 @@ module.exports = grammar({
       field('name', $._func_macro_name),
     ),
 
-    implies_body: $ => seq('=>', field('body', $._expr)),
-
-    macro_func_body: $ => choice(
-      seq('=>', $.call_expr),
-      seq($.implies_body, ';'),
-      $.compound_stmt
-    ),
+    func_param_list: $ => seq('(', optional($._parameters), ')'),
 
     func_declaration: $ => seq(
       'fn',
       $.func_header,
-      $.fn_param_list,
+      $.func_param_list,
       optional($.attributes),
       ';',
     ),
+
     func_definition: $ => seq(
       'fn',
       $.func_header,
-      $.fn_param_list,
+      $.func_param_list,
       optional($.attributes),
       field('body', $.macro_func_body),
     ),
 
     trailing_block_param: $ => seq(
       $.at_ident,
-      optional($.fn_param_list),
+      optional($.func_param_list),
     ),
+
     macro_param_list: $ => seq(
       '(',
       optional(
@@ -659,6 +653,15 @@ module.exports = grammar({
       ),
       ')',
     ),
+
+    implies_body: $ => seq('=>', field('body', $._expr)),
+
+    macro_func_body: $ => choice(
+      seq('=>', $.call_expr),
+      seq($.implies_body, ';'),
+      $.compound_stmt
+    ),
+
     macro_declaration: $ => seq(
       'macro',
       $.macro_header,
@@ -672,7 +675,7 @@ module.exports = grammar({
     lambda_declaration: $ => seq(
       'fn',
       field('return_type', optional($.type)),
-      $.fn_param_list,
+      $.func_param_list,
       optional($.attributes),
     ),
 

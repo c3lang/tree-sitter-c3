@@ -20,7 +20,7 @@
 - Renamed `parameter_default` -> `param_default`
 - Renamed `parameter` -> `param`
 - Renamed `attr_param` -> `attribute_arg`
-- Renamed `fn_parameter_list` -> `fn_param_list`
+- Renamed `fn_parameter_list` -> `func_param_list`
 - Renamed `macro_parameter_list` -> `macro_param_list`
 - Renamed `enum_parameter_list` -> `enum_param_list`
 - Added `attribute_arg_list`
