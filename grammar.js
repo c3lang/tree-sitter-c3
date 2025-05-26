@@ -243,6 +243,11 @@ module.exports = grammar({
     // Builtins
     builtin: _ => token(seq('$$', choice(CONST_IDENT, IDENT))),
 
+    _decl_ident: $ => choice(
+      $.ident,
+      $.ct_ident
+    ),
+
     _arg_ident: $ => choice(
       $.ident,
       $.ct_ident,
@@ -505,7 +510,7 @@ module.exports = grammar({
     ),
     interface_impl_list: $ => seq('(', commaSep($._interface_impl), ')'),
 
-    identifier_list: $ => commaSep1(choice($.ident, $.ct_ident)),
+    identifier_list: $ => commaSep1($._decl_ident),
 
     struct_member_declaration: $ => choice(
       seq(field('type', $.type), $.identifier_list, optional($.attributes), ';'),
@@ -742,7 +747,7 @@ module.exports = grammar({
     // Var Statement
     // -------------------------
     var_declaration: $ => choice(
-      seq('var', field('name', choice($.ident, $.ct_ident)), $._assign_right_expr),
+      seq('var', field('name', $._decl_ident), $._assign_right_expr),
       seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_expr))),
     ),
     var_stmt: $ => seq($.var_declaration, ';'),
@@ -777,8 +782,13 @@ module.exports = grammar({
 
     // Declaration
     // -------------------------
-    _decl_after_type: $ => seq(
+    _decl_ident_or_identifier_list: $ => prec(1, choice(
+      field('name', $._decl_ident),
       $.identifier_list,
+    )),
+
+    _decl_after_type: $ => seq(
+      $._decl_ident_or_identifier_list,
       optional($.attributes),
       optional($._assign_right_expr),
     ),
@@ -911,7 +921,7 @@ module.exports = grammar({
     // For Statement
     // -------------------------
     _single_decl_after_type: $ => seq(
-      field('name', choice($.ident, $.ct_ident)),
+      field('name', $._decl_ident),
       optional($.attributes),
       optional($._assign_right_expr)
     ),

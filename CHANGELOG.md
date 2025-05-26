@@ -1,7 +1,6 @@
 # tree-sitter-c3 Changelog
 
 ## 0.7.0
-- Added indents.scm
 - Removed `base_type` 
 - Removed `local_decl_storage`
 - Removed `global_storage`
@@ -9,9 +8,11 @@
 - Removed `declaration_stmt (const_declaration)` in favor of `const_declaration`
 - `declaration_stmt` changed to contain `declaration` or `const_declaration`
 - `global_declaration` changed to contain `declaration`, `const_declaration` or `func_declaration`
+- Declarations are now in the form `(declaration name: ([(ident) (ct_ident)]))` or `(declaration (identifier_list))`
 - Use `paren_expr` in more places
 - `$vaarg[..]`, `$vaexpr[..]`, `$vaconst[..]` is now a `subscript_expr`
 - Moved `for (...)` parenthesis from `for_stmt` into `for_cond`
+- Added `ct_for_cond`
 - Renamed `module` -> `module_declaration`
 - Renamed `var_decl` -> `var_declaration`
 - Renamed `attr_param` -> `attribute_param`
@@ -31,7 +32,7 @@
 - Renamed `interface_impl` -> `interface_impl_list`
 - Removed `path_const_ident`
 - Relaxed `@return?` parsing
-- Added `ct_for_cond`
+- Added indents.scm
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)
