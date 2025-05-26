@@ -26,6 +26,7 @@
 - Added `attribute_arg_list`
 - Added `call_arg_list`
 - Removed `call_invocation`
+- Removed `path_type_ident` in favor of `type_ident` and `module_type_ident`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)

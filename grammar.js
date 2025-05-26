@@ -250,6 +250,11 @@ module.exports = grammar({
       $.hash_ident
     ),
 
+    _func_macro_ident: $ => choice(
+      $.ident,
+      $.at_ident
+    ),
+
     // Module Paths
     // -------------------------
     module_resolution: $ => prec.left(seq(
@@ -258,9 +263,18 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
-    path_type_ident: $ => seq(optional($._module_path), $.type_ident),
     path_const_ident: $ => seq(optional($._module_path), $.const_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
+
+    module_type_ident: $ => seq(
+      $._module_path,
+      $.type_ident,
+    ),
+
+    _type_or_module_type_ident: $ => choice(
+      $.type_ident,
+      $.module_type_ident,
+    ),
 
     // Generic Parameters
     // -------------------------
@@ -418,20 +432,20 @@ module.exports = grammar({
       choice(
         // Variable/function/macro/constant
         seq(
-          field('name', choice($.ident, $.at_ident, $.const_ident)),
+          field('name', choice($._func_macro_ident, $.const_ident)),
           optional($.attributes),
           '=',
           // TODO parenthesis
-          seq(optional($._module_path), choice($.ident, $.at_ident, $.const_ident)),
+          seq(optional($._module_path), choice($._func_macro_ident, $.const_ident)),
           optional($.generic_arg_list),
         ),
         // Method
         seq(
-          field('name', $._func_macro_name),
+          field('name', $._func_macro_ident),
           optional($.attributes),
           '=',
           // TODO parenthesis
-          seq($._type_expr, '.', $._func_macro_name),
+          seq($._type_expr, '.', $._func_macro_ident),
         ),
         // Type/function
         seq(
@@ -487,7 +501,7 @@ module.exports = grammar({
     _struct_or_union: _ => choice('struct', 'union'),
 
     interface: $ => seq(
-      $.path_type_ident,
+      $._type_or_module_type_ident,
       optional($.generic_arg_list),
     ),
     interface_impl: $ => seq('(', commaSep($.interface), ')'),
@@ -602,8 +616,6 @@ module.exports = grammar({
 
     // Function/Macro
     // -------------------------
-    _func_macro_name: $ => choice($.ident, $.at_ident),
-
     func_header: $ => seq(
       field('return_type', $.type),
       optional(seq(field('method_type', $.type), '.')),
@@ -613,7 +625,7 @@ module.exports = grammar({
     macro_header: $ => seq(
       optional(field('return_type', $.type)), // Return type is optional for macros
       optional(seq(field('method_type', $.type), '.')),
-      field('name', $._func_macro_name),
+      field('name', $._func_macro_ident),
     ),
 
     func_param_list: $ => seq('(', optional($._parameters), ')'),
@@ -1235,10 +1247,6 @@ module.exports = grammar({
       $._module_path,
       field('ident', $._ident_expr),
     ),
-    module_type_ident: $ => seq(
-      $._module_path,
-      $.type_ident,
-    ),
 
     // Initializers
     // -------------------------
@@ -1521,8 +1529,7 @@ module.exports = grammar({
 
     _base_type: $ => prec.right(choice(
       $.base_type_name,
-      $.type_ident,
-      $.module_type_ident,
+      $._type_or_module_type_ident,
       $.ct_type_ident,
       seq(
         choice(
@@ -1532,14 +1539,11 @@ module.exports = grammar({
         ),
         $.paren_expr,
       ),
-      '$vatype',
+      '$vatype', // Followed by type_suffix with index
     )),
 
     generic_type_ident: $ => seq(
-      choice(
-        $.type_ident,
-        $.module_type_ident,
-      ),
+      $._type_or_module_type_ident,
       $.generic_arg_list,
     ),
 
