@@ -278,11 +278,11 @@ module.exports = grammar({
 
     // Generic Parameters
     // -------------------------
-    _generic_arg_list: $ => commaSep1(choice(
+    _generic_args: $ => commaSep1(choice(
       $._expr,
       $._type_expr,
     )),
-    generic_arg_list: $ => seq('{', $._generic_arg_list, '}'),
+    generic_arg_list: $ => seq('{', $._generic_args, '}'),
 
     // Helpers
     // -------------------------
@@ -1447,10 +1447,7 @@ module.exports = grammar({
       $._expr,
     ),
     range_expr: $ => choice(
-      // TODO could relax this
-      seq(field('left', $._range_loc), field('operator', choice('..', ':')), field('right', optional($._range_loc))),
-      seq(field('left', optional($._range_loc)), field('operator', choice('..', ':')), field('right', $._range_loc)),
-      '..',
+      seq(field('left', optional($._range_loc)), field('operator', choice('..', ':')), field('right', optional($._range_loc))),
     ),
 
     // Subscript Expression
