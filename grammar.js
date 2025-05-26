@@ -241,7 +241,8 @@ module.exports = grammar({
     const_ident: _ => CONST_IDENT,
     ct_const_ident: _ => token(seq('$', CONST_IDENT)),
     // Builtins
-    builtin: _ => token(seq('$$', choice(CONST_IDENT, IDENT))),
+    builtin_const: _ => token(seq('$$', CONST_IDENT)),
+    builtin: _ => token(seq('$$', IDENT)),
 
     _decl_ident: $ => choice(
       $.ident,
@@ -1209,6 +1210,7 @@ module.exports = grammar({
       'false',
       'null',
       $.builtin,
+      $.builtin_const,
       $.integer_literal,
       $.real_literal,
       $.char_literal,

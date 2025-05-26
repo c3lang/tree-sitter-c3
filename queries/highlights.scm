@@ -253,8 +253,7 @@
 (escape_sequence) @string.escape
 
 ; Builtin (constants)
-((builtin) @constant.builtin
-  (#match? @constant.builtin "_*[A-Z][_A-Z0-9]*"))
+(builtin_const) @constant.builtin
 
 ; Type Property (from `c3c --list-type-properties`)
 (type_access_expr

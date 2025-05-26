@@ -1,5 +1,8 @@
 # tree-sitter-c3 Changelog
 
+## 0.7.1
+- Split `builtin` into `builtin_const` and `builtin` (callable)
+
 ## 0.7.0
 - Removed `base_type` 
 - Removed `local_decl_storage`
