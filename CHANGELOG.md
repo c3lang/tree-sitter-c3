@@ -2,6 +2,7 @@
 
 ## 0.7.1
 - Split `builtin` into `builtin_const` and `builtin` (callable)
+- Added field name `description` to `doc_comment_contract`
 
 ## 0.7.0
 - Removed `base_type` 

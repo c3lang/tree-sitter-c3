@@ -192,23 +192,28 @@ module.exports = grammar({
         optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
         field('parameter', $._arg_ident),
         optional(':'),
-        optional($.string_expr)
+        field('description', optional($.string_expr)),
       ),
       field('name', alias('@pure', $.at_ident)),
       seq(
         field('name', alias(choice('@ensure', '@require'), $.at_ident)),
         commaSep1($._expr),
         optional(':'),
-        optional($.string_expr),
+        field('description', optional($.string_expr)),
       ),
       seq(
         field('name', alias('@return', $.at_ident)),
         choice(
-          seq('?', commaSep1($._expr), optional(':'), optional($.string_expr)),
-          $.string_expr,
+          seq(
+            '?',
+            commaSep1($._expr),
+            optional(':'),
+            field('description', optional($.string_expr)),
+          ),
+          field('description', $.string_expr),
         )
       ),
-      seq(field('name', $.at_ident), optional($.string_expr)),
+      seq(field('name', $.at_ident), field('description', optional($.string_expr))),
     ),
     doc_comment: $ => seq(
       '<*',
