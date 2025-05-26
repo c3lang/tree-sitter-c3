@@ -742,8 +742,7 @@ module.exports = grammar({
     // Var Statement
     // -------------------------
     var_declaration: $ => choice(
-      seq('var', field('name', $.ident), $._assign_right_expr),
-      seq('var', field('name', $.ct_ident), optional($._assign_right_expr)),
+      seq('var', field('name', choice($.ident, $.ct_ident)), $._assign_right_expr),
       seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_expr))),
     ),
     var_stmt: $ => seq($.var_declaration, ';'),
@@ -1156,6 +1155,12 @@ module.exports = grammar({
       $.ident,
       $.at_ident,
     ),
+
+    module_ident_expr: $ => seq(
+      $._module_path,
+      field('ident', $._ident_expr),
+    ),
+
     _local_ident_expr: $ => choice(
       $.ct_ident,
       $.hash_ident,
@@ -1239,13 +1244,6 @@ module.exports = grammar({
       seq('$feature', '(', $.const_ident, ')'),
       seq('$assignable', '(', $._expr, ',', $._type_expr, ')'),
     )),
-
-    // Module Ident
-    // -------------------------
-    module_ident_expr: $ => seq(
-      $._module_path,
-      field('ident', $._ident_expr),
-    ),
 
     // Initializers
     // -------------------------
@@ -1445,8 +1443,10 @@ module.exports = grammar({
       optional('^'),
       $._expr,
     ),
-    range_expr: $ => choice(
-      seq(field('left', optional($._range_loc)), field('operator', choice('..', ':')), field('right', optional($._range_loc))),
+    range_expr: $ => seq(
+      field('left', optional($._range_loc)),
+      field('operator', choice('..', ':')),
+      field('right', optional($._range_loc))
     ),
 
     // Subscript Expression
