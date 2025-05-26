@@ -25,12 +25,13 @@
 - Renamed `enum_parameter_list` -> `enum_param_list`
 - Added `attribute_arg_list`
 - Added `call_arg_list`
-- Removed `call_invocation`
+- Removed `call_invocation` in favor of `call_arg_list`
 - Removed `path_type_ident` in favor of `type_ident` and `module_type_ident`
 - Removed `interface` node
 - Renamed `interface_impl` -> `interface_impl_list`
 - Removed `path_const_ident`
 - Relaxed `@return?` parsing
+- Added `ct_for_cond`
 
 ## 0.6.0
 - Added parsing of doc comment contracts (#33)
