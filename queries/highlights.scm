@@ -31,6 +31,7 @@
 [
   (ident)
   (ct_ident)
+  (hash_ident)
 ] @variable
 
 ; 1) Member
@@ -49,25 +50,30 @@
   (ident) @variable.member)
 
 (initializer_list
-  (arg
+  (initializer_element
     (param_path
       (param_path_element
-        (ident) @variable.member))))
+        (access_ident (ident) @variable.member)))))
 
 ; 2) Parameter
 (param
   name: (_) @variable.parameter)
 
+(trailing_block_param
+  (at_ident) @variable.parameter)
+
 (call_arg_list
   (call_arg
     name: (_) @variable.parameter))
 
-(enum_param_declaration
+(enum_param
   (ident) @variable.parameter)
 
 ; Keyword (from `c3c --list-keywords`)
 [
+  "alias"
   "asm"
+  "attrdef"
   "catch"
   "defer"
   "try"
@@ -128,8 +134,6 @@
 "module" @keyword
 
 [
-  "alias"
-  "attrdef"
   "bitstruct"
   "enum"
   "faultdef"
@@ -285,10 +289,9 @@
 
 ; Attribute
 (attribute
-  name: (_) @attribute)
+  name: (at_ident) @attribute)
 
-(attrdef_declaration
-  name: (_) @attribute)
+(at_type_ident) @attribute
 
 (call_inline_attributes
   (at_ident) @attribute)
@@ -321,26 +324,19 @@
 
 ; Function Call
 (call_expr
-  function: [
-    (ident)
-    (at_ident)
-  ] @function.call)
-
-(call_expr
-  function: (trailing_generic_expr
-    argument: [
+  function: (ident_expr
+    [
       (ident)
       (at_ident)
     ] @function.call))
 
 (call_expr
-  function: (module_ident_expr
-    ident: (_) @function.call))
-
-(call_expr
   function: (trailing_generic_expr
-    argument: (module_ident_expr
-      ident: (_) @function.call)))
+    argument: (ident_expr
+      [
+        (ident)
+        (at_ident)
+      ] @function.call)))
 
 ; Method call
 (call_expr
@@ -388,5 +384,23 @@
 (doc_comment_text) @spell
 
 (doc_comment_contract
-  name: (_) @markup.strong
-  (#any-of? @markup.strong "@param" "@return" "@deprecated" "@require" "@ensure" "@pure"))
+  name: (_) @attribute)
+
+(doc_comment_contract
+  parameter: [
+    (ident)
+    (ct_ident)
+    (hash_ident)
+  ] @variable.parameter
+  (#set! priority 110))
+
+(doc_comment_contract
+  [
+    ":"
+    "?"
+  ] @comment.documentation
+  (#set! priority 110))
+
+(doc_comment_contract
+  description: (_) @comment.documentation
+  (#set! priority 110))
