@@ -727,11 +727,11 @@ fn void main() {
               (path_type_ident
                 (type_ident)))
             (initializer_list
-              (arg
+              (initializer_element
                 (integer_literal))
-              (arg
+              (initializer_element
                 (real_literal))
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
@@ -744,7 +744,7 @@ fn void main() {
               (path_type_ident
                 (type_ident)))
             (initializer_list
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
@@ -758,14 +758,14 @@ fn void main() {
                 (type_ident)))
             (ident)
             (initializer_list
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
                       (ident))))
                 (ident_expr
                   (ident)))
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
@@ -777,14 +777,14 @@ fn void main() {
               (ident_expr
                 (ident)))
             (initializer_list
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
                       (ident))))
                 (ident_expr
                   (ident)))
-              (arg
+              (initializer_element
                 (param_path
                   (param_path_element
                     (access_ident
@@ -1736,10 +1736,10 @@ fn void main() {
                 (integer_literal)))
             (ident)
             (initializer_list
-              (arg
+              (initializer_element
                 (ident_expr
                   (ident)))
-              (arg
+              (initializer_element
                 (call_expr
                   (ident_expr
                     (ident))

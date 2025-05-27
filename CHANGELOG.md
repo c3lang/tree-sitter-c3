@@ -7,6 +7,8 @@
 - Added `ident_expr`, encapsulating module path and `[(const_ident) (ident) (at_ident)]` or `[(ct_ident) (hash_ident)]`
 - Removed `module_type_ident`
 - Removed `module_ident_expr`
+- Renamed `enum_param_declaration` -> `enum_param`
+- Renamed `arg` -> `initializer_element`
 
 ## 0.7.0
 - Removed `base_type` 

@@ -582,12 +582,12 @@ module.exports = grammar({
       optional($.attributes),
       field('args', optional($.enum_arg)),
     ),
-    enum_param_declaration: $ => seq(
+    enum_param: $ => seq(
       optional('inline'),
       field('type', $.type),
       field('name', $.ident),
     ),
-    enum_param_list: $ => seq('(', commaSepTrailing($.enum_param_declaration), ')'),
+    enum_param_list: $ => seq('(', commaSepTrailing($.enum_param), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
       choice(
@@ -1257,16 +1257,16 @@ module.exports = grammar({
     )),
     param_path: $ => repeat1($.param_path_element),
 
-    arg: $ => choice(
-      seq($.param_path),
-      seq($.param_path, '=', $._expr),
+    initializer_element: $ => choice(
+      seq($.param_path, $._assign_right_expr),
+      $.param_path, // Bitstruct bool shorthand
       $._expr,
       // Splatting
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
     ),
 
-    initializer_list: $ => seq('{', commaSepTrailing($.arg), '}'),
+    initializer_list: $ => seq('{', commaSepTrailing($.initializer_element), '}'),
 
     // Assignment Expression
     // -------------------------

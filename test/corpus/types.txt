@@ -103,15 +103,15 @@ int[5] a = { 1, 2, 3, 4, 5 };
         (type_suffix))
       (ident)
       (initializer_list
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal)))))
   (global_declaration
     (declaration
@@ -121,15 +121,15 @@ int[5] a = { 1, 2, 3, 4, 5 };
           (integer_literal)))
       (ident)
       (initializer_list
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))
-        (arg
+        (initializer_element
           (integer_literal))))))
 
 ================================================================================
