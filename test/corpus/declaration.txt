@@ -164,14 +164,16 @@ alias @intHello = foo::@hello{int};
             (base_type_name))))))
   (alias_declaration
     (ident)
-    (module_resolution
-      (ident))
-    (ident)
-    (generic_arg_list
-      (type
-        (base_type_name))
-      (type
-        (base_type_name))))
+    (trailing_generic_expr
+      (module_ident_expr
+        (module_resolution
+          (ident))
+        (ident))
+      (generic_arg_list
+        (type
+          (base_type_name))
+        (type
+          (base_type_name)))))
   (alias_declaration
     (type_ident)
     (func_signature
@@ -189,79 +191,96 @@ alias @intHello = foo::@hello{int};
           (ident)))))
   (alias_declaration
     (const_ident)
-    (module_resolution
-      (ident))
-    (module_resolution
-      (ident))
-    (const_ident))
+    (module_ident_expr
+      (module_resolution
+        (ident))
+      (module_resolution
+        (ident))
+      (const_ident)))
   (alias_declaration
     (ident)
-    (type
-      (type_ident))
-    (ident))
-  (alias_declaration
-    (ident)
-    (type
-      (module_type_ident
-        (module_resolution
-          (ident))
+    (type_access_expr
+      (type
         (type_ident))
-      (type_suffix))
-    (ident))
-  (alias_declaration
-    (at_ident)
-    (type
-      (type_ident))
-    (at_ident))
-  (alias_declaration
-    (at_ident)
-    (type
-      (module_type_ident
-        (module_resolution
-          (ident))
-        (type_ident)))
-    (at_ident))
-  (alias_declaration
-    (at_ident)
-    (type
-      (generic_type_ident
-        (module_type_ident
-          (module_resolution
-            (ident))
-          (type_ident))
-        (generic_arg_list
-          (type
-            (base_type_name))))
-      (type_suffix))
-    (at_ident))
-  (alias_declaration
-    (const_ident)
-    (module_resolution
-      (ident))
-    (const_ident)
-    (generic_arg_list
-      (type
-        (base_type_name))))
+      (access_ident
+        (ident))))
   (alias_declaration
     (ident)
-    (type
-      (generic_type_ident
+    (type_access_expr
+      (type
         (module_type_ident
           (module_resolution
             (ident))
           (type_ident))
-        (generic_arg_list
-          (type
-            (base_type_name)))))
-    (ident))
+        (type_suffix))
+      (access_ident
+        (ident))))
   (alias_declaration
     (at_ident)
-    (module_resolution
-      (ident))
-    (at_ident)
-    (generic_arg_list
+    (type_access_expr
       (type
-        (base_type_name)))))
+        (type_ident))
+      (access_ident
+        (at_ident))))
+  (alias_declaration
+    (at_ident)
+    (type_access_expr
+      (type
+        (module_type_ident
+          (module_resolution
+            (ident))
+          (type_ident)))
+      (access_ident
+        (at_ident))))
+  (alias_declaration
+    (at_ident)
+    (type_access_expr
+      (type
+        (generic_type_ident
+          (module_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arg_list
+            (type
+              (base_type_name))))
+        (type_suffix))
+      (access_ident
+        (at_ident))))
+  (alias_declaration
+    (const_ident)
+    (trailing_generic_expr
+      (module_ident_expr
+        (module_resolution
+          (ident))
+        (const_ident))
+      (generic_arg_list
+        (type
+          (base_type_name)))))
+  (alias_declaration
+    (ident)
+    (type_access_expr
+      (type
+        (generic_type_ident
+          (module_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arg_list
+            (type
+              (base_type_name)))))
+      (access_ident
+        (ident))))
+  (alias_declaration
+    (at_ident)
+    (trailing_generic_expr
+      (module_ident_expr
+        (module_resolution
+          (ident))
+        (at_ident))
+      (generic_arg_list
+        (type
+          (base_type_name))))))
 
 ================================================================================
 Function declarations
