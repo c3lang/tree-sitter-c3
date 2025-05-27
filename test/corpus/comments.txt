@@ -93,7 +93,8 @@ Require Doc single line
     (doc_comment_contract
       (at_ident)
       (binary_expr
-        (ident)
+        (ident_expr
+          (ident))
         (integer_literal)))))
 
 ================================================================================
@@ -138,7 +139,8 @@ Doc compound 2
     (doc_comment_contract
       (at_ident)
       (binary_expr
-        (ident)
+        (ident_expr
+          (ident))
         (integer_literal)))))
 
 ================================================================================

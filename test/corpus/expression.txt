@@ -724,7 +724,8 @@ fn void main() {
         (expr_stmt
           (typed_initializer_list
             (type
-              (type_ident))
+              (path_type_ident
+                (type_ident)))
             (initializer_list
               (arg
                 (integer_literal))
@@ -740,18 +741,21 @@ fn void main() {
         (expr_stmt
           (typed_initializer_list
             (type
-              (type_ident))
+              (path_type_ident
+                (type_ident)))
             (initializer_list
               (arg
                 (param_path
                   (param_path_element
                     (access_ident
                       (ident))))
-                (ident)))))
+                (ident_expr
+                  (ident))))))
         (declaration_stmt
           (declaration
             (type
-              (type_ident))
+              (path_type_ident
+                (type_ident)))
             (ident)
             (initializer_list
               (arg
@@ -759,7 +763,8 @@ fn void main() {
                   (param_path_element
                     (access_ident
                       (ident))))
-                (ident))
+                (ident_expr
+                  (ident)))
               (arg
                 (param_path
                   (param_path_element
@@ -769,14 +774,16 @@ fn void main() {
         (expr_stmt
           (assignment_expr
             (unary_expr
-              (ident))
+              (ident_expr
+                (ident)))
             (initializer_list
               (arg
                 (param_path
                   (param_path_element
                     (access_ident
                       (ident))))
-                (ident))
+                (ident_expr
+                  (ident)))
               (arg
                 (param_path
                   (param_path_element
@@ -808,7 +815,8 @@ fn void main() {
         (declaration_stmt
           (declaration
             (type
-              (type_ident))
+              (path_type_ident
+                (type_ident)))
             (ident)
             (lambda_expr
               (lambda_declaration
@@ -817,14 +825,17 @@ fn void main() {
                     (ident))))
               (implies_body
                 (binary_expr
-                  (ident)
+                  (ident_expr
+                    (ident))
                   (integer_literal))))))
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list
               (call_arg
-                (ident))
+                (ident_expr
+                  (ident)))
               (call_arg
                 (lambda_expr
                   (lambda_declaration
@@ -833,14 +844,18 @@ fn void main() {
                         (ident))))
                   (implies_body
                     (binary_expr
-                      (ident)
-                      (ident))))))))
+                      (ident_expr
+                        (ident))
+                      (ident_expr
+                        (ident)))))))))
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list
               (call_arg
-                (ident))
+                (ident_expr
+                  (ident)))
               (call_arg
                 (lambda_declaration
                   (type
@@ -853,8 +868,10 @@ fn void main() {
                 (compound_stmt
                   (return_stmt
                     (binary_expr
-                      (ident)
-                      (ident))))))))))))
+                      (ident_expr
+                        (ident))
+                      (ident_expr
+                        (ident)))))))))))))
 
 ================================================================================
 Assignment expressions
@@ -880,22 +897,29 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (assignment_expr
-            left: (ident)
-            right: (ident)))
+            left: (ident_expr
+              (ident))
+            right: (ident_expr
+              (ident))))
         (expr_stmt
           (assignment_expr
-            left: (ident)
+            left: (ident_expr
+              (ident))
             right: (integer_literal)))
         (expr_stmt
           (assignment_expr
-            left: (ident)
-            right: (ident)))
+            left: (ident_expr
+              (ident))
+            right: (ident_expr
+              (ident))))
         (expr_stmt
           (assignment_expr
             left: (unary_expr
-              argument: (ident))
+              argument: (ident_expr
+                (ident)))
             right: (unary_expr
-              argument: (ident))))))))
+              argument: (ident_expr
+                (ident)))))))))
 
 ================================================================================
 Unary expressions
@@ -923,16 +947,20 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (unary_expr
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (unary_expr
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (unary_expr
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (unary_expr
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (unary_expr
             (integer_literal)))
@@ -943,7 +971,8 @@ fn void main() {
                 (paren_expr
                   (unary_expr
                     (paren_expr
-                      (ident))))))))))))
+                      (ident_expr
+                        (ident)))))))))))))
 
 ================================================================================
 Binary expressions
@@ -972,18 +1001,24 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (binary_expr
-            (ident)
-            (ident)))
-        (expr_stmt
-          (binary_expr
-            (unary_expr
+            (ident_expr
               (ident))
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (binary_expr
-            (ident)
             (unary_expr
+              (ident_expr
+                (ident)))
+            (ident_expr
               (ident))))
+        (expr_stmt
+          (binary_expr
+            (ident_expr
+              (ident))
+            (unary_expr
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (binary_expr
             (integer_literal)
@@ -991,7 +1026,8 @@ fn void main() {
         (expr_stmt
           (binary_expr
             (integer_literal)
-            (ident)))
+            (ident_expr
+              (ident))))
         (expr_stmt
           (binary_expr
             (integer_literal)
@@ -1039,42 +1075,51 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (integer_literal)))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr)))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr)))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr
               (integer_literal))))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr
               (integer_literal))))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr
               (integer_literal)
               (integer_literal))))
         (expr_stmt
           (subscript_expr
-            (ident)
+            (ident_expr
+              (ident))
             (range_expr
               (integer_literal)
               (integer_literal))))
         (expr_stmt
           (subscript_expr
-            (ident)
-            (ident)))))))
+            (ident_expr
+              (ident))
+            (ident_expr
+              (ident))))))))
 
 ================================================================================
 Call expressions
@@ -1102,30 +1147,37 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list)))
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list
               (call_arg
-                (ident))
+                (ident_expr
+                  (ident)))
               (call_arg
-                (ident)))))
+                (ident_expr
+                  (ident))))))
         (expr_stmt
           (call_expr
             (field_expr
-              (ident)
+              (ident_expr
+                (ident))
               (access_ident
                 (ident)))
             (call_arg_list
               (call_arg
-                (ident)))))
+                (ident_expr
+                  (ident))))))
         (expr_stmt
           (call_expr
             (field_expr
               (field_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (access_ident
                   (ident)))
               (access_ident
@@ -1133,7 +1185,7 @@ fn void main() {
             (call_arg_list)))
         (expr_stmt
           (call_expr
-            (module_ident_expr
+            (ident_expr
               (module_resolution
                 (ident))
               (module_resolution
@@ -1142,7 +1194,7 @@ fn void main() {
             (call_arg_list)))
         (expr_stmt
           (call_expr
-            (module_ident_expr
+            (ident_expr
               (module_resolution
                 (ident))
               (ident))
@@ -1175,25 +1227,29 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (field_expr
-            (ident)
+            (ident_expr
+              (ident))
             (access_ident
               (ident))))
         (expr_stmt
           (unary_expr
             (field_expr
-              (ident)
+              (ident_expr
+                (ident))
               (access_ident
                 (ident)))))
         (expr_stmt
           (unary_expr
             (field_expr
-              (ident)
+              (ident_expr
+                (ident))
               (access_ident
                 (ident)))))
         (expr_stmt
           (field_expr
             (field_expr
-              (ident)
+              (ident_expr
+                (ident))
               (access_ident
                 (ident)))
             (access_ident
@@ -1202,7 +1258,8 @@ fn void main() {
           (field_expr
             (field_expr
               (field_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (access_ident
                   (ident)))
               (access_ident
@@ -1212,7 +1269,7 @@ fn void main() {
         (expr_stmt
           (field_expr
             (field_expr
-              (module_ident_expr
+              (ident_expr
                 (module_resolution
                   (ident))
                 (module_resolution
@@ -1226,7 +1283,7 @@ fn void main() {
           (call_expr
             (field_expr
               (field_expr
-                (module_ident_expr
+                (ident_expr
                   (module_resolution
                     (ident))
                   (module_resolution
@@ -1264,20 +1321,24 @@ fn void main() {
         (declaration_stmt
           (declaration
             (type
-              (type_ident)
+              (path_type_ident
+                (type_ident))
               (type_suffix))
             (ident)
             (call_expr
-              (ident)
+              (ident_expr
+                (ident))
               (call_arg_list))))
         (if_stmt
           (paren_cond
             (try_unwrap
-              (ident)))
+              (ident_expr
+                (ident))))
           (compound_stmt
             (expr_stmt
               (call_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (call_arg_list
                   (call_arg
                     (string_literal
@@ -1310,21 +1371,25 @@ fn void main() {
         (declaration_stmt
           (declaration
             (type
-              (type_ident)
+              (path_type_ident
+                (type_ident))
               (type_suffix))
             (ident)
             (call_expr
-              (ident)
+              (ident_expr
+                (ident))
               (call_arg_list))))
         (if_stmt
           (paren_cond
             (catch_unwrap
               (catch_unwrap_list
-                (ident))))
+                (ident_expr
+                  (ident)))))
           (compound_stmt
             (expr_stmt
               (call_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (call_arg_list
                   (call_arg
                     (string_literal
@@ -1369,13 +1434,17 @@ fn void main() {
         (expr_stmt
           (binary_expr
             (binary_expr
-              (ident)
+              (ident_expr
+                (ident))
               (binary_expr
-                (ident)
-                (ident)))
+                (ident_expr
+                  (ident))
+                (ident_expr
+                  (ident))))
             (unary_expr
               (field_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (access_ident
                   (ident))))))
         (expr_stmt
@@ -1383,91 +1452,127 @@ fn void main() {
             (unary_expr
               (subscript_expr
                 (update_expr
-                  (ident))
+                  (ident_expr
+                    (ident)))
                 (integer_literal)))
             (binary_expr
-              (ident)
-              (ident))))
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (elvis_orelse_expr
-            (ident)
+            (ident_expr
+              (ident))
             (elvis_orelse_expr
               (integer_literal)
+              (ident_expr
+                (ident)))))
+        (expr_stmt
+          (elvis_orelse_expr
+            (binary_expr
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))
+            (ident_expr
               (ident))))
         (expr_stmt
           (elvis_orelse_expr
-            (binary_expr
-              (ident)
+            (ident_expr
               (ident))
-            (ident)))
+            (binary_expr
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (elvis_orelse_expr
-            (ident)
             (binary_expr
-              (ident)
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))
+            (ident_expr
               (ident))))
-        (expr_stmt
-          (elvis_orelse_expr
-            (binary_expr
-              (ident)
-              (ident))
-            (ident)))
         (expr_stmt
           (assignment_expr
-            (ident)
+            (ident_expr
+              (ident))
             (assignment_expr
               (binary_expr
-                (ident)
-                (ident))
-              (ident))))
+                (ident_expr
+                  (ident))
+                (ident_expr
+                  (ident)))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (assignment_expr
-            (ident)
+            (ident_expr
+              (ident))
             (assignment_expr
               (elvis_orelse_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (integer_literal))
-              (ident))))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (ternary_expr
             (binary_expr
-              (ident)
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))
+            (ident_expr
               (ident))
-            (ident)
             (elvis_orelse_expr
-              (ident)
+              (ident_expr
+                (ident))
               (ternary_expr
                 (integer_literal)
-                (ident)
+                (ident_expr
+                  (ident))
                 (integer_literal)))))
         (expr_stmt
           (ternary_expr
             (binary_expr
-              (ident)
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))
+            (ident_expr
               (ident))
-            (ident)
             (ternary_expr
-              (ident)
+              (ident_expr
+                (ident))
               (real_literal)
               (ternary_expr
                 (integer_literal)
-                (ident)
+                (ident_expr
+                  (ident))
                 (integer_literal)))))
         (expr_stmt
           (optional_expr
             (binary_expr
-              (ident)
-              (ident))))
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (assignment_expr
             (elvis_orelse_expr
               (binary_expr
-                (ident)
+                (ident_expr
+                  (ident))
                 (binary_expr
-                  (ident)
+                  (ident_expr
+                    (ident))
                   (binary_expr
                     (integer_literal)
-                    (ident))))
+                    (ident_expr
+                      (ident)))))
               (integer_literal))
             (integer_literal)))
         (expr_stmt
@@ -1475,23 +1580,29 @@ fn void main() {
             (ternary_expr
               (binary_expr
                 (binary_expr
-                  (ident)
-                  (ident))
+                  (ident_expr
+                    (ident))
+                  (ident_expr
+                    (ident)))
                 (binary_expr
                   (integer_literal)
-                  (ident)))
-              (ident)
+                  (ident_expr
+                    (ident))))
+              (ident_expr
+                (ident))
               (binary_expr
                 (integer_literal)
                 (integer_literal)))
             (integer_literal)))
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list
               (call_arg
                 (assignment_expr
-                  (ident)
+                  (ident_expr
+                    (ident))
                   (lambda_expr
                     (lambda_declaration
                       (type
@@ -1500,23 +1611,28 @@ fn void main() {
                       (func_param_list
                         (param
                           (type
-                            (type_ident)
+                            (path_type_ident
+                              (type_ident))
                             (type_suffix))
                           (ident))
                         (param
                           (type
-                            (type_ident))
+                            (path_type_ident
+                              (type_ident)))
                           (ident))))
                     (implies_body
                       (ternary_expr
                         (binary_expr
-                          (ident)
-                          (const_ident))
+                          (ident_expr
+                            (ident))
+                          (ident_expr
+                            (const_ident)))
                         (unary_expr
                           (subscript_expr
                             (call_expr
                               (field_expr
-                                (ident)
+                                (ident_expr
+                                  (ident))
                                 (access_ident
                                   (ident)))
                               (call_arg_list))
@@ -1557,8 +1673,10 @@ fn void main() {
       (compound_stmt
         (return_stmt
           (binary_expr
-            left: (ident)
-            right: (ident))))))
+            left: (ident_expr
+              (ident))
+            right: (ident_expr
+              (ident)))))))
   (func_definition
     (func_header
       return_type: (type
@@ -1569,7 +1687,8 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (call_expr
-            function: (ident)
+            function: (ident_expr
+              (ident))
             arguments: (call_arg_list
               (call_arg
                 (integer_literal))
@@ -1577,7 +1696,8 @@ fn void main() {
                 (integer_literal)))))
         (expr_stmt
           (call_expr
-            function: (ident)
+            function: (ident_expr
+              (ident))
             arguments: (call_arg_list
               (call_arg
                 name: (ident)
@@ -1617,10 +1737,12 @@ fn void main() {
             (ident)
             (initializer_list
               (arg
-                (ident))
+                (ident_expr
+                  (ident)))
               (arg
                 (call_expr
-                  (ident)
+                  (ident_expr
+                    (ident))
                   (call_arg_list))))))))))
 
 ================================================================================
@@ -1644,7 +1766,8 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (call_expr
-            (at_ident)
+            (ident_expr
+              (at_ident))
             (call_arg_list
               (call_arg
                 (ident)
@@ -1660,10 +1783,12 @@ fn void main() {
                 (ct_type_ident)
                 (type
                   (generic_type_ident
-                    (type_ident)
+                    (path_type_ident
+                      (type_ident))
                     (generic_arg_list
                       (type
-                        (type_ident)))))))))))))
+                        (path_type_ident
+                          (type_ident))))))))))))))
 
 ================================================================================
 Call inline attributes
@@ -1687,21 +1812,24 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list)
             (call_inline_attributes
               (at_ident))))
         (expr_stmt
           (call_expr
             (call_expr
-              (ident)
+              (ident_expr
+                (ident))
               (call_arg_list)
               (call_inline_attributes
                 (at_ident)))
             (call_arg_list
               (call_arg
                 (call_expr
-                  (ident)
+                  (ident_expr
+                    (ident))
                   (call_arg_list)
                   (call_inline_attributes
                     (at_ident)))))))))))
@@ -1731,13 +1859,15 @@ fn void main() {
               (paren_expr
                 (paren_expr
                   (type
-                    (type_ident)))))
+                    (path_type_ident
+                      (type_ident))))))
             (call_expr
               (field_expr
                 (paren_expr
                   (paren_expr
                     (paren_expr
-                      (ident))))
+                      (ident_expr
+                        (ident)))))
                 (access_ident
                   (at_ident)))
               (call_arg_list
@@ -1746,7 +1876,8 @@ fn void main() {
                     (paren_expr
                       (type
                         (generic_type_ident
-                          (type_ident)
+                          (path_type_ident
+                            (type_ident))
                           (generic_arg_list
                             (paren_expr
                               (paren_expr

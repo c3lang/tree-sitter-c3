@@ -155,12 +155,13 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (type_ident))
+        (path_type_ident
+          (type_ident)))
       (ident)))
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident)))
@@ -168,7 +169,7 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (module_resolution
@@ -178,14 +179,15 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (type_ident)
+        (path_type_ident
+          (type_ident))
         (type_suffix
           (integer_literal)))
       (ident)))
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident))
@@ -195,7 +197,7 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (module_resolution
@@ -207,12 +209,13 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (type_ident))
+        (path_type_ident
+          (type_ident)))
       (ident)))
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident)))
@@ -220,7 +223,7 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (module_resolution
@@ -230,22 +233,23 @@ foo::bar::Baz* c;
   (global_declaration
     (declaration
       (type
-        (type_ident)
-        (type_suffix))
-      (ident)))
-  (global_declaration
-    (declaration
-      (type
-        (module_type_ident
-          (module_resolution
-            (ident))
+        (path_type_ident
           (type_ident))
         (type_suffix))
       (ident)))
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
+          (module_resolution
+            (ident))
+          (type_ident))
+        (type_suffix))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (path_type_ident
           (module_resolution
             (ident))
           (module_resolution

@@ -1,8 +1,12 @@
 # tree-sitter-c3 Changelog
 
-## 0.7.1
+## 0.8.0
 - Split `builtin` into `builtin_const` and `builtin` (callable)
 - Added field name `description` to `doc_comment_contract`
+- Added `path_type_ident`, encapsulating module path and `path_ident`
+- Added `ident_expr`, encapsulating module path and `[(const_ident) (ident) (at_ident)]` or `[(ct_ident) (hash_ident)]`
+- Removed `module_type_ident`
+- Removed `module_ident_expr`
 
 ## 0.7.0
 - Removed `base_type` 

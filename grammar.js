@@ -266,6 +266,17 @@ module.exports = grammar({
       $.at_ident
     ),
 
+    _expr_ident: $ => choice(
+      $.const_ident,
+      $.ident,
+      $.at_ident,
+    ),
+
+    _local_expr_ident: $ => choice(
+      $.ct_ident,
+      $.hash_ident,
+    ),
+
     // Module Paths
     // -------------------------
     module_resolution: $ => prec.left(seq(
@@ -274,17 +285,9 @@ module.exports = grammar({
     )),
     _module_path: $ => repeat1($.module_resolution),
     path_ident: $ => seq(optional($._module_path), $.ident),
+    path_type_ident: $ => seq(optional($._module_path), $.type_ident),
     path_at_type_ident: $ => seq(optional($._module_path), $.at_type_ident),
 
-    module_type_ident: $ => seq(
-      $._module_path,
-      $.type_ident,
-    ),
-
-    _type_or_module_type_ident: $ => choice(
-      $.type_ident,
-      $.module_type_ident,
-    ),
 
     // Generic Parameters
     // -------------------------
@@ -506,7 +509,7 @@ module.exports = grammar({
     _struct_or_union: _ => choice('struct', 'union'),
 
     _interface_impl: $ => choice(
-      $._type_or_module_type_ident,
+      $.path_type_ident,
       $.generic_type_ident,
     ),
     interface_impl_list: $ => seq('(', commaSep($._interface_impl), ')'),
@@ -1162,20 +1165,9 @@ module.exports = grammar({
 
     // Base Expression
     // -------------------------
-    _ident_expr: $ => choice(
-      $.const_ident,
-      $.ident,
-      $.at_ident,
-    ),
-
-    module_ident_expr: $ => seq(
-      $._module_path,
-      field('ident', $._ident_expr),
-    ),
-
-    _local_ident_expr: $ => choice(
-      $.ct_ident,
-      $.hash_ident,
+    ident_expr: $ => choice(
+      seq(optional($._module_path), $._expr_ident),
+      $._local_expr_ident,
     ),
 
     _type_expr: $ => choice(
@@ -1218,10 +1210,7 @@ module.exports = grammar({
       $.raw_string_literal,
       $.string_expr,
       $.bytes_expr,
-
-      $._ident_expr,
-      $.module_ident_expr,
-      $._local_ident_expr,
+      $.ident_expr,
 
       $.initializer_list,
       $.typed_initializer_list,
@@ -1538,7 +1527,7 @@ module.exports = grammar({
 
     _base_type: $ => prec.right(choice(
       $.base_type_name,
-      $._type_or_module_type_ident,
+      $.path_type_ident,
       $.ct_type_ident,
       seq(
         choice(
@@ -1552,7 +1541,7 @@ module.exports = grammar({
     )),
 
     generic_type_ident: $ => seq(
-      $._type_or_module_type_ident,
+      $.path_type_ident,
       $.generic_arg_list,
     ),
 

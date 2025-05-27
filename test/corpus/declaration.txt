@@ -33,10 +33,10 @@ fn void main() {
       (compound_stmt
         (expr_stmt
           (call_expr
-            function: (module_ident_expr
+            function: (ident_expr
               (module_resolution
                 (ident))
-              ident: (ident))
+              (ident))
             arguments: (call_arg_list
               (call_arg
                 (string_literal
@@ -117,14 +117,16 @@ alias @intHello = foo::@hello{int};
       (base_type_name)))
   (alias_declaration
     (ident)
-    (ident))
+    (ident_expr
+      (ident)))
   (alias_declaration
     (ident)
-    (ident))
+    (ident_expr
+      (ident)))
   (alias_declaration
     (type_ident)
     (type
-      (module_type_ident
+      (path_type_ident
         (module_resolution
           (ident))
         (type_ident))))
@@ -132,7 +134,7 @@ alias @intHello = foo::@hello{int};
     (type_ident)
     (type
       (generic_type_ident
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident))
@@ -143,7 +145,7 @@ alias @intHello = foo::@hello{int};
     (type_ident)
     (type
       (generic_type_ident
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident))
@@ -156,7 +158,8 @@ alias @intHello = foo::@hello{int};
     (type_ident)
     (type
       (generic_type_ident
-        (type_ident)
+        (path_type_ident
+          (type_ident))
         (generic_arg_list
           (type
             (base_type_name))
@@ -165,7 +168,7 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (ident)
     (trailing_generic_expr
-      (module_ident_expr
+      (ident_expr
         (module_resolution
           (ident))
         (ident))
@@ -191,7 +194,7 @@ alias @intHello = foo::@hello{int};
           (ident)))))
   (alias_declaration
     (const_ident)
-    (module_ident_expr
+    (ident_expr
       (module_resolution
         (ident))
       (module_resolution
@@ -201,14 +204,15 @@ alias @intHello = foo::@hello{int};
     (ident)
     (type_access_expr
       (type
-        (type_ident))
+        (path_type_ident
+          (type_ident)))
       (access_ident
         (ident))))
   (alias_declaration
     (ident)
     (type_access_expr
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident))
@@ -219,14 +223,15 @@ alias @intHello = foo::@hello{int};
     (at_ident)
     (type_access_expr
       (type
-        (type_ident))
+        (path_type_ident
+          (type_ident)))
       (access_ident
         (at_ident))))
   (alias_declaration
     (at_ident)
     (type_access_expr
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident)))
@@ -237,7 +242,7 @@ alias @intHello = foo::@hello{int};
     (type_access_expr
       (type
         (generic_type_ident
-          (module_type_ident
+          (path_type_ident
             (module_resolution
               (ident))
             (type_ident))
@@ -250,7 +255,7 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (const_ident)
     (trailing_generic_expr
-      (module_ident_expr
+      (ident_expr
         (module_resolution
           (ident))
         (const_ident))
@@ -262,7 +267,7 @@ alias @intHello = foo::@hello{int};
     (type_access_expr
       (type
         (generic_type_ident
-          (module_type_ident
+          (path_type_ident
             (module_resolution
               (ident))
             (type_ident))
@@ -274,7 +279,7 @@ alias @intHello = foo::@hello{int};
   (alias_declaration
     (at_ident)
     (trailing_generic_expr
-      (module_ident_expr
+      (ident_expr
         (module_resolution
           (ident))
         (at_ident))
@@ -339,7 +344,8 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
             (ident)
             (integer_literal)))
         (return_stmt
-          (ident)))))
+          (ident_expr
+            (ident))))))
   (func_definition
     (func_header
       (type
@@ -361,8 +367,10 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
       (compound_stmt
         (return_stmt
           (binary_expr
-            (ident)
-            (ident))))))
+            (ident_expr
+              (ident))
+            (ident_expr
+              (ident)))))))
   (func_definition
     (func_header
       (type
@@ -383,8 +391,10 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
       (compound_stmt
         (return_stmt
           (binary_expr
-            (ident)
-            (ident))))))
+            (ident_expr
+              (ident))
+            (ident_expr
+              (ident)))))))
   (func_definition
     (func_header
       (type
@@ -398,8 +408,10 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
     (macro_func_body
       (implies_body
         (binary_expr
-          (ident)
-          (ident)))))
+          (ident_expr
+            (ident))
+          (ident_expr
+            (ident))))))
   (func_definition
     (func_header
       (type
@@ -408,12 +420,14 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
     (func_param_list
       (param
         (type
-          (type_ident))
+          (path_type_ident
+            (type_ident)))
         (ident)))
     (macro_func_body
       (implies_body
         (binary_expr
-          (ident)
+          (ident_expr
+            (ident))
           (string_literal
             (string_content))))))
   (func_definition
@@ -429,7 +443,8 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
     (macro_func_body
       (implies_body
         (binary_expr
-          (ident)
+          (ident_expr
+            (ident))
           (integer_literal)))))
   (global_declaration
     (func_declaration
@@ -528,7 +543,8 @@ fn bool Player.is_alive(Player* p) {
     (struct_body
       (struct_member_declaration
         (type
-          (type_ident))
+          (path_type_ident
+            (type_ident)))
         (ident))
       (struct_member_declaration
         (type
@@ -549,12 +565,14 @@ fn bool Player.is_alive(Player* p) {
       (type
         (base_type_name))
       (type
-        (type_ident))
+        (path_type_ident
+          (type_ident)))
       (ident))
     (func_param_list
       (param
         (type
-          (type_ident)
+          (path_type_ident
+            (type_ident))
           (type_suffix))
         (ident)))
     (macro_func_body
@@ -562,7 +580,8 @@ fn bool Player.is_alive(Player* p) {
         (return_stmt
           (binary_expr
             (field_expr
-              (ident)
+              (ident_expr
+                (ident))
               (access_ident
                 (ident)))
             (integer_literal)))))))
@@ -633,7 +652,8 @@ bitstruct Foo : int {
         (base_type_name)
         (ident)
         (call_expr
-          (ident)
+          (ident_expr
+            (ident))
           (call_arg_list)
           (call_inline_attributes
             (at_ident))))
@@ -642,7 +662,8 @@ bitstruct Foo : int {
         (ident)
         (paren_expr
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list)))
         (attributes
           (attribute
@@ -657,13 +678,15 @@ bitstruct Foo : int {
         (base_type_name)
         (ident)
         (call_expr
-          (ident)
+          (ident_expr
+            (ident))
           (call_arg_list)
           (call_inline_attributes
             (at_ident)))
         (binary_expr
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list)
             (call_inline_attributes
               (at_ident)))
@@ -672,13 +695,15 @@ bitstruct Foo : int {
         (base_type_name)
         (ident)
         (call_expr
-          (ident)
+          (ident_expr
+            (ident))
           (call_arg_list)
           (call_inline_attributes
             (at_ident)))
         (paren_expr
           (call_expr
-            (ident)
+            (ident_expr
+              (ident))
             (call_arg_list)))
         (attributes
           (attribute
@@ -823,7 +848,8 @@ enum Foo : int (inline String name, int y, int z)
       (enum_param_list
         (enum_param_declaration
           (type
-            (type_ident))
+            (path_type_ident
+              (type_ident)))
           (ident))
         (enum_param_declaration
           (type
@@ -921,7 +947,7 @@ extern fn void foo(void);
   (global_declaration
     (declaration
       (type
-        (module_type_ident
+        (path_type_ident
           (module_resolution
             (ident))
           (type_ident)))
@@ -944,7 +970,7 @@ extern fn void foo(void);
     (const_declaration
       (type
         (generic_type_ident
-          (module_type_ident
+          (path_type_ident
             (module_resolution
               (ident))
             (type_ident))
@@ -953,7 +979,8 @@ extern fn void foo(void);
               (base_type_name))))
         (type_suffix))
       (const_ident)
-      (const_ident)))
+      (ident_expr
+        (const_ident))))
   (global_declaration
     (func_declaration
       (func_header
