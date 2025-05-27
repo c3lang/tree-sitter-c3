@@ -44,8 +44,8 @@ const PREC = {
   UNARY: 10,
   // Trailing expressions
   TRAILING: 11,
-  FIELD: 12,
-  SUBSCRIPT: 13,
+  FIELD: 11,
+  SUBSCRIPT: 11,
 };
 
 function commaSep(rule) {
