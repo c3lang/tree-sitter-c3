@@ -53,7 +53,8 @@
   (initializer_element
     (param_path
       (param_path_element
-        (access_ident (ident) @variable.member)))))
+        (access_ident
+          (ident) @variable.member)))))
 
 ; 2) Parameter
 (param
@@ -129,9 +130,10 @@
 
 "return" @keyword.return
 
-"import" @keyword.import
-
-"module" @keyword
+[
+  "import"
+  "module"
+] @keyword.import
 
 [
   "bitstruct"
