@@ -1056,7 +1056,18 @@ module.exports = grammar({
     // Compile Time Assert Statement
     // -------------------------
     ct_assert_stmt: $ => choice(
-      seq('$assert', $._constant_expr, optional(seq(':', $._constant_expr)), ';'),
+      seq(
+        '$assert',
+        $._constant_expr,
+        optional(
+          seq(
+            ':',
+            $.string_expr,
+            repeat(seq(',', $._constant_expr))
+          )
+        ),
+        ';'
+      ),
       seq('$error', $._constant_expr, ';'),
     ),
 

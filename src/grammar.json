@@ -5670,7 +5670,23 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "_constant_expr"
+                      "name": "string_expr"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_constant_expr"
+                          }
+                        ]
+                      }
                     }
                   ]
                 },
