@@ -393,16 +393,13 @@
     (ident)
     (ct_ident)
     (hash_ident)
-  ] @variable.parameter
-  (#set! priority 110))
+  ] @variable.parameter)
 
 (doc_comment_contract
   [
     ":"
     "?"
-  ] @comment.documentation
-  (#set! priority 110))
+  ] @comment.documentation)
 
 (doc_comment_contract
-  description: (_) @comment.documentation
-  (#set! priority 110))
+  description: (_) @comment.documentation)
