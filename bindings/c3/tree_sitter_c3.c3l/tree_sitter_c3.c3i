@@ -1,6 +1,6 @@
 module tree_sitter_c3;
 import ts;
 
-fn Language* language() @extern("tree_sitter_c3");
+fn TSLanguage* language() @extern("tree_sitter_c3");
 
 const String NODE_TYPES = $embed("../../../src/node-types.json");
