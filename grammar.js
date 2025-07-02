@@ -300,6 +300,7 @@ module.exports = grammar({
     // Helpers
     // -------------------------
     _assign_right_expr: $ => seq('=', field('right', $._expr)),
+    _assign_right_expr_or_type: $ => seq('=', field('right', $._expr_or_type)),
     _expr_or_type: $ => choice($._expr, $._type_expr),
 
     _cond: $ => choice(
@@ -753,7 +754,7 @@ module.exports = grammar({
     var_declaration: $ => choice(
       seq('var', field('name', $.ident), $._assign_right_expr),
       seq('var', field('name', $.ct_ident), optional($._assign_right_expr)),
-      seq('var', field('name', $.ct_type_ident), optional(seq('=', $._type_expr))),
+      seq('var', field('name', $.ct_type_ident), optional($._assign_right_expr_or_type)),
     ),
     var_stmt: $ => seq($.var_declaration, ';'),
 
@@ -1056,8 +1057,18 @@ module.exports = grammar({
     // Compile Time Assert Statement
     // -------------------------
     ct_assert_stmt: $ => choice(
-      seq('$assert', $._expr, optional(seq(':', $._expr)), ';'),
-      seq('$error', $._expr, ';'),
+      seq(
+        '$assert',
+        $._expr,
+        optional(seq(':', commaSep1($._expr))),
+        ';'
+      ),
+      seq(
+        '$error',
+        $._expr,
+        repeat(seq(',', $._expr)),
+        ';'
+      ),
     ),
 
     // Compile Time Include Statement
@@ -1226,7 +1237,7 @@ module.exports = grammar({
         '(', commaSep($._expr_or_type), ')'
       ),
       seq('$feature', '(', $.const_ident, ')'),
-      seq('$assignable', '(', $._expr, ',', $._type_expr, ')'),
+      seq('$assignable', '(', $._expr, ',', $._expr_or_type, ')'),
     )),
 
     // Initializers
@@ -1274,7 +1285,7 @@ module.exports = grammar({
       seq(
         field('left', $.ct_type_ident),
         field('operator', '='),
-        field('right', $._type_expr),
+        field('right', $._expr_or_type),
       ),
     )),
 
@@ -1515,7 +1526,7 @@ module.exports = grammar({
         choice(
           '$typeof',
           '$typefrom',
-          '$evaltype',
+          '$evaltype', // Deprecated >= 0.7.2
         ),
         $.paren_expr,
       ),

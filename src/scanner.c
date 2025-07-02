@@ -108,7 +108,7 @@ static bool is_hex_digit(int32_t c) {
 }
 
 static bool scan_realtype(TSLexer *lexer) {
-  if (lexer->lookahead != 'f') {
+  if (lexer->lookahead != 'f' && lexer->lookahead != 'd') {
     return false;
   }
 
@@ -118,6 +118,7 @@ static bool scan_realtype(TSLexer *lexer) {
   int32_t c1 = lexer->lookahead;
   lexer->advance(lexer, false);
 
+  // NOTE f32/f64/f128 suffixes deprecated for C3 >= 0.7.2
   if (c1 == '8') {
     lexer->mark_end(lexer);
     return true;

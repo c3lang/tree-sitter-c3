@@ -1,5 +1,14 @@
 # tree-sitter-c3 Changelog
 
+## 0.8.1
+Grammar updates for C3 0.7.3.
+
+- Update `$assert` and `$error` grammar
+- Added `d` type suffix for real literals
+- Allow `var $Type = <expr>` (remove type requirement)
+- Allow `$Type = <expr>` (remove type requirement)
+- Allow `$assignable(<expr>, <expr>)` (remove type requirement)
+
 ## 0.8.0
 - Split `builtin` into `builtin_const` and `builtin` (callable)
 - Added field name `description` to `doc_comment_contract`
