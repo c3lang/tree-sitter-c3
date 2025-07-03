@@ -1,4 +1,4 @@
-VERSION := 0.8.0
+VERSION := 0.8.1
 
 LANGUAGE_NAME := tree-sitter-c3
 
