@@ -377,7 +377,7 @@ module.exports = grammar({
       '>>=',
     ),
 
-    attribute_arg: $ => choice($.overload_operator, $._constant_expr),
+    attribute_arg: $ => choice($.overload_operator, $._expr),
     attribute_arg_list: $ => seq('(', commaSep1($.attribute_arg), ')'),
     attribute: $ => seq(
       field('name', $._attribute_name),
@@ -550,10 +550,10 @@ module.exports = grammar({
       $.ident,
       optional(seq(
         ':',
-        $._constant_expr,
+        $._expr,
         optional(seq(
           '..',
-          $._constant_expr,
+          $._expr,
         ))
       )),
       optional($.attributes),
@@ -1043,7 +1043,7 @@ module.exports = grammar({
       $.asm_instr, commaSep($.asm_expr), ';',
     ),
     asm_block_stmt: $ => choice(
-      seq('asm', '(', $._constant_expr, ')', optional($.at_ident), ';'),
+      seq('asm', '(', $._expr, ')', optional($.at_ident), ';'),
       seq('asm', optional($.at_ident), '{', repeat($.asm_stmt), '}'),
     ),
 
@@ -1056,8 +1056,8 @@ module.exports = grammar({
     // Compile Time Assert Statement
     // -------------------------
     ct_assert_stmt: $ => choice(
-      seq('$assert', $._constant_expr, optional(seq(':', $._constant_expr)), ';'),
-      seq('$error', $._constant_expr, ';'),
+      seq('$assert', $._expr, optional(seq(':', $._expr)), ';'),
+      seq('$error', $._expr, ';'),
     ),
 
     // Compile Time Include Statement
@@ -1066,15 +1066,15 @@ module.exports = grammar({
 
     // Compile Time Exec Statement
     // -------------------------
-    ct_exec_stmt: $ => seq('$exec', '(', commaSep($._constant_expr), ')', optional($.attributes), ';'),
+    ct_exec_stmt: $ => seq('$exec', '(', commaSep($._expr), ')', optional($.attributes), ';'),
 
     // Compile Time Echo Statement
     // -------------------------
-    ct_echo_stmt: $ => seq('$echo', $._constant_expr, ';'),
+    ct_echo_stmt: $ => seq('$echo', $._expr, ';'),
 
     // Compile Time If Statement
     // -------------------------
-    ct_if_cond: $ => seq($._constant_expr, ':'),
+    ct_if_cond: $ => seq($._expr, ':'),
     ct_else_stmt: $ => seq('$else', optional($.ct_stmt_body)),
     ct_if_stmt: $ => choice(
       seq('$if', $.ct_if_cond, optional($.ct_stmt_body), optional($.ct_else_stmt), '$endif'),
@@ -1084,13 +1084,13 @@ module.exports = grammar({
     // -------------------------
     ct_case_stmt: $ => seq(
       choice(
-        seq('$case', $._constant_expr, ':'),
+        seq('$case', $._expr, ':'),
         seq('$case', $._type_expr, ':'),
         seq('$default', ':'),
       ),
       optional($.ct_stmt_body),
     ),
-    ct_switch_cond: $ => seq(choice($._constant_expr, $._type_expr)),
+    ct_switch_cond: $ => seq(choice($._expr, $._type_expr)),
 
     _ct_switch: $ => seq('$switch', optional($.ct_switch_cond), ':'),
     ct_switch_stmt: $ => seq(
@@ -1142,24 +1142,6 @@ module.exports = grammar({
       $.update_expr,
       $.call_expr,
       $.subscript_expr,
-      $.initializer_list,
-      $._base_expr,
-    )),
-
-    _constant_expr: $ => prec(1, choice(
-      $.ternary_expr,
-      $.lambda_expr,
-      $.elvis_orelse_expr,
-      $.optional_expr,
-      $.binary_expr,
-      $.unary_expr,
-      $.cast_expr,
-      $.rethrow_expr,
-      $.trailing_generic_expr,
-      $.update_expr,
-      $.call_expr,
-      $.subscript_expr,
-      $.initializer_list,
       $._base_expr,
     )),
 
