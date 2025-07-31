@@ -42,7 +42,7 @@ fn int main(String[] args) {
 
   compiler_path = c3c_executable;
 
-  Parser* parser = parser::new_with_language(tree_sitter_c3::language())!!;
+  TSParser* parser = parser::new_with_language(tree_sitter_c3::language())!!;
   defer parser::delete(parser);
 
   foreach (arg : args[2..]) {
@@ -90,7 +90,7 @@ fn usz? NullSink.write(&self, char[] bytes) @dynamic {
 
 fn void? NullSink.write_byte(&self, char c) @dynamic {}
 
-fn void process_file(String file_path, Parser* parser) => @pool() {
+fn void process_file(String file_path, TSParser* parser) => @pool() {
   if (ignore_file(file_path)) return;
 
   // io::printfn("Checking %s", file_path);
@@ -99,22 +99,23 @@ fn void process_file(String file_path, Parser* parser) => @pool() {
 
   char[] data = file::load_temp(file_path)!!;
 
-  Tree* tree = parser::parse_string(parser, null, (String)data);
+  TSTree* tree = parser::parse_string(parser, null, (String)data);
   defer ts::tree_delete(tree);
-  Node root_node = ts::tree_root_node(tree);
+  TSNode root_node = ts::tree_root_node(tree);
   assert(!ts::node_is_null(root_node));
 
   if (ts::node_has_error(root_node)) {
     // Check if C3C parses the file
-    List{String} cmdline;
-    cmdline.push(compiler_path.str_view());
-    cmdline.push("-P");
-    cmdline.push("compile-only");
-    cmdline.push(file_path);
+    String[] cmdline = {
+      compiler_path.str_view(),
+      "-P",
+      "compile-only",
+      file_path,
+    };
 
-    // io::printfn("Running %s", cmdline.array_view());
+    // io::printfn("Running %s", cmdline);
 
-    SubProcess process = process::create(cmdline.array_view(), {
+    SubProcess process = process::create(cmdline, {
       .search_user_path,
       .no_window,
       // .inherit_environment,

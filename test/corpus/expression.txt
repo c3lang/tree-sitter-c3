@@ -152,6 +152,8 @@ float a = 1.0E1;
 float a = 1.0E1f;
 float a = 1.0E-1f;
 float a = 1.0E-1f32;
+double b = 1.0e1d;
+double b = 1.0e-1d;
 double c = 0xc1f.;
 double c = 0xc1f.f;
 double c = 0xc1f.f64;
@@ -188,6 +190,18 @@ float128 d = 0XDEAD.0EAFP+1f128;
 --------------------------------------------------------------------------------
 
 (source_file
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)
+      (real_literal)))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)
+      (real_literal)))
   (global_declaration
     (declaration
       (type

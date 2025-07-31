@@ -15881,20 +15881,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "paren_expr",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
     }
   },
   {

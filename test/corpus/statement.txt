@@ -663,3 +663,33 @@ fn void main() {
                     (call_arg
                       (string_literal
                         (string_content)))))))))))))
+
+================================================================================
+Compile-time statements
+================================================================================
+
+$assert true && false : "%s", "message";
+$error "Foo %s", 1;
+$assert 0 > 1 : "Foo %s", 0.0002;
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ct_assert_stmt
+    (binary_expr)
+    (string_literal
+      (string_content))
+    (string_literal
+      (string_content)))
+  (ct_assert_stmt
+    (string_literal
+      (string_content))
+    (integer_literal))
+  (ct_assert_stmt
+    (binary_expr
+      (integer_literal)
+      (integer_literal))
+    (string_literal
+      (string_content))
+    (real_literal)))
