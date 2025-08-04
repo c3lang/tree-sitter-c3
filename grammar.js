@@ -1515,7 +1515,7 @@ module.exports = grammar({
       'float',
       'double',
       'float16',
-      'bfloat16',
+      'bfloat',
       'float128',
       'iptr',
       'uptr',

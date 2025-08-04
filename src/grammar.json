@@ -68,7 +68,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[ui](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}"
+                "value": "[UuIi](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}"
               },
               {
                 "type": "BLANK"
@@ -8626,7 +8626,7 @@
         },
         {
           "type": "STRING",
-          "value": "bfloat16"
+          "value": "bfloat"
         },
         {
           "type": "STRING",

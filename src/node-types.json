@@ -16431,7 +16431,7 @@
     "named": false
   },
   {
-    "type": "bfloat16",
+    "type": "bfloat",
     "named": false
   },
   {

@@ -6,6 +6,7 @@ Grammar updates for C3 0.7.4.
 - Added `enum Foo : const` 
 - Update doc contract grammar
 - Update real and integer literals
+- Fixed `bfloat16` -> `bfloat`
 
 ## 0.8.1
 Grammar updates for C3 0.7.3.
