@@ -108,7 +108,12 @@ static bool is_hex_digit(int32_t c) {
 }
 
 static bool scan_realtype(TSLexer *lexer) {
-  if (lexer->lookahead != 'f' && lexer->lookahead != 'd') {
+  if ((lexer->lookahead | 32) == 'd') {
+    lexer->advance(lexer, false);
+    return true;
+  }
+
+  if ((lexer->lookahead | 32) != 'f') {
     return false;
   }
 
@@ -117,16 +122,10 @@ static bool scan_realtype(TSLexer *lexer) {
 
   int32_t c1 = lexer->lookahead;
   lexer->advance(lexer, false);
-
-  // NOTE f32/f64/f128 suffixes deprecated for C3 >= 0.7.2
-  if (c1 == '8') {
-    lexer->mark_end(lexer);
-    return true;
-  }
-
   int32_t c2 = lexer->lookahead;
   lexer->advance(lexer, false);
 
+  // NOTE f32/f64 suffixes are deprecated for C3 >= 0.7.2
   if ((c1 == '1' && c2 == '6') || (c1 == '3' && c2 == '2') || (c1 == '6' && c2 == '4')) {
     lexer->mark_end(lexer);
     return true;
@@ -188,22 +187,18 @@ static bool scan_real_literal(TSLexer *lexer) {
 
   bool is_hex = false;
   if (c == '0') {
-    if (lexer->lookahead == 'x' || lexer->lookahead == 'X') {
+    if ((lexer->lookahead | 32) == 'x') {
       lexer->advance(lexer, false);
       is_hex = true;
     }
   }
 
   if (is_hex) {
-    bool has_fraction = false;
-    bool has_precision = false;
-
     if (!scan_hexint(lexer)) {
       return false;
     }
 
     if (lexer->lookahead == '.') {
-      has_fraction = true;
       lexer->advance(lexer, false);
 
       if (lexer->lookahead == '.') {
@@ -213,20 +208,18 @@ static bool scan_real_literal(TSLexer *lexer) {
       scan_hexint(lexer);
     }
 
-    if (lexer->lookahead == 'p' || lexer->lookahead == 'P') {
-      has_precision = true;
-      lexer->advance(lexer, false);
-
-      if (lexer->lookahead == '+' || lexer->lookahead == '-') {
-        lexer->advance(lexer, false);
-      }
-
-      if (!scan_digits(lexer)) {
-        return false;
-      }
+    // Require a precision
+    if ((lexer->lookahead | 32) != 'p') {
+      return false;
     }
 
-    if (!has_fraction && !has_precision) {
+    lexer->advance(lexer, false);
+
+    if (lexer->lookahead == '+' || lexer->lookahead == '-') {
+      lexer->advance(lexer, false);
+    }
+
+    if (!scan_digits(lexer)) {
       return false;
     }
 
@@ -253,7 +246,7 @@ static bool scan_real_literal(TSLexer *lexer) {
       scan_int(lexer);
     }
 
-    if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
+    if ((lexer->lookahead | 32) == 'e') {
       has_exponent = true;
       lexer->advance(lexer, false);
 

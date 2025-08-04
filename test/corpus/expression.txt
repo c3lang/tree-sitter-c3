@@ -154,11 +154,7 @@ float a = 1.0E-1f;
 float a = 1.0E-1f32;
 double b = 1.0e1d;
 double b = 1.0e-1d;
-double c = 0xc1f.;
-double c = 0xc1f.f;
-double c = 0xc1f.f64;
-double c = 0xc1f.2ff;
-double c = 0xc1f.2ff64;
+double c = 0xc1fp4;
 double c = 0xc2f.p4;
 double c = 0xc2f.p4f;
 double c = 0xc2f.p4f64;
@@ -168,20 +164,16 @@ double c = 0xc3f.2fp+4f64;
 double c = 0xc4f.2fp-4;
 double c = 0xc4f.2fp-4f;
 double c = 0xc4f.2fp-4f64;
-double c = 0XC1F.;
-double c = 0XC1F.f;
-double c = 0XC1F.f64;
-double c = 0XC1F.2Ff;
-double c = 0XC1F.2Ff64;
+double c = 0XC1FP4;
 double c = 0XC2F.P4;
-double c = 0XC2F.P4f;
-double c = 0XC2F.P4f64;
+double c = 0XC2F.P4F;
+double c = 0XC2F.P4F64;
 double c = 0XC3F.2FP+4;
-double c = 0XC3F.2FP+4f;
-double c = 0XC3F.2FP+4f64;
+double c = 0XC3F.2FP+4F;
+double c = 0XC3F.2FP+4F64;
 double c = 0XC4F.2FP-4;
-double c = 0XC4F.2FP-4f;
-double c = 0XC4F.2FP-4f64;
+double c = 0XC4F.2FP-4F;
+double c = 0XC4F.2FP-4F64;
 float128 d = 1.0e+1f128;
 float128 d = 1.0E+1f128;
 float128 d = 0xdead.0eafP+1f128;
@@ -190,54 +182,6 @@ float128 d = 0XDEAD.0EAFP+1f128;
 --------------------------------------------------------------------------------
 
 (source_file
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
   (global_declaration
     (declaration
       (type
