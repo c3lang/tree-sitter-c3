@@ -268,8 +268,8 @@
     (#any-of? @variable.builtin
       "alignof" "associated" "elements" "extnameof" "from_ordinal" "get" "inf" "is_eq" "is_ordered"
       "is_substruct" "len" "lookup" "lookup_field" "max" "membersof" "methodsof" "min" "nan" "inner"
-      "kindof" "names" "nameof" "params" "paramsof" "parentof" "qnameof" "returns" "sizeof" "tagof"
-      "has_tagof" "values" "typeid")))
+      "kindof" "names" "nameof" "params" "paramsof" "parentof" "qnameof" "returns" "sizeof" "set"
+      "tagof" "has_tagof" "values" "typeid")))
 
 ; Label
 [
