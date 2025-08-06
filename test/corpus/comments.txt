@@ -59,8 +59,16 @@ Param Doc comment
 Param Doc 2 comments
 ================================================================================
 <*
- @param foo "text"
- @param [&in] bar `text`
+ @param foo : "text"
+ @param [&in] bar : `text` "text"
+ @param [&in] bar
+   : `text` "text"
+ @param [&in] bar :
+   `text` "text"
+ @param [&in] bar
+   :
+   `text`
+   "text"
 *>
 
 --------------------------------------------------------------------------------
@@ -79,7 +87,66 @@ Param Doc 2 comments
       (ident)
       (string_expr
         (raw_string_literal
-          (raw_string_content))))))
+          (raw_string_content))
+        (string_literal
+          (string_content))))
+    (doc_comment_contract
+      (at_ident)
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))
+        (string_literal
+          (string_content))))
+    (doc_comment_contract
+      (at_ident)
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))
+        (string_literal
+          (string_content))))
+    (doc_comment_contract
+      (at_ident)
+      (doc_comment_contract_descriptor)
+      (ident)
+      (string_expr
+        (raw_string_literal
+          (raw_string_content))
+        (string_literal
+          (string_content))))))
+
+================================================================================
+Require Doc
+================================================================================
+<*
+ @require new_size == 0 || self.capacity != 0, foo()
+*>
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (doc_comment
+    (doc_comment_contract
+      (at_ident)
+      (binary_expr
+        (binary_expr
+          (ident_expr
+            (ident))
+          (integer_literal))
+        (binary_expr
+          (field_expr
+            (ident_expr
+              (ident))
+            (access_ident
+              (ident)))
+          (integer_literal)))
+      (call_expr
+        (ident_expr
+          (ident))
+        (call_arg_list)))))
 
 ================================================================================
 Require Doc single line
@@ -102,8 +169,10 @@ Doc compound
 ================================================================================
 <*
  A document
- @param foo "text"
- @param [&in] bar `text`
+ @param foo : "text"
+ @param [&in] bar : `text`
+ @pure
+ @something "with text"
 *>
 
 --------------------------------------------------------------------------------
@@ -123,7 +192,14 @@ Doc compound
       (ident)
       (string_expr
         (raw_string_literal
-          (raw_string_content))))))
+          (raw_string_content))))
+    (doc_comment_contract
+      (at_ident))
+    (doc_comment_contract
+      (at_ident)
+      (string_expr
+        (string_literal
+          (string_content))))))
 
 ================================================================================
 Doc compound 2

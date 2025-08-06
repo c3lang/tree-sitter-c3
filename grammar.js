@@ -21,7 +21,7 @@ const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
 const OINT = /[0-7](_?[0-7])*/;
 const BINT = /[0-1](_?[0-1])*/;
 // NOTE ll/ull suffixes experimental for C3 >= 0.7.2
-const INTTYPE = /[ui](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}/;
+const INTTYPE = /[UuIi](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}/;
 const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
 const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
@@ -185,21 +185,20 @@ module.exports = grammar({
 
     // Doc comments and contracts
     // -------------------------
+    // Optional ':' is deprecated
+    _doc_comment_description: $ => seq(optional(':'), field('description', $.string_expr)),
     doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
     doc_comment_contract: $ => choice(
       seq(
         field('name', alias('@param', $.at_ident)),
         optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
         field('parameter', $._arg_ident),
-        optional(':'),
-        field('description', optional($.string_expr)),
+        optional($._doc_comment_description),
       ),
-      field('name', alias('@pure', $.at_ident)),
       seq(
         field('name', alias(choice('@ensure', '@require'), $.at_ident)),
         commaSep1($._expr),
-        optional(':'),
-        field('description', optional($.string_expr)),
+        optional($._doc_comment_description),
       ),
       seq(
         field('name', alias('@return', $.at_ident)),
@@ -207,19 +206,22 @@ module.exports = grammar({
           seq(
             '?',
             commaSep1($._expr),
-            optional(':'),
-            field('description', optional($.string_expr)),
+            optional($._doc_comment_description),
           ),
-          field('description', $.string_expr),
-        )
+          optional(field('description', $.string_expr)),
+        ),
       ),
-      seq(field('name', $.at_ident), field('description', optional($.string_expr))),
+      // Other @idents
+      seq(
+        field('name', $.at_ident),
+        optional(field('description', $.string_expr)),
+      ),
     ),
     doc_comment: $ => seq(
       '<*',
       // NOTE parsed by scanner.c (scan_doc_comment_text)
       optional($.doc_comment_text),
-      sepTrailing($.doc_comment_contract, '\n'),
+      repeat($.doc_comment_contract),
       '*>',
     ),
 
@@ -592,7 +594,12 @@ module.exports = grammar({
     enum_spec: $ => prec.right(seq(
       ':',
       choice(
-        seq(optional('inline'), field('type', alias($._type_no_generics, $.type)), optional($.enum_param_list)),
+        seq(
+          optional('const'),
+          optional('inline'),
+          field('type', alias($._type_no_generics, $.type)),
+          optional($.enum_param_list)
+        ),
         $.enum_param_list,
       ),
     )),
@@ -1237,7 +1244,7 @@ module.exports = grammar({
         '(', commaSep($._expr_or_type), ')'
       ),
       seq('$feature', '(', $.const_ident, ')'),
-      seq('$assignable', '(', $._expr, ',', $._expr_or_type, ')'),
+      seq('$assignable', '(', $._expr, ',', $._expr_or_type, ')'), // Deprecated >= 0.7.4
     )),
 
     // Initializers
@@ -1403,7 +1410,8 @@ module.exports = grammar({
 
     call_arg_list: $ => seq('(', optional($._call_args), ')'),
 
-    call_inline_attributes: $ => repeat1(alias(choice('@pure', '@inline', '@noinline'), $.at_ident)),
+    // Right precedence for `@require foo() @pure` doc contract
+    call_inline_attributes: $ => prec.right(repeat1(alias(choice('@pure', '@inline', '@noinline'), $.at_ident))),
     call_expr: $ => prec.right(PREC.TRAILING, seq(
       field('function', $._expr),
       field('arguments', $.call_arg_list),
@@ -1507,7 +1515,7 @@ module.exports = grammar({
       'float',
       'double',
       'float16',
-      'bfloat16',
+      'bfloat',
       'float128',
       'iptr',
       'uptr',

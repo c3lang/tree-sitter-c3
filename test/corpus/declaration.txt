@@ -785,6 +785,12 @@ enum Abc : inline int
   DEF,
 }
 
+enum Abc : const inline int
+{
+  ABC = 1,
+  DEF,
+}
+
 enum Foo : int (inline String name, int y, int z)
 {
   ABC = { "Hello", 1, 2 },
@@ -838,6 +844,18 @@ enum Foo : int (inline String name, int y, int z)
     (enum_body
       (enum_constant
         (const_ident))
+      (enum_constant
+        (const_ident))))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (base_type_name)))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)))
       (enum_constant
         (const_ident))))
   (enum_declaration
