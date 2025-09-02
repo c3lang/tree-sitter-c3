@@ -1239,13 +1239,8 @@ module.exports = grammar({
         ),
         $.paren_expr,
       ),
-      seq(
-        choice(
-          '$defined',
-          '$embed',
-        ),
-        '(', commaSep($._expr_or_type), ')'
-      ),
+      seq('$embed','(', commaSep($._expr_or_type), ')'),
+      seq('$defined', '(', commaSep(choice($._decl_or_expr, $._type_expr)), ')'),
       seq('$feature', '(', $.const_ident, ')'),
       seq('$assignable', '(', $._expr, ',', $._expr_or_type, ')'), // Deprecated >= 0.7.4
     )),
