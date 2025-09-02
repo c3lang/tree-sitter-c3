@@ -1389,7 +1389,7 @@ module.exports = grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', $._arg_ident), ':', $._expr),
+      seq(field('name', $._arg_ident), ':', optional('...'), $._expr),
     ),
 
     _call_args: $ => choice(
