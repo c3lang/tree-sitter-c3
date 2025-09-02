@@ -446,11 +446,14 @@ module.exports = grammar({
     alias_declaration: $ => seq(
       'alias',
       choice(
-        // Variable/function/macro/method
+        // Variable/function/macro/method/module
         seq(
           field('name', $._func_macro_ident),
           optional($.attributes),
-          $._assign_right_expr,
+          choice(
+            seq('=', 'module', $.path_ident),
+            $._assign_right_expr,
+          )
         ),
         // Constant
         seq(
