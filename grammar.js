@@ -339,7 +339,7 @@ module.exports = grammar({
       ),
     ),
 
-    param_default: $ => seq('=', field('right', $._expr_or_type)),
+    param_default: $ => seq('=', field('right', choice('...', $._expr_or_type))),
     param: $ => seq($._parameter, optional($.param_default)),
     _parameters: $ => commaSepTrailing1($.param),
 
