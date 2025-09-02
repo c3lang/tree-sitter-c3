@@ -1236,6 +1236,7 @@ module.exports = grammar({
           '$is_const',
           '$sizeof',
           '$stringify',
+          '$kindof'
         ),
         $.paren_expr,
       ),
