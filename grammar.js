@@ -1300,7 +1300,7 @@ module.exports = grammar({
     ternary_expr: $ => prec.right(PREC.TERNARY, choice(
       seq(
         field('condition', $._expr),
-        '?',
+        choice('?', '???'),
         field('consequence', $._expr),
         ':',
         field('alternative', $._expr),
