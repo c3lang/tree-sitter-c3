@@ -304,6 +304,8 @@ fn int multiply(int x, int y = 1) {
     return x * y;
 }
 
+fn int incomplete(int x)
+
 fn int square_short(int x) => x * x;
 
 fn int short_name(String name) => name == "is_short";
@@ -395,6 +397,16 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
               (ident))
             (ident_expr
               (ident)))))))
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list
+      (param
+        (type
+          (base_type_name))
+        (ident))))
   (func_definition
     (func_header
       (type
