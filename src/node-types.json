@@ -118,6 +118,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -203,6 +207,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -308,6 +316,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
@@ -326,6 +338,10 @@
         },
         {
           "type": "paren_expr",
+          "named": true
+        },
+        {
+          "type": "path_ident",
           "named": true
         },
         {
@@ -418,6 +434,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -507,6 +527,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -645,6 +669,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -735,6 +763,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -787,6 +819,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -882,6 +918,10 @@
             "named": true
           },
           {
+            "type": "declaration",
+            "named": true
+          },
+          {
             "type": "elvis_orelse_expr",
             "named": true
           },
@@ -983,6 +1023,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -1074,6 +1118,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -1159,6 +1207,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -1263,6 +1315,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -1389,6 +1445,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -1482,6 +1542,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -1603,6 +1667,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -1688,6 +1756,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -1792,6 +1864,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -1923,6 +1999,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -2008,6 +2088,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -2112,6 +2196,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -2275,6 +2363,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -2368,6 +2460,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -2496,6 +2592,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -2590,6 +2690,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -2671,6 +2775,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -2759,6 +2867,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -2863,6 +2975,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -2960,6 +3076,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -3050,6 +3170,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -3102,6 +3226,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -3194,6 +3322,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -3298,6 +3430,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -3467,6 +3603,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -3552,6 +3692,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -3657,6 +3801,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
@@ -3738,6 +3886,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -3830,6 +3982,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -4176,6 +4332,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -4261,6 +4421,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -4366,6 +4530,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       },
@@ -4462,6 +4630,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -4551,6 +4723,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -4616,6 +4792,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -4705,6 +4885,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -4766,6 +4950,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -4855,6 +5043,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -4935,6 +5127,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -5025,6 +5221,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -5067,6 +5267,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -5375,6 +5579,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -5460,6 +5668,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -5564,6 +5776,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -5675,6 +5891,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -5764,6 +5984,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -5966,6 +6190,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -6056,6 +6284,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -6144,6 +6376,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -6229,6 +6465,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -6333,6 +6573,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -6749,6 +6993,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -6839,6 +7087,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -6910,6 +7162,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -6995,6 +7251,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -7099,6 +7359,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -7140,6 +7404,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -7225,6 +7493,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -7329,6 +7601,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -7415,6 +7691,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -7504,6 +7784,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -7727,6 +8011,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -7817,6 +8105,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -7878,6 +8170,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -7966,6 +8262,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -8071,6 +8371,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       },
@@ -8149,6 +8453,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -8246,6 +8554,10 @@
         {
           "type": "update_expr",
           "named": true
+        },
+        {
+          "type": "var_declaration",
+          "named": true
         }
       ]
     }
@@ -8288,6 +8600,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -8699,6 +9015,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -8784,6 +9104,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -8888,6 +9212,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -9094,7 +9422,7 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "macro_func_body",
@@ -9259,6 +9587,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -9348,6 +9680,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -9641,6 +9977,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -9726,6 +10066,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -9830,6 +10174,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -9927,6 +10275,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -10012,6 +10364,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -10117,6 +10473,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
@@ -10159,6 +10519,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -10259,6 +10623,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -10645,6 +11013,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -10730,6 +11102,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -10839,6 +11215,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
@@ -10892,6 +11272,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -10980,6 +11364,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -11084,6 +11472,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -11218,6 +11610,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -11266,6 +11662,10 @@
             "named": false
           },
           {
+            "type": "...",
+            "named": false
+          },
+          {
             "type": "assignment_expr",
             "named": true
           },
@@ -11303,6 +11703,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -11408,6 +11812,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
@@ -11491,6 +11899,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -11583,6 +11995,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -11810,6 +12226,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -11899,6 +12319,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -12012,6 +12436,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -12101,6 +12529,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -12205,6 +12637,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -12260,6 +12696,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -12349,6 +12789,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -12453,6 +12897,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -12515,6 +12963,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -12600,6 +13052,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -12704,6 +13160,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -12787,6 +13247,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -12879,6 +13343,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -13150,6 +13618,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -13235,6 +13707,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -13340,6 +13816,10 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       },
@@ -13377,6 +13857,10 @@
           },
           {
             "type": "$is_const",
+            "named": false
+          },
+          {
+            "type": "$kindof",
             "named": false
           },
           {
@@ -13472,6 +13956,10 @@
             "named": true
           },
           {
+            "type": "declaration",
+            "named": true
+          },
+          {
             "type": "elvis_orelse_expr",
             "named": true
           },
@@ -13573,6 +14061,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -13705,6 +14197,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -13790,6 +14286,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -13894,6 +14394,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -13935,6 +14439,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -14020,6 +14528,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -14124,6 +14636,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -14165,6 +14681,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -14250,6 +14770,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -14354,6 +14878,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -14430,6 +14958,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -14515,6 +15047,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -14619,6 +15155,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -14698,6 +15238,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
           "named": true
         },
         {
@@ -14794,6 +15338,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -14920,6 +15468,10 @@
           "named": true
         },
         {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "elvis_orelse_expr",
           "named": true
         },
@@ -15009,6 +15561,10 @@
         },
         {
           "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -15112,6 +15668,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -15197,6 +15757,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -15301,6 +15865,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -15400,6 +15968,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -15485,6 +16057,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -15589,6 +16165,10 @@
           },
           {
             "type": "update_expr",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
             "named": true
           }
         ]
@@ -15688,6 +16268,10 @@
             "named": false
           },
           {
+            "type": "$kindof",
+            "named": false
+          },
+          {
             "type": "$nameof",
             "named": false
           },
@@ -15773,6 +16357,10 @@
           },
           {
             "type": "const_ident",
+            "named": true
+          },
+          {
+            "type": "declaration",
             "named": true
           },
           {
@@ -15878,9 +16466,23 @@
           {
             "type": "update_expr",
             "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "attributes",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -16139,6 +16741,10 @@
     "named": false
   },
   {
+    "type": "$kindof",
+    "named": false
+  },
+  {
     "type": "$nameof",
     "named": false
   },
@@ -16376,6 +16982,10 @@
   },
   {
     "type": "??",
+    "named": false
+  },
+  {
+    "type": "???",
     "named": false
   },
   {
