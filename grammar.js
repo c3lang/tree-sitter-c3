@@ -486,6 +486,7 @@ module.exports = grammar({
       '=',
       optional('inline'),
       $.type,
+      optional($.attributes), // @simd, @align
       ';'
     ),
 
