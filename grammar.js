@@ -384,7 +384,7 @@ module.exports = grammar({
       field('name', $._attribute_name),
       optional($.attribute_arg_list),
     ),
-    attributes: $ => prec.left(repeat1($.attribute)),
+    attributes: $ => prec.right(repeat1($.attribute)),
 
     ////////////////////////////
     // Top Level
@@ -656,7 +656,7 @@ module.exports = grammar({
       ';',
     ),
 
-    func_definition: $ => prec.left(seq(
+    func_definition: $ => prec.right(seq(
       'fn',
       $.func_header,
       $.func_param_list,
