@@ -1213,6 +1213,7 @@ module.exports = grammar({
       $.typed_initializer_list,
 
       $.field_expr,
+      $.maybe_deref_expr,
       $.type_access_expr,
       $.paren_expr,
 
@@ -1478,6 +1479,21 @@ module.exports = grammar({
         '.',
       )),
       $._access_ident_expr,
+    ),
+
+    maybe_deref_expr: $ => seq(
+      prec(PREC.FIELD, seq(
+        field('argument', $._expr),
+        '.',
+      )),
+      seq(
+        '[',
+        choice(
+          field('index', $._range_loc),
+          field('range', $.range_expr),
+        ),
+        ']',
+      ),
     ),
 
     type_access_expr: $ => seq(
