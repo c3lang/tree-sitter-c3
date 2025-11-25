@@ -119,7 +119,11 @@ module.exports = grammar({
   rules: {
     // File
     // -------------------------
-    source_file: $ => repeat($._top_level_item),
+    source_file: $ => seq(
+      // Treat '#!' as a line comment for now to preserve existing highlighting rules
+      optional(alias($.hashbang_line, $.line_comment)),
+      repeat($._top_level_item),
+    ),
 
     // Literals
     // -------------------------
@@ -179,9 +183,8 @@ module.exports = grammar({
 
     // Comments
     // -------------------------
-    line_comment: $ => choice(
-      token(seq('//', /([^\n])*/)),
-    ),
+    line_comment: _ => token(seq('//', /([^\n])*/)),
+    hashbang_line: _ => token(seq('#!', /([^\n])*/)),
 
     // Doc comments and contracts
     // -------------------------
