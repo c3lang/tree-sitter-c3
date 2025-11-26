@@ -106,6 +106,7 @@
   "$if"
   "$include"
   "$is_const"
+  "$kindof"
   "$nameof"
   "$offsetof"
   "$qnameof"
@@ -218,6 +219,8 @@
   "&&&"
   "+++"
   "|||"
+  "???"
+  "+++="
 ] @operator
 
 (range_expr
@@ -232,6 +235,7 @@
 (ternary_expr
   [
     "?"
+    "???"
     ":"
   ] @keyword.conditional.ternary)
 
