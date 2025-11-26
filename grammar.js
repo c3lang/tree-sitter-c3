@@ -1281,6 +1281,7 @@ module.exports = grammar({
       '&=',
       '^=',
       '|=',
+      '+++=',
     ),
     assignment_expr: $ => prec.right(PREC.ASSIGNMENT, choice(
       seq(
