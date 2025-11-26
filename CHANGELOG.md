@@ -1,12 +1,24 @@
 # tree-sitter-c3 Changelog
 
 ## 0.8.2
-Grammar updates for C3 0.7.4.
+Grammar updates for C3 0.7.7.
 
 - Added `enum Foo : const` 
 - Update doc contract grammar
 - Update real and integer literals
 - Fixed `bfloat16` -> `bfloat`
+- Support module alias
+- Support attributes on `var` declarations for `@safeinfer`
+- Support declarations in `$defined`
+- Support `$kindof`
+- Support default vararg parameters
+- Support compile-time ternary `???`
+- Support type as expression
+- Support `.[0]` (maybe-deref) expressions
+- Support attributes for typedef (`@simd`, `@align`)
+- Support `#!` as first line
+- Fix not supporting `foo(x: ...y)` in the case of `macro bar(y = ...)`
+- Improved error recovery when typing a function that doesn't have a body yet (#41)
 
 ## 0.8.1
 Grammar updates for C3 0.7.3.

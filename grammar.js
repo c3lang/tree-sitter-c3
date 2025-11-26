@@ -661,6 +661,7 @@ module.exports = grammar({
       $.func_header,
       $.func_param_list,
       optional($.attributes),
+      // The body is made optional to improve error recovery for syntax highlighting (PR #41)
       field('body', optional($.macro_func_body)),
     )),
 

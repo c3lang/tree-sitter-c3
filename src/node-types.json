@@ -2508,7 +2508,6 @@
   {
     "type": "block_comment",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -6974,7 +6973,6 @@
   {
     "type": "doc_comment",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
