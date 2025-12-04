@@ -297,7 +297,7 @@ module.exports = grammar({
     // Generic Parameters
     // -------------------------
     _generic_args: $ => commaSep1($._expr),
-    generic_arg_list: $ => seq('{', $._generic_args, '}'),
+    generic_arg_list: $ => seq('{', optional($._generic_args), '}'),
 
     // Helpers
     // -------------------------
