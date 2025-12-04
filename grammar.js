@@ -195,7 +195,7 @@ module.exports = grammar({
       seq(
         field('name', alias('@param', $.at_ident)),
         optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-        field('parameter', $._arg_ident),
+        field('parameter', choice($._arg_ident, '...')),
         optional($._doc_comment_description),
       ),
       seq(

@@ -4,6 +4,7 @@
 Grammar updates for C3 0.7.8.
 
 - Support `int $foo...` arguments
+- Support `@param ...`
 
 ## 0.8.2
 Grammar updates for C3 0.7.7.
