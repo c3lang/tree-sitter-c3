@@ -302,6 +302,9 @@
 (call_inline_attributes
   (at_ident) @attribute)
 
+(type_suffix
+  (at_ident) @attribute)
+
 (asm_block_stmt
   (at_ident) @attribute)
 
