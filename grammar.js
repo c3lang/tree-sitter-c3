@@ -319,10 +319,10 @@ module.exports = grammar({
       seq(
         field('type', $.type),
         optional(choice(
-          '...',
-          seq(optional('...'), field('name', $.ident), optional($.attributes)),
-          // Macro parameters
-          seq(field('name', choice($.ct_ident, $.hash_ident)), optional($.attributes)),
+          '...', // Deprecated, remove for C3 0.8
+          seq(optional('...'), field('name', choice($.ident, $.ct_ident)), optional($.attributes)),
+          // Macro expression parameters
+          seq(field('name', $.hash_ident), optional($.attributes)),
         )),
       ),
 
