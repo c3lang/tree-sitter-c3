@@ -1565,8 +1565,8 @@ module.exports = grammar({
       seq('[', $._expr, ']'),
       seq('[', ']'),
       seq('[', '*', ']'),
-      seq('[<', $._expr, '>]'),
-      seq('[<', '*', '>]'),
+      seq('[<', $._expr, '>]', optional(alias('@simd', $.at_ident))),
+      seq('[<', '*', '>]', optional(alias('@simd', $.at_ident))),
     ),
 
     type: $ => prec.right(seq(
