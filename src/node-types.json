@@ -2512,6 +2512,7 @@
   {
     "type": "block_comment",
     "named": true,
+    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -6977,6 +6978,7 @@
   {
     "type": "doc_comment",
     "named": true,
+    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -7041,6 +7043,10 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "...",
+            "named": false
+          },
           {
             "type": "ct_ident",
             "named": true
@@ -16185,6 +16191,10 @@
           "named": true
         },
         {
+          "type": "at_ident",
+          "named": true
+        },
+        {
           "type": "binary_expr",
           "named": true
         },
@@ -16365,6 +16375,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
         {
           "type": "attributes",
           "named": true

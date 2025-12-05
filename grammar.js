@@ -4,8 +4,6 @@
  * @license MIT
  */
 
-// Reference grammar: https://github.com/c3lang/c3c/blob/master/resources/grammar/grammar.y
-
 // Note that this grammar is not as strict as the compiler.
 // For example it permits
 // - Some expressions where the compiler requires parenthesis
@@ -489,7 +487,7 @@ module.exports = grammar({
       '=',
       optional('inline'),
       $.type,
-      optional($.attributes), // @simd, @align
+      optional($.attribute), // @align
       ';'
     ),
 
