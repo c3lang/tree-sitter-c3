@@ -780,12 +780,13 @@ module.exports = grammar({
 
     // Defer Statement
     // -------------------------
+    defer_catch_ident: $ => seq('(', 'catch', $.ident, ')'),
     defer_stmt: $ => seq(
       'defer',
       optional(choice(
         'try',
         'catch',
-        seq('(', 'catch', $.ident, ')'),
+        $.defer_catch_ident,
       )),
       $._statement
     ),

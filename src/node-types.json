@@ -6839,6 +6839,21 @@
     }
   },
   {
+    "type": "defer_catch_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "defer_stmt",
     "named": true,
     "fields": {},
@@ -6895,6 +6910,10 @@
           "named": true
         },
         {
+          "type": "defer_catch_ident",
+          "named": true
+        },
+        {
           "type": "defer_stmt",
           "named": true
         },
@@ -6912,10 +6931,6 @@
         },
         {
           "type": "foreach_stmt",
-          "named": true
-        },
-        {
-          "type": "ident",
           "named": true
         },
         {
