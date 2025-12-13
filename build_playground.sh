@@ -52,6 +52,7 @@ else
 fi
 
 tree-sitter playground -e ./docs
+sed -i 's|LANGUAGE_BASE_URL = ""|LANGUAGE_BASE_URL = "https://c3lang.github.io/tree-sitter-c3"|' ./docs/index.html
 
 echo "Removing '$SCRIPT_DIR/tree-sitter-c3.wasm'"
 rm tree-sitter-c3.wasm
