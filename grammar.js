@@ -755,7 +755,7 @@ module.exports = grammar({
 
     // Declaration Statement
     // -------------------------
-    declaration_stmt: $ => $._declaration,
+    declaration_stmt: $ => seq($._declaration, ';'),
 
     // Var Statement
     // -------------------------
@@ -813,7 +813,6 @@ module.exports = grammar({
       optional($._decl_storage),
       field('type', $.type),
       $._decl_after_type,
-      ';'
     ),
 
     const_declaration: $ => seq(
@@ -822,7 +821,6 @@ module.exports = grammar({
       field('name', $.const_ident),
       optional($.attributes),
       optional($._assign_right_expr),
-      ';'
     ),
 
     _declaration: $ => choice(
@@ -833,7 +831,7 @@ module.exports = grammar({
     global_declaration: $ => seq(
       optional('extern'),
       choice(
-        $._declaration,
+        seq($._declaration, ';'),
         $.func_declaration,
       ),
     ),
