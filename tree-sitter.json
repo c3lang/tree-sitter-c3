@@ -1,41 +1,44 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
       "name": "c3",
       "camelcase": "C3",
+      "title": "C3",
       "scope": "source.c3",
-      "path": ".",
       "file-types": [
         "c3",
         "c3i",
         "c3t"
       ],
-      "highlights": [
-        "queries/highlights.scm"
-      ],
-      "injection-regex": "^c3$"
+      "injection-regex": "^c3$",
+      "class-name": "TreeSitterC3"
     }
   ],
   "metadata": {
     "version": "0.8.2",
     "license": "MIT",
-    "description": "C3 grammar for node-tree-sitter",
+    "description": "C3 grammar for tree-sitter",
     "authors": [
       {
-        "name": "Christian Buttner"
+        "name": "Christian Buttner",
+        "url": ""
       }
     ],
     "links": {
-      "repository": "https://github.com/c3lang/tree-sitter-c3"
+      "repository": "https://github.com/c3lang/tree-sitter-c3",
+      "funding": ""
     }
   },
   "bindings": {
     "c": true,
     "c3": true,
     "go": true,
+    "java": false,
     "node": true,
     "python": true,
     "rust": true,
-    "swift": true
+    "swift": true,
+    "zig": false
   }
 }

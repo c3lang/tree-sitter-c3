@@ -4,6 +4,9 @@
  * @license MIT
  */
 
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
 // Note that this grammar is not as strict as the compiler.
 // For example it permits
 // - Some expressions where the compiler requires parenthesis
@@ -88,7 +91,7 @@ function make_binary_expr($, table) {
   }));
 }
 
-module.exports = grammar({
+export default grammar({
   name: 'c3',
 
   extras: $ => [
