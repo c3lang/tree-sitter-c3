@@ -3,6 +3,6 @@ build
 log.html
 
 # Grammar volatiles
-*.wasm
-*.obj
-*.o
+/*.wasm
+/*.obj
+/*.o

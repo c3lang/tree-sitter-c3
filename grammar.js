@@ -4,7 +4,8 @@
  * @license MIT
  */
 
-// Reference grammar: https://github.com/c3lang/c3c/blob/master/resources/grammar/grammar.y
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
 
 // Note that this grammar is not as strict as the compiler.
 // For example it permits
@@ -90,7 +91,7 @@ function make_binary_expr($, table) {
   }));
 }
 
-module.exports = grammar({
+export default grammar({
   name: 'c3',
 
   extras: $ => [
@@ -119,7 +120,11 @@ module.exports = grammar({
   rules: {
     // File
     // -------------------------
-    source_file: $ => repeat($._top_level_item),
+    source_file: $ => seq(
+      // Treat '#!' as a line comment for now to preserve existing highlighting rules
+      optional(alias($.hashbang_line, $.line_comment)),
+      repeat($._top_level_item),
+    ),
 
     // Literals
     // -------------------------
@@ -179,9 +184,8 @@ module.exports = grammar({
 
     // Comments
     // -------------------------
-    line_comment: $ => choice(
-      token(seq('//', /([^\n])*/)),
-    ),
+    line_comment: _ => token(seq('//', /([^\n])*/)),
+    hashbang_line: _ => token(seq('#!', /([^\n])*/)),
 
     // Doc comments and contracts
     // -------------------------
@@ -192,7 +196,7 @@ module.exports = grammar({
       seq(
         field('name', alias('@param', $.at_ident)),
         optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-        field('parameter', $._arg_ident),
+        field('parameter', choice($._arg_ident, '...')),
         optional($._doc_comment_description),
       ),
       seq(
@@ -294,7 +298,7 @@ module.exports = grammar({
     // Generic Parameters
     // -------------------------
     _generic_args: $ => commaSep1($._expr),
-    generic_arg_list: $ => seq('{', $._generic_args, '}'),
+    generic_arg_list: $ => seq('{', optional($._generic_args), '}'),
 
     // Helpers
     // -------------------------
@@ -316,10 +320,10 @@ module.exports = grammar({
       seq(
         field('type', $.type),
         optional(choice(
-          '...',
-          seq(optional('...'), field('name', $.ident), optional($.attributes)),
-          // Macro parameters
-          seq(field('name', choice($.ct_ident, $.hash_ident)), optional($.attributes)),
+          '...', // Deprecated, remove for C3 0.8
+          seq(optional('...'), field('name', choice($.ident, $.ct_ident)), optional($.attributes)),
+          // Macro expression parameters
+          seq(field('name', $.hash_ident), optional($.attributes)),
         )),
       ),
 
@@ -381,7 +385,7 @@ module.exports = grammar({
       field('name', $._attribute_name),
       optional($.attribute_arg_list),
     ),
-    attributes: $ => prec.left(repeat1($.attribute)),
+    attributes: $ => prec.right(repeat1($.attribute)),
 
     ////////////////////////////
     // Top Level
@@ -486,6 +490,7 @@ module.exports = grammar({
       '=',
       optional('inline'),
       $.type,
+      optional($.attribute), // @align
       ';'
     ),
 
@@ -652,11 +657,12 @@ module.exports = grammar({
       ';',
     ),
 
-    func_definition: $ => prec.left(seq(
+    func_definition: $ => prec.right(seq(
       'fn',
       $.func_header,
       $.func_param_list,
       optional($.attributes),
+      // The body is made optional to improve error recovery for syntax highlighting (PR #41)
       field('body', optional($.macro_func_body)),
     )),
 
@@ -752,7 +758,7 @@ module.exports = grammar({
 
     // Declaration Statement
     // -------------------------
-    declaration_stmt: $ => $._declaration,
+    declaration_stmt: $ => seq($._declaration, ';'),
 
     // Var Statement
     // -------------------------
@@ -777,12 +783,13 @@ module.exports = grammar({
 
     // Defer Statement
     // -------------------------
+    defer_catch_ident: $ => seq('(', 'catch', $.ident, ')'),
     defer_stmt: $ => seq(
       'defer',
       optional(choice(
         'try',
         'catch',
-        seq('(', 'catch', $.ident, ')'),
+        $.defer_catch_ident,
       )),
       $._statement
     ),
@@ -809,7 +816,6 @@ module.exports = grammar({
       optional($._decl_storage),
       field('type', $.type),
       $._decl_after_type,
-      ';'
     ),
 
     const_declaration: $ => seq(
@@ -818,7 +824,6 @@ module.exports = grammar({
       field('name', $.const_ident),
       optional($.attributes),
       optional($._assign_right_expr),
-      ';'
     ),
 
     _declaration: $ => choice(
@@ -829,7 +834,7 @@ module.exports = grammar({
     global_declaration: $ => seq(
       optional('extern'),
       choice(
-        $._declaration,
+        seq($._declaration, ';'),
         $.func_declaration,
       ),
     ),
@@ -1213,6 +1218,7 @@ module.exports = grammar({
       $.typed_initializer_list,
 
       $.field_expr,
+      $.maybe_deref_expr,
       $.type_access_expr,
       $.paren_expr,
 
@@ -1275,6 +1281,7 @@ module.exports = grammar({
       '&=',
       '^=',
       '|=',
+      '+++=',
     ),
     assignment_expr: $ => prec.right(PREC.ASSIGNMENT, choice(
       seq(
@@ -1480,6 +1487,21 @@ module.exports = grammar({
       $._access_ident_expr,
     ),
 
+    maybe_deref_expr: $ => seq(
+      prec(PREC.FIELD, seq(
+        field('argument', $._expr),
+        '.',
+      )),
+      seq(
+        '[',
+        choice(
+          field('index', $._range_loc),
+          field('range', $.range_expr),
+        ),
+        ']',
+      ),
+    ),
+
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
         field('argument', $._type_expr),
@@ -1543,8 +1565,8 @@ module.exports = grammar({
       seq('[', $._expr, ']'),
       seq('[', ']'),
       seq('[', '*', ']'),
-      seq('[<', $._expr, '>]'),
-      seq('[<', '*', '>]'),
+      seq('[<', $._expr, '>]', optional(alias('@simd', $.at_ident))),
+      seq('[<', '*', '>]', optional(alias('@simd', $.at_ident))),
     ),
 
     type: $ => prec.right(seq(

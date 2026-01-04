@@ -106,6 +106,7 @@
   "$if"
   "$include"
   "$is_const"
+  "$kindof"
   "$nameof"
   "$offsetof"
   "$qnameof"
@@ -218,6 +219,8 @@
   "&&&"
   "+++"
   "|||"
+  "???"
+  "+++="
 ] @operator
 
 (range_expr
@@ -232,6 +235,7 @@
 (ternary_expr
   [
     "?"
+    "???"
     ":"
   ] @keyword.conditional.ternary)
 
@@ -296,6 +300,9 @@
 (at_type_ident) @attribute
 
 (call_inline_attributes
+  (at_ident) @attribute)
+
+(type_suffix
   (at_ident) @attribute)
 
 (asm_block_stmt
