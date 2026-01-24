@@ -1347,8 +1347,8 @@ export default grammar({
     optional_expr: $ => prec.right(PREC.TERNARY, seq(
       field('argument', $._expr),
       field('operator', choice(
-        '?',
-        seq('?', '!'),
+        '~',
+        seq('~', '!'),
       )),
     )),
 
