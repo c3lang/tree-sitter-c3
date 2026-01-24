@@ -1597,12 +1597,12 @@ export default grammar({
         $.generic_type_ident
       ),
       repeat($.type_suffix),
-      optional('~'),
+      optional(choice('~', '?')),
     )),
     _type_no_generics: $ => prec.right(seq(
       $._base_type,
       repeat($.type_suffix),
-      optional('~'),
+      optional(choice('~', '?')),
     )),
   }
 });
