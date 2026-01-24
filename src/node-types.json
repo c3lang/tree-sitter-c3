@@ -9666,6 +9666,10 @@
         {
           "type": "func_param_list",
           "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
         }
       ]
     }
