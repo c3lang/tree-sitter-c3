@@ -96,8 +96,7 @@ export default grammar({
 
   extras: $ => [
     /\s|\r?\n/, // White space and line endings
-    $.line_comment,
-    $.block_comment,
+    $.comment,
   ],
 
   // WARNING: must be in the same order as scanner.c TokenType enum
@@ -120,8 +119,8 @@ export default grammar({
     // File
     // -------------------------
     source_file: $ => seq(
-      // Treat '#!' as a line comment for now to preserve existing highlighting rules
-      optional(alias($.hashbang_line, $.line_comment)),
+      // Treat '#!' as a generic comment for now to preserve existing highlighting rules
+      optional(alias($.hashbang_line, $.comment)),
       repeat($._top_level_item),
     ),
 
@@ -181,9 +180,14 @@ export default grammar({
       seq('b64`', B64, '`'),
     )),
 
-    // Comments
-    // -------------------------
-    line_comment: _ => token(seq('//', /([^\n])*/)),
+    comment: $ => choice(
+      token(seq('//', /([^\n])*/)),
+      seq(
+        '/*',
+        $.block_comment_text,
+        alias($.block_comment_end_or_eof, '*/'),
+      ),
+    ),
     hashbang_line: _ => token(seq('#!', /([^\n])*/)),
 
     // Doc comments and contracts
@@ -228,13 +232,7 @@ export default grammar({
       '*>',
     ),
 
-    block_comment: $ => seq(
-      '/*',
-      // NOTE parsed by scanner.c (scan_block_comment_scanner)
-      $.block_comment_text,
-      // NOTE parsed by scanner.c (scan_block_comment_end_or_eof)
-      alias($.block_comment_end_or_eof, '*/'),
-    ),
+
 
     // Identifiers
     // -------------------------

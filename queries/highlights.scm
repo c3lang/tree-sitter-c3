@@ -383,8 +383,8 @@
   ] @variable.builtin)
 
 ; Comment
-(line_comment) @comment @spell
-(block_comment) @comment @spell
+(comment) @comment @spell
+(block_comment_text) @comment @spell
 
 (doc_comment) @comment.documentation
 
