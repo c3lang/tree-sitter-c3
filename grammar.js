@@ -23,8 +23,8 @@ const OINT = /[0-7](_?[0-7])*/;
 const BINT = /[0-1](_?[0-1])*/;
 // NOTE ll/ull suffixes experimental for C3 >= 0.7.2
 const INTTYPE = /[UuIi](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}/;
-const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
-const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
+const IDENT = /_*[a-z][_a-zA-Z0-9]*/;
+const TYPE_IDENT = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
 
 // https://c3lang.github.io/c3-web/references/docs/precedence/
@@ -174,11 +174,11 @@ export default grammar({
 
     bytes_literal: _ => token(choice(
       seq('x\'', HEX, '\''),
-      seq('x"',  HEX, '"'),
-      seq('x`',  HEX, '`'),
+      seq('x"', HEX, '"'),
+      seq('x`', HEX, '`'),
       seq('b64\'', B64, '\''),
-      seq('b64"',  B64, '"'),
-      seq('b64`',  B64, '`'),
+      seq('b64"', B64, '"'),
+      seq('b64`', B64, '`'),
     )),
 
     // Comments
@@ -656,14 +656,12 @@ export default grammar({
       field('return_type', $.type),
       optional(seq(field('method_type', $.type), '.')),
       field('name', $.ident),
-      optional($.generic_param_list),
     ),
 
     macro_header: $ => seq(
       optional(field('return_type', $.type)), // Return type is optional for macros
       optional(seq(field('method_type', $.type), '.')),
       field('name', $._func_macro_ident),
-      optional($.generic_param_list),
     ),
 
     func_param_list: $ => seq('(', optional($._parameters), ')'),
@@ -673,6 +671,7 @@ export default grammar({
       'fn',
       $.func_header,
       $.func_param_list,
+      optional($.generic_param_list),
       optional($.attributes),
       ';',
     ),
@@ -721,6 +720,7 @@ export default grammar({
       'macro',
       $.macro_header,
       $.macro_param_list,
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.macro_func_body),
     ),
@@ -1350,6 +1350,8 @@ export default grammar({
       field('operator', choice(
         '~',
         seq('~', '!'),
+        '?',
+        seq('?', '!'),
       )),
     )),
 

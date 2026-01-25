@@ -9628,6 +9628,10 @@
         {
           "type": "func_param_list",
           "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
         }
       ]
     }
@@ -9708,16 +9712,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "generic_param_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -11090,6 +11084,10 @@
           "named": true
         },
         {
+          "type": "generic_param_list",
+          "named": true
+        },
+        {
           "type": "macro_header",
           "named": true
         },
@@ -11161,16 +11159,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "generic_param_list",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -12305,6 +12293,10 @@
         "types": [
           {
             "type": "!",
+            "named": false
+          },
+          {
+            "type": "?",
             "named": false
           },
           {
