@@ -414,11 +414,12 @@ export default grammar({
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
     generic_param_list: $ => seq('<', commaSep1($._module_param), '>'),
+    generic_param_list_deprecated: $ => seq('{', commaSep1($._module_param), '}'), // Deprecated
     module_declaration: $ => seq(
       optional($.doc_comment),
       'module',
       field('path', $.path_ident),
-      optional($.generic_param_list),
+      optional(choice($.generic_param_list, alias($.generic_param_list_deprecated, $.generic_param_list))),
       optional($.attributes),
       ';'
     ),
