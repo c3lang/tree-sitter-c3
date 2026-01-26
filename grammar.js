@@ -490,6 +490,7 @@ export default grammar({
       'typedef',
       field('name', $.type_ident),
       optional($.interface_impl_list),
+      optional($.generic_param_list),
       optional($.attributes),
       '=',
       optional('inline'),
@@ -551,8 +552,8 @@ export default grammar({
       optional($.doc_comment),
       $._struct_or_union,
       field('name', $.type_ident),
-      optional($.generic_param_list),
       optional($.interface_impl_list),
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.struct_body),
     ),
@@ -636,7 +637,15 @@ export default grammar({
 
     // Interface
     // -------------------------
-    interface_body: $ => seq('{', repeat($.func_declaration), '}'),
+    interface_func_declaration: $ => seq(
+      optional($.doc_comment),
+      $.func_declaration
+    ),
+    interface_body: $ => seq(
+      '{',
+      repeat($.interface_func_declaration),
+      '}'
+    ),
     interface_declaration: $ => seq(
       optional($.doc_comment),
       'interface',
@@ -666,7 +675,6 @@ export default grammar({
     func_param_list: $ => seq('(', optional($._parameters), ')'),
 
     func_declaration: $ => seq(
-      optional($.doc_comment),
       'fn',
       $.func_header,
       $.func_param_list,
@@ -841,7 +849,6 @@ export default grammar({
     ),
 
     const_declaration: $ => seq(
-      optional($.doc_comment),
       'const',
       field('type', optional($.type)),
       field('name', $.const_ident),
@@ -854,10 +861,13 @@ export default grammar({
       $.const_declaration,
     ),
 
-    global_declaration: $ => choice(
-      seq(optional($.doc_comment), 'extern', choice(seq($._declaration, ';'), $.func_declaration)),
-      seq($._declaration, ';'),
-      $.func_declaration,
+    global_declaration: $ => seq(
+      optional($.doc_comment),
+      optional('extern'),
+      choice(
+        seq($._declaration, ';'),
+        $.func_declaration,
+      ),
     ),
 
     // Case Statement
