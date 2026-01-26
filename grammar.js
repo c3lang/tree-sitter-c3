@@ -608,14 +608,11 @@ export default grammar({
     enum_param_list: $ => seq('(', commaSepTrailing($.enum_param), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
-      choice(
-        seq(
-          optional('const'),
-          optional('inline'),
-          field('type', alias($._type_no_generics, $.type)),
-          optional($.enum_param_list)
-        ),
-        $.enum_param_list,
+      seq(
+        optional('const'),
+        optional('inline'),
+        optional(field('type', alias($._type_no_generics, $.type))),
+        optional($.enum_param_list)
       ),
     )),
     enum_body: $ => seq(
