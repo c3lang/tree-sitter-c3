@@ -1502,6 +1502,7 @@ export default grammar({
       $.hash_ident,  // Hash
       $.const_ident, // Enum access
       $.access_eval, // $eval
+      $.ct_ident,    // Eval shorthand
     ),
 
     _access_ident_expr: $ => choice(
