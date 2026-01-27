@@ -478,8 +478,7 @@ export default grammar({
     faultdef_declaration: $ => seq(
       optional($.doc_comment),
       'faultdef',
-      commaSep1($.const_ident),
-      optional($.attributes),
+      commaSep1(seq($.const_ident, optional($.attributes))),
       ';',
     ),
 
