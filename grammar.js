@@ -790,9 +790,9 @@ export default grammar({
     // Var Statement
     // -------------------------
     var_declaration: $ => choice(
-      seq(optional($.doc_comment), 'var', field('name', $.ident), optional($.attributes), $._assign_right_expr),
-      seq(optional($.doc_comment), 'var', field('name', $.ct_ident), optional($.attributes), optional($._assign_right_expr)),
-      seq(optional($.doc_comment), 'var', field('name', $.ct_type_ident), optional($.attributes), optional($._assign_right_expr)),
+      seq('var', field('name', $.ident), optional($.attributes), $._assign_right_expr),
+      seq('var', field('name', $.ct_ident), optional($.attributes), optional($._assign_right_expr)),
+      seq('var', field('name', $.ct_type_ident), optional($.attributes), optional($._assign_right_expr)),
     ),
     var_stmt: $ => seq($.var_declaration, ';'),
 
