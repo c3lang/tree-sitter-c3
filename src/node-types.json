@@ -35,6 +35,10 @@
           "named": true
         },
         {
+          "type": "ct_ident",
+          "named": true
+        },
+        {
           "type": "hash_ident",
           "named": true
         },
@@ -337,7 +341,15 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "func_signature",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         },
         {
@@ -1379,6 +1391,10 @@
         {
           "type": "attributes",
           "named": true
+        },
+        {
+          "type": "doc_comment",
+          "named": true
         }
       ]
     }
@@ -2291,6 +2307,14 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
+        },
+        {
           "type": "interface_impl_list",
           "named": true
         },
@@ -2400,6 +2424,10 @@
         },
         {
           "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         },
         {
@@ -6710,6 +6738,10 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "identifier_list",
           "named": true
         }
@@ -6993,7 +7025,6 @@
   {
     "type": "doc_comment",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -7979,11 +8010,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         }
       ]
@@ -8023,7 +8058,15 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "enum_spec",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         },
         {
@@ -8276,6 +8319,10 @@
         },
         {
           "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         }
       ]
@@ -9577,6 +9624,10 @@
         {
           "type": "func_param_list",
           "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
         }
       ]
     }
@@ -9605,11 +9656,19 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "func_header",
           "named": true
         },
         {
           "type": "func_param_list",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         }
       ]
@@ -9901,7 +9960,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -9910,6 +9969,10 @@
         },
         {
           "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         },
         {
@@ -10387,11 +10450,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         }
       ]
@@ -10837,7 +10904,7 @@
       "required": false,
       "types": [
         {
-          "type": "func_declaration",
+          "type": "interface_func_declaration",
           "named": true
         }
       ]
@@ -10873,7 +10940,34 @@
       "required": false,
       "types": [
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
+        },
+        {
           "type": "type_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_func_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "func_declaration",
           "named": true
         }
       ]
@@ -10998,6 +11092,14 @@
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         },
         {
@@ -11639,6 +11741,10 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
           "type": "generic_param_list",
           "named": true
         }
@@ -12206,6 +12312,10 @@
           },
           {
             "type": "?",
+            "named": false
+          },
+          {
+            "type": "~",
             "named": false
           }
         ]
@@ -14261,6 +14371,14 @@
           "named": true
         },
         {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
+          "named": true
+        },
+        {
           "type": "interface_impl_list",
           "named": true
         }
@@ -14302,6 +14420,10 @@
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
           "named": true
         },
         {
@@ -16396,6 +16518,14 @@
         },
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         },
         {
