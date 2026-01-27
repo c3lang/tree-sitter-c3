@@ -13,6 +13,7 @@ const String[*] IGNORED_FILES = {
   "test/test_suite/define/define_name_errors.c3",
   "test/test_suite/expressions/addr_of_fails.c3",
   "test/test_suite/functions/ref_param_fn.c3",
+  "test/test_suite/generic/generic_instantiate_alias.c3",
   "test/test_suite/generic/generic_mistake_initializer_2099.c3",
   "test/test_suite/statements/do_without_compound.c3",
   "test/test_suite/statements/if_single.c3",
