@@ -98,7 +98,6 @@ export default grammar({
     /\s|\r?\n/, // White space and line endings
     $.line_comment,
     $.block_comment,
-    $.doc_comment,
   ],
 
   // WARNING: must be in the same order as scanner.c TokenType enum
@@ -228,7 +227,6 @@ export default grammar({
       repeat($.doc_comment_contract),
       '*>',
     ),
-
     block_comment: $ => seq(
       '/*',
       // NOTE parsed by scanner.c (scan_block_comment_scanner)
@@ -415,11 +413,13 @@ export default grammar({
     // Module
     // -------------------------
     _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_param_list: $ => seq('{', commaSep1($._module_param), '}'),
+    generic_param_list: $ => seq('<', commaSep1($._module_param), '>'),
+    generic_param_list_deprecated: $ => seq('{', commaSep1($._module_param), '}'), // Deprecated
     module_declaration: $ => seq(
+      optional($.doc_comment),
       'module',
       field('path', $.path_ident),
-      optional($.generic_param_list),
+      optional(choice($.generic_param_list, alias($.generic_param_list_deprecated, $.generic_param_list))),
       optional($.attributes),
       ';'
     ),
@@ -427,6 +427,7 @@ export default grammar({
     // Import
     // -------------------------
     import_declaration: $ => seq(
+      optional($.doc_comment),
       'import',
       field('path', commaSep1($.path_ident)),
       optional($.attributes),
@@ -443,6 +444,7 @@ export default grammar({
     ),
 
     alias_declaration: $ => seq(
+      optional($.doc_comment),
       'alias',
       choice(
         // Variable/function/macro/method/module
@@ -463,6 +465,7 @@ export default grammar({
         // Type/function
         seq(
           field('name', $.type_ident),
+          optional($.generic_param_list),
           optional($.attributes),
           '=',
           choice($._type_expr, $.func_signature)
@@ -474,18 +477,20 @@ export default grammar({
     // Faultdef
     // -------------------------
     faultdef_declaration: $ => seq(
+      optional($.doc_comment),
       'faultdef',
-      commaSep1($.const_ident),
-      optional($.attributes),
+      commaSep1(seq($.const_ident, optional($.attributes))),
       ';',
     ),
 
     // Typedef
     // -------------------------
     typedef_declaration: $ => seq(
+      optional($.doc_comment),
       'typedef',
       field('name', $.type_ident),
       optional($.interface_impl_list),
+      optional($.generic_param_list),
       optional($.attributes),
       '=',
       optional('inline'),
@@ -499,6 +504,7 @@ export default grammar({
     attribute_list: $ => commaSep1($.attribute),
     attribute_param_list: $ => seq('(', $._parameters, ')'),
     attrdef_declaration: $ => seq(
+      optional($.doc_comment),
       'attrdef',
       field('name', $.at_type_ident),
       optional($.attribute_param_list),
@@ -523,9 +529,10 @@ export default grammar({
     identifier_list: $ => commaSep1($._decl_ident),
 
     struct_member_declaration: $ => choice(
-      seq(field('type', $.type), $.identifier_list, optional($.attributes), ';'),
-      seq($._struct_or_union, optional($.ident), optional($.attributes), field('body', $.struct_body)),
+      seq(optional($.doc_comment), field('type', $.type), $.identifier_list, optional($.attributes), ';'),
+      seq(optional($.doc_comment), $._struct_or_union, optional($.ident), optional($.attributes), field('body', $.struct_body)),
       seq(
+        optional($.doc_comment),
         'bitstruct',
         optional($.ident),
         ':',
@@ -533,7 +540,7 @@ export default grammar({
         optional($.attributes),
         field('body', $.bitstruct_body)
       ),
-      seq('inline', field('type', $.type), optional($.ident), optional($.attributes), ';'),
+      seq(optional($.doc_comment), 'inline', field('type', $.type), optional($.ident), optional($.attributes), ';'),
     ),
     struct_body: $ => seq(
       '{',
@@ -542,9 +549,11 @@ export default grammar({
       '}',
     ),
     struct_declaration: $ => seq(
+      optional($.doc_comment),
       $._struct_or_union,
       field('name', $.type_ident),
       optional($.interface_impl_list),
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.struct_body),
     ),
@@ -552,6 +561,7 @@ export default grammar({
     // Bitstruct
     // -------------------------
     bitstruct_member_declaration: $ => seq(
+      optional($.doc_comment),
       field('type', $._base_type),
       $.ident,
       optional(seq(
@@ -571,8 +581,10 @@ export default grammar({
       '}',
     ),
     bitstruct_declaration: $ => seq(
+      optional($.doc_comment),
       'bitstruct',
       field('name', $.type_ident),
+      optional($.generic_param_list),
       optional($.interface_impl_list),
       ':',
       alias($._type_no_generics, $.type),
@@ -584,6 +596,7 @@ export default grammar({
     // -------------------------
     enum_arg: $ => seq('=', $._expr),
     enum_constant: $ => seq(
+      optional($.doc_comment),
       field('name', $.const_ident),
       optional($.attributes),
       field('args', optional($.enum_arg)),
@@ -596,14 +609,11 @@ export default grammar({
     enum_param_list: $ => seq('(', commaSepTrailing($.enum_param), ')'),
     enum_spec: $ => prec.right(seq(
       ':',
-      choice(
-        seq(
-          optional('const'),
-          optional('inline'),
-          field('type', alias($._type_no_generics, $.type)),
-          optional($.enum_param_list)
-        ),
-        $.enum_param_list,
+      seq(
+        optional('const'),
+        optional('inline'),
+        optional(field('type', alias($._type_no_generics, $.type))),
+        optional($.enum_param_list)
       ),
     )),
     enum_body: $ => seq(
@@ -612,8 +622,10 @@ export default grammar({
       '}'
     ),
     enum_declaration: $ => seq(
+      optional($.doc_comment),
       'enum',
       field('name', $.type_ident),
+      optional($.generic_param_list),
       optional($.interface_impl_list),
       optional($.enum_spec),
       optional($.attributes),
@@ -622,10 +634,20 @@ export default grammar({
 
     // Interface
     // -------------------------
-    interface_body: $ => seq('{', repeat($.func_declaration), '}'),
+    interface_func_declaration: $ => seq(
+      optional($.doc_comment),
+      $.func_declaration
+    ),
+    interface_body: $ => seq(
+      '{',
+      repeat($.interface_func_declaration),
+      '}'
+    ),
     interface_declaration: $ => seq(
+      optional($.doc_comment),
       'interface',
       field('name', $.type_ident),
+      optional($.generic_param_list),
       optional(seq(
         ':',
         commaSep1($.type_ident),
@@ -653,14 +675,17 @@ export default grammar({
       'fn',
       $.func_header,
       $.func_param_list,
+      optional($.generic_param_list),
       optional($.attributes),
       ';',
     ),
 
     func_definition: $ => prec.right(seq(
+      optional($.doc_comment),
       'fn',
       $.func_header,
       $.func_param_list,
+      optional($.generic_param_list),
       optional($.attributes),
       // The body is made optional to improve error recovery for syntax highlighting (PR #41)
       field('body', optional($.macro_func_body)),
@@ -695,9 +720,11 @@ export default grammar({
     ),
 
     macro_declaration: $ => seq(
+      optional($.doc_comment),
       'macro',
       $.macro_header,
       $.macro_param_list,
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.macro_func_body),
     ),
@@ -832,6 +859,7 @@ export default grammar({
     ),
 
     global_declaration: $ => seq(
+      optional($.doc_comment),
       optional('extern'),
       choice(
         seq($._declaration, ';'),
@@ -942,6 +970,7 @@ export default grammar({
     ),
 
     single_declaration: $ => seq(
+      optional($.doc_comment),
       field('type', $.type),
       $._single_decl_after_type
     ),
@@ -1240,7 +1269,7 @@ export default grammar({
         ),
         $.paren_expr,
       ),
-      seq('$embed','(', commaSep($._expr), ')'),
+      seq('$embed', '(', commaSep($._expr), ')'),
       seq('$defined', '(', commaSep($._decl_or_expr), ')'),
       seq('$feature', '(', $.const_ident, ')'),
       seq('$assignable', '(', $._expr, ',', $._expr, ')'), // Deprecated >= 0.7.4
@@ -1325,6 +1354,8 @@ export default grammar({
     optional_expr: $ => prec.right(PREC.TERNARY, seq(
       field('argument', $._expr),
       field('operator', choice(
+        '~',
+        seq('~', '!'),
         '?',
         seq('?', '!'),
       )),
@@ -1472,6 +1503,7 @@ export default grammar({
       $.hash_ident,  // Hash
       $.const_ident, // Enum access
       $.access_eval, // $eval
+      $.ct_ident,    // Eval shorthand
     ),
 
     _access_ident_expr: $ => choice(
@@ -1575,12 +1607,12 @@ export default grammar({
         $.generic_type_ident
       ),
       repeat($.type_suffix),
-      optional('?'),
+      optional(choice('~', '?')),
     )),
     _type_no_generics: $ => prec.right(seq(
       $._base_type,
       repeat($.type_suffix),
-      optional('?'),
+      optional(choice('~', '?')),
     )),
   }
 });

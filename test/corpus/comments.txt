@@ -16,12 +16,16 @@ Block comment
 Singleline Doc comment
 ================================================================================
 <* Single doc text *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)))
+  (module_declaration
+    (doc_comment
+      (doc_comment_text))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Multiline Doc comment
@@ -30,12 +34,16 @@ Multiline Doc comment
 Multiple line doc
 Another line
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)))
+  (module_declaration
+    (doc_comment
+      (doc_comment_text))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Param Doc comment
@@ -43,17 +51,21 @@ Param Doc comment
 <*
  @param foo "text"
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_contract
-      (at_ident)
-      (ident)
-      (string_expr
-        (string_literal
-          (string_content))))))
+  (module_declaration
+    (doc_comment
+      (doc_comment_contract
+        (at_ident)
+        (ident)
+        (string_expr
+          (string_literal
+            (string_content)))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Param Doc 2 comments
@@ -70,53 +82,62 @@ Param Doc 2 comments
    `text`
    "text"
 *>
+fn void foo() {}
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_contract
-      (at_ident)
-      (ident)
-      (string_expr
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))
-        (string_literal
-          (string_content))))))
+  (func_definition
+    (doc_comment
+      (doc_comment_contract
+        (at_ident)
+        (ident)
+        (string_expr
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content))
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content))
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content))
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content))
+          (string_literal
+            (string_content)))))
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (macro_func_body
+      (compound_stmt))))
 
 ================================================================================
 Require Doc
@@ -124,45 +145,53 @@ Require Doc
 <*
  @require new_size == 0 || self.capacity != 0, foo()
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_contract
-      (at_ident)
-      (binary_expr
+  (module_declaration
+    (doc_comment
+      (doc_comment_contract
+        (at_ident)
         (binary_expr
-          (ident_expr
-            (ident))
-          (integer_literal))
-        (binary_expr
-          (field_expr
+          (binary_expr
             (ident_expr
               (ident))
-            (access_ident
-              (ident)))
-          (integer_literal)))
-      (call_expr
-        (ident_expr
-          (ident))
-        (call_arg_list)))))
+            (integer_literal))
+          (binary_expr
+            (field_expr
+              (ident_expr
+                (ident))
+              (access_ident
+                (ident)))
+            (integer_literal)))
+        (call_expr
+          (ident_expr
+            (ident))
+          (call_arg_list))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Require Doc single line
 ================================================================================
 <* @require foo == 0 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_contract
-      (at_ident)
-      (binary_expr
-        (ident_expr
-          (ident))
-        (integer_literal)))))
+  (module_declaration
+    (doc_comment
+      (doc_comment_contract
+        (at_ident)
+        (binary_expr
+          (ident_expr
+            (ident))
+          (integer_literal))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Doc compound
@@ -174,50 +203,58 @@ Doc compound
  @pure
  @something "with text"
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)
-    (doc_comment_contract
-      (at_ident)
-      (ident)
-      (string_expr
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))))
-    (doc_comment_contract
-      (at_ident))
-    (doc_comment_contract
-      (at_ident)
-      (string_expr
-        (string_literal
-          (string_content))))))
+  (module_declaration
+    (doc_comment
+      (doc_comment_text)
+      (doc_comment_contract
+        (at_ident)
+        (ident)
+        (string_expr
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content))))
+      (doc_comment_contract
+        (at_ident))
+      (doc_comment_contract
+        (at_ident)
+        (string_expr
+          (string_literal
+            (string_content)))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Doc compound 2
 ================================================================================
 <* A document
   @require foo == 0 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)
-    (doc_comment_contract
-      (at_ident)
-      (binary_expr
-        (ident_expr
-          (ident))
-        (integer_literal)))))
+  (module_declaration
+    (doc_comment
+      (doc_comment_text)
+      (doc_comment_contract
+        (at_ident)
+        (binary_expr
+          (ident_expr
+            (ident))
+          (integer_literal))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Doc @ inside doc
@@ -228,35 +265,43 @@ Doc @ inside doc
  @param foo "text"
  @param [&in] bar `text`
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment
-    (doc_comment_text)
-    (doc_comment_contract
-      (at_ident)
-      (ident)
-      (string_expr
-        (string_literal
-          (string_content))))
-    (doc_comment_contract
-      (at_ident)
-      (doc_comment_contract_descriptor)
-      (ident)
-      (string_expr
-        (raw_string_literal
-          (raw_string_content))))))
+  (module_declaration
+    (doc_comment
+      (doc_comment_text)
+      (doc_comment_contract
+        (at_ident)
+        (ident)
+        (string_expr
+          (string_literal
+            (string_content))))
+      (doc_comment_contract
+        (at_ident)
+        (doc_comment_contract_descriptor)
+        (ident)
+        (string_expr
+          (raw_string_literal
+            (raw_string_content)))))
+    (path_ident
+      (ident))))
 
 ================================================================================
 Empty doc
 ================================================================================
 <**>
+module foo;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (doc_comment))
+  (module_declaration
+    (doc_comment)
+    (path_ident
+      (ident))))
 
 ================================================================================
 Error doc
@@ -267,6 +312,7 @@ Error doc
  @require a != 0
  More text?
 *>
+module foo;
 
 --------------------------------------------------------------------------------
 
