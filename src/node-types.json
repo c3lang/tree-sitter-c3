@@ -4650,11 +4650,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         }
       ]
@@ -6739,6 +6743,10 @@
         },
         {
           "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "generic_param_list",
           "named": true
         },
         {

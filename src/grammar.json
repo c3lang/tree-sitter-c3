@@ -1029,6 +1029,57 @@
         }
       ]
     },
+    "_generic_param": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "const_ident"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_ident"
+        }
+      ]
+    },
+    "generic_param_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_generic_param"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_generic_param"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
     "_generic_args": {
       "type": "SEQ",
       "members": [
@@ -1806,57 +1857,6 @@
         }
       ]
     },
-    "_module_param": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "const_ident"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_ident"
-        }
-      ]
-    },
-    "generic_param_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "<"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_module_param"
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ","
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_module_param"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ">"
-        }
-      ]
-    },
     "generic_param_list_deprecated": {
       "type": "SEQ",
       "members": [
@@ -1869,7 +1869,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_module_param"
+              "name": "_generic_param"
             },
             {
               "type": "REPEAT",
@@ -1882,7 +1882,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_module_param"
+                    "name": "_generic_param"
                   }
                 ]
               }
@@ -2108,6 +2108,18 @@
                   "members": [
                     {
                       "type": "SYMBOL",
+                      "name": "generic_param_list"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
                       "name": "attributes"
                     },
                     {
@@ -2153,6 +2165,18 @@
                     "type": "SYMBOL",
                     "name": "const_ident"
                   }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "generic_param_list"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "CHOICE",
@@ -3470,18 +3494,6 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "generic_param_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
               "name": "interface_impl_list"
             },
             {
@@ -3495,6 +3507,18 @@
             {
               "type": "SYMBOL",
               "name": "enum_spec"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "generic_param_list"
             },
             {
               "type": "BLANK"
@@ -4642,6 +4666,18 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "generic_param_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "attributes"
             },
             {
@@ -4735,6 +4771,18 @@
             "type": "SYMBOL",
             "name": "const_ident"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "generic_param_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
