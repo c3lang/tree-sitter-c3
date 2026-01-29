@@ -1,7 +1,7 @@
 # tree-sitter-c3
 This is a complete implementation of the current C3 grammar for tree-sitter, usable for syntax highlighting, indentation, folding, code analysis, header/doc generation, and more.
 
-The latest version supports C3 0.7.7 and is not compatible with C3 < 0.7.0.
+The latest version supports C3 0.7.9 and is not compatible with C3 < 0.7.0.
 
 ### Playground
 Check out the tree-sitter-c3 playground here: https://c3lang.github.io/tree-sitter-c3/
@@ -20,8 +20,11 @@ https://github.com/c3lang/c3-ts-mode
 2) Run `:TSInstall c3`
 
 ### Helix
-Right now there is a proposal for [adding c3 language support](https://github.com/helix-editor/helix/pull/11521), but there is still no support.
-To get started with c3 in helix editor:
+> [!IMPORTANT]
+> Official C3 language support has [now been added](https://github.com/helix-editor/helix/pull/15206)
+---
+Old instructions prior to the official language support:
+
 1) Add this to `languages.toml`:
 ```toml
   [[grammar]]
