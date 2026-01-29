@@ -426,11 +426,15 @@ export default grammar({
 
     // Import
     // -------------------------
+    import_path: $ => seq(
+      $.path_ident,
+      optional($.attributes),
+    ),
+
     import_declaration: $ => seq(
       optional($.doc_comment),
       'import',
-      field('path', commaSep1($.path_ident)),
-      optional($.attributes),
+      commaSep1($.import_path),
       ';'
     ),
 

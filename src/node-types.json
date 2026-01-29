@@ -10433,32 +10433,36 @@
   {
     "type": "import_declaration",
     "named": true,
-    "fields": {
-      "path": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "path_ident",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
+      "types": [
+        {
+          "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "import_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "attributes",
           "named": true
         },
         {
-          "type": "doc_comment",
+          "type": "path_ident",
           "named": true
         }
       ]

@@ -1966,6 +1966,27 @@
         }
       ]
     },
+    "import_path": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "path_ident"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "attributes"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "import_declaration": {
       "type": "SEQ",
       "members": [
@@ -1986,43 +2007,27 @@
           "value": "import"
         },
         {
-          "type": "FIELD",
-          "name": "path",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "path_ident"
-              },
-              {
-                "type": "REPEAT",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": ","
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "path_ident"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "attributes"
+              "name": "import_path"
             },
             {
-              "type": "BLANK"
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "import_path"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -3089,18 +3094,6 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "generic_param_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
               "name": "interface_impl_list"
             },
             {
@@ -3120,6 +3113,18 @@
           },
           "named": true,
           "value": "type"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "generic_param_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",

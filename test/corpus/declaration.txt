@@ -19,10 +19,11 @@ fn void main() {
         (ident))
       (ident)))
   (import_declaration
-    path: (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (func_definition
     (func_header
       return_type: (type
@@ -50,27 +51,55 @@ Import declarations
 import std::io;
 import std::math;
 import std::data::json;
+import std::io, std::math @norecurse, std::data::json @norecurse;
 
 --------------------------------------------------------------------------------
 
 (source_file
   (import_declaration
-    (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (import_declaration
-    (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (import_declaration
-    (path_ident
-      (module_resolution
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (module_resolution
+          (ident))
+        (ident))))
+  (import_declaration
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
         (ident))
-      (module_resolution
+      (attributes
+        (attribute
+          (at_ident))))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (module_resolution
+          (ident))
         (ident))
-      (ident))))
+      (attributes
+        (attribute
+          (at_ident))))))
 
 ================================================================================
 Alias declarations
