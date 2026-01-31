@@ -295,6 +295,9 @@ export default grammar({
 
     // Generic Parameters
     // -------------------------
+    _generic_param: $ => choice($.const_ident, $.type_ident),
+    generic_param_list: $ => seq('<', commaSep1($._generic_param), '>'),
+
     _generic_args: $ => commaSep1($._expr),
     generic_arg_list: $ => seq('{', optional($._generic_args), '}'),
 
@@ -412,9 +415,7 @@ export default grammar({
 
     // Module
     // -------------------------
-    _module_param: $ => choice($.const_ident, $.type_ident),
-    generic_param_list: $ => seq('<', commaSep1($._module_param), '>'),
-    generic_param_list_deprecated: $ => seq('{', commaSep1($._module_param), '}'), // Deprecated
+    generic_param_list_deprecated: $ => seq('{', commaSep1($._generic_param), '}'), // Deprecated
     module_declaration: $ => seq(
       optional($.doc_comment),
       'module',
@@ -426,11 +427,15 @@ export default grammar({
 
     // Import
     // -------------------------
+    import_path: $ => seq(
+      $.path_ident,
+      optional($.attributes),
+    ),
+
     import_declaration: $ => seq(
       optional($.doc_comment),
       'import',
-      field('path', commaSep1($.path_ident)),
-      optional($.attributes),
+      commaSep1($.import_path),
       ';'
     ),
 
@@ -450,6 +455,7 @@ export default grammar({
         // Variable/function/macro/method/module
         seq(
           field('name', $._func_macro_ident),
+          optional($.generic_param_list),
           optional($.attributes),
           choice(
             seq('=', 'module', $.path_ident),
@@ -459,6 +465,7 @@ export default grammar({
         // Constant
         seq(
           field('name', $.const_ident),
+          optional($.generic_param_list),
           optional($.attributes),
           $._assign_right_expr,
         ),
@@ -584,10 +591,10 @@ export default grammar({
       optional($.doc_comment),
       'bitstruct',
       field('name', $.type_ident),
-      optional($.generic_param_list),
       optional($.interface_impl_list),
       ':',
       alias($._type_no_generics, $.type),
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.bitstruct_body),
     ),
@@ -625,9 +632,9 @@ export default grammar({
       optional($.doc_comment),
       'enum',
       field('name', $.type_ident),
-      optional($.generic_param_list),
       optional($.interface_impl_list),
       optional($.enum_spec),
+      optional($.generic_param_list),
       optional($.attributes),
       field('body', $.enum_body),
     ),
@@ -834,6 +841,7 @@ export default grammar({
 
     _decl_after_type: $ => seq(
       $._decl_ident_or_identifier_list,
+      optional($.generic_param_list),
       optional($.attributes),
       optional($._assign_right_expr),
     ),
@@ -849,6 +857,7 @@ export default grammar({
       'const',
       field('type', optional($.type)),
       field('name', $.const_ident),
+      optional($.generic_param_list),
       optional($.attributes),
       optional($._assign_right_expr),
     ),

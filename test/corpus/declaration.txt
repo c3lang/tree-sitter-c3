@@ -19,10 +19,11 @@ fn void main() {
         (ident))
       (ident)))
   (import_declaration
-    path: (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (func_definition
     (func_header
       return_type: (type
@@ -50,27 +51,55 @@ Import declarations
 import std::io;
 import std::math;
 import std::data::json;
+import std::io, std::math @norecurse, std::data::json @norecurse;
 
 --------------------------------------------------------------------------------
 
 (source_file
   (import_declaration
-    (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (import_declaration
-    (path_ident
-      (module_resolution
-        (ident))
-      (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident))))
   (import_declaration
-    (path_ident
-      (module_resolution
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (module_resolution
+          (ident))
+        (ident))))
+  (import_declaration
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (ident)))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
         (ident))
-      (module_resolution
+      (attributes
+        (attribute
+          (at_ident))))
+    (import_path
+      (path_ident
+        (module_resolution
+          (ident))
+        (module_resolution
+          (ident))
         (ident))
-      (ident))))
+      (attributes
+        (attribute
+          (at_ident))))))
 
 ================================================================================
 Alias declarations
@@ -1104,3 +1133,156 @@ V29ybGQ=`;
       (ident)
       (bytes_expr
         (bytes_literal)))))
+
+================================================================================
+Generic declarations
+================================================================================
+
+module foo <Type, CONST>;
+
+const MYCONST <Type, CONST> = CONST;
+alias MYCONST2 <Type> = MYCONST{Type, 2};
+
+int myglobal <Type, CONST> = CONST;
+alias myglobal2 <Type> = myglobal{Type, 2};
+
+typedef MyType <Type, Const> = Type;
+alias MyType <Type, Const> = Type;
+
+struct Foo <Type, Const> {}
+bitstruct Foo : ulong <Type, Const> {}
+enum Foo : ulong <Type, Const> {}
+interface Foo <Type, Const> {}
+
+fn void main() <Type, CONST> {}
+macro void foo() <Type, CONST> {}
+extern fn void foo() <Type, CONST>;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_declaration
+    (path_ident
+      (ident))
+    (generic_param_list
+      (type_ident)
+      (const_ident)))
+  (global_declaration
+    (const_declaration
+      (const_ident)
+      (generic_param_list
+        (type_ident)
+        (const_ident))
+      (ident_expr
+        (const_ident))))
+  (alias_declaration
+    (const_ident)
+    (generic_param_list
+      (type_ident))
+    (trailing_generic_expr
+      (ident_expr
+        (const_ident))
+      (generic_arg_list
+        (type
+          (path_type_ident
+            (type_ident)))
+        (integer_literal))))
+  (global_declaration
+    (declaration
+      (type
+        (base_type_name))
+      (ident)
+      (generic_param_list
+        (type_ident)
+        (const_ident))
+      (ident_expr
+        (const_ident))))
+  (alias_declaration
+    (ident)
+    (generic_param_list
+      (type_ident))
+    (trailing_generic_expr
+      (ident_expr
+        (ident))
+      (generic_arg_list
+        (type
+          (path_type_ident
+            (type_ident)))
+        (integer_literal))))
+  (typedef_declaration
+    (type_ident)
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (type
+      (path_type_ident
+        (type_ident))))
+  (alias_declaration
+    (type_ident)
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (type
+      (path_type_ident
+        (type_ident))))
+  (struct_declaration
+    (type_ident)
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (struct_body))
+  (bitstruct_declaration
+    (type_ident)
+    (type
+      (base_type_name))
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (bitstruct_body))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (base_type_name)))
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (enum_body))
+  (interface_declaration
+    (type_ident)
+    (generic_param_list
+      (type_ident)
+      (type_ident))
+    (interface_body))
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (generic_param_list
+      (type_ident)
+      (const_ident))
+    (macro_func_body
+      (compound_stmt)))
+  (macro_declaration
+    (macro_header
+      (type
+        (base_type_name))
+      (ident))
+    (macro_param_list)
+    (generic_param_list
+      (type_ident)
+      (const_ident))
+    (macro_func_body
+      (compound_stmt)))
+  (global_declaration
+    (func_declaration
+      (func_header
+        (type
+          (base_type_name))
+        (ident))
+      (func_param_list)
+      (generic_param_list
+        (type_ident)
+        (const_ident)))))
