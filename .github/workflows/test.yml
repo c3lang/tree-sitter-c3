@@ -11,9 +11,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v1
+        uses: tree-sitter/setup-action@v2
       - name: Run parser and binding tests
-        uses: tree-sitter/parser-test-action@v2
+        uses: tree-sitter/parser-test-action@v3
         with:
           generate: false
     
@@ -32,7 +32,7 @@ jobs:
           repository: c3lang/vendor
           path: vendor
       - name: Download latest release
-        uses: robinraju/release-downloader@v1.12
+        uses: robinraju/release-downloader@v1
         with:
           repository: c3lang/c3c
           latest: true
@@ -42,7 +42,7 @@ jobs:
           extract: true
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install tree-sitter
-        uses: tree-sitter/setup-action@v1
+        uses: tree-sitter/setup-action@v2
         with:
           install-lib: true
           install-cli: false
