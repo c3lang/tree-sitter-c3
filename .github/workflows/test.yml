@@ -16,6 +16,9 @@ jobs:
         uses: tree-sitter/parser-test-action@v3
         with:
           generate: false
+          go-version: "1.25"
+          python-version: "3.14"
+          zig-version: "0.15.2"
     
   test-against-c3c:
     name: Test against stdlib and test suite
