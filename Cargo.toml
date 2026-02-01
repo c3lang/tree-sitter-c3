@@ -8,7 +8,7 @@ readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "c3"]
 categories = ["parser-implementations", "parsing", "text-editors"]
 repository = "https://github.com/c3lang/tree-sitter-c3"
-edition = "2021"
+edition = "2024"
 autoexamples = false
 
 build = "bindings/rust/build.rs"

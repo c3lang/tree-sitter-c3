@@ -1,8 +1,9 @@
 node_modules
 build
 log.html
-
+target
 # Grammar volatiles
 /*.wasm
 /*.obj
 /*.o
+Cargo.lock
