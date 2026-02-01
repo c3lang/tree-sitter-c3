@@ -13,9 +13,9 @@ jobs:
   github:
     uses: tree-sitter/workflows/.github/workflows/release.yml@main
     with:
-      abi-version: "14"
+      abi-version: "15"
       generate: true
-      attestations: true
+
 
 
       

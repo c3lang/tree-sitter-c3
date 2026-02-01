@@ -1,6 +1,8 @@
 name: Run tests
 
 on:
+  push:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -11,11 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v1
+        uses: tree-sitter/setup-action@v2
       - name: Run parser and binding tests
-        uses: tree-sitter/parser-test-action@v2
+        uses: tree-sitter/parser-test-action@v3
         with:
           generate: false
+          go-version: "1.25"
+          python-version: "3.14"
+          zig-version: "0.15.2"
     
   test-against-c3c:
     name: Test against stdlib and test suite
@@ -36,13 +41,13 @@ jobs:
         with:
           repository: c3lang/c3c
           latest: true
-          fileName: c3-ubuntu-22.tar.gz
+          fileName: c3-linux.tar.gz
           tarBall: true
           zipBall: false
           extract: true
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install tree-sitter
-        uses: tree-sitter/setup-action@v1
+        uses: tree-sitter/setup-action@v2
         with:
           install-lib: true
           install-cli: false
