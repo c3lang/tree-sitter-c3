@@ -36,16 +36,16 @@ jobs:
         with:
           repository: c3lang/vendor
           path: vendor
-      - name: Install C3 compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl tar
-          curl -L https://github.com/c3lang/c3c/releases/download/v0.7.9/c3-linux.tar.gz -o c3.tar.gz
-          tar -xzf c3.tar.gz
-          sudo mv c3/c3c /usr/local/bin/c3c
-          sudo chmod +x /usr/local/bin/c3c
-          sudo cp -r c3 /usr/local/c3
-          echo "C3C_LIB=/usr/local/c3/lib" >> $GITHUB_ENV
+      - name: Download latest release
+        uses: robinraju/release-downloader@v1.12
+        with:
+          repository: c3lang/c3c
+          latest: true
+          fileName: c3-linux.tar.gz
+          tarBall: true
+          zipBall: false
+          extract: true
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install tree-sitter
         uses: tree-sitter/setup-action@v2
         with:
@@ -53,4 +53,4 @@ jobs:
           install-cli: false
       - name: Run tests
         run: |-
-          c3c run --path source/test_runner --libdir $PWD/vendor/libraries --libdir $PWD/source/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $(find $PWD -type d -name 'test_suite')
+          c3/c3c run --path source/test_runner --libdir $PWD/vendor/libraries --libdir $PWD/source/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $(find $PWD -type d -name 'test_suite')
