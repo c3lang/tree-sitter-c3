@@ -7,3 +7,5 @@ target
 /*.obj
 /*.o
 Cargo.lock
+.cache
+.vscode
