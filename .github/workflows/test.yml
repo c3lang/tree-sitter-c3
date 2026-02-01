@@ -53,4 +53,4 @@ jobs:
         run: c3c test -L $LD_LIBRARY_PATH
       - name: Run tests
         run: |-
-          c3/c3c run --path source/test_runner --libdir $PWD/vendor/libraries --libdir $PWD/source/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $(find $PWD -type d -name 'test_suite')
+          c3c run --path source/test_runner --libdir $PWD/vendor/libraries --libdir $PWD/source/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $(find $PWD -type d -name 'test_suite')
