@@ -45,6 +45,10 @@
         {
           "type": "ident",
           "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
         }
       ]
     }
@@ -4842,7 +4846,7 @@
     }
   },
   {
-    "type": "ct_case_stmt",
+    "type": "ct_case_cond",
     "named": true,
     "fields": {
       "lambda_body": {
@@ -4894,10 +4898,6 @@
         },
         {
           "type": "const_ident",
-          "named": true
-        },
-        {
-          "type": "ct_stmt_body",
           "named": true
         },
         {
@@ -5002,6 +5002,25 @@
         },
         {
           "type": "var_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ct_case_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ct_case_cond",
+          "named": true
+        },
+        {
+          "type": "ct_stmt_body",
           "named": true
         }
       ]
@@ -7004,6 +7023,108 @@
     "type": "do_stmt",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "asm_block_stmt",
+            "named": true
+          },
+          {
+            "type": "assert_stmt",
+            "named": true
+          },
+          {
+            "type": "break_stmt",
+            "named": true
+          },
+          {
+            "type": "compound_stmt",
+            "named": true
+          },
+          {
+            "type": "continue_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_assert_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_echo_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_for_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_foreach_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_if_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_switch_stmt",
+            "named": true
+          },
+          {
+            "type": "declaration_stmt",
+            "named": true
+          },
+          {
+            "type": "defer_stmt",
+            "named": true
+          },
+          {
+            "type": "do_stmt",
+            "named": true
+          },
+          {
+            "type": "expr_stmt",
+            "named": true
+          },
+          {
+            "type": "for_stmt",
+            "named": true
+          },
+          {
+            "type": "foreach_stmt",
+            "named": true
+          },
+          {
+            "type": "if_stmt",
+            "named": true
+          },
+          {
+            "type": "nextcase_stmt",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
+            "named": true
+          },
+          {
+            "type": "switch_stmt",
+            "named": true
+          },
+          {
+            "type": "var_stmt",
+            "named": true
+          },
+          {
+            "type": "while_stmt",
+            "named": true
+          }
+        ]
+      },
       "condition": {
         "multiple": false,
         "required": false,
@@ -7016,13 +7137,9 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
-        {
-          "type": "compound_stmt",
-          "named": true
-        },
         {
           "type": "label",
           "named": true
@@ -7273,24 +7390,106 @@
     "fields": {
       "body": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "asm_block_stmt",
+            "named": true
+          },
+          {
+            "type": "assert_stmt",
+            "named": true
+          },
+          {
+            "type": "break_stmt",
+            "named": true
+          },
+          {
             "type": "compound_stmt",
+            "named": true
+          },
+          {
+            "type": "continue_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_assert_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_echo_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_for_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_foreach_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_if_stmt",
+            "named": true
+          },
+          {
+            "type": "ct_switch_stmt",
+            "named": true
+          },
+          {
+            "type": "declaration_stmt",
+            "named": true
+          },
+          {
+            "type": "defer_stmt",
+            "named": true
+          },
+          {
+            "type": "do_stmt",
+            "named": true
+          },
+          {
+            "type": "expr_stmt",
+            "named": true
+          },
+          {
+            "type": "for_stmt",
+            "named": true
+          },
+          {
+            "type": "foreach_stmt",
+            "named": true
+          },
+          {
+            "type": "if_stmt",
+            "named": true
+          },
+          {
+            "type": "nextcase_stmt",
+            "named": true
+          },
+          {
+            "type": "return_stmt",
+            "named": true
+          },
+          {
+            "type": "switch_stmt",
+            "named": true
+          },
+          {
+            "type": "var_stmt",
+            "named": true
+          },
+          {
+            "type": "while_stmt",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "if_stmt",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -9953,7 +10152,19 @@
       "required": true,
       "types": [
         {
+          "type": "base_type_name",
+          "named": true
+        },
+        {
+          "type": "ct_type_ident",
+          "named": true
+        },
+        {
           "type": "generic_arg_list",
+          "named": true
+        },
+        {
+          "type": "paren_expr",
           "named": true
         },
         {
@@ -18018,6 +18229,10 @@
   },
   {
     "type": "catch",
+    "named": false
+  },
+  {
+    "type": "cenum",
     "named": false
   },
   {

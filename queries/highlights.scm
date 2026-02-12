@@ -70,6 +70,14 @@
 (enum_param
   (ident) @variable.parameter)
 
+(foreach_var
+  [
+    (ident)
+    (ct_ident)
+    (hash_ident)
+  ] @variable.special
+  (#set! priority 120))
+
 ; Keyword (from `c3c --list-keywords`)
 [
   "alias"
@@ -138,6 +146,7 @@
 
 [
   "bitstruct"
+  "cenum"
   "enum"
   "faultdef"
   "interface"
@@ -254,10 +263,24 @@
 
 (bytes_literal) @number
 
+((bytes_literal) @string.special
+  (#match? @string.special "^x")
+  (#set! priority 110))
+
+((bytes_literal) @string.special
+  (#match? @string.special "^b64")
+  (#set! priority 110))
+
 ; String
 (string_literal) @string
 
 (raw_string_literal) @string
+
+(string_literal "\"" @punctuation.special (#set! priority 111))
+
+(raw_string_literal "`" @punctuation.special (#set! priority 111))
+
+(char_literal "'" @punctuation.special (#set! priority 111))
 
 ; Escape Sequence
 (escape_sequence) @string.escape
@@ -274,6 +297,14 @@
       "is_substruct" "len" "lookup" "lookup_field" "max" "membersof" "methodsof" "min" "nan" "inner"
       "kindof" "names" "nameof" "params" "paramsof" "parentof" "qnameof" "returns" "sizeof" "set"
       "tagof" "has_tagof" "values" "typeid")))
+
+(type_access_expr
+  field: (access_ident
+    [
+      (ident)
+      (at_ident)
+    ] @variable.member)
+  (#set! priority 90))
 
 ; Label
 [
@@ -334,18 +365,22 @@
 ; Function Call
 (call_expr
   function: (ident_expr
+    (module_resolution)*
     [
       (ident)
       (at_ident)
-    ] @function.call))
+    ] @function.call)
+  (#set! priority 110))
 
 (call_expr
   function: (trailing_generic_expr
     argument: (ident_expr
+      (module_resolution)*
       [
         (ident)
         (at_ident)
-      ] @function.call)))
+      ] @function.call))
+  (#set! priority 110))
 
 ; Method call
 (call_expr
@@ -354,7 +389,8 @@
       [
         (ident)
         (at_ident)
-      ] @function.method.call)))
+      ] @function.method.call))
+  (#set! priority 110))
 
 ; Method on type
 (call_expr
@@ -363,7 +399,8 @@
       [
         (ident)
         (at_ident)
-      ] @function.method.call)))
+      ] @function.method.call))
+  (#set! priority 110))
 
 ; Builtin call
 (call_expr

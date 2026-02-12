@@ -830,6 +830,11 @@ enum State : int {
     TERMINATED,
 }
 
+cenum OpCode {
+    ADD,
+    SUB,
+}
+
 enum TokenKind @packed @opaque {
     KEYWORD,
     OPERATOR,
@@ -875,6 +880,13 @@ enum Foo : int (inline String name, int y, int z)
     (enum_body
       (enum_constant
         (const_ident))
+      (enum_constant
+        (const_ident))
+      (enum_constant
+        (const_ident))))
+  (enum_declaration
+    (type_ident)
+    (enum_body
       (enum_constant
         (const_ident))
       (enum_constant
@@ -963,10 +975,14 @@ Error declarations
 ================================================================================
 
 faultdef FILE_NOT_FOUND, FILE_NOT_READABLE;
+faultdef FILE_NOT_FOUND, FILE_NOT_READABLE,;
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (faultdef_declaration
+    (const_ident)
+    (const_ident))
   (faultdef_declaration
     (const_ident)
     (const_ident)))
@@ -1286,3 +1302,164 @@ extern fn void foo() <Type, CONST>;
       (generic_param_list
         (type_ident)
         (const_ident)))))
+
+================================================================================
+Compiler parity declarations
+================================================================================
+
+const enum MyEnum : inline CInt {
+  FOO = 1,
+  BAR = 5,
+}
+
+enum Token : (int code, String text) {
+  A { 1, "a" },
+  B = { 2, "b" },
+  C = 3,
+}
+
+fn void takes_ref(int& value) {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (path_type_ident
+          (type_ident))))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)))))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (enum_param_list
+        (enum_param
+          (type
+            (base_type_name))
+          (ident))
+        (enum_param
+          (type
+            (path_type_ident
+              (type_ident)))
+          (ident))))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)
+          (string_literal
+            (string_content))))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (initializer_list
+            (initializer_element
+              (integer_literal))
+            (initializer_element
+              (string_literal
+                (string_content))))))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)))))
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list
+      (param
+        (type
+          (base_type_name))
+        (ident)))
+    (macro_func_body
+      (compound_stmt))))
+
+================================================================================
+Compiler parity edge declarations
+================================================================================
+
+enum LegacyStyle : const int {
+  X = { 1 },
+  Y { 2 },
+}
+
+enum Assoc : (int a, int b) {
+  A = { 1, 2, },
+  B { 3, 4, },
+}
+
+fn void ref_variants(int& value, int other = 1) {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (type
+        (base_type_name)))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (initializer_list
+            (initializer_element
+              (integer_literal)))))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)))))
+  (enum_declaration
+    (type_ident)
+    (enum_spec
+      (enum_param_list
+        (enum_param
+          (type
+            (base_type_name))
+          (ident))
+        (enum_param
+          (type
+            (base_type_name))
+          (ident))))
+    (enum_body
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (initializer_list
+            (initializer_element
+              (integer_literal))
+            (initializer_element
+              (integer_literal)))))
+      (enum_constant
+        (const_ident)
+        (enum_arg
+          (integer_literal)
+          (integer_literal)))))
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list
+      (param
+        (type
+          (base_type_name))
+        (ident))
+      (param
+        (type
+          (base_type_name))
+        (ident)
+        (param_default
+          (integer_literal))))
+    (macro_func_body
+      (compound_stmt))))

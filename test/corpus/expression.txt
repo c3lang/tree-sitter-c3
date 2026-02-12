@@ -1843,3 +1843,36 @@ fn void main() {
                                   (paren_expr
                                     (type
                                       (base_type_name))))))))))))))))))))
+
+================================================================================
+Compiler parity field access recovery
+================================================================================
+
+fn void main()
+{
+  int x;
+  x."";
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (macro_func_body
+      (compound_stmt
+        (declaration_stmt
+          (declaration
+            (type
+              (base_type_name))
+            (ident)))
+        (expr_stmt
+          (field_expr
+            (ident_expr
+              (ident))
+            (access_ident
+              (string_literal))))))))

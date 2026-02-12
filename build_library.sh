@@ -85,12 +85,12 @@ if [ ! -d "$SCRIPT_DIR/build" ] ; then
 fi
 
 echo "Generating tree-sitter-c3"
-tree-sitter generate;
+npx tree-sitter generate;
 [ $? -ne 0 ] && build_aborted;
 
 if [ "$LIB_SHARED" = true ] ; then
 	echo "Building $LIB_NAME shared lib in '$SCRIPT_DIR/build/$LIB_NAME.so"
-	tree-sitter build -o ./build/$LIB_NAME.so;
+	npx tree-sitter build -o ./build/$LIB_NAME.so;
 fi
 
 if [ "$LIB_STATIC" = true ] ; then

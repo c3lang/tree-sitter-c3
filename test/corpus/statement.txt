@@ -693,3 +693,191 @@ $assert 0 > 1 : "Foo %s", 0.0002;
     (string_literal
       (string_content))
     (real_literal)))
+
+================================================================================
+Compiler parity do statements
+================================================================================
+
+fn void main() {
+  do print(); while (1);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      return_type: (type
+        (base_type_name))
+      name: (ident))
+    (func_param_list)
+    body: (macro_func_body
+      (compound_stmt
+        (do_stmt
+          body: (expr_stmt
+            (call_expr
+              function: (ident_expr
+                (ident))
+              arguments: (call_arg_list)))
+          condition: (paren_expr
+            (integer_literal)))))))
+
+================================================================================
+Compiler parity do edge cases
+================================================================================
+
+fn void main() {
+  do L: print(1); while (2);
+  do { print(3); } while (4);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (macro_func_body
+      (compound_stmt
+        (do_stmt
+          (label
+            (const_ident))
+          (expr_stmt
+            (call_expr
+              (ident_expr
+                (ident))
+              (call_arg_list
+                (call_arg
+                  (integer_literal)))))
+          (paren_expr
+            (integer_literal)))
+        (do_stmt
+          (compound_stmt
+            (expr_stmt
+              (call_expr
+                (ident_expr
+                  (ident))
+                (call_arg_list
+                  (call_arg
+                    (integer_literal))))))
+          (paren_expr
+            (integer_literal)))))))
+
+================================================================================
+Compiler parity compile-time switch conditions
+================================================================================
+
+fn void main() {
+  int a;
+  $switch $typeof(a):
+    $case int..float:
+      print(1);
+  $endswitch
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (macro_func_body
+      (compound_stmt
+        (declaration_stmt
+          (declaration
+            (type
+              (base_type_name))
+            (ident)))
+        (ct_switch_stmt
+          (ct_switch_cond
+            (type
+              (paren_expr
+                (ident_expr
+                  (ident)))))
+          (ct_case_stmt
+            (ct_case_cond
+              (type
+                (base_type_name))
+              (type
+                (base_type_name)))
+            (ct_stmt_body
+              (expr_stmt
+                (call_expr
+                  (ident_expr
+                    (ident))
+                  (call_arg_list
+                    (call_arg
+                      (integer_literal))))))))))))
+
+================================================================================
+Compiler parity if statements
+================================================================================
+
+fn void test()
+{
+    int x = 0;
+    if (x < 0) x++;
+    else { x++; };
+
+    if (x < 0)
+    {
+        x++;
+    }
+    else x++;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (func_definition
+    (func_header
+      (type
+        (base_type_name))
+      (ident))
+    (func_param_list)
+    (macro_func_body
+      (compound_stmt
+        (declaration_stmt
+          (declaration
+            (type
+              (base_type_name))
+            (ident)
+            (integer_literal)))
+        (if_stmt
+          (paren_cond
+            (binary_expr
+              (ident_expr
+                (ident))
+              (integer_literal)))
+          (expr_stmt
+            (update_expr
+              (ident_expr
+                (ident))))
+          (else_part
+            (compound_stmt
+              (expr_stmt
+                (update_expr
+                  (ident_expr
+                    (ident)))))))
+        (if_stmt
+          (paren_cond
+            (binary_expr
+              (ident_expr
+                (ident))
+              (integer_literal)))
+          (compound_stmt
+            (expr_stmt
+              (update_expr
+                (ident_expr
+                  (ident)))))
+          (else_part
+            (expr_stmt
+              (update_expr
+                (ident_expr
+                  (ident))))))))))

@@ -1,29 +1,44 @@
 {
-  "provides" : "tree_sitter_c3",
-
+  "provides": "tree_sitter_c3",
   // Disable these if you don't want to link statically
-  "c-sources" : ["../../../src/parser.c", "../../../src/scanner.c"],
-  "c-include-dirs" : ["../../../src"],
-  "cflags" : "-O2 -fPIC",
+  "c-sources": ["../../../src/parser.c", "../../../src/scanner.c"],
+  "c-include-dirs": ["../../../src"],
 
-  "targets" : {
-    "linux-aarch64" : {
+  "cflags": "-O2",
+
+  "targets": {
+    "linux-x86": {
+      "cflags": "-O2 -fPIC"
     },
-    "linux-riscv32" : {
+    "linux-x64": {
+      "cflags": "-O2 -fPIC"
     },
-    "linux-riscv64" : {
+    "linux-aarch64": {
+      "cflags": "-O2 -fPIC"
     },
-    "linux-x86" : {
+    "linux-riscv32": {
+      "cflags": "-O2 -fPIC"
     },
-    "linux-x64" : {
+    "linux-riscv64": {
+      "cflags": "-O2 -fPIC"
     },
-    "macos-aarch64" : {
+
+    "macos-x64": {
+      "cflags": "-O2 -fPIC"
     },
-    "macos-x64" : {
+    "macos-aarch64": {
+      "cflags": "-O2 -fPIC"
     },
-    "netbsd-x64" : {
+
+    "netbsd-x64": {
+      "cflags": "-O2 -fPIC"
     },
-    "openbsd-x64" : {
+    "openbsd-x64": {
+      "cflags": "-O2 -fPIC"
     },
+
+    "windows-x64": {
+      "cflags": "-O2"
+    }
   }
 }

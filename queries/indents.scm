@@ -11,32 +11,32 @@
   (ct_for_stmt)
   (ct_foreach_stmt)
   (ct_switch_stmt)
-] @indent.begin
+] @indent
 
 ([
   (case_stmt)
   (default_stmt)
   (ct_case_stmt)
-] @indent.begin
+] @indent
   (#set! indent.immediate 1))
 
 (expr_stmt
-  ";" @indent.end) @indent.begin
+  ";" @end) @indent
 
 (declaration
-  ";" @indent.end) @indent.begin
+  ";" @end) @indent
 
 (const_declaration
-  ";" @indent.end) @indent.begin
+  ";" @end) @indent
 
 (return_stmt
-  ";" @indent.end) @indent.begin
+  ";" @end) @indent
 
 (faultdef_declaration
-  ";" @indent.end) @indent.begin
+  ";" @end) @indent
 
 (macro_func_body
-  ";" @indent.end)
+  ";" @end)
 
 [
   ")"
@@ -45,9 +45,9 @@
   "$endforeach"
   "$endswitch"
   "$endif"
-] @indent.branch @indent.end
+] @indent @end
 
-"$else" @indent.branch
+"$else" @indent @end
 
 ([
   (func_param_list)
@@ -59,7 +59,7 @@
   (for_cond)
   (foreach_cond)
   (paren_expr)
-] @indent.align
+] @_indent.align
   (#set! indent.open_delimiter "(")
   (#set! indent.close_delimiter ")"))
 
@@ -68,6 +68,6 @@
   (doc_comment)
   (raw_string_literal)
   (bytes_literal)
-] @indent.auto
+] @_indent.auto
 
-(string_literal) @indent.ignore
+(string_literal) @_indent.ignore
