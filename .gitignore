@@ -2,7 +2,18 @@ node_modules
 build
 log.html
 
+*.a
+*.dylib
+*.o
+
+tree-sitter-c3.pc
+
+target
 # Grammar volatiles
 /*.wasm
 /*.obj
 /*.o
+Cargo.lock
+.cache
+.vscode
+.c3libs

@@ -322,6 +322,7 @@ export default grammar({
         field('type', $.type),
         optional(choice(
           '...', // Deprecated, remove for C3 0.8
+          seq('&', field('name', $.ident), optional($.attributes)),
           seq(optional('...'), field('name', choice($.ident, $.ct_ident)), optional($.attributes)),
           // Macro expression parameters
           seq(field('name', $.hash_ident), optional($.attributes)),
@@ -486,7 +487,7 @@ export default grammar({
     faultdef_declaration: $ => seq(
       optional($.doc_comment),
       'faultdef',
-      commaSep1(seq($.const_ident, optional($.attributes))),
+      commaSepTrailing1(seq($.const_ident, optional($.attributes))),
       ';',
     ),
 
@@ -601,7 +602,10 @@ export default grammar({
 
     // Enum
     // -------------------------
-    enum_arg: $ => seq('=', $._expr),
+    enum_arg: $ => choice(
+      seq('=', $._expr),
+      seq('{', commaSepTrailing($._expr), '}'),
+    ),
     enum_constant: $ => seq(
       optional($.doc_comment),
       field('name', $.const_ident),
@@ -630,7 +634,11 @@ export default grammar({
     ),
     enum_declaration: $ => seq(
       optional($.doc_comment),
-      'enum',
+      choice(
+        'enum',
+        'cenum',
+        seq('const', 'enum'),
+      ),
       field('name', $.type_ident),
       optional($.interface_impl_list),
       optional($.enum_spec),
@@ -953,21 +961,19 @@ export default grammar({
 
     // If Statement
     // -------------------------
-    if_stmt: $ => seq(
+    if_stmt: $ => prec.right(seq(
       'if',
       optional($.label),
       field('condition', $.paren_cond),
-      choice(
-        field('body', $._statement),
-        seq(field('body', $.compound_stmt), $.else_part),
-      ),
-    ),
+      field('body', $._statement),
+      optional($.else_part),
+    )),
     else_part: $ => seq(
       'else',
-      choice(
+      field('body', choice(
         $.if_stmt,
-        field('body', $.compound_stmt),
-      ),
+        $._statement,
+      )),
     ),
 
     // For Statement
@@ -1046,7 +1052,7 @@ export default grammar({
     do_stmt: $ => seq(
       'do',
       optional($.label),
-      $.compound_stmt,
+      field('body', $._statement),
       seq(
         optional(
           seq(
@@ -1140,14 +1146,20 @@ export default grammar({
 
     // Compile Time Switch Statement
     // -------------------------
+    ct_case_cond: $ => choice(
+      seq($._type_expr, '..', $._type_expr),
+      seq($._expr, '..', $._expr),
+      $._expr,
+      $._type_expr,
+    ),
     ct_case_stmt: $ => seq(
       choice(
-        seq('$case', $._expr, ':'),
+        seq('$case', $.ct_case_cond, ':'),
         seq('$default', ':'),
       ),
       optional($.ct_stmt_body),
     ),
-    ct_switch_cond: $ => seq($._expr),
+    ct_switch_cond: $ => seq(choice($._expr, $._type_expr)),
 
     _ct_switch: $ => seq('$switch', optional($.ct_switch_cond), ':'),
     ct_switch_stmt: $ => seq(
@@ -1513,6 +1525,7 @@ export default grammar({
       $.const_ident, // Enum access
       $.access_eval, // $eval
       $.ct_ident,    // Eval shorthand
+      $.string_literal,
     ),
 
     _access_ident_expr: $ => choice(
@@ -1597,7 +1610,7 @@ export default grammar({
     )),
 
     generic_type_ident: $ => seq(
-      $.path_type_ident,
+      $._base_type,
       $.generic_arg_list,
     ),
 

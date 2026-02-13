@@ -1,14 +1,26 @@
 # tree-sitter-c3
 This is a complete implementation of the current C3 grammar for tree-sitter, usable for syntax highlighting, indentation, folding, code analysis, header/doc generation, and more.
 
-The latest version supports C3 0.7.9 and is not compatible with C3 < 0.7.0.
+The latest version tracks current `c3c` parser behavior (validated against a focused subset of `https://github.com/c3lang/c3c/tree/master/test/test_suite`) and is not compatible with C3 < 0.7.0.
 
 ### Playground
 Check out the tree-sitter-c3 playground here: https://c3lang.github.io/tree-sitter-c3/
 
 ### Notes
 - In some cases, this grammar is less strict than the compiler.
+- Deprecated syntax that `c3c` still parses is intentionally kept parseable for editor resilience.
+- A few compiler-negative syntax samples intentionally remain unsupported (for example named enum associated values like `FOO {a: 1, b: 2}`).
 - Tree structure and node naming is still subject to change.
+
+### Stdlib Grammar Check
+- Parse all stdlib `.c3` files and fail only when tree-sitter fails but `c3c` accepts (parity mode):
+  - `node scripts/check-stdlib-grammar.mjs`
+- Strict mode (fail on any tree-sitter parse error):
+  - `node scripts/check-stdlib-grammar.mjs --strict`
+- Check C3 compiler test directory in parity mode:
+  - `npm run check:c3c-test`
+- Print files rejected by both tree-sitter and `c3c`:
+  - `node scripts/check-stdlib-grammar.mjs --std-dir ./c3c/test --list-compiler-rejected`
 
 ## Editors
 

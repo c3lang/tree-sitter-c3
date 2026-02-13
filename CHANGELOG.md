@@ -1,5 +1,16 @@
 # tree-sitter-c3 Changelog
 
+## Unreleased
+Grammar parity updates against current `c3c` parser behavior.
+
+- Support `const enum` declarations
+- Support enum associated values in brace form without `=` (`FOO { 1, 2 }`)
+- Support typed reference parameters (`Type& value`)
+- Broaden generic brace acceptance after base types (`usz{}`, `int{4}`, `$typeof(x){T}`)
+- Allow non-compound bodies in `do ... while` statements
+- Improve compile-time switch condition/case acceptance for type forms (for example `$switch $typeof(x):` and `$case int..float:`)
+- Keep named enum-associated fields (for example `FOO {a: 1}`) intentionally unsupported for now
+
 ## 0.8.3
 Grammar updates for C3 0.7.8.
 

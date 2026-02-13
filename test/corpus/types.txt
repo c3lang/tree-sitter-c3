@@ -257,3 +257,85 @@ foo::bar::Baz* c;
           (type_ident))
         (type_suffix))
       (ident))))
+
+================================================================================
+Generic brace type forms
+================================================================================
+
+usz{} i;
+int{4} x;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (base_type_name)
+          (generic_arg_list)))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (base_type_name)
+          (generic_arg_list
+            (integer_literal))))
+      (ident))))
+
+================================================================================
+Generic brace type edge forms
+================================================================================
+
+usz{} a;
+int{4}[2]* b;
+foo::Bar{int}? c;
+$typeof(a + 1){int} d;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (base_type_name)
+          (generic_arg_list)))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (base_type_name)
+          (generic_arg_list
+            (integer_literal)))
+        (type_suffix
+          (integer_literal))
+        (type_suffix))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (path_type_ident
+            (module_resolution
+              (ident))
+            (type_ident))
+          (generic_arg_list
+            (type
+              (base_type_name)))))
+      (ident)))
+  (global_declaration
+    (declaration
+      (type
+        (generic_type_ident
+          (paren_expr
+            (binary_expr
+              (ident_expr
+                (ident))
+              (integer_literal)))
+          (generic_arg_list
+            (type
+              (base_type_name)))))
+      (ident))))

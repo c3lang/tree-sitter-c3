@@ -44,18 +44,17 @@ build_aborted()
 echo "Building tree-sitter-c3.wasm in '$SCRIPT_DIR"
 
 if [ "$USE_DOCKER" = true ] ; then
-	tree-sitter build -d -w
+	npx tree-sitter build -d -w
 	[ $? -ne 0 ] && build_aborted;
 else
-	PATH=$PATH:$EMS_PATH tree-sitter build -w
+	PATH=$PATH:$EMS_PATH npx tree-sitter build -w
 	[ $? -ne 0 ] && build_aborted;
 fi
 
-tree-sitter playground -e ./docs
+npx tree-sitter playground -e ./docs
 sed -i 's|LANGUAGE_BASE_URL = ""|LANGUAGE_BASE_URL = "https://c3lang.github.io/tree-sitter-c3"|' ./docs/index.html
 
 echo "Removing '$SCRIPT_DIR/tree-sitter-c3.wasm'"
 rm tree-sitter-c3.wasm
 
 exit 0;
-
