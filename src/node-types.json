@@ -18232,10 +18232,6 @@
     "named": false
   },
   {
-    "type": "cenum",
-    "named": false
-  },
-  {
     "type": "char",
     "named": false
   },
@@ -18250,6 +18246,10 @@
   {
     "type": "const_ident",
     "named": true
+  },
+  {
+    "type": "constdef",
+    "named": false
   },
   {
     "type": "continue",

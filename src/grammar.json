@@ -3590,20 +3590,7 @@
             },
             {
               "type": "STRING",
-              "value": "cenum"
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "const"
-                },
-                {
-                  "type": "STRING",
-                  "value": "enum"
-                }
-              ]
+              "value": "constdef"
             }
           ]
         },

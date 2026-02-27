@@ -830,7 +830,7 @@ enum State : int {
     TERMINATED,
 }
 
-cenum OpCode {
+constdef OpCode {
     ADD,
     SUB,
 }
@@ -1307,7 +1307,7 @@ extern fn void foo() <Type, CONST>;
 Compiler parity declarations
 ================================================================================
 
-const enum MyEnum : inline CInt {
+constdef MyEnum : inline CInt {
   FOO = 1,
   BAR = 5,
 }

@@ -636,8 +636,7 @@ export default grammar({
       optional($.doc_comment),
       choice(
         'enum',
-        'cenum',
-        seq('const', 'enum'),
+        'constdef',
       ),
       field('name', $.type_ident),
       optional($.interface_impl_list),

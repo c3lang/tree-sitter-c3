@@ -146,7 +146,7 @@
 
 [
   "bitstruct"
-  "cenum"
+  "constdef"
   "enum"
   "faultdef"
   "interface"
