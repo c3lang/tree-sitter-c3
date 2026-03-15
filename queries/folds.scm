@@ -8,6 +8,7 @@
   (interface_declaration)
   (macro_declaration)
   (struct_declaration)
+  (constdef_declaration)
   ; Statements
   (asm_block_stmt)
   (case_stmt)

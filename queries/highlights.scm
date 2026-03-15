@@ -144,6 +144,7 @@
   "struct"
   "typedef"
   "union"
+  "constdef"
 ] @keyword.type
 
 [
