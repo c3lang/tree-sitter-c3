@@ -411,6 +411,7 @@ export default grammar({
       $.typedef_declaration,
       $.attrdef_declaration,
       $.interface_declaration,
+      $.constdef_declaration,
     ),
 
     // Module
@@ -486,8 +487,8 @@ export default grammar({
     faultdef_declaration: $ => seq(
       optional($.doc_comment),
       'faultdef',
-      commaSep1(seq($.const_ident, optional($.attributes))),
-      ';',
+      commaSepTrailing1(seq($.const_ident, optional($.attributes))),
+      ';'
     ),
 
     // Typedef
@@ -606,7 +607,7 @@ export default grammar({
       optional($.doc_comment),
       field('name', $.const_ident),
       optional($.attributes),
-      field('args', optional($.enum_arg)),
+      field('args', optional(choice($.enum_arg, $.initializer_list))),
     ),
     enum_param: $ => seq(
       optional('inline'),
@@ -635,6 +636,20 @@ export default grammar({
       optional($.interface_impl_list),
       optional($.enum_spec),
       optional($.generic_param_list),
+      optional($.attributes),
+      field('body', $.enum_body),
+    ),
+    constdef_declaration: $ => seq(
+      optional($.doc_comment),
+      'constdef',
+      field('name', $.type_ident),
+      optional(seq(
+        ':',
+        seq(
+          optional('inline'),
+          optional(field('type', alias($._type_no_generics, $.type))),
+        ),
+      )),
       optional($.attributes),
       field('body', $.enum_body),
     ),
