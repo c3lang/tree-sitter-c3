@@ -48,9 +48,9 @@ fn int main(String[] args) {
 
   foreach (arg : args[2..]) {
     if (try Path base_dir = path::temp(arg)) {
-      io::printfn("Parsing files in %s", base_dir);
+      // io::printfn("Parsing files in %s", base_dir);
       if (catch err = base_dir.walk(fn bool? (Path path, bool is_dir, void* user_data) {
-        if (is_dir) io::printfn("Parsing files in %s", path);
+        // if (is_dir) io::printfn("Parsing files in %s", path);
         if (path.has_suffix(".c3") || path.has_suffix(".c3i") || path.has_suffix(".c3t")) {
           process_file(path.str_view(), user_data);
         }
@@ -116,11 +116,7 @@ fn void process_file(String file_path, TSParser* parser) => @pool() {
 
     // io::printfn("Running %s", cmdline);
 
-    SubProcess process = process::create(cmdline, {
-      .search_user_path,
-      .no_window,
-      // .inherit_environment,
-    })!!;
+    Process process = process::spawn(cmdline, SpawnOptions.NO_WINDOW)!!;
     defer process.destroy();
 
     NullSink out;
