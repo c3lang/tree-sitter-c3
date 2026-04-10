@@ -4665,6 +4665,56 @@
     }
   },
   {
+    "type": "constdef_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enum_body",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_ident",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "continue_stmt",
     "named": true,
     "fields": {},
@@ -8002,6 +8052,10 @@
         "types": [
           {
             "type": "enum_arg",
+            "named": true
+          },
+          {
+            "type": "initializer_list",
             "named": true
           }
         ]
@@ -14234,6 +14288,10 @@
           "named": true
         },
         {
+          "type": "constdef_declaration",
+          "named": true
+        },
+        {
           "type": "ct_assert_stmt",
           "named": true
         },
@@ -18035,6 +18093,10 @@
   {
     "type": "const_ident",
     "named": true
+  },
+  {
+    "type": "constdef",
+    "named": false
   },
   {
     "type": "continue",
