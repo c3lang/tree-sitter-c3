@@ -16,6 +16,3 @@ jobs:
       abi-version: "14"
       generate: true
       attestations: true
-
-
-      

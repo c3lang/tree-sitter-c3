@@ -1,51 +1,49 @@
 name: Run tests
 
 on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
   test:
-    name: Test parser
+    name: Run all tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v1
-      - name: Run parser and binding tests
-        uses: tree-sitter/parser-test-action@v2
-        with:
-          generate: false
-    
-  test-against-c3c:
-    name: Test against stdlib and test suite
-    runs-on: ubuntu-latest
+        uses: actions/checkout@v6
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action@v2
         with:
-          path: source
+          install-cli: true
+          install-lib: true
+
+      - name: Generate parser
+        run: tree-sitter generate --abi 14
+
+      - name: Run parser tests
+        run: tree-sitter test
+
       - name: Checkout c3lang/vendor
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: c3lang/vendor
           path: vendor
-      - name: Download latest release
-        uses: robinraju/release-downloader@v1.12
+
+      - name: Checkout c3lang/c3c (for tests)
+        uses: actions/checkout@v6
         with:
           repository: c3lang/c3c
-          latest: true
-          fileName: c3-ubuntu-22.tar.gz
-          tarBall: true
-          zipBall: false
-          extract: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install tree-sitter
-        uses: tree-sitter/setup-action@v1
-        with:
-          install-lib: true
-          install-cli: false
-      - name: Run tests
+          path: c3c-source
+
+      - name: Download C3 compiler
+        run: |
+          curl -LO https://github.com/c3lang/c3c/releases/latest/download/c3-linux.tar.gz
+          tar -xzf c3-linux.tar.gz
+
+      - name: Run C3 integration tests
         run: |-
-          c3/c3c run --path source/test_runner --libdir $PWD/vendor/libraries --libdir $PWD/source/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $(find $PWD -type d -name 'test_suite')
+          c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/test_suite
