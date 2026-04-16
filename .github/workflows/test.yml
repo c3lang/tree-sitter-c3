@@ -33,16 +33,16 @@ jobs:
           repository: c3lang/vendor
           path: vendor
 
-      - name: Download C3 compiler and source (for tests)
-        run: |
+      - name: Setup C3
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |-
           gh release download --repo c3lang/c3c --pattern "c3-linux.tar.gz"
           tar -xzf c3-linux.tar.gz
           gh release download --repo c3lang/c3c --archive=tar.gz -O c3c-source.tar.gz
-          mkdir c3c-source
+          mkdir -p c3c-source
           tar -xzf c3c-source.tar.gz -C c3c-source --strip-components=1
-        env:
-          GH_TOKEN: ${{ github.token }}
 
-      - name: Run C3 integration tests
+      - name: Test stdlib and unit tests
         run: |-
-          c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/test_suite
+          c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/unit
