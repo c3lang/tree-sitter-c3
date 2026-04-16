@@ -33,16 +33,15 @@ jobs:
           repository: c3lang/vendor
           path: vendor
 
-      - name: Checkout c3lang/c3c (for tests)
-        uses: actions/checkout@v6
-        with:
-          repository: c3lang/c3c
-          path: c3c-source
-
-      - name: Download C3 compiler
+      - name: Download C3 compiler and source (for tests)
         run: |
-          curl -LO https://github.com/c3lang/c3c/releases/latest/download/c3-linux.tar.gz
+          gh release download --repo c3lang/c3c --pattern "c3-linux.tar.gz"
           tar -xzf c3-linux.tar.gz
+          gh release download --repo c3lang/c3c --archive=tar.gz -O c3c-source.tar.gz
+          mkdir c3c-source
+          tar -xzf c3c-source.tar.gz -C c3c-source --strip-components=1
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run C3 integration tests
         run: |-
