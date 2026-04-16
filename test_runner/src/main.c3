@@ -3,7 +3,14 @@ import std::io, std::collections, std::os::process;
 import ts, tree_sitter_c3;
 
 // Files that C3C parses without error but tree-sitter-c3 doesn't
-const String[*] IGNORED_FILES = { "DUMMY_IGNORE" };
+const String[*] IGNORED_FILES = {
+	"test/test_suite/generic/generic_instantiate_alias.c3",
+	"test/test_suite/functions/ref_param_fn.c3",
+	"test/test_suite/compile_time/ct_switch_more_checks.c3",
+	"test/test_suite/struct/const_access_error.c3",
+	"test/test_suite/statements/if_single.c3",
+	"test/test_suite/statements/do_without_compound.c3"
+ };
 
 Path compiler_path;
 uint total_count;

@@ -45,4 +45,4 @@ jobs:
 
       - name: Test stdlib and unit tests
         run: |-
-          c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/unit
+          c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/unit $PWD/c3c-source/test/test_suite
