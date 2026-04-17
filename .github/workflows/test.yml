@@ -43,6 +43,6 @@ jobs:
           mkdir -p c3c-source
           tar -xzf c3c-source.tar.gz -C c3c-source --strip-components=1
 
-      - name: Test stdlib and unit tests
+      - name: Test C3 lib/std/, test/test_suite/ and test/unit/
         run: |-
           c3/c3c run --path test_runner --libdir $PWD/vendor/libraries --libdir $PWD/bindings/c3 -L $LD_LIBRARY_PATH -- $PWD/c3/c3c $PWD/c3/lib $PWD/c3c-source/test/unit $PWD/c3c-source/test/test_suite
