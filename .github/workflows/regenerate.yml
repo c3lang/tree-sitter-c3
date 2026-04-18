@@ -1,0 +1,41 @@
+name: Regenerate parser
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'grammar.js'
+      - 'src/scanner.c'
+      - 'tree-sitter.json'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'grammar.js'
+      - 'src/scanner.c'
+      - 'tree-sitter.json'
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action@v2
+        with:
+          install-cli: true
+
+      - name: Generate parser
+        run: tree-sitter generate --abi 14
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Regenerate parser"
+          file_pattern: 'src/grammar.json src/node-types.json src/parser.c src/tree_sitter/*.h'
