@@ -49,7 +49,7 @@ module foo;
 Param Doc comment
 ================================================================================
 <*
- @param foo "text"
+ @param foo : "text"
 *>
 module foo;
 
@@ -262,8 +262,8 @@ Doc @ inside doc
 <*
  A document @param -- must be ignored
    also @this
- @param foo "text"
- @param [&in] bar `text`
+ @param foo : "text"
+ @param [&in] bar : `text`
 *>
 module foo;
 

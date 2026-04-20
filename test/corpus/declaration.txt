@@ -231,7 +231,7 @@ alias @intHello = foo::@hello{int};
       (const_ident)))
   (alias_declaration
     (ident)
-    (type_access_expr
+    (field_expr
       (type
         (path_type_ident
           (type_ident)))
@@ -239,7 +239,7 @@ alias @intHello = foo::@hello{int};
         (ident))))
   (alias_declaration
     (ident)
-    (type_access_expr
+    (field_expr
       (type
         (path_type_ident
           (module_resolution
@@ -250,7 +250,7 @@ alias @intHello = foo::@hello{int};
         (ident))))
   (alias_declaration
     (at_ident)
-    (type_access_expr
+    (field_expr
       (type
         (path_type_ident
           (type_ident)))
@@ -258,7 +258,7 @@ alias @intHello = foo::@hello{int};
         (at_ident))))
   (alias_declaration
     (at_ident)
-    (type_access_expr
+    (field_expr
       (type
         (path_type_ident
           (module_resolution
@@ -268,7 +268,7 @@ alias @intHello = foo::@hello{int};
         (at_ident))))
   (alias_declaration
     (at_ident)
-    (type_access_expr
+    (field_expr
       (type
         (generic_type_ident
           (path_type_ident
@@ -293,7 +293,7 @@ alias @intHello = foo::@hello{int};
           (base_type_name)))))
   (alias_declaration
     (ident)
-    (type_access_expr
+    (field_expr
       (type
         (generic_type_ident
           (path_type_ident
@@ -550,7 +550,7 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
             (type_suffix)))))
     (macro_func_body
       (implies_body
-        (type_access_expr
+        (field_expr
           (type
             (ct_type_ident))
           (access_ident
@@ -836,13 +836,7 @@ enum TokenKind @packed @opaque {
     FUNCTION,
 }
 
-enum Abc : inline int
-{
-  ABC,
-  DEF,
-}
-
-enum Abc : const inline int
+constdef Abc : inline int
 {
   ABC = 1,
   DEF,
@@ -850,8 +844,8 @@ enum Abc : const inline int
 
 enum Foo : int (inline String name, int y, int z)
 {
-  ABC = { "Hello", 1, 2 },
-  DEF = { "World", 2, 3 },
+  ABC { "Hello", 1, 2 },
+  DEF { "World", 2, 3 },
 }
 
 --------------------------------------------------------------------------------
@@ -893,17 +887,7 @@ enum Foo : int (inline String name, int y, int z)
         (const_ident))
       (enum_constant
         (const_ident))))
-  (enum_declaration
-    (type_ident)
-    (enum_spec
-      (type
-        (base_type_name)))
-    (enum_body
-      (enum_constant
-        (const_ident))
-      (enum_constant
-        (const_ident))))
-  (enum_declaration
+  (constdef_declaration
     (type_ident)
     (enum_spec
       (type
@@ -911,8 +895,7 @@ enum Foo : int (inline String name, int y, int z)
     (enum_body
       (enum_constant
         (const_ident)
-        (enum_arg
-          (integer_literal)))
+        (integer_literal))
       (enum_constant
         (const_ident))))
   (enum_declaration
@@ -937,26 +920,24 @@ enum Foo : int (inline String name, int y, int z)
     (enum_body
       (enum_constant
         (const_ident)
-        (enum_arg
-          (initializer_list
-            (initializer_element
-              (string_literal
-                (string_content)))
-            (initializer_element
-              (integer_literal))
-            (initializer_element
-              (integer_literal)))))
+        (initializer_list
+          (initializer_element
+            (string_literal
+              (string_content)))
+          (initializer_element
+            (integer_literal))
+          (initializer_element
+            (integer_literal))))
       (enum_constant
         (const_ident)
-        (enum_arg
-          (initializer_list
-            (initializer_element
-              (string_literal
-                (string_content)))
-            (initializer_element
-              (integer_literal))
-            (initializer_element
-              (integer_literal))))))))
+        (initializer_list
+          (initializer_element
+            (string_literal
+              (string_content)))
+          (initializer_element
+            (integer_literal))
+          (initializer_element
+            (integer_literal)))))))
 
 ================================================================================
 Error declarations

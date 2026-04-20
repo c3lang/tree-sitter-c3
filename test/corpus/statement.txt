@@ -682,7 +682,7 @@ $assert 0 > 1 : "Foo %s", 0.0002;
       (string_content))
     (string_literal
       (string_content)))
-  (ct_assert_stmt
+  (ct_error_stmt
     (string_literal
       (string_content))
     (integer_literal))

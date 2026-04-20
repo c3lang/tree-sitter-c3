@@ -3,57 +3,22 @@ Integer literals
 ================================================================================
 
 int a = 128;
-short a = 128i16;
-ushort a = 128u16;
 int b = 3_000_000;
-long b = 3_000_000i64;
-ulong b = 3_000_000u64;
+long b = 3_000_000l;
+ulong b = 3_000_000ul;
 uint c = 4_000u;
-uint c = 4_000u32;
-int c = 4_000i32;
 long d = 0xC4_FF;
-long d = 0xC4_FFi128;
-ulong d = 0xC4_FFu128;
+long d = 0xC4_FFll;
+ulong d = 0xC4_FFull;
 int e = 0o775_111;
-int e = 0o775_111i16;
-uint e = 0o775_111u16;
+uint e = 0o775_111u;
 char f = 0b1001_1001;
-ichar f = 0b1001_1001i8;
-char f = 0b1001_1001u8;
+ichar f = 0b1001_1001;
+char f = 0b1001_1001u;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (integer_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (integer_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (integer_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (integer_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (integer_literal)))
   (global_declaration
     (declaration
       (type
@@ -146,54 +111,40 @@ float a = 1.e1;
 float a = 1.0e1;
 float a = 1.0e1f;
 float a = 1.0e-1f;
-float a = 1.0e-1f32;
 float a = 1.E1;
 float a = 1.0E1;
 float a = 1.0E1f;
 float a = 1.0E-1f;
-float a = 1.0E-1f32;
 double b = 1.0e1d;
 double b = 1.0e-1d;
 double c = 0xc1fp4;
 double c = 0xc2f.p4;
 double c = 0xc2f.p4f;
-double c = 0xc2f.p4f64;
+double c = 0xc2f.p4d;
 double c = 0xc3f.2fp+4;
 double c = 0xc3f.2fp+4f;
-double c = 0xc3f.2fp+4f64;
+double c = 0xc3f.2fp+4d;
 double c = 0xc4f.2fp-4;
 double c = 0xc4f.2fp-4f;
-double c = 0xc4f.2fp-4f64;
+double c = 0xc4f.2fp-4d;
 double c = 0XC1FP4;
 double c = 0XC2F.P4;
 double c = 0XC2F.P4F;
-double c = 0XC2F.P4F64;
+double c = 0XC2F.P4D;
 double c = 0XC3F.2FP+4;
 double c = 0XC3F.2FP+4F;
-double c = 0XC3F.2FP+4F64;
+double c = 0XC3F.2FP+4D;
 double c = 0XC4F.2FP-4;
 double c = 0XC4F.2FP-4F;
-double c = 0XC4F.2FP-4F64;
-float128 d = 1.0e+1f128;
-float128 d = 1.0E+1f128;
-float128 d = 0xdead.0eafP+1f128;
-float128 d = 0XDEAD.0EAFP+1f128;
+double c = 0XC4F.2FP-4D;
+float128 d = 1.0e+1f;
+float128 d = 1.0E+1f;
+float128 d = 0xdead.0eafP+1f;
+float128 d = 0XDEAD.0EAFP+1f;
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
-  (global_declaration
-    (declaration
-      (type
-        (base_type_name))
-      (ident)
-      (real_literal)))
   (global_declaration
     (declaration
       (type
@@ -1367,11 +1318,11 @@ fn void main() {
   a ?: b && c;
   a && b ?: c;
   a = b + c = d;
-  a = b ?: 1 = d;
+  a = b ?: 1 + 2 = d;
 
   a || b ? b : c ?: 1 ? d : 1;
   a || b ? b : c ? 1.f : 1 ? d : 1;
-  a && b ?!;
+  a && b ~!;
   a || b && 1 > b ?: 1 >>= 4;
   a && b || 1 > b ? b : 1 + 1 >>= 4;
 
@@ -1436,23 +1387,23 @@ fn void main() {
             (ident_expr
               (ident))))
         (expr_stmt
-          (elvis_orelse_expr
-            (ident_expr
-              (ident))
-            (binary_expr
-              (ident_expr
-                (ident))
-              (ident_expr
-                (ident)))))
-        (expr_stmt
-          (elvis_orelse_expr
-            (binary_expr
+          (binary_expr
+            (elvis_orelse_expr
               (ident_expr
                 (ident))
               (ident_expr
                 (ident)))
             (ident_expr
               (ident))))
+        (expr_stmt
+          (binary_expr
+            (ident_expr
+              (ident))
+            (elvis_orelse_expr
+              (ident_expr
+                (ident))
+              (ident_expr
+                (ident)))))
         (expr_stmt
           (assignment_expr
             (ident_expr
@@ -1470,9 +1421,11 @@ fn void main() {
             (ident_expr
               (ident))
             (assignment_expr
-              (elvis_orelse_expr
-                (ident_expr
-                  (ident))
+              (binary_expr
+                (elvis_orelse_expr
+                  (ident_expr
+                    (ident))
+                  (integer_literal))
                 (integer_literal))
               (ident_expr
                 (ident)))))
@@ -1485,14 +1438,14 @@ fn void main() {
                 (ident)))
             (ident_expr
               (ident))
-            (elvis_orelse_expr
-              (ident_expr
-                (ident))
-              (ternary_expr
-                (integer_literal)
+            (ternary_expr
+              (elvis_orelse_expr
                 (ident_expr
                   (ident))
-                (integer_literal)))))
+                (integer_literal))
+              (ident_expr
+                (ident))
+              (integer_literal))))
         (expr_stmt
           (ternary_expr
             (binary_expr
@@ -1520,18 +1473,18 @@ fn void main() {
                 (ident)))))
         (expr_stmt
           (assignment_expr
-            (elvis_orelse_expr
+            (binary_expr
+              (ident_expr
+                (ident))
               (binary_expr
                 (ident_expr
                   (ident))
                 (binary_expr
-                  (ident_expr
-                    (ident))
-                  (binary_expr
-                    (integer_literal)
+                  (integer_literal)
+                  (elvis_orelse_expr
                     (ident_expr
-                      (ident)))))
-              (integer_literal))
+                      (ident))
+                    (integer_literal)))))
             (integer_literal)))
         (expr_stmt
           (assignment_expr
