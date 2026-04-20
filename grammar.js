@@ -21,8 +21,7 @@ const INT = /[0-9](_?[0-9])*/;
 const HINT = /[a-fA-F0-9](_?[a-fA-F0-9])*/;
 const OINT = /[0-7](_?[0-7])*/;
 const BINT = /[0-1](_?[0-1])*/;
-// NOTE ll/ull suffixes experimental for C3 >= 0.7.2
-const INTTYPE = /[UuIi](8|16|32|64|128)|[Uu][Ll]{0,2}|[Ll]{1,2}/;
+const INTTYPE = /[Uu][Ll]{0,2}|[Ll]{1,2}/;
 const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
 const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
@@ -188,8 +187,7 @@ export default grammar({
 
     // Doc comments and contracts
     // -------------------------
-    // Optional ':' is deprecated
-    _doc_comment_description: $ => seq(optional(':'), field('description', $.string_expr)),
+    _doc_comment_description: $ => seq(':', field('description', $.string_expr)),
     doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
     doc_comment_contract: $ => choice(
       seq(
@@ -321,7 +319,7 @@ export default grammar({
       seq(
         field('type', $.type),
         optional(choice(
-          '...', // Deprecated, remove for C3 0.8
+          '...',
           seq(optional('...'), field('name', choice($.ident, $.ct_ident)), optional($.attributes)),
           // Macro expression parameters
           seq(field('name', $.hash_ident), optional($.attributes)),
@@ -416,12 +414,11 @@ export default grammar({
 
     // Module
     // -------------------------
-    generic_param_list_deprecated: $ => seq('{', commaSep1($._generic_param), '}'), // Deprecated
     module_declaration: $ => seq(
       optional($.doc_comment),
       'module',
       field('path', $.path_ident),
-      optional(choice($.generic_param_list, alias($.generic_param_list_deprecated, $.generic_param_list))),
+      optional($.generic_param_list),
       optional($.attributes),
       ';'
     ),
@@ -1230,20 +1227,6 @@ export default grammar({
     ),
     type_paren_expr: $ => prec(2, seq('(', $._type_expr, ')')),
 
-    _ct_call: $ => choice(
-      '$alignof',
-      '$extnameof',
-      '$nameof',
-      '$offsetof',
-      '$qnameof',
-    ),
-
-    // Precedence over _expr
-    flat_path: $ => prec(1, seq(
-      $._base_expr,
-      optional($.param_path),
-    )),
-
     string_expr: $ => prec.right(repeat1(choice($.string_literal, $.raw_string_literal))),
     bytes_expr: $ => repeat1($.bytes_literal),
     paren_expr: $ => seq('(', $._expr, ')'),
@@ -1282,21 +1265,16 @@ export default grammar({
       '$vaconst',
       '$vaarg',
       '$vaexpr',
-      seq($._ct_call, '(', $.flat_path, ')'),
       seq(
         choice(
           '$eval',
-          '$is_const',
-          '$sizeof',
           '$stringify',
-          '$kindof'
         ),
         $.paren_expr,
       ),
       seq('$embed', '(', commaSep($._expr), ')'),
       seq('$defined', '(', commaSep($._decl_or_expr), ')'),
       seq('$feature', '(', $.const_ident, ')'),
-      seq('$assignable', '(', $._expr, ',', $._expr, ')'), // Deprecated >= 0.7.4
     )),
 
     // Initializers
@@ -1380,8 +1358,6 @@ export default grammar({
       field('operator', choice(
         '~',
         seq('~', '!'),
-        '?',
-        seq('?', '!'),
       )),
     )),
 
@@ -1604,7 +1580,6 @@ export default grammar({
         choice(
           '$typeof',
           '$typefrom',
-          '$evaltype', // Deprecated >= 0.7.2
         ),
         $.paren_expr,
       ),
@@ -1631,12 +1606,12 @@ export default grammar({
         $.generic_type_ident
       ),
       repeat($.type_suffix),
-      optional(choice('~', '?')),
+      optional('?'),
     )),
     _type_no_generics: $ => prec.right(seq(
       $._base_type,
       repeat($.type_suffix),
-      optional(choice('~', '?')),
+      optional('?'),
     )),
   }
 });

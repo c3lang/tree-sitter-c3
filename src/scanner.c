@@ -108,38 +108,12 @@ static bool is_hex_digit(int32_t c) {
 }
 
 static bool scan_realtype(TSLexer *lexer) {
-  if ((lexer->lookahead | 32) == 'd') {
+  char c = (lexer->lookahead | 32);
+  if (c == 'f' || c == 'd') {
     lexer->advance(lexer, false);
     return true;
   }
-
-  if ((lexer->lookahead | 32) != 'f') {
-    return false;
-  }
-
-  lexer->advance(lexer, false);
-  lexer->mark_end(lexer);
-
-  int32_t c1 = lexer->lookahead;
-  lexer->advance(lexer, false);
-  int32_t c2 = lexer->lookahead;
-  lexer->advance(lexer, false);
-
-  // NOTE f32/f64 suffixes are deprecated for C3 >= 0.7.2
-  if ((c1 == '1' && c2 == '6') || (c1 == '3' && c2 == '2') || (c1 == '6' && c2 == '4')) {
-    lexer->mark_end(lexer);
-    return true;
-  }
-
-  int32_t c3 = lexer->lookahead;
-  lexer->advance(lexer, false);
-
-  if (c1 == '1' && c2 == '2' && c3 == '8') {
-    lexer->mark_end(lexer);
-    return true;
-  }
-
-  return true;
+  return false;
 }
 
 static bool scan_digits(TSLexer *lexer) {
