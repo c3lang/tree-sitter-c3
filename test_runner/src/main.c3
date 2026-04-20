@@ -77,7 +77,7 @@ fn bool ignore_file(String file_path) {
 
 typedef NullSink (OutStream) = void*;
 
-fn usz? NullSink.write(&self, char[] bytes) @dynamic {
+fn sz? NullSink.write(&self, char[] bytes) @dynamic {
   return bytes.len;
 }
 

@@ -26,8 +26,8 @@ const IDENT       = /_*[a-z][_a-zA-Z0-9]*/;
 const TYPE_IDENT  = /_*[A-Z][_A-Z0-9]*[a-z][_a-zA-Z0-9]*/;
 const CONST_IDENT = /_*[A-Z][_A-Z0-9]*/;
 
-// https://c3lang.github.io/c3-web/references/docs/precedence/
 // c3c/src/compiler/enums.h
+// c3c --list-precedence
 const PREC = {
   // Expressions
   ASSIGNMENT: 1,
@@ -37,15 +37,16 @@ const PREC = {
   LOGICAL_AND: 4,
   RELATIONAL: 5,
   ADD: 6,
-  BITWISE: 7,
-  SHIFT: 8,
-  MULTIPLY: 9,
+  ORELSE: 7,
+  BITWISE: 8,
+  SHIFT: 9,
+  MULTIPLY: 10,
   // Unary expressions
-  UNARY: 10,
+  UNARY: 11,
   // Trailing expressions
-  TRAILING: 11,
-  FIELD: 11,
-  SUBSCRIPT: 11,
+  TRAILING: 12,
+  FIELD: 12,
+  SUBSCRIPT: 12,
 };
 
 function commaSep(rule) {
@@ -362,10 +363,10 @@ export default grammar({
       '&',
       '|',
       '^',
+      '<',
       '<<',
       '>>',
       '==',
-      '!=',
       '+=',
       '-=',
       '*=',
@@ -396,8 +397,10 @@ export default grammar({
       $.func_definition,
 
       $.ct_assert_stmt,
+      $.ct_error_stmt,
       $.ct_echo_stmt,
       $.ct_include_stmt,
+      $.ct_expand_stmt,
       $.ct_exec_stmt,
 
       $.struct_declaration,
@@ -615,8 +618,6 @@ export default grammar({
     enum_spec: $ => prec.right(seq(
       ':',
       seq(
-        optional('const'),
-        optional('inline'),
         optional(field('type', alias($._type_no_generics, $.type))),
         optional($.enum_param_list)
       ),
@@ -779,8 +780,10 @@ export default grammar({
       $.assert_stmt,
       $.asm_block_stmt,
 
-      $.ct_echo_stmt,
       $.ct_assert_stmt,
+      $.ct_error_stmt,
+      $.ct_echo_stmt,
+      $.ct_expand_stmt,
       $.ct_if_stmt,
       $.ct_switch_stmt,
       $.ct_foreach_stmt,
@@ -1115,24 +1118,29 @@ export default grammar({
 
     // Compile Time Assert Statement
     // -------------------------
-    ct_assert_stmt: $ => choice(
-      seq(
-        '$assert',
-        $._expr,
-        optional(seq(':', commaSep1($._expr))),
-        ';'
-      ),
-      seq(
-        '$error',
-        $._expr,
-        repeat(seq(',', $._expr)),
-        ';'
-      ),
+    ct_assert_stmt: $ => seq(
+      '$assert',
+      $._expr,
+      optional(seq(':', commaSep1($._expr))),
+      ';'
+    ),
+
+    // Compile Time Error Statement
+    // -------------------------
+    ct_error_stmt: $ => seq(
+      '$error',
+      $._expr,
+      repeat(seq(',', $._expr)),
+      ';'
     ),
 
     // Compile Time Include Statement
     // -------------------------
-    ct_include_stmt: $ => seq('$include', $.string_expr, ';'),
+    ct_include_stmt: $ => seq('$include', $._expr, optional($.attributes), ';'),
+
+    // Compile Time Expand Statement
+    // -------------------------
+    ct_expand_stmt: $ => seq('$expand', $.paren_expr, optional($.attributes), ';'),
 
     // Compile Time Exec Statement
     // -------------------------
@@ -1269,6 +1277,8 @@ export default grammar({
         choice(
           '$eval',
           '$stringify',
+          '$reflect',
+          'lengthof',
         ),
         $.paren_expr,
       ),
@@ -1345,7 +1355,7 @@ export default grammar({
 
     // Elvis/or-else (?:, ??) Expression
     // -------------------------
-    elvis_orelse_expr: $ => prec.right(PREC.TERNARY, seq(
+    elvis_orelse_expr: $ => prec.right(PREC.ORELSE, seq(
       field('condition', $._expr),
       field('operator', choice('?:', '??')),
       field('alternative', $._expr),
@@ -1427,7 +1437,7 @@ export default grammar({
       seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
-      seq(field('name', $._arg_ident), ':', optional('...'), $._expr),
+      seq(field('name', choice($._arg_ident, $.access_eval)), ':', optional('...'), $._expr),
     ),
 
     _call_args: $ => choice(
@@ -1537,7 +1547,7 @@ export default grammar({
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
         field('argument', $._type_expr),
-        '.',
+        '::',
       )),
       $._access_ident_expr,
     ),
@@ -1565,11 +1575,12 @@ export default grammar({
       'float128',
       'iptr',
       'uptr',
-      'isz',
+      'sz',
       'usz',
       'fault',
       'any',
       'typeid',
+      'untypedlist',
     ),
 
     _base_type: $ => prec.right(choice(

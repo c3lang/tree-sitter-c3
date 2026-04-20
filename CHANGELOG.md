@@ -1,7 +1,14 @@
 # tree-sitter-c3 Changelog
 
+## 0.10.0
+Grammar updates for C3 0.8.0.
+
+- Extract `ct_error_stmt` from `ct_assert_stmt`
+- Removed `flat_path`
+
 ## 0.9.0
 Grammar updates for C3 0.7.11.
+
 - Added `defer_catch_ident`, wrapping `(catch ident)`
 - Added `import_path` node, combining `path_ident` and `attributes`
 - Extract semicolon from `declaration` and `const_declaration` (#50)
