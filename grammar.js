@@ -600,14 +600,16 @@ export default grammar({
       field('body', $.bitstruct_body),
     ),
 
-    // Enum
+    // Enum/Constdef
     // -------------------------
-    enum_arg: $ => seq('=', $._expr),
     enum_constant: $ => seq(
       optional($.doc_comment),
       field('name', $.const_ident),
       optional($.attributes),
-      field('args', optional(choice($.enum_arg, $.initializer_list))),
+      optional(choice(
+        field('args', $.initializer_list), // Only for enum
+        $._assign_right_expr, // Only for constdef
+      )),
     ),
     enum_param: $ => seq(
       optional('inline'),
@@ -618,8 +620,9 @@ export default grammar({
     enum_spec: $ => prec.right(seq(
       ':',
       seq(
+        optional('inline'), // Only for constdef
         optional(field('type', alias($._type_no_generics, $.type))),
-        optional($.enum_param_list)
+        optional($.enum_param_list), // Only for enum
       ),
     )),
     enum_body: $ => seq(
@@ -641,13 +644,7 @@ export default grammar({
       optional($.doc_comment),
       'constdef',
       field('name', $.type_ident),
-      optional(seq(
-        ':',
-        seq(
-          optional('inline'),
-          optional(field('type', alias($._type_no_generics, $.type))),
-        ),
-      )),
+      optional($.enum_spec),
       optional($.attributes),
       field('body', $.enum_body),
     ),

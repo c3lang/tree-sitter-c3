@@ -5,6 +5,9 @@ Grammar updates for C3 0.8.0.
 
 - Extract `ct_error_stmt` from `ct_assert_stmt`
 - Removed `flat_path`
+- Removed `enum_arg`
+- Share `enum_spec` between enum and constdef
+- Enum/constdef values now take the form `(enum_constant args: (initializer_list))` for enum args and `(enum_constant '=' right: (_))` for constdef values 
 
 ## 0.9.0
 Grammar updates for C3 0.7.11.
