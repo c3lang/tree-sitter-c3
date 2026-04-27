@@ -1266,10 +1266,7 @@ export default grammar({
       seq($.lambda_declaration, field('lambda_body', $.compound_stmt)),
 
       // Compile-time expressions
-      '$vacount',
-      '$vaconst',
       '$vaarg',
-      '$vaexpr',
       seq(
         choice(
           '$eval',
@@ -1299,7 +1296,6 @@ export default grammar({
       $.param_path, // Bitstruct bool shorthand
       $._expr,
       // Splatting
-      seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
     ),
 
@@ -1431,7 +1427,6 @@ export default grammar({
     call_arg: $ => choice(
       $._expr,
       // Splatting
-      seq('$vasplat', optional(seq('[', $.range_expr, ']'))),
       seq('...', $._expr),
       // Named arguments
       seq(field('name', choice($._arg_ident, $.access_eval)), ':', optional('...'), $._expr),
@@ -1591,7 +1586,6 @@ export default grammar({
         ),
         $.paren_expr,
       ),
-      '$vatype', // Followed by type_suffix with index
     )),
 
     generic_type_ident: $ => seq(
