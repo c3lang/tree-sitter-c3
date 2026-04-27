@@ -118,18 +118,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -802,18 +790,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -1071,18 +1047,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -1599,18 +1563,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -1903,18 +1855,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -2177,10 +2117,6 @@
           },
           {
             "type": "$typeof",
-            "named": false
-          },
-          {
-            "type": "$vatype",
             "named": false
           },
           {
@@ -2529,10 +2465,6 @@
           "named": true
         },
         {
-          "type": "range_expr",
-          "named": true
-        },
-        {
           "type": "raw_string_literal",
           "named": true
         },
@@ -2664,18 +2596,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -3090,18 +3010,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -3441,18 +3349,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -4150,18 +4046,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -5288,18 +5172,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "&&",
             "named": false
           },
@@ -5566,18 +5438,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -6493,18 +6353,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -7294,18 +7142,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -7505,18 +7341,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -7794,18 +7618,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -8331,18 +8143,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -8568,18 +8368,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -8960,18 +8748,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -9929,18 +9705,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -10207,18 +9971,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -10475,10 +10227,6 @@
         },
         {
           "type": "paren_expr",
-          "named": true
-        },
-        {
-          "type": "range_expr",
           "named": true
         },
         {
@@ -10892,18 +10640,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -11103,18 +10839,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -11409,18 +11133,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -11640,18 +11352,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -11947,18 +11647,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -12748,18 +12436,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -12977,18 +12653,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -13216,18 +12880,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -13874,18 +13526,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -14085,18 +13725,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -14397,18 +14025,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -14611,18 +14227,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -14822,18 +14426,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -15071,18 +14663,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -15445,7 +15025,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "base_type_name",
@@ -15772,18 +15352,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -16044,18 +15612,6 @@
             "named": false
           },
           {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
-            "named": false
-          },
-          {
             "type": "(",
             "named": false
           },
@@ -16313,18 +15869,6 @@
           },
           {
             "type": "$vaarg",
-            "named": false
-          },
-          {
-            "type": "$vaconst",
-            "named": false
-          },
-          {
-            "type": "$vacount",
-            "named": false
-          },
-          {
-            "type": "$vaexpr",
             "named": false
           },
           {
@@ -16778,26 +16322,6 @@
   },
   {
     "type": "$vaarg",
-    "named": false
-  },
-  {
-    "type": "$vaconst",
-    "named": false
-  },
-  {
-    "type": "$vacount",
-    "named": false
-  },
-  {
-    "type": "$vaexpr",
-    "named": false
-  },
-  {
-    "type": "$vasplat",
-    "named": false
-  },
-  {
-    "type": "$vatype",
     "named": false
   },
   {

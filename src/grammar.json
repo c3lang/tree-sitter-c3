@@ -7061,19 +7061,7 @@
           },
           {
             "type": "STRING",
-            "value": "$vacount"
-          },
-          {
-            "type": "STRING",
-            "value": "$vaconst"
-          },
-          {
-            "type": "STRING",
             "value": "$vaarg"
-          },
-          {
-            "type": "STRING",
-            "value": "$vaexpr"
           },
           {
             "type": "SEQ",
@@ -7323,40 +7311,6 @@
         {
           "type": "SYMBOL",
           "name": "_expr"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "$vasplat"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "["
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "range_expr"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "]"
-                    }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
         },
         {
           "type": "SEQ",
@@ -8517,40 +8471,6 @@
           "members": [
             {
               "type": "STRING",
-              "value": "$vasplat"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "["
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "range_expr"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "]"
-                    }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
               "value": "..."
             },
             {
@@ -9377,10 +9297,6 @@
                 "name": "paren_expr"
               }
             ]
-          },
-          {
-            "type": "STRING",
-            "value": "$vatype"
           }
         ]
       }
