@@ -107,12 +107,7 @@
   "$switch"
   "$typefrom"
   "$typeof"
-  "$vacount"
-  "$vatype"
-  "$vaconst"
   "$vaarg"
-  "$vaexpr"
-  "$vasplat"
 ] @keyword.directive
 
 "assert" @keyword.debug
