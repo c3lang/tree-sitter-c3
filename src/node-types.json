@@ -2112,11 +2112,11 @@
         "required": true,
         "types": [
           {
-            "type": "$typefrom",
+            "type": "$Typefrom",
             "named": false
           },
           {
-            "type": "$typeof",
+            "type": "$Typeof",
             "named": false
           },
           {
@@ -2296,7 +2296,6 @@
   {
     "type": "block_comment",
     "named": true,
-    "extra": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -16221,6 +16220,14 @@
     "named": false
   },
   {
+    "type": "$Typefrom",
+    "named": false
+  },
+  {
+    "type": "$Typeof",
+    "named": false
+  },
+  {
     "type": "$assert",
     "named": false
   },
@@ -16310,14 +16317,6 @@
   },
   {
     "type": "$switch",
-    "named": false
-  },
-  {
-    "type": "$typefrom",
-    "named": false
-  },
-  {
-    "type": "$typeof",
     "named": false
   },
   {

@@ -1581,8 +1581,8 @@ export default grammar({
       $.ct_type_ident,
       seq(
         choice(
-          '$typeof',
-          '$typefrom',
+          '$Typeof',
+          '$Typefrom',
         ),
         $.paren_expr,
       ),
