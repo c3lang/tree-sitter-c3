@@ -2197,6 +2197,10 @@
                     {
                       "type": "SYMBOL",
                       "name": "func_signature"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "call_expr"
                     }
                   ]
                 }

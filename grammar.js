@@ -476,7 +476,7 @@ export default grammar({
           optional($.generic_param_list),
           optional($.attributes),
           '=',
-          choice($._type_expr, $.func_signature)
+          choice($._type_expr, $.func_signature, $.call_expr)
         ),
       ),
       ';'

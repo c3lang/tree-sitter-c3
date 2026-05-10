@@ -297,6 +297,10 @@
           "named": true
         },
         {
+          "type": "call_expr",
+          "named": true
+        },
+        {
           "type": "doc_comment",
           "named": true
         },
