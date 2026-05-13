@@ -105,8 +105,8 @@
   "$reflect"
   "$stringify"
   "$switch"
-  "$typefrom"
-  "$typeof"
+  "$Typefrom"
+  "$Typeof"
   "$vaarg"
 ] @keyword.directive
 

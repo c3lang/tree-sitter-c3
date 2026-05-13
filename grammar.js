@@ -476,7 +476,7 @@ export default grammar({
           optional($.generic_param_list),
           optional($.attributes),
           '=',
-          choice($._type_expr, $.func_signature)
+          choice($._expr, $.func_signature)
         ),
       ),
       ';'
@@ -1538,7 +1538,7 @@ export default grammar({
 
     type_access_expr: $ => seq(
       prec(PREC.FIELD, seq(
-        field('argument', $._type_expr),
+        field('argument', $.type),
         '::',
       )),
       $._access_ident_expr,
@@ -1581,8 +1581,8 @@ export default grammar({
       $.ct_type_ident,
       seq(
         choice(
-          '$typeof',
-          '$typefrom',
+          '$Typeof',
+          '$Typefrom',
         ),
         $.paren_expr,
       ),
