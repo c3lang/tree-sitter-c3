@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, c3-0.7, c3-0.8]
+    branches: [main, c3-0.7]
   pull_request:
-    branches: [main, c3-0.7, c3-0.8]
+    branches: [main, c3-0.7]
   workflow_dispatch:
 
 env:
@@ -45,7 +45,6 @@ jobs:
           case "$BRANCH" in
             "main")    C3_TAG="" ;; # Empty tag tracks latest stable release
             "c3-0.7")  C3_TAG="v0.7.11" ;;
-            "c3-0.8")  C3_TAG="latest-prerelease-tag" ;;
             *)         C3_TAG="latest-prerelease-tag" ;;
           esac
           echo "Using C3 version: $C3_TAG for branch $BRANCH"
