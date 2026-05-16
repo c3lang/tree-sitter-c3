@@ -2192,7 +2192,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "_type_expr"
+                      "name": "_expr"
                     },
                     {
                       "type": "SYMBOL",
@@ -9137,7 +9137,7 @@
                 "name": "argument",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_type_expr"
+                  "name": "type"
                 }
               },
               {
@@ -9284,11 +9284,11 @@
                 "members": [
                   {
                     "type": "STRING",
-                    "value": "$typeof"
+                    "value": "$Typeof"
                   },
                   {
                     "type": "STRING",
-                    "value": "$typefrom"
+                    "value": "$Typefrom"
                   }
                 ]
               },

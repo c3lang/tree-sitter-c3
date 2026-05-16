@@ -293,11 +293,59 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_expr",
+          "named": true
+        },
+        {
           "type": "attributes",
           "named": true
         },
         {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "builtin",
+          "named": true
+        },
+        {
+          "type": "builtin_const",
+          "named": true
+        },
+        {
+          "type": "bytes_expr",
+          "named": true
+        },
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
           "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "elvis_orelse_expr",
+          "named": true
+        },
+        {
+          "type": "field_expr",
           "named": true
         },
         {
@@ -309,6 +357,34 @@
           "named": true
         },
         {
+          "type": "ident_expr",
+          "named": true
+        },
+        {
+          "type": "initializer_list",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "lambda_declaration",
+          "named": true
+        },
+        {
+          "type": "lambda_expr",
+          "named": true
+        },
+        {
+          "type": "maybe_deref_expr",
+          "named": true
+        },
+        {
+          "type": "optional_expr",
+          "named": true
+        },
+        {
           "type": "paren_expr",
           "named": true
         },
@@ -317,7 +393,59 @@
           "named": true
         },
         {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "real_literal",
+          "named": true
+        },
+        {
+          "type": "rethrow_expr",
+          "named": true
+        },
+        {
+          "type": "string_expr",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "subscript_expr",
+          "named": true
+        },
+        {
+          "type": "ternary_expr",
+          "named": true
+        },
+        {
+          "type": "trailing_generic_expr",
+          "named": true
+        },
+        {
           "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_access_expr",
+          "named": true
+        },
+        {
+          "type": "typed_initializer_list",
+          "named": true
+        },
+        {
+          "type": "unary_expr",
+          "named": true
+        },
+        {
+          "type": "update_expr",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]
@@ -2112,11 +2240,11 @@
         "required": true,
         "types": [
           {
-            "type": "$typefrom",
+            "type": "$Typefrom",
             "named": false
           },
           {
-            "type": "$typeof",
+            "type": "$Typeof",
             "named": false
           },
           {
@@ -15063,10 +15191,6 @@
         "required": true,
         "types": [
           {
-            "type": "paren_expr",
-            "named": true
-          },
-          {
             "type": "type",
             "named": true
           }
@@ -16221,6 +16345,14 @@
     "named": false
   },
   {
+    "type": "$Typefrom",
+    "named": false
+  },
+  {
+    "type": "$Typeof",
+    "named": false
+  },
+  {
     "type": "$assert",
     "named": false
   },
@@ -16310,14 +16442,6 @@
   },
   {
     "type": "$switch",
-    "named": false
-  },
-  {
-    "type": "$typefrom",
-    "named": false
-  },
-  {
-    "type": "$typeof",
     "named": false
   },
   {
