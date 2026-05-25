@@ -335,8 +335,6 @@ fn int multiply(int x, int y = 1) {
 
 fn void with_attr_path() abc::@Foo {}
 
-fn int incomplete(int x)
-
 fn int square_short(int x) => x * x;
 
 fn int short_name(String name) => name == "is_short";
@@ -442,16 +440,6 @@ macro asdf($theta, double[2], $Type = double[2]**?) => $Type.nameof;
           (at_type_ident))))
     (macro_func_body
       (compound_stmt)))
-  (func_definition
-    (func_header
-      (type
-        (base_type_name))
-      (ident))
-    (func_param_list
-      (param
-        (type
-          (base_type_name))
-        (ident))))
   (func_definition
     (func_header
       (type

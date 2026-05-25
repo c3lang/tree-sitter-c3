@@ -107,6 +107,7 @@ export default grammar({
     $.block_comment_end_or_eof,
     $.doc_comment_text,
     $.real_literal,
+    $.error_sentinel,
   ],
 
   inline: $ => [
@@ -704,8 +705,7 @@ export default grammar({
       $.func_param_list,
       optional($.generic_param_list),
       optional($.attributes),
-      // The body is made optional to improve error recovery for syntax highlighting (PR #41)
-      field('body', optional($.macro_func_body)),
+      field('body', $.macro_func_body),
     )),
 
     trailing_block_param: $ => seq(
