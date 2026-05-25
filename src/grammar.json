@@ -3916,16 +3916,8 @@
             "type": "FIELD",
             "name": "body",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "macro_func_body"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "macro_func_body"
             }
           }
         ]
@@ -9544,12 +9536,13 @@
     {
       "type": "SYMBOL",
       "name": "real_literal"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "error_sentinel"
     }
   ],
-  "inline": [
-    "_statement",
-    "_top_level_item"
-  ],
+  "inline": [],
   "supertypes": [],
   "reserved": {}
 }
