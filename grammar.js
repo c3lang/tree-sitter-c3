@@ -111,8 +111,6 @@ export default grammar({
   ],
 
   inline: $ => [
-    $._statement,
-    $._top_level_item,
   ],
 
   word: $ => $.ident,
