@@ -1060,48 +1060,42 @@ V29ybGQ=`;
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal)))))
+      (bytes_literal))))
 
 ================================================================================
 Generic declarations

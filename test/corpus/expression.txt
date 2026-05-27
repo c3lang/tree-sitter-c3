@@ -597,16 +597,14 @@ char* i = b64"Rk9PQkFSMTE=";
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal))))
+      (bytes_literal)))
   (global_declaration
     (declaration
       (type
         (base_type_name)
         (type_suffix))
       (ident)
-      (bytes_expr
-        (bytes_literal)))))
+      (bytes_literal))))
 
 ================================================================================
 Compound literals
@@ -766,21 +764,22 @@ fn void main() {
                 (ident_expr
                   (ident)))
               (call_arg
-                (lambda_declaration
-                  (type
-                    (base_type_name))
-                  (func_param_list
-                    (param
-                      (type
-                        (base_type_name))
-                      (ident))))
-                (compound_stmt
-                  (return_stmt
-                    (binary_expr
-                      (ident_expr
-                        (ident))
-                      (ident_expr
-                        (ident)))))))))))))
+                (lambda_expr
+                  (lambda_declaration
+                    (type
+                      (base_type_name))
+                    (func_param_list
+                      (param
+                        (type
+                          (base_type_name))
+                        (ident))))
+                  (compound_stmt
+                    (return_stmt
+                      (binary_expr
+                        (ident_expr
+                          (ident))
+                        (ident_expr
+                          (ident))))))))))))))
 
 ================================================================================
 Assignment expressions
