@@ -5,6 +5,7 @@
 - Added `ct_expr`, wrapping `$vaarg`, `$eval`, `$stringify`, `$reflect`, `lengthof`, `$embed`, `$defined`, `$feature`
 - Include `fn void() {}` style lambda in `lambda_expr`
 - `(bytes_expr (bytes_literal))` collapsed to `(bytes_literal)` (make consistent with string literals)
+- Fix poor error recovery due to external scanner not handling error state correctly and consuming all text
 
 ## 0.10.0
 Grammar updates for C3 0.8.0.
