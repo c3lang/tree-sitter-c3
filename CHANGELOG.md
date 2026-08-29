@@ -1,5 +1,11 @@
 # tree-sitter-c3 Changelog
 
+## 0.12.0
+Grammar updates for C3 0.8.4.
+
+- Renamed field `mutability_contract` -> `modifier`
+- Added `doc_comment_require_parameter`
+
 ## 0.11.0
 - Added supertype `expression` (does not change tree structure but is matchable)
 - Added `ct_expr`, wrapping `$vaarg`, `$eval`, `$stringify`, `$reflect`, `lengthof`, `$embed`, `$defined`, `$feature`

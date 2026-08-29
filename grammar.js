@@ -192,16 +192,19 @@ export default grammar({
     // Doc comments and contracts
     // -------------------------
     _doc_comment_description: $ => seq(':', field('description', $.string_expr)),
-    doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout)\]/),
+    _doc_comment_contract_param_name: $ => choice($._arg_ident, '...'),
+    doc_comment_contract_descriptor: _ => token(/\[&?(?:in|out|inout|own|init|drop)\]/),
+    doc_comment_require_parameter: $ => seq('[', field('parameter', $._doc_comment_contract_param_name), ']'),
     doc_comment_contract: $ => choice(
       seq(
         field('name', alias('@param', $.at_ident)),
-        optional(field('mutability_contract', $.doc_comment_contract_descriptor)),
-        field('parameter', choice($._arg_ident, '...')),
+        optional(field('modifier', $.doc_comment_contract_descriptor)),
+        field('parameter', $._doc_comment_contract_param_name),
         optional($._doc_comment_description),
       ),
       seq(
         field('name', alias(choice('@ensure', '@require'), $.at_ident)),
+        optional($.doc_comment_require_parameter),
         commaSep1($.expression),
         optional($._doc_comment_description),
       ),
@@ -489,16 +492,35 @@ export default grammar({
     // -------------------------
     faultdef_declaration: $ => seq(
       optional($.doc_comment),
-      'faultdef',
-      commaSepTrailing1(seq($.const_ident, optional($.attributes))),
-      ';'
+      choice(
+        seq(
+          // Experimental faultset, faultconst, excuse for 0.8.3
+          choice('faultdef', 'faultset', 'faultconst', 'excuse'),
+          commaSepTrailing1(seq($.const_ident, optional($.attributes))),
+          ';'
+        ),
+        // Experimental syntax for 0.8.4
+        seq(
+          choice('faultset', 'faultconst', 'excuse'),
+          '{',
+          commaSepTrailing1(
+            seq(
+              optional($.doc_comment),
+              $.const_ident,
+              optional($.attributes)
+            ),
+          ),
+          '}',
+        ),
+      ),
     ),
 
     // Typedef
     // -------------------------
     typedef_declaration: $ => seq(
       optional($.doc_comment),
-      'typedef',
+      // Experimental disinct for 0.8.3
+      choice('typedef', 'distinct'),
       field('name', $.type_ident),
       optional($.interface_impl_list),
       optional($.generic_param_list),
@@ -516,7 +538,8 @@ export default grammar({
     attribute_param_list: $ => seq('(', $._parameters, ')'),
     attrdef_declaration: $ => seq(
       optional($.doc_comment),
-      'attrdef',
+      // Experimental attrmacro for 0.8.3
+      choice('attrdef', 'attrmacro'),
       field('name', $.at_type_ident),
       optional($.attribute_param_list),
       optional($.attributes),
@@ -645,7 +668,8 @@ export default grammar({
     ),
     constdef_declaration: $ => seq(
       optional($.doc_comment),
-      'constdef',
+      // Experimental constset, cenum for 0.8.3
+      choice('constdef', 'constset', 'cenum'),
       field('name', $.type_ident),
       optional($.enum_spec),
       optional($.attributes),
@@ -1283,7 +1307,9 @@ export default grammar({
       ),
       seq('$embed', '(', commaSep($.expression), ')'),
       seq('$defined', '(', commaSep($._decl_or_expr), ')'),
+      // Deprecated >= 0.8.3
       seq('$feature', '(', $.const_ident, ')'),
+      seq('$feat', '(', $.const_ident, ')'),
     ),
 
     // Initializers
