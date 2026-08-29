@@ -2378,7 +2378,7 @@
           }
         ]
       },
-      "mutability_contract": {
+      "modifier": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2430,10 +2430,46 @@
       "required": false,
       "types": [
         {
+          "type": "doc_comment_require_parameter",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "doc_comment_require_parameter",
+    "named": true,
+    "fields": {
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "...",
+            "named": false
+          },
+          {
+            "type": "ct_ident",
+            "named": true
+          },
+          {
+            "type": "ct_type_ident",
+            "named": true
+          },
+          {
+            "type": "hash_ident",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -5408,6 +5444,10 @@
     "named": false
   },
   {
+    "type": "$feat",
+    "named": false
+  },
+  {
     "type": "$feature",
     "named": false
   },
@@ -5688,6 +5728,10 @@
     "named": false
   },
   {
+    "type": "attrmacro",
+    "named": false
+  },
+  {
     "type": "bfloat",
     "named": false
   },
@@ -5728,6 +5772,10 @@
     "named": false
   },
   {
+    "type": "cenum",
+    "named": false
+  },
+  {
     "type": "char",
     "named": false
   },
@@ -5745,6 +5793,10 @@
   },
   {
     "type": "constdef",
+    "named": false
+  },
+  {
+    "type": "constset",
     "named": false
   },
   {
@@ -5769,6 +5821,10 @@
   },
   {
     "type": "defer",
+    "named": false
+  },
+  {
+    "type": "distinct",
     "named": false
   },
   {
@@ -5800,6 +5856,10 @@
     "named": true
   },
   {
+    "type": "excuse",
+    "named": false
+  },
+  {
     "type": "extern",
     "named": false
   },
@@ -5812,7 +5872,15 @@
     "named": false
   },
   {
+    "type": "faultconst",
+    "named": false
+  },
+  {
     "type": "faultdef",
+    "named": false
+  },
+  {
+    "type": "faultset",
     "named": false
   },
   {
