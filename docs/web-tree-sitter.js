@@ -126,7 +126,21 @@ function setModule(module2) {
 __name(setModule, "setModule");
 var C;
 
+// src/finalization_registry.ts
+function newFinalizer(handler) {
+  try {
+    return new FinalizationRegistry(handler);
+  } catch (e) {
+    console.error("Unsupported FinalizationRegistry:", e);
+    return;
+  }
+}
+__name(newFinalizer, "newFinalizer");
+
 // src/lookahead_iterator.ts
+var finalizer = newFinalizer((address) => {
+  C._ts_lookahead_iterator_delete(address);
+});
 var LookaheadIterator = class {
   static {
     __name(this, "LookaheadIterator");
@@ -137,21 +151,39 @@ var LookaheadIterator = class {
   /** @internal */
   language;
   /** @internal */
+  positioned = false;
+  /** @internal */
   constructor(internal, address, language) {
     assertInternal(internal);
     this[0] = address;
     this.language = language;
+    finalizer?.register(this, address, this);
   }
-  /** Get the current symbol of the lookahead iterator. */
+  /**
+   * Get the current symbol of the lookahead iterator.
+   *
+   * Returns `null` if the iterator is not positioned on a symbol:
+   *
+   * - Before the first iteration step
+   * - After the iterator is exhausted
+   * - After a {@link reset} or {@link resetState} call
+   */
   get currentTypeId() {
-    return C._ts_lookahead_iterator_current_symbol(this[0]);
+    return this.positioned ? C._ts_lookahead_iterator_current_symbol(this[0]) : null;
   }
-  /** Get the current symbol name of the lookahead iterator. */
+  /**
+   * Get the current symbol name of the lookahead iterator.
+   *
+   * Returns `null` if the iterator is not positioned on a symbol.
+   */
   get currentType() {
-    return this.language.types[this.currentTypeId] || "ERROR";
+    const id = this.currentTypeId;
+    if (id === null) return null;
+    return this.language.types[id] ?? C.UTF8ToString(C._ts_language_symbol_name(this.language[0], id));
   }
   /** Delete the lookahead iterator, freeing its resources. */
   delete() {
+    finalizer?.unregister(this);
     C._ts_lookahead_iterator_delete(this[0]);
     this[0] = 0;
   }
@@ -164,6 +196,7 @@ var LookaheadIterator = class {
   reset(language, stateId) {
     if (C._ts_lookahead_iterator_reset(this[0], language[0], stateId)) {
       this.language = language;
+      this.positioned = false;
       return true;
     }
     return false;
@@ -175,7 +208,9 @@ var LookaheadIterator = class {
    * `false` otherwise.
    */
   resetState(stateId) {
-    return Boolean(C._ts_lookahead_iterator_reset_state(this[0], stateId));
+    if (!C._ts_lookahead_iterator_reset_state(this[0], stateId)) return false;
+    this.positioned = false;
+    return true;
   }
   /**
    * Returns an iterator that iterates over the symbols of the lookahead iterator.
@@ -186,10 +221,9 @@ var LookaheadIterator = class {
   [Symbol.iterator]() {
     return {
       next: /* @__PURE__ */ __name(() => {
-        if (C._ts_lookahead_iterator_next(this[0])) {
-          return { done: false, value: this.currentType };
-        }
-        return { done: true, value: "" };
+        this.positioned = Boolean(C._ts_lookahead_iterator_next(this[0]));
+        const value = this.currentType;
+        return value === null ? { done: true, value: "" } : { done: false, value };
       }, "next")
     };
   }
@@ -217,6 +251,9 @@ function getText(tree, startIndex, endIndex, startPosition) {
   return result ?? "";
 }
 __name(getText, "getText");
+var finalizer2 = newFinalizer((address) => {
+  C._ts_tree_delete(address);
+});
 var Tree = class _Tree {
   static {
     __name(this, "Tree");
@@ -234,6 +271,7 @@ var Tree = class _Tree {
     this[0] = address;
     this.language = language;
     this.textCallback = textCallback;
+    finalizer2?.register(this, address, this);
   }
   /** Create a shallow copy of the syntax tree. This is very fast. */
   copy() {
@@ -242,6 +280,7 @@ var Tree = class _Tree {
   }
   /** Delete the syntax tree, freeing its resources. */
   delete() {
+    finalizer2?.unregister(this);
     C._ts_tree_delete(this[0]);
     this[0] = 0;
   }
@@ -324,6 +363,9 @@ var Tree = class _Tree {
 };
 
 // src/tree_cursor.ts
+var finalizer3 = newFinalizer((address) => {
+  C._ts_tree_cursor_delete_wasm(address);
+});
 var TreeCursor = class _TreeCursor {
   static {
     __name(this, "TreeCursor");
@@ -351,6 +393,7 @@ var TreeCursor = class _TreeCursor {
     assertInternal(internal);
     this.tree = tree;
     unmarshalTreeCursor(this);
+    finalizer3?.register(this, this.tree[0], this);
   }
   /** Creates a deep copy of the tree cursor. This allocates new memory. */
   copy() {
@@ -361,6 +404,7 @@ var TreeCursor = class _TreeCursor {
   }
   /** Delete the tree cursor, freeing its resources. */
   delete() {
+    finalizer3?.unregister(this);
     marshalTreeCursor(this);
     C._ts_tree_cursor_delete_wasm(this.tree[0]);
     this[0] = this[1] = this[2] = 0;
@@ -1461,8 +1505,9 @@ var Language = class _Language {
    * This returns `null` if state is invalid for this language.
    *
    * Iterating {@link LookaheadIterator} will yield valid symbols in the given
-   * parse state. Newly created lookahead iterators will return the `ERROR`
-   * symbol from {@link LookaheadIterator#currentType}.
+   * parse state. A newly created iterator is not positioned on a symbol, so
+   * {@link LookaheadIterator#currentType} returns `null` until the first
+   * iteration step.
    *
    * Lookahead iterators can be useful for generating suggestions and improving
    * syntax error diagnostics. To get symbols valid in an `ERROR` node, use the
@@ -1477,7 +1522,8 @@ var Language = class _Language {
   }
   /**
    * Load a language from a WebAssembly module.
-   * The module can be provided as a path to a file or as a buffer.
+   * The module can be provided as a path to a file, a `URL` to a file, or as a
+   * buffer.
    */
   static async load(input) {
     let binary2;
@@ -1504,15 +1550,26 @@ ${body2}`);
       }
     }
     const mod = await C.loadWebAssemblyModule(binary2, { loadAsync: true });
+    return _Language.loadFromWasmExports(mod, { sync: false });
+  }
+  static loadFromWasmExports(mod, { sync }) {
     const symbolNames = Object.keys(mod);
     const functionName = symbolNames.find((key) => LANGUAGE_FUNCTION_REGEX.test(key) && !key.includes("external_scanner_"));
     if (!functionName) {
       console.log(`Couldn't find language function in Wasm file. Symbols:
 ${JSON.stringify(symbolNames, null, 2)}`);
-      throw new Error("Language.load failed: no language function found in Wasm file");
+      throw new Error(`Language.${sync ? "loadSync" : "load"} failed: no language function found in Wasm file`);
     }
     const languageAddress = mod[functionName]();
     return new _Language(INTERNAL, languageAddress);
+  }
+  /**
+   * Load a language synchronously from a pre-compiled WebAssembly module.
+   * Use this when the host environment provides a `WebAssembly.Module` directly.
+   */
+  static loadSync(wasmModule) {
+    const mod = C.loadWebAssemblyModule(wasmModule, { loadAsync: false });
+    return _Language.loadFromWasmExports(mod, { sync: true });
   }
 };
 
@@ -2038,7 +2095,7 @@ async function Module2(moduleArg = {}) {
       newDSO("__main__", 0, wasmImports);
     }
   };
-  var ___heap_base = 78240;
+  var ___heap_base = 82240;
   var alignMemory = /* @__PURE__ */ __name((size, alignment) => Math.ceil(size / alignment) * alignment, "alignMemory");
   var getMemory = /* @__PURE__ */ __name((size) => {
     if (runtimeInitialized) {
@@ -2603,12 +2660,12 @@ async function Module2(moduleArg = {}) {
     "value": "i32",
     "mutable": false
   }, 1024);
-  var ___stack_high = 78240;
-  var ___stack_low = 12704;
+  var ___stack_high = 82240;
+  var ___stack_low = 16704;
   var ___stack_pointer = new WebAssembly.Global({
     "value": "i32",
     "mutable": true
-  }, 78240);
+  }, 82240);
   var ___table_base = new WebAssembly.Global({
     "value": "i32",
     "mutable": false
@@ -2869,7 +2926,7 @@ async function Module2(moduleArg = {}) {
   Module["loadWebAssemblyModule"] = loadWebAssemblyModule;
   Module["LE_HEAP_STORE_I64"] = LE_HEAP_STORE_I64;
   var ASM_CONSTS = {};
-  var _malloc, _calloc, _realloc, _free, _ts_range_edit, _memcmp, _ts_language_symbol_count, _ts_language_state_count, _ts_language_abi_version, _ts_language_name, _ts_language_field_count, _ts_language_next_state, _ts_language_symbol_name, _ts_language_symbol_for_name, _strncmp, _ts_language_symbol_type, _ts_language_field_name_for_id, _ts_lookahead_iterator_new, _ts_lookahead_iterator_delete, _ts_lookahead_iterator_reset_state, _ts_lookahead_iterator_reset, _ts_lookahead_iterator_next, _ts_lookahead_iterator_current_symbol, _ts_point_edit, _ts_parser_delete, _ts_parser_reset, _ts_parser_set_language, _ts_parser_set_included_ranges, _ts_query_new, _ts_query_delete, _iswspace, _iswalnum, _ts_query_pattern_count, _ts_query_capture_count, _ts_query_string_count, _ts_query_capture_name_for_id, _ts_query_capture_quantifier_for_id, _ts_query_string_value_for_id, _ts_query_predicates_for_pattern, _ts_query_start_byte_for_pattern, _ts_query_end_byte_for_pattern, _ts_query_is_pattern_rooted, _ts_query_is_pattern_non_local, _ts_query_is_pattern_guaranteed_at_step, _ts_query_disable_capture, _ts_query_disable_pattern, _ts_tree_copy, _ts_tree_delete, _ts_init, _ts_parser_new_wasm, _ts_parser_enable_logger_wasm, _ts_parser_parse_wasm, _ts_parser_included_ranges_wasm, _ts_language_type_is_named_wasm, _ts_language_type_is_visible_wasm, _ts_language_metadata_wasm, _ts_language_supertypes_wasm, _ts_language_subtypes_wasm, _ts_tree_root_node_wasm, _ts_tree_root_node_with_offset_wasm, _ts_tree_edit_wasm, _ts_tree_included_ranges_wasm, _ts_tree_get_changed_ranges_wasm, _ts_tree_cursor_new_wasm, _ts_tree_cursor_copy_wasm, _ts_tree_cursor_delete_wasm, _ts_tree_cursor_reset_wasm, _ts_tree_cursor_reset_to_wasm, _ts_tree_cursor_goto_first_child_wasm, _ts_tree_cursor_goto_last_child_wasm, _ts_tree_cursor_goto_first_child_for_index_wasm, _ts_tree_cursor_goto_first_child_for_position_wasm, _ts_tree_cursor_goto_next_sibling_wasm, _ts_tree_cursor_goto_previous_sibling_wasm, _ts_tree_cursor_goto_descendant_wasm, _ts_tree_cursor_goto_parent_wasm, _ts_tree_cursor_current_node_type_id_wasm, _ts_tree_cursor_current_node_state_id_wasm, _ts_tree_cursor_current_node_is_named_wasm, _ts_tree_cursor_current_node_is_missing_wasm, _ts_tree_cursor_current_node_id_wasm, _ts_tree_cursor_start_position_wasm, _ts_tree_cursor_end_position_wasm, _ts_tree_cursor_start_index_wasm, _ts_tree_cursor_end_index_wasm, _ts_tree_cursor_current_field_id_wasm, _ts_tree_cursor_current_depth_wasm, _ts_tree_cursor_current_descendant_index_wasm, _ts_tree_cursor_current_node_wasm, _ts_node_symbol_wasm, _ts_node_field_name_for_child_wasm, _ts_node_field_name_for_named_child_wasm, _ts_node_children_by_field_id_wasm, _ts_node_first_child_for_byte_wasm, _ts_node_first_named_child_for_byte_wasm, _ts_node_grammar_symbol_wasm, _ts_node_child_count_wasm, _ts_node_named_child_count_wasm, _ts_node_child_wasm, _ts_node_named_child_wasm, _ts_node_child_by_field_id_wasm, _ts_node_next_sibling_wasm, _ts_node_prev_sibling_wasm, _ts_node_next_named_sibling_wasm, _ts_node_prev_named_sibling_wasm, _ts_node_descendant_count_wasm, _ts_node_parent_wasm, _ts_node_child_with_descendant_wasm, _ts_node_descendant_for_index_wasm, _ts_node_named_descendant_for_index_wasm, _ts_node_descendant_for_position_wasm, _ts_node_named_descendant_for_position_wasm, _ts_node_start_point_wasm, _ts_node_end_point_wasm, _ts_node_start_index_wasm, _ts_node_end_index_wasm, _ts_node_to_string_wasm, _ts_node_children_wasm, _ts_node_named_children_wasm, _ts_node_descendants_of_type_wasm, _ts_node_is_named_wasm, _ts_node_has_changes_wasm, _ts_node_has_error_wasm, _ts_node_is_error_wasm, _ts_node_is_missing_wasm, _ts_node_is_extra_wasm, _ts_node_parse_state_wasm, _ts_node_next_parse_state_wasm, _ts_query_matches_wasm, _ts_query_captures_wasm, _memset, _memcpy, _memmove, _iswalpha, _iswblank, _iswdigit, _iswlower, _iswupper, _iswxdigit, _memchr, _strlen, _strcmp, _strncat, _strncpy, _towlower, _towupper, _setThrew, __emscripten_stack_restore, __emscripten_stack_alloc, _emscripten_stack_get_current, ___wasm_apply_data_relocs;
+  var _malloc, _calloc, _realloc, _free, _ts_range_edit, _memcmp, _ts_language_symbol_count, _ts_language_state_count, _ts_language_abi_version, _ts_language_name, _ts_language_field_count, _ts_language_next_state, _ts_language_symbol_name, _ts_language_symbol_for_name, _strncmp, _ts_language_symbol_type, _ts_language_field_name_for_id, _ts_lookahead_iterator_new, _ts_lookahead_iterator_delete, _ts_lookahead_iterator_reset_state, _ts_lookahead_iterator_reset, _ts_lookahead_iterator_next, _ts_lookahead_iterator_current_symbol, _ts_point_edit, _ts_parser_delete, _ts_parser_reset, _ts_parser_set_language, _ts_parser_set_included_ranges, _ts_query_new, _ts_query_delete, _iswspace, _iswalnum, _ts_query_copy, _ts_query_pattern_count, _ts_query_capture_count, _ts_query_string_count, _ts_query_capture_name_for_id, _ts_query_capture_quantifier_for_id, _ts_query_string_value_for_id, _ts_query_predicates_for_pattern, _ts_query_start_byte_for_pattern, _ts_query_end_byte_for_pattern, _ts_query_is_pattern_rooted, _ts_query_is_pattern_non_local, _ts_query_is_pattern_guaranteed_at_step, _ts_query_disable_capture, _ts_query_disable_pattern, _ts_tree_copy, _ts_tree_delete, _ts_init, _ts_parser_new_wasm, _ts_parser_enable_logger_wasm, _ts_parser_parse_wasm, _ts_parser_included_ranges_wasm, _ts_language_type_is_named_wasm, _ts_language_type_is_visible_wasm, _ts_language_metadata_wasm, _ts_language_supertypes_wasm, _ts_language_subtypes_wasm, _ts_tree_root_node_wasm, _ts_tree_root_node_with_offset_wasm, _ts_tree_edit_wasm, _ts_tree_included_ranges_wasm, _ts_tree_get_changed_ranges_wasm, _ts_tree_cursor_new_wasm, _ts_tree_cursor_copy_wasm, _ts_tree_cursor_delete_wasm, _ts_tree_cursor_reset_wasm, _ts_tree_cursor_reset_to_wasm, _ts_tree_cursor_goto_first_child_wasm, _ts_tree_cursor_goto_last_child_wasm, _ts_tree_cursor_goto_first_child_for_index_wasm, _ts_tree_cursor_goto_first_child_for_position_wasm, _ts_tree_cursor_goto_next_sibling_wasm, _ts_tree_cursor_goto_previous_sibling_wasm, _ts_tree_cursor_goto_descendant_wasm, _ts_tree_cursor_goto_parent_wasm, _ts_tree_cursor_current_node_type_id_wasm, _ts_tree_cursor_current_node_state_id_wasm, _ts_tree_cursor_current_node_is_named_wasm, _ts_tree_cursor_current_node_is_missing_wasm, _ts_tree_cursor_current_node_id_wasm, _ts_tree_cursor_start_position_wasm, _ts_tree_cursor_end_position_wasm, _ts_tree_cursor_start_index_wasm, _ts_tree_cursor_end_index_wasm, _ts_tree_cursor_current_field_id_wasm, _ts_tree_cursor_current_depth_wasm, _ts_tree_cursor_current_descendant_index_wasm, _ts_tree_cursor_current_node_wasm, _ts_node_symbol_wasm, _ts_node_field_name_for_child_wasm, _ts_node_field_name_for_named_child_wasm, _ts_node_children_by_field_id_wasm, _ts_node_first_child_for_byte_wasm, _ts_node_first_named_child_for_byte_wasm, _ts_node_grammar_symbol_wasm, _ts_node_child_count_wasm, _ts_node_named_child_count_wasm, _ts_node_child_wasm, _ts_node_named_child_wasm, _ts_node_child_by_field_id_wasm, _ts_node_next_sibling_wasm, _ts_node_prev_sibling_wasm, _ts_node_next_named_sibling_wasm, _ts_node_prev_named_sibling_wasm, _ts_node_descendant_count_wasm, _ts_node_parent_wasm, _ts_node_child_with_descendant_wasm, _ts_node_descendant_for_index_wasm, _ts_node_named_descendant_for_index_wasm, _ts_node_descendant_for_position_wasm, _ts_node_named_descendant_for_position_wasm, _ts_node_start_point_wasm, _ts_node_end_point_wasm, _ts_node_start_index_wasm, _ts_node_end_index_wasm, _ts_node_to_string_wasm, _ts_node_children_wasm, _ts_node_named_children_wasm, _ts_node_descendants_of_type_wasm, _ts_node_is_named_wasm, _ts_node_has_changes_wasm, _ts_node_has_error_wasm, _ts_node_is_error_wasm, _ts_node_is_missing_wasm, _ts_node_is_extra_wasm, _ts_node_parse_state_wasm, _ts_node_next_parse_state_wasm, _ts_query_matches_wasm, _ts_query_captures_wasm, _memset, _memcpy, _memmove, _iswalpha, _iswblank, _iswdigit, _iswlower, _iswpunct, _iswupper, _iswxdigit, _memchr, _strlen, _strcmp, _strncat, _strncpy, _towlower, _towupper, _setThrew, __emscripten_stack_restore, __emscripten_stack_alloc, _emscripten_stack_get_current, ___wasm_apply_data_relocs;
   function assignWasmExports(wasmExports2) {
     Module["_malloc"] = _malloc = wasmExports2["malloc"];
     Module["_calloc"] = _calloc = wasmExports2["calloc"];
@@ -2903,6 +2960,7 @@ async function Module2(moduleArg = {}) {
     Module["_ts_query_delete"] = _ts_query_delete = wasmExports2["ts_query_delete"];
     Module["_iswspace"] = _iswspace = wasmExports2["iswspace"];
     Module["_iswalnum"] = _iswalnum = wasmExports2["iswalnum"];
+    Module["_ts_query_copy"] = _ts_query_copy = wasmExports2["ts_query_copy"];
     Module["_ts_query_pattern_count"] = _ts_query_pattern_count = wasmExports2["ts_query_pattern_count"];
     Module["_ts_query_capture_count"] = _ts_query_capture_count = wasmExports2["ts_query_capture_count"];
     Module["_ts_query_string_count"] = _ts_query_string_count = wasmExports2["ts_query_string_count"];
@@ -3008,6 +3066,7 @@ async function Module2(moduleArg = {}) {
     Module["_iswblank"] = _iswblank = wasmExports2["iswblank"];
     Module["_iswdigit"] = _iswdigit = wasmExports2["iswdigit"];
     Module["_iswlower"] = _iswlower = wasmExports2["iswlower"];
+    Module["_iswpunct"] = _iswpunct = wasmExports2["iswpunct"];
     Module["_iswupper"] = _iswupper = wasmExports2["iswupper"];
     Module["_iswxdigit"] = _iswxdigit = wasmExports2["iswxdigit"];
     Module["_memchr"] = _memchr = wasmExports2["memchr"];
@@ -3149,6 +3208,10 @@ __name(checkModule, "checkModule");
 var TRANSFER_BUFFER;
 var LANGUAGE_VERSION;
 var MIN_COMPATIBLE_VERSION;
+var finalizer4 = newFinalizer((addresses) => {
+  C._ts_parser_delete(addresses[0]);
+  C._free(addresses[1]);
+});
 var Parser = class {
   static {
     __name(this, "Parser");
@@ -3180,6 +3243,7 @@ var Parser = class {
    */
   constructor() {
     this.initialize();
+    finalizer4?.register(this, [this[0], this[1]], this);
   }
   /** @internal */
   initialize() {
@@ -3192,6 +3256,7 @@ var Parser = class {
   }
   /** Delete the parser, freeing its resources. */
   delete() {
+    finalizer4?.unregister(this);
     C._ts_parser_delete(this[0]);
     C._free(this[1]);
     this[0] = 0;
@@ -3369,6 +3434,10 @@ var QueryError = class _QueryError extends Error {
     this.length = length;
     this.name = "QueryError";
   }
+  kind;
+  info;
+  index;
+  length;
   static {
     __name(this, "QueryError");
   }
@@ -3564,6 +3633,9 @@ function parsePattern(index, stepType, stepValueId, captureNames, stringValues, 
   }
 }
 __name(parsePattern, "parsePattern");
+var finalizer5 = newFinalizer((address) => {
+  C._ts_query_delete(address);
+});
 var Query = class {
   static {
     __name(this, "Query");
@@ -3718,9 +3790,11 @@ var Query = class {
     this.assertedProperties = assertedProperties;
     this.refutedProperties = refutedProperties;
     this.exceededMatchLimit = false;
+    finalizer5?.register(this, address, this);
   }
   /** Delete the query, freeing its resources. */
   delete() {
+    finalizer5?.unregister(this);
     C._ts_query_delete(this[0]);
     this[0] = 0;
   }
