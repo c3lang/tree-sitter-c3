@@ -2723,6 +2723,29 @@
     }
   },
   {
+    "type": "excuse_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "const_ident",
+          "named": true
+        },
+        {
+          "type": "doc_comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expr_stmt",
     "named": true,
     "fields": {},
@@ -2755,6 +2778,10 @@
         },
         {
           "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "excuse_body",
           "named": true
         }
       ]
@@ -5869,10 +5896,6 @@
   },
   {
     "type": "fault",
-    "named": false
-  },
-  {
-    "type": "faultconst",
     "named": false
   },
   {
