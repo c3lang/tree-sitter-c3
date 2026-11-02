@@ -490,27 +490,31 @@ export default grammar({
 
     // Faultdef
     // -------------------------
+    excuse_body: $ => seq(
+      '{',
+      commaSepTrailing1(
+        seq(
+          optional($.doc_comment),
+          $.const_ident,
+          optional($.attributes)
+        ),
+      ),
+      '}'
+    ),
     faultdef_declaration: $ => seq(
       optional($.doc_comment),
       choice(
         seq(
-          // Experimental faultset, faultconst, excuse for 0.8.3
-          choice('faultdef', 'faultset', 'faultconst', 'excuse'),
+          // Experimental faultdef/excuse
+          // Deprecated: faultset only for 0.8.3-0.8.4
+          choice('faultdef', 'excuse', 'faultset'),
           commaSepTrailing1(seq($.const_ident, optional($.attributes))),
           ';'
         ),
-        // Experimental syntax for 0.8.4
         seq(
-          choice('faultset', 'faultconst', 'excuse'),
-          '{',
-          commaSepTrailing1(
-            seq(
-              optional($.doc_comment),
-              $.const_ident,
-              optional($.attributes)
-            ),
-          ),
-          '}',
+          // Deprecated: faultset only for 0.8.3-0.8.4
+          choice('excuse', 'faultset'),
+          $.excuse_body,
         ),
       ),
     ),
@@ -519,7 +523,7 @@ export default grammar({
     // -------------------------
     typedef_declaration: $ => seq(
       optional($.doc_comment),
-      // Experimental disinct for 0.8.3
+      // Deprecated: distinct only for 0.8.3-0.8.4
       choice('typedef', 'distinct'),
       field('name', $.type_ident),
       optional($.interface_impl_list),
@@ -538,7 +542,7 @@ export default grammar({
     attribute_param_list: $ => seq('(', $._parameters, ')'),
     attrdef_declaration: $ => seq(
       optional($.doc_comment),
-      // Experimental attrmacro for 0.8.3
+      // Experimental attrdef/attrmacro
       choice('attrdef', 'attrmacro'),
       field('name', $.at_type_ident),
       optional($.attribute_param_list),
@@ -668,7 +672,8 @@ export default grammar({
     ),
     constdef_declaration: $ => seq(
       optional($.doc_comment),
-      // Experimental constset, cenum for 0.8.3
+      // Experimental constdef/constset
+      // Deprecated: cenum only for 0.8.3-0.8.4
       choice('constdef', 'constset', 'cenum'),
       field('name', $.type_ident),
       optional($.enum_spec),

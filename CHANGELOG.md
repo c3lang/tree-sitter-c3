@@ -1,5 +1,10 @@
 # tree-sitter-c3 Changelog
 
+## 0.13.0
+Grammar updates for C3 0.8.5.
+- Added `excuse_body`
+- Removed `faultconst`
+
 ## 0.12.0
 Grammar updates for C3 0.8.4.
 

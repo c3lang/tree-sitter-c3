@@ -932,13 +932,29 @@ Error declarations
 ================================================================================
 
 faultdef FILE_NOT_FOUND, FILE_NOT_READABLE;
+excuse FILE_NOT_FOUND, FILE_NOT_READABLE;
+excuse {
+  FILE_NOT_FOUND @deprecated,
+  FILE_NOT_READABLE,
+}
+
 
 --------------------------------------------------------------------------------
 
 (source_file
   (faultdef_declaration
     (const_ident)
-    (const_ident)))
+    (const_ident))
+  (faultdef_declaration
+    (const_ident)
+    (const_ident))
+  (faultdef_declaration
+    (excuse_body
+      (const_ident)
+      (attributes
+        (attribute
+          (at_ident)))
+      (const_ident))))
 
 ================================================================================
 Global declarations

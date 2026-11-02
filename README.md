@@ -1,7 +1,7 @@
 # tree-sitter-c3
-This is a complete implementation of the current C3 grammar for tree-sitter, usable for syntax highlighting, indentation, folding, code analysis, header/doc generation, and more.
+This is a complete implementation of the C3 grammar for tree-sitter, usable for syntax highlighting, indentation, folding, code analysis, header/doc generation, and more.
 
-The latest version supports C3 0.8.0 and is not compatible with C3 < 0.8.0.
+The latest version supports C3 0.8.
 For C3 0.7, check out the `c3-0.7` branch.
 
 ### Playground

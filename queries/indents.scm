@@ -5,6 +5,7 @@
   (struct_body)
   (bitstruct_body)
   (enum_body)
+  (excuse_body)
   (interface_body)
   (switch_body)
   (ct_if_stmt)
